@@ -13,6 +13,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js" integrity="sha512-37SbZHAnGzLuZV850k61DfQdZ5cnahfloYHizjpEwDgZGw49+D6oswdI8EX3ogzKelDLjckhvlK0QZsY/7oxYg==" crossorigin="anonymous"></script>
+    {{-- fontawesome icon link --}}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200;400&display=swap" rel="stylesheet">
@@ -480,7 +483,7 @@ aside li.menu-label {
             
             <div class="side-branding">
                 <a href="#">
-                    <img src="images/logo.png" class="img-responsive">
+                    <img src="/images/logo.png" class="img-responsive">
                 </a>
             </div>
 
@@ -500,8 +503,16 @@ aside li.menu-label {
                       </a>
                     </li>
 
-                    <li class="nav-item mb-3" id="nav-item"><a class="nav-link" href="{{ route('students') }}"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Students</span>
+                    <li class="menu-label">Students</li>
+                      <div class="dropdown-divider"></div>
+
+                    <li class="nav-item mb-3" id="nav-item"><a class="nav-link" href="{{ route('studentslists') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Students List</span>
+                      </a>
+                    </li>
+
+                    <li class="nav-item mb-3" id="nav-item"><a class="nav-link" href="{{ route('addstudent') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Add Students</span>
                       </a>
                     </li>
 
@@ -561,7 +572,7 @@ aside li.menu-label {
                     </a>
                 </li>
                 <li class="header-logo">
-                    <a href="/" class="header-branding"><img src="images/logo2.png" class="img-responsive"> </a>
+                    <a href="/" class="header-branding"><img src="/images/logo2.png" class="img-responsive"> </a>
                 </li>
                
             </ul>
