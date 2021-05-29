@@ -30,6 +30,7 @@ Route::get('/roadsigns', 'landingpage\RoadsignsController@index')->name('roadsig
 Route::get('/prices', 'landingpage\PricesController@index')->name('prices');
 Route::get('/rmvregulations', 'landingpage\RMVregulationsController@index')->name('rmvregulations');
 Route::get('/onlinepaper', 'landingpage\OnlinepaperController@index')->name('onlinepaper');
+Route::get('/services','landingpage\ServicesCotroller@index')->name('services');
 
 // create route group for owner
 Route::group(['as' => 'owner.', 'prefix' => 'owner', 'namespace' => 'Owner', 'middleware' => ['auth', 'owner']], 
@@ -64,6 +65,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/students', 'Owner\StudentsController@index')->name('students');
     Route::get('/addstudent', 'Owner\addStudentController@index')->name('addstudent');
     Route::post('/addstudent', 'Owner\addStudentController@insertstudent')->name('insertstudent');
+    Route::get('/studentslists', 'Owner\StudentsListsController@index')->name('studentslists');
 
     Route::get('/payments', 'Owner\paymentsController@index')->name('payments');
 
