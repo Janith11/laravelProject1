@@ -30,6 +30,7 @@ Route::get('/roadsigns', 'landingpage\RoadsignsController@index')->name('roadsig
 Route::get('/prices', 'landingpage\PricesController@index')->name('prices');
 Route::get('/rmvregulations', 'landingpage\RMVregulationsController@index')->name('rmvregulations');
 Route::get('/onlinepaper', 'landingpage\OnlinepaperController@index')->name('onlinepaper');
+Route::get('/services','landingpage\ServicesCotroller@index')->name('services');
 
 // create route group for owner
 Route::group(['as' => 'owner.', 'prefix' => 'owner', 'namespace' => 'Owner', 'middleware' => ['auth', 'owner']], 
