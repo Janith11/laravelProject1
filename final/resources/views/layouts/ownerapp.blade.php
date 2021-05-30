@@ -470,6 +470,19 @@ aside li.menu-label {
         background-color: gray;
     }
 
+    #figure {
+    	background: #000000;
+        border-radius: 10px 10px 0px 0px;
+    }
+    #figure img {
+        opacity: 1;
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+    }
+    #figure:hover img {
+        opacity: .5;
+    }
+
     </style>
 </head>
 <body style="background-color: #E9E9E9;">

@@ -16,6 +16,25 @@
             <!-- </div> -->
         </div>
 
+        @if(session('error'))
+            <div class="alert alert-danger">
+                <h5>{{ session('error') }}</h5>
+            </div>
+        @endif
+
+        @if(count($errors) > 0)
+        <div class="row mb-2">
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> Some problems with your input.
+                <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+        </div>
+        @endif
+
         <div class="row mb-2">
             <div class="card" style="width: 100%;">
                 <div class="card-body">
@@ -24,7 +43,7 @@
                     <div class="row">
 
                         <div class="col">
-                            <form method="POST">
+                            <form method="POST" action="{{ route('addvehicle') }}" enctype="multipart/form-data">
                                 @csrf
                                 
                                 <div class="form-group">
@@ -64,7 +83,10 @@
                 </div>
             </div>
         </div>
+
     </div>
+
+
 
     <script type="text/javascript">
         
@@ -106,7 +128,6 @@
                 size: 'viewport'
             }).then(function (img) {
                 $.ajax({
-                    url: "{{ route('croppie.upload-image') }}",
                     type: "POST",
                     data: {"image":img},
                     success: function (data) {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\owner;
 use App\Http\Controllers\Controller;
 use App\Vehicle;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
+use Image;
 
 class AddvehicleController extends Controller
 {
@@ -15,54 +15,45 @@ class AddvehicleController extends Controller
 
     public function addvehicle(Request $request){
         
-        $this->validate($request , [
-            'image' => 'required',
+        request()->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'image' => 'required|image|mimes:jpeg, png, jpg',
         ]);
 
-        // $image_file = $request->image;
-        // $image = Image::;
-        // Response::make($image->encode('jpeg'));
+        if ($files = $request->file('image')) {
+        
+            $imagename = date('YmHis') . '.' . $files->getClientOriginalExtension();
+         
+            $destinationPath = public_path('/uploadimages/vehicles/');
+            $img = Image::make($files->path());
+            $img->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$imagename);
 
-        $vehicle = new Vehicle;
-
-        $vehicle->name = $request->name;
-        $vehicle->description = $request->description;
-        $vehicle->image = $request->image;
-
-        // if($request->hasFile('image')){
-        //     $image = $request->file('image');
-        //     $filename = time().'.'.$image->getClientOriginalExtension();
-        //     // $newimage = Image::make($image)->resize(300, 300)->save( storage_path('/upload/vehicles/' . $filename ) );
-        //     $newimage = Image::make($image)->resize(300, 300);
-
-        //     $path = public_path().'\upload\vehicles';
-        //     $uplaod = $image->move($path,$newimage);
-
-        //     $vehicle->image = $filename;
-        //     $vehicle->save();
-        // }else{
-        //     $vehicle->image = 'empty';
-        //     $vehicle->save();
-        // }
-
-        $vehicle->save();
-        return redirect()->route('vehicles')->with('successmsg', 'Vehicle added successfuly !');
-
+            // save in database
+            $vehicle = new Vehicle;
+            $vehicle->name = $request->name;
+            $vehicle->description = $request->description;
+            $vehicle->image = "$imagename";
+            $vehicle->save();
+            return redirect()->route('vehicles')->with('successmsg', 'Vehicle added successfuly !');
+        }   
+        return back()->with('error', 'Cannot upload !!');
     }
 
     public function uploadCropImage(Request $request)
     {
         $image = $request->image;
+        
 
-        list($type, $image) = explode(';', $image);
-        list(, $image)      = explode(',', $image);
-        $image = base64_decode($image);
-        $image_name= time().'.png';
-        $path = public_path('upload/'.$image_name);
+        // list($type, $image) = explode(';', $image);
+        // list(, $image)      = explode(',', $image);
+        // $image = base64_decode($image);
+        // $image_name= time().'.png';
+        // $path = public_path('upload/'.$image_name);
 
-        file_put_contents($path, $image);
-        return response()->json(['status'=>true]);
+        // file_put_contents($path, $image);
+        // return response()->json(['status'=>true]);
     }
 }

@@ -74,7 +74,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/vehicles', 'Owner\VehicleController@index')->name('vehicles');
     Route::get('/addvehicles', 'Owner\AddvehicleController@index')->name('addvehicles');
     Route::post('/addvehicles', 'Owner\AddvehicleController@addvehicle')->name('addvehicle');
-    Route::post('/addvehicles', ['as'=>'croppie.upload-image','uses'=>'Owner\AddvehicleController@uploadCropImage']);
+    // Route::post('/addvehicles', 'Owner\AddvehicleController@uploadCropImage')->name('croppieadd');
 
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
 });
