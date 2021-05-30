@@ -17,7 +17,7 @@ class CreateVehiclesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
-            $table->binary('image');
+            $table->string('image');
             $table->timestamps();
         });
     }
