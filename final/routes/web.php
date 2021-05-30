@@ -78,3 +78,6 @@ Route::middleware('checkrequest')->group(function(){
 
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
 });
+
+// test routes 
+Route::get('/viewstudent',function(){return view ('owner\viewstudent');});
