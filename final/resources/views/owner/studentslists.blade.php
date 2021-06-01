@@ -10,7 +10,7 @@
     .setwidth{
         max-width: 100px;
     }
-   
+
 </style>
 
 <div class="container">
@@ -55,7 +55,7 @@
             <td>225</td>
             <td>4500.00</td>
             <td><a href=""><i class="fas fa-pencil-alt"></i></a></td>
-            <td><a href=""><i class="fas fa-angle-double-right"></i></a></td>
+            <td><a href="{{url('viewstudent')}}"><i class="fas fa-angle-double-right"></i></a></td>
           </tr>
           <tr>
             <td scope="row "><input type="checkbox"></td>
@@ -127,8 +127,7 @@
 <script>
      $(document).ready(function(){
          $(".SearchIcon").click(function(){
-             $("#search-bar").display("block
-             ");
+             $("#search-bar").display("block");
          });
      });
 </script>
