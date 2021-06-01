@@ -33,7 +33,7 @@ Route::get('/onlinepaper', 'landingpage\OnlinepaperController@index')->name('onl
 Route::get('/services','landingpage\ServicesCotroller@index')->name('services');
 
 // create route group for owner
-Route::group(['as' => 'owner.', 'prefix' => 'owner', 'namespace' => 'Owner', 'middleware' => ['auth', 'owner']], 
+Route::group(['as' => 'owner.', 'prefix' => 'owner', 'namespace' => 'Owner', 'middleware' => ['auth', 'owner']],
     function(){
         Route::get('dashboad', 'OwnerDashboadController@index')->name('ownerdashboad');
     }
@@ -72,9 +72,12 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/sheduling', 'Owner\ShedulingController@index')->name('ownersheduling');
 
     Route::get('/vehicles', 'Owner\VehicleController@index')->name('vehicles');
-    Route::get('/addvehicles', 'Owner\AddvehicleController@index')->name('addvehicles');
-    Route::post('/addvehicles', 'Owner\AddvehicleController@addvehicle')->name('addvehicle');
-    // Route::post('/addvehicles', 'Owner\AddvehicleController@uploadCropImage')->name('croppieadd');
+    Route::get('/addvehicles', 'Owner\VehicleController@addvehicle')->name('addvehicles');
+    Route::post('/addvehicles', 'Owner\VehicleController@insertvehicle')->name('addvehicle');
+    Route::get('/editvehicles/{id}', 'Owner\VehicleController@editvehicle')->name('editvehicle');
+    Route::post('/updatevehicles/{id}', 'Owner\VehicleController@updatevehicle')->name('updatevehicle');
+    Route::delete('/deletevehicles/{id}', 'Owner\VehicleController@deletevehicles')->name('deletevehicles');
+    Route::post('/searchvehicle', 'Owner\VehicleController@searchvehicle')->name('searchvehicle');
 
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
 });

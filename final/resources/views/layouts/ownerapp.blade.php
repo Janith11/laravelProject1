@@ -16,9 +16,12 @@
     {{-- fontawesome icon link --}}
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-    
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200;400&display=swap" rel="stylesheet">
+
+    {{-- fontawsome --}}
+    {{-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> --}}
 
     <!-- links for crop image -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
@@ -47,7 +50,7 @@
             position: fixed;
             float: left;
             z-index: 99;
-            
+
             border-right: 1px solid #D4D9DD;
             -webkit-transition: all 0.9s ease;
             -moz-transition: all 0.9s ease;
@@ -62,7 +65,7 @@ aside li {
     list-style: none;
 }
 
-aside i {    
+aside i {
     font-size: 22px;
     margin-right: 15px;
     vertical-align: middle;
@@ -308,7 +311,7 @@ aside li.menu-label {
         background-color: #222944 !important;
         background-image: url('upload/thunder.png');
     }
-    
+
     .menu-title{
         color: white;
     }
@@ -391,7 +394,7 @@ aside li.menu-label {
     #submit_btn:hover{
         padding-left: 20%;
         padding-right: 20%;
-        
+
         transition-duration: 0.5s;
     }
 
@@ -410,8 +413,8 @@ aside li.menu-label {
     }
 
     #statics_cards{
-        width: 14rem; 
-        background-color: #FFFFFF; 
+        width: 14rem;
+        background-color: #FFFFFF;
         box-shadow: 0px 0px 5px #E7E7E7;
         padding-top: 10px;
         margin-top: 10px;
@@ -466,6 +469,8 @@ aside li.menu-label {
         transform: translate(-50%, -50%);
     }
 
+
+    /* image hover effect in vehicle page */
     #edit:hover{
         background-color: gray;
     }
@@ -483,6 +488,47 @@ aside li.menu-label {
         opacity: .5;
     }
 
+    #edit_image{
+        background: #000000;
+        border-radius: 10px;
+    }
+
+    #edit_image img {
+        opacity: 1;
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+    }
+    #edit_image:hover img {
+        opacity: .5;
+    }
+
+    /* edit image button */
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    #edit_image:hover .middle {
+        opacity: 1;
+    }
+
+    .btn {
+        background-color: #143F5C;
+        color: white;
+        font-size: 16px;
+        /* padding: 16px 32px; */
+    }
+
+    .btn:hover{
+        background-color: #215A9B
+    }
+
     </style>
 </head>
 <body style="background-color: #E9E9E9;">
@@ -493,7 +539,7 @@ aside li.menu-label {
             <!-- close the menu  -->
             <a href="#" class="close-aside"><img src="images/close.png" alt=""></a>
             <!-- Branding -->
-            
+
             <div class="side-branding">
                 <a href="#">
                     <img src="/images/logo.png" class="img-responsive">
@@ -569,7 +615,7 @@ aside li.menu-label {
 
                 </li>
 
-            </ul>    
+            </ul>
         </div>
     </aside>
 
@@ -587,10 +633,10 @@ aside li.menu-label {
                 <li class="header-logo">
                     <a href="/" class="header-branding"><img src="/images/logo2.png" class="img-responsive"> </a>
                 </li>
-               
+
             </ul>
         </div>
-    
+
         <!-- message and message notification should be added -->
         <div class="header-right">
             <nav class="nav">
@@ -613,7 +659,7 @@ aside li.menu-label {
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background-color:#17252A;">
-                                    
+
                                     <!-- <div>
                                         <div class="profile-picture">
                                             <img id="img" src="https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
@@ -657,7 +703,7 @@ aside li.menu-label {
 
                                         <div class="icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-question-circle-fill" viewBox="0 0 16 16"  id="svg">
-                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/> 
+                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
                                             </svg>
                                         </div>
                                         <div class="link">
@@ -692,7 +738,7 @@ aside li.menu-label {
                             </li>
                         @endguest
                     </ul>
-             
+
             </nav>
         </div>
     </header>

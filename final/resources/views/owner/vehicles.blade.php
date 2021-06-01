@@ -4,28 +4,71 @@
     <div class="container">
 
         <div class="row mb-2">
-            <div class="card" style="width: 100%;">
-                <h4 id="page_header" style="color: #222944; padding: 13px 0px 7px 25px;">Vehicles</h4>
-            </div>
+            <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Vehicles</h5>
+            <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
+            <a href="{{ route('owner.ownerdashboad') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
+                    <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                </svg>
+            </a>
         </div>
 
-        <div class="row mb-2 justify-content-end">
-            <div class="form-inline">
-                <div class="col align-self-end" style="display: flex;">
-                    <div class="col" style="padding-right: 0px;">
-                        <a type="button" class="btn btn-primary" href="{{ route('addvehicles') }}" style="color: #222944; background-color: #FFAF38;;">Add New</a>
-                    </div>
-                    
-                    <div class="col" style="display: none; padding-left: 0px; padding-right: 0px;" id="searchvehicle">
-                        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Vahicle Name" name="searchname">
-                    </div>
-                    
-                    <div class="col" style="padding-left: 0px;">
-                        <button type="button" class="btn btn-dark" style="color: white; background-color: #222944;" onclick="showbar()">Search</button>
+        <div class="row mb-2">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <div class="row justify-content-end">
+                        <div class="col col-lg-3">
+                            <h5 style="color: #222944">Total Vehicle : {{ $vehicle_count }}</h5>
+                        </div>
+                        <div class="col col-lg-3" style="text-align: right">
+                            <a href="{{ route('addvehicles') }}" type="button" class="btn btn-success" style="color: #222944; background-color: #FFAF38">Add New</a>
+                        </div>
+                        <div class="col col-lg-3">
+                            <form method="post" action="{{ route('searchvehicle') }}">
+                                @csrf
+                                <div class="form-group">
+                                    <input type="test" class="form-control" id="searchvehicle" aria-describedby="emailHelp" placeholder="Enter Vehicle Name" name="searchvehicle" style="width: 100%">
+                                </div>
+                        </div>
+                        <div class="col col-lg-3">
+                                <button type="submit" class="btn" style="background-color: #0B7714; color: white">Search</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        @if(count($errors) > 0)
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h5><strong>Wooops!1</strong>Enter Vehicle Name to Search</h5>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if(session('searcherror'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h5>
+                    {{ session('searcherror') }}
+                </h5>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if(session('emptymsg'))
+            <div class="alert alert-alert-info alert-dismissible fade show" role="alert">
+                <h5>
+                    {{ session('emptymsg') }}
+                </h5>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
 
         @if(session('successmsg'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -39,6 +82,7 @@
         @endif
 
         <div class="row justify-content-center">
+            @if($vehicle_count > 0)
             @foreach($vehicles as $vehicle)
             <div class="col col-lg-4">
                 <div class="card" style=" border-radius: 10px; margin-top: 10px;">
@@ -48,24 +92,24 @@
                     <div class="card-body">
                         <h5 class="card-title" style="color: #222944; font-weight: bold;">{{ $vehicle->name }}</h5>
                         <p class="card-text" style="color: #222944;">{{ $vehicle->description }}</p>
-                        <a href="#" class="btn btn-primary" style="background-color: #222944;">Edit</a>
-                        <a href="#" class="btn btn-primary" style="background-color: #FA1B39;">Delete</a>
+                        <a href="{{ route('editvehicle', $vehicle->id) }}" class="btn btn-primary" style="background-color: #222944;">Edit</a>
+                        <form method="POST" action="{{ route('deletevehicles', $vehicle->id) }}" id="delete-form-{{ $vehicle->id }}" style="display: none">
+                            @csrf
+                            @method('delete')
+                        </form>
+                        <button onclick="if(confirm('Are You Sure Want to Delete this?')){
+                            event.preventDefault();
+                            document.getElementById('delete-form-{{ $vehicle->id }}').submit();
+                        }else{
+                            event.preventDefault();
+                        }" href="" class="btn btn-primary" style="background-color: #FA1B39;">Delete
+                        </button>
                     </div>
                 </div>
             </div>
             @endforeach
+            @endif
         </div>
-
-        <script>
-            function showbar(){
-                var x = document.getElementById("searchvehicle");
-                if (x.style.display == "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-        </script>        
 
     </div>
 @endsection
