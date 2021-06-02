@@ -36,7 +36,7 @@
 
                         <div class="row">
 
-                            <div class="col col-lg-6">
+                            <div class="col-lg-6">
                                 <div style="text-align: center" id="edit_image">
                                     <img src="/uploadimages/vehicles/{{ $editvehicle->image }}" class="img-thumbnail" width="100%" height="auto" style="border-radius: 10px">
                                     <div class="middle">
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
 
-                            <div class="col col-lg-6">
+                            <div class="col-lg-6">
                                 <form action="{{ route('updatevehicle', $editvehicle->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group" id="chooseimage" style="display: none">
