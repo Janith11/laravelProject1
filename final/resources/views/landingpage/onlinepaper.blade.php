@@ -10,7 +10,7 @@
     <!-- question 01  -->
     <div class="row  justify-content-center mb-3">
         <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 01. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
+            <div class="card-header">Question 2000. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
             <div class="card-body text-primary">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
