@@ -17,20 +17,20 @@
             <div class="card" style="width: 100%;">
                 <div class="card-body">
                     <div class="row justify-content-end">
-                        <div class="col col-lg-3">
+                        <div class="col-lg-3">
                             <h5 style="color: #222944">Total Vehicle : {{ $vehicle_count }}</h5>
                         </div>
-                        <div class="col col-lg-3" style="text-align: right">
+                        <div class="col-lg-3" style="text-align: right">
                             <a href="{{ route('addvehicles') }}" type="button" class="btn btn-success" style="color: #222944; background-color: #FFAF38">Add New</a>
                         </div>
-                        <div class="col col-lg-3">
+                        <div class="col-lg-3">
                             <form method="post" action="{{ route('searchvehicle') }}">
                                 @csrf
                                 <div class="form-group">
                                     <input type="test" class="form-control" id="searchvehicle" aria-describedby="emailHelp" placeholder="Enter Vehicle Name" name="searchvehicle" style="width: 100%">
                                 </div>
                         </div>
-                        <div class="col col-lg-3">
+                        <div class="col-lg-3">
                                 <button type="submit" class="btn" style="background-color: #0B7714; color: white">Search</button>
                             </form>
                         </div>

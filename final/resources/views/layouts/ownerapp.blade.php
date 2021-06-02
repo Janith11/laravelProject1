@@ -17,18 +17,13 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200;400&display=swap" rel="stylesheet">
+    {{-- <link rel="preconnect" href="https://fonts.gstatic.com"> --}}
+    {{-- <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200;400&display=swap" rel="stylesheet"> --}}
 
-    {{-- fontawsome --}}
-    {{-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> --}}
+    {{-- fullcalender links --}}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.css">
 
-    <!-- links for crop image -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}"> -->
 
 
     <style>
@@ -529,6 +524,24 @@ aside li.menu-label {
         background-color: #215A9B
     }
 
+    /* adding new style */
+    .dropdown-container {
+        display: none;
+        /* background-color: #262626; */
+        padding-left: 8px;
+    }
+
+    .dropdownitem{
+        color: white;
+        font-size: 20px;
+    }
+
+    .dropdounitem:hover{
+        text-decoration: none;
+    }
+
+
+
     </style>
 </head>
 <body style="background-color: #E9E9E9;">
@@ -550,69 +563,106 @@ aside li.menu-label {
             <ul>
 
                 <li class="menu-label">Main</li>
-                    <div class="dropdown-divider"></div>
-                    <!-- margin botton mb-5 added for the scroll testing -->
-                    <li class="nav-item  mb-3" id="nav-item"><a class="nav-link" href="{{ route('owner.ownerdashboad') }}"><i><img src="images/dashboard.png" alt=""></i>
-                      <span class="menu-title " id="item">Dashboard</span>
+                <div class="dropdown-divider"></div>
+
+                <!-- margin botton mb-5 added for the scroll testing -->
+                <li class="nav-item  mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('owner.ownerdashboad') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title " id="item">Dashboard</span>
                     </a>
-                    </li>
+                </li>
 
-                    <li class="nav-item  mb-3" id="nav-item"><a class="nav-link" href="{{ route('instructors') }}"><i><img src="images/dashboard.png" alt=""></i>
+                <li class="nav-item  mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('instructors') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Instructors</span>
-                      </a>
-                    </li>
+                    </a>
+                </li>
 
-                    <li class="menu-label">Students</li>
-                      <div class="dropdown-divider"></div>
 
-                    <li class="nav-item mb-3" id="nav-item"><a class="nav-link" href="{{ route('studentslists') }}"><i><img src="images/dashboard.png" alt=""></i>
+                <li class="menu-label">Students</li>
+                <div class="dropdown-divider"></div>
+
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('studentslists') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Students List</span>
-                      </a>
-                    </li>
+                    </a>
+                </li>
 
-                    <li class="nav-item mb-3" id="nav-item"><a class="nav-link" href="{{ route('addstudent') }}"><i><img src="images/dashboard.png" alt=""></i>
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('addstudent') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Add Students</span>
-                      </a>
-                    </li>
+                    </a>
+                </li>
 
-                    <li class="nav-item mb-3" id="nav-item"><a class="nav-link" href="{{ route('payments') }}"><i><img src="images/dashboard.png" alt=""></i>
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('payments') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Payments</span>
-                      </a>
-                      </li>
+                    </a>
+                </li>
 
-                      <li class="nav-item mb-2" id="nav-item"><a class="nav-link" href=" {{ route('ownersheduling') }}"><i><img src="images/dashboard.png" alt=""></i>
+                <li class="nav-item mb-2" id="nav-item">
+                    <a type="button" class="dropdown-btn"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Scheduling</span>
-                      </a>
-                      </li>
+                        <i class="fa fa-caret-down" style="padding-left: 10px"></i>
+                    </a>
+                    <div class="dropdown-container">
+                        <ul style="list-style-type:disc;">
+                            <li>
+                                <a href="{{ route('ownershedulelist') }}" class="dropdownitem" >Shedule List</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('owneraddshedule') }}" class="dropdownitem">Add Shedule</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
-                      <li class="nav-item mb-3" id="nav-item"><a class="nav-link" href="{{ route('viewrequest') }}"><i><img src="images/dashboard.png" alt=""></i>
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('viewrequest') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Request</span>
-                      </a>
-                      </li>
+                    </a>
+                </li>
 
-                      <li class="nav-item mb-3" id="nav-item"><a class="nav-link" href=" {{ route('vehicles') }} "><i><img src="images/dashboard.png" alt=""></i>
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=" {{ route('vehicles') }} "><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Vehicles</span>
-                      </a>
-                      </li>
+                    </a>
+                </li>
 
-                      <li class="nav-item mb-3" id="nav-item"><a class="nav-link" href=" {{ route('settings') }}"><i><img src="images/dashboard.png" alt=""></i>
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=" {{ route('settings') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Settings</span>
-                      </a>
+                    </a>
+                </li>
 
-                      <li class="menu-label">Payments</li>
-                      <div class="dropdown-divider"></div>
+                <li class="menu-label">Payments</li>
+                <div class="dropdown-divider"></div>
 
-                      <li class="menu-label">Pricing</li>
-                      <div class="dropdown-divider"></div>
+                <li class="menu-label">Pricing</li>
+                <div class="dropdown-divider"></div>
 
-                      <li class="nav-item mb-3" id="nav-item"><a class="nav-link"><i><img src="images/dashboard.png" alt=""></i>
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">View Price</span>
-                      </a>
+                    </a>
+                </li>
 
-                      <li class="nav-item mb-3" id="nav-item"><a class="nav-link"><i><img src="images/dashboard.png" alt=""></i>
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Change Price</span>
-                      </a>
+                    </a>
+                </li>
 
+                <li class="nav-item mb-3" id="nav-item">
+                    <a type="btn" class="dropdown-btn" >
+                        <span class="menu-title" id="item">Dropdown</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-container">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                    </div>
                 </li>
 
             </ul>
@@ -749,57 +799,64 @@ aside li.menu-label {
     </div>
    </div>
 </body>
+
 <script>
     // Jquery start
-$(document).ready(function() {
-
-// sidebar - scroll container
-$('.slimscroll-menu').slimscroll({
-    height: 'auto',
-    position: 'right',
-    size: "3px",
-    color: '#9ea5ab',
-    wheelStep: 5,
-    touchScrollStep: 50
-});
-
-
-$('aside a').each(function() {
-if ($(this).attr('href') == window.location.pathname) {
-    $(this).addClass('active');
-}
-});
-
-
-// close humbager
-$(".main-content").click(function() {
-if ($("aside").hasClass("open-menu")) {
+    $(document).ready(function() {
+    // sidebar - scroll container
+    $('.slimscroll-menu').slimscroll({
+        height: 'auto',
+        position: 'right',
+        size: "3px",
+        color: '#9ea5ab',
+        wheelStep: 5,
+        touchScrollStep: 50
+    });
+    $('aside a').each(function() {
+    if ($(this).attr('href') == window.location.pathname) {
+        $(this).addClass('active');
+    }
+    });
+    // close humbager
+    $(".main-content").click(function() {
+    if ($("aside").hasClass("open-menu")) {
+        $("aside").removeClass("open-menu");
+    }
+    });
+    $(".close-aside").click(function(event) {
+    event.preventDefault();
     $("aside").removeClass("open-menu");
-}
-});
-$(".close-aside").click(function(event) {
-event.preventDefault();
-$("aside").removeClass("open-menu");
-});
-
-// humbager
-$(".humbager").click(function(event) {
-event.preventDefault();
-if ($("aside").hasClass("open-menu")) {
-    $("aside").removeClass("open-menu");
-} else {
-    $("aside").addClass("open-menu");
-}
-});
-
- // tooltip
-// $('[data-toggle="tooltip"]').tooltip();
-
-});
-
-
-
-
-
+    });
+    // humbager
+    $(".humbager").click(function(event) {
+    event.preventDefault();
+    if ($("aside").hasClass("open-menu")) {
+        $("aside").removeClass("open-menu");
+    } else {
+        $("aside").addClass("open-menu");
+    }
+    });
+    // tooltip
+    // $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
+
+<script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+            } else {
+            dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>
+
 </html>

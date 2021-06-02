@@ -69,7 +69,9 @@ Route::middleware('checkrequest')->group(function(){
 
     Route::get('/payments', 'Owner\paymentsController@index')->name('payments');
 
-    Route::get('/sheduling', 'Owner\ShedulingController@index')->name('ownersheduling');
+    Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');
+    Route::get('/addshedule', 'owner\ShedulingController@addshedule')->name('owneraddshedule');
+    Route::get('/checkinput/{date}/{time}', 'owner\ShedulingController@checkinput')->name('checkinput');
 
     Route::get('/vehicles', 'Owner\VehicleController@index')->name('vehicles');
     Route::get('/addvehicles', 'Owner\VehicleController@addvehicle')->name('addvehicles');
@@ -84,4 +86,4 @@ Route::middleware('checkrequest')->group(function(){
 
 
 // test routes
-// Route::get('/viewstudent',function(){return view ('owner\viewstudent');});
+Route::get('/viewstudent',function(){return view ('owner\viewstudent');});
