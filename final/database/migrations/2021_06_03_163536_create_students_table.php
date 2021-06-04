@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSheduledStudentsTable extends Migration
+class CreateStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateSheduledStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sheduled_students', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('shedule_id');
-            $table->string('student_id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('amount');
+            $table->string('total_fee');
+            $table->string('group_number')->default(0);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
         });
     }
 
@@ -28,6 +32,6 @@ class CreateSheduledStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sheduled_students');
+        Schema::dropIfExists('students');
     }
 }

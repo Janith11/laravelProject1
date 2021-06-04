@@ -583,7 +583,7 @@ aside li.menu-label {
                 <div class="dropdown-divider"></div>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('studentslists') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('studentslist') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Students List</span>
                     </a>
                 </li>
