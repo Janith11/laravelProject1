@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'role_id','name', 'username', 'email', 'password',
+        'role_id','f_name', 'l_name', 'email', 'password', 'nic_number', 'gender', 'contact_number', 'dob', 'address_no', 'address_lineone', 'address_linetwo', 'profile_img', 'status'
     ];
 
     /**
@@ -41,4 +41,5 @@ class User extends Authenticatable
         // set many to one relation between tables
         return $this->belongsTo('App\Role');
     }
+
 }

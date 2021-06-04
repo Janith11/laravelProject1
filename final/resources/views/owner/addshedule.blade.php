@@ -14,11 +14,11 @@
         <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> > Shedule List</a>
     </div>
 
-    <div class="row mb-2">
+    {{-- <div class="row mb-2">
         <div class="col">
             <h4>Your calender</h4>
         </div>
-    </div>
+    </div> --}}
 
     <div class="row mb-2">
         <div class="col">

@@ -14,7 +14,7 @@
                 <div class="card mr-4" id="statics_cards">
                     <div class="card-body text-center">
                         <p class="text-center btn btn-light btn-sm" id="icon_background">
-                          <a href="{{ route('students') }}">
+                          <a href="{{ route('studentslist') }}">
                           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red" class="bi bi-people-fill" viewBox="0 0 16 16" id="dash_icon">
                             <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                             <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
@@ -89,15 +89,15 @@
                     <div class="card-body">
                         <p class="text-center">New students(Last 7 days)</p>
                         <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-                        
+
                         <script>
                         var xValues = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
-                        
+
                         new Chart("myChart", {
                           type: "line",
                           data: {
                             labels: xValues,
-                            datasets: [{ 
+                            datasets: [{
                                 //DATA SHOULD BE ADDED TO BELOW ONE.
                               data: [5,0,1,3,2,2,9],
                               borderColor: "blue",
@@ -114,30 +114,30 @@
                 </div>
               </div>
             <!-- stat 2 end  -->
-        
+
         <!-- start the paid and invoices  -->
             <div class="row mt-4">
                 <div class="card text-center w-100">
                     <div class="card-header">
-                      Invoice 
+                      Invoice
                     </div>
                     <div class="card-body">
                       <h6 class="card-title"><span class="text-success"><i class="fas fa-circle"></i></span> Paid<span class="text-warning">&nbsp;&nbsp;<i class="fas fa-circle"></i></span>Unpaid</h6>
                       <canvas id="myChart2" style="width:100%;max-width:1000px; height: 300px;"></canvas>
-                        
+
                       <script>
                       var xValues = ["JAN","FEB","MAR","APRIL","MAY","JUNE","JULY","AUG","SEP","OCT","NOV","DEC"];
-                      
+
                       new Chart("myChart2", {
                         type: "line",
                         data: {
                           labels: xValues,
-                          datasets: [{ 
+                          datasets: [{
                               //DATA SHOULD BE ADDED TO BELOW ONE.
                             data: [30000,45000,29000,13000,12500,26560,40000,46000,48000,32000,33000,34000],
                             borderColor: "green",
                             fill: false
-                          }, { 
+                          }, {
                             data: [50000,-26000,-33000,-11000,3300,4500,22000,29000,3300,30000,45000,29000],
                             borderColor: "yellow",
                             fill: false
@@ -155,7 +155,7 @@
                   </div>
             </div>
         <!-- end of the paid and unpaid invoices  -->
-           
+
         </div>
         <!-- container dash board end  -->
     </div>

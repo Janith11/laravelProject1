@@ -62,10 +62,10 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/addinstructor', 'Owner\addinstructorcontroller@index')->name('addinstructor');
     Route::post('/addinstructor', 'Owner\addinstructorcontroller@insertinstructor')->name('insertinstructor');
 
-    Route::get('/students', 'Owner\StudentsController@index')->name('students');
-    Route::get('/addstudent', 'Owner\addStudentController@index')->name('addstudent');
-    Route::post('/addstudent', 'Owner\addStudentController@insertstudent')->name('insertstudent');
-    Route::get('/studentslists', 'Owner\StudentsListsController@index')->name('studentslists');
+    Route::get('/studentslist', 'Owner\StudentsController@index')->name('studentslist');
+    Route::get('/addstudent', 'Owner\StudentsController@addstudent')->name('addstudent');
+    Route::post('/addstudent', 'Owner\StudentsController@insertstudent')->name('insertstudent');
+    Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
 
     Route::get('/payments', 'Owner\paymentsController@index')->name('payments');
 

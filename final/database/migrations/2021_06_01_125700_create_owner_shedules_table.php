@@ -20,6 +20,7 @@ class CreateOwnerShedulesTable extends Migration
             $table->time('time');
             $table->string('lesson_type');
             $table->string('instructor');
+            $table->string('shedule_status')->default(1);
             $table->timestamps();
         });
     }
