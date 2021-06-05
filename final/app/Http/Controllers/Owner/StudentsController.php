@@ -27,7 +27,8 @@ class StudentsController extends Controller
 
     // >> button result page
     public function viewstudent($user_id){
-        //
+        // $students = Student::with('user')->get();
+        return view('owner\viewstudent',compact('user_id'));
     }
 
 }
