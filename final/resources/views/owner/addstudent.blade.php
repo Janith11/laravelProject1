@@ -1,6 +1,16 @@
 @extends('layouts.ownerapp')
 
 @section('content')
+@if(session('successmsg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5>
+                    {{ session('successmsg') }}
+                </h5>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
 <div class="container">
         
         <!-- start first row  -->
@@ -28,27 +38,25 @@
                             <input type="text" name="fristname" class="form-control" id="fristname" placeholder="Enter Frist name ...">
                         </div>
                     </div>
-
-                    <div class="col-sm-3" id="register_form_item">
-                        <div class="form-group">
-                            <label for="lastname">Last Name</label>
-                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Enter Last name ...">
-                        </div>
-                    </div>
-
+                
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
                             <label for="middlename">Middle Name</label>
                             <input type="text" name="middlename" class="form-control" id="middlename" placeholder="Enter Middle name ...">
                         </div>
                     </div>
-
+                    <div class="col-sm-3" id="register_form_item">
+                        <div class="form-group">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Enter Last name ...">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
-                            <label for="nicnumber">Nic Number</label>
+                            <label for="nicnumber">NIC Number</label>
                             <input type="text" name="nicnumber" class="form-control" id="nicnumber" placeholder="Enter Nic Number ...">
                         </div>
                     </div>
@@ -128,25 +136,13 @@
                             <label for="category">Vehicle Category</label>
                             <select id="category" class="form-control" name="vehiclecategory">
                                 {{-- <option value="">Choose Category</option> --}}
-                                <option value="smallvahicle" selected>light Vehicles</option>
-                                <option value="longvehicle">Heavy Vehicles</option>
-                                <option value="smallvahicle">Vehicles</option>
+                                <option value="smallvahicle" selected name="vehicalcategory" >light Vehicles</option>
+                                <option value="longvehicle" name="vehicalcategory" >Heavy Vehicles</option>
+                                <option value="smallvahicle" name="vehicalcategory" >Vehicles</option>
                             </select>
                         </div>
                     </div>
-
-                    <!-- <div class="col-sm 3" id="register_form_item">
-                        <div class="form-group">
-                            <label for="languages">Languages</label>
-                            <select id="languages" class="form-control" name="language">
-                                <option value="">Select Language</option>
-                                <option value="english">English</option>
-                                <option value="sinhala">Sinhala</option>
-                                <option value="tamil">Tamil</option>
-                            </select>
-                        </div>
-                    </div> -->
-                    
+                   
                 </div>
 
                 <div class="row">
@@ -157,7 +153,18 @@
                         </div>
                     </div>
                 </div>
+                    {{-- sample test div start  --}}
+                <div class="row">
+                    
+                    <div class="col-sm-7" id="register_form_item">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">total</label>
+                            <input type="text" name="total" class="form-control" placeholder="test amount">
+                        </div>
+                    </div>
+                </div>
                 
+                {{-- smaple test div end  --}}
                 <div class="row">
                     <div class="col-sm 4" id="register_form_item">
                         <button type="submit" class="btn btn-primary">Register</button>

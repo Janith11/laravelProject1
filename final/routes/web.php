@@ -86,4 +86,4 @@ Route::middleware('checkrequest')->group(function(){
 
 
 // test routes
-Route::get('/viewstudent',function(){return view ('owner\viewstudent');});
+// Route::get('/viewstudent',function(){return view ('owner\viewstudent');});

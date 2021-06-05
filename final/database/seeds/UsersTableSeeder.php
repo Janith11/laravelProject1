@@ -15,7 +15,8 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'role_id' => '1',
             'f_name'  => 'Janith',
-            'l_name' => 'Pramudhitha',
+            'm_name'  => 'Pramuditha',
+            'l_name' => 'Silva',
             'email'   => 'janith@gmail.com',
             'password' => bcrypt('rootowner'),
             'nic_number' => '123456789',
@@ -32,6 +33,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'role_id' => '2',
             'f_name'  => 'Anushka',
+            'm_name'  => 'Udana',
             'l_name' => 'Jayasinghe',
             'email'   => 'anushka@gmail.com',
             'password' => bcrypt('rootinstructor'),
@@ -49,6 +51,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'role_id' => '3',
             'f_name'  => 'Malesha',
+            'm_name'  => 'Jayathilake',
             'l_name' => 'Mallawarachchi',
             'email'   => 'maleesha@gmail.com',
             'password' => bcrypt('rootstudent'),
