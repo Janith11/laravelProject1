@@ -66,6 +66,32 @@ class StudentsController extends Controller
         $user->student()->save($student);
         return redirect()->route('ownershedulelist')->with('successmsg', 'one student added successfuly !');
     }
+    
+    public function testinsertstudent(){ 
+
+        $user = new User;
+
+        $user->frist_name = 'test f_name';
+        $user->middle_name = 'test m_name';
+        $user->last_name = 'test l_name';
+        $user->nic_number = '45678913';
+        $user->email = 'test@gmail.com';
+        $user->gender = 'male';
+        $user->contact_number = '1234567890';
+        $user->address_number = 'A';
+        $user->address_lineone = 'test lineone';
+        $user->address_linetwo = 'test linetwo';   
+        $user->dob = '2021-03-03';
+
+        $user->save();
+
+        $student = new Student;
+
+        $student->total_fee = '4000';
+        $student->amount = 0;
+        $user->student()->save($student);
+        return redirect()->route('ownershedulelist')->with('successmsg', 'one student added successfuly !');
+    }
  
 
 }
