@@ -173,6 +173,11 @@
             </form>
         </div>
     </div>
+    
+    <div clas='row mb-2>
+        <a href='{{ route('testinsert') }}'>Check Insert Student</a>
+    </div>
+    
 </div>
 
 @endsection
