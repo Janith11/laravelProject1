@@ -8,7 +8,7 @@
   </style>
 
     <div class="container">
-        
+
       <div class="row">
             <div class="card" style="width: 100%;">
                 <div class="card-body">
@@ -22,6 +22,7 @@
         <button class="btn btn-lg tablinks btn-secondary" onclick="openCity(event, 'Invoices')">Invoices</button>
         {{-- <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button> --}}
       </div>
+
       @foreach ($student as $s)
       <div id="profile" class="tabcontent">
         <div class="mydiv1" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -58,6 +59,7 @@
                           <td><small>{{$s->user->address_no}}, {{$s->user->address_lineone}}, {{$s->user->address_linetwo}}</small></td>
                         </tr>
 
+
                       </tbody>
                     </table>
                   </div>
@@ -69,11 +71,13 @@
                       <tbody>
                         <tr>
                           <td scope="row">Total</td>
+
                           <td>{{ $s->total_fee}}</td>
                         </tr>
                         <tr>
                           <td scope="row">Paid</td>
                           <td>{{ $s->amount}}</td>
+
                         </tr>
                         <tr>
                           <td scope="row">Unpaid</td>
@@ -109,6 +113,7 @@
                           </tbody>
                       </table>
                   </div>
+
                 </div>
               </div>
         </div>
@@ -160,6 +165,7 @@
       
   
 
+
     </div>
 
     <script>
@@ -176,10 +182,11 @@
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
       }
-      
+
       // Get the element with id="defaultOpen" and click on it
       document.getElementById("defaultOpen").click();
       </script>
 
-    
+<
 @endsection
+

@@ -12,7 +12,7 @@
             </div>
         @endif
 <div class="container">
-        
+
         <!-- start first row  -->
     <div class="row">
         <div class="card" style="width: 100%;">
@@ -31,7 +31,7 @@
                 {{ csrf_field() }}
 
                 <div class="row">
-                    
+
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
                             <label for="fristname">Frist Name</label>
@@ -70,9 +70,9 @@
                 </div>
 
                 <div class="row">
-                    
+
                     <div class="col-sm-3" id="register_form_item">
-                        
+
                         <label for="gender">Gender</label>
                         <div class="row">
                             <div class="col" id="register_form_item">
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
@@ -142,7 +142,7 @@
                             </select>
                         </div>
                     </div>
-                   
+
                 </div>
 
                 <div class="row">
@@ -153,18 +153,7 @@
                         </div>
                     </div>
                 </div>
-                    {{-- sample test div start  --}}
-                <div class="row">
-                    
-                    <div class="col-sm-7" id="register_form_item">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">total</label>
-                            <input type="text" name="total" class="form-control" placeholder="test amount">
-                        </div>
-                    </div>
-                </div>
-                
-                {{-- smaple test div end  --}}
+
                 <div class="row">
                     <div class="col-sm 4" id="register_form_item">
                         <button type="submit" class="btn btn-primary">Register</button>
