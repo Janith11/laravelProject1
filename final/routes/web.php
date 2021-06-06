@@ -66,6 +66,9 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/addstudent', 'Owner\StudentsController@addstudent')->name('addstudent');
     Route::post('/addstudent', 'Owner\StudentsController@insertstudent')->name('insertstudent');
     Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
+    
+    //testing insert student route
+    Route::get('/testinginsert', 'Owner\StudentsController@testinsertstudent')->name('testinsert');
 
     Route::get('/payments', 'Owner\paymentsController@index')->name('payments');
 
@@ -86,4 +89,4 @@ Route::middleware('checkrequest')->group(function(){
 
 
 // test routes
-Route::get('/viewstudent',function(){return view ('owner\viewstudent');});
+// Route::get('/viewstudent',function(){return view ('owner\viewstudent');});
