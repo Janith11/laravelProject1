@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-        
+
         <!-- start first row  -->
     <div class="row">
         <div class="card" style="width: 100%;">
@@ -21,7 +21,7 @@
                 {{ csrf_field() }}
 
                 <div class="row">
-                    
+
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
                             <label for="fristname">Frist Name</label>
@@ -62,9 +62,9 @@
                 </div>
 
                 <div class="row">
-                    
+
                     <div class="col-sm-3" id="register_form_item">
-                        
+
                         <label for="gender">Gender</label>
                         <div class="row">
                             <div class="col" id="register_form_item">
@@ -121,7 +121,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
@@ -146,7 +146,7 @@
                             </select>
                         </div>
                     </div> -->
-                    
+
                 </div>
 
                 <div class="row">
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm 4" id="register_form_item">
                         <button type="submit" class="btn btn-primary">Register</button>

@@ -27,7 +27,7 @@ class StudentsController extends Controller
 
     // >> button result page
     public function viewstudent($user_id){
-        //
+        return view('owner\viewstudent', compact('user_id'));
     }
 
 }
