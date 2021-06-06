@@ -38,7 +38,7 @@
                             <input type="text" name="fristname" class="form-control" id="fristname" placeholder="Enter Frist name ...">
                         </div>
                     </div>
-                
+
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
                             <label for="middlename">Middle Name</label>
@@ -162,11 +162,11 @@
             </form>
         </div>
     </div>
-    
-    <div clas='row mb-2>
+
+    <div clas='row mb-2'>
         <a href='{{ route('testinsert') }}'>Check Insert Student</a>
     </div>
-    
+
 </div>
 
 @endsection
