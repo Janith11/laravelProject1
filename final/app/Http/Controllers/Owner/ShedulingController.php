@@ -77,4 +77,8 @@ class ShedulingController extends Controller
         //
     }
 
+    public function test(){
+        //
+    }
+
 }
