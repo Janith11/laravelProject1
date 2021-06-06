@@ -75,6 +75,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');
     Route::get('/addshedule', 'owner\ShedulingController@addshedule')->name('owneraddshedule');
     Route::get('/checkinput/{date}/{time}', 'owner\ShedulingController@checkinput')->name('checkinput');
+    Route::post('/saveshedule', 'Owner\ShedulingController@saveshedule')->name('saveshedule');
 
     Route::get('/vehicles', 'Owner\VehicleController@index')->name('vehicles');
     Route::get('/addvehicles', 'Owner\VehicleController@addvehicle')->name('addvehicles');

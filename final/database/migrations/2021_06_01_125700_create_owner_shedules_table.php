@@ -14,7 +14,7 @@ class CreateOwnerShedulesTable extends Migration
     public function up()
     {
         Schema::create('owner_shedules', function (Blueprint $table) {
-            $table->bigIncrements('shedule_id')->unique();
+            $table->bigIncrements('id');
             $table->string('shedule_name');
             $table->date('date');
             $table->time('time');

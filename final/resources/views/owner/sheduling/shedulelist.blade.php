@@ -19,5 +19,25 @@
         </div>
     </div>
 
+    <div class="row mb-2">
+        @foreach ($shedules as $shedule)
+        <div class="card">
+            <div class="card-body">
+                <h4>Shedule name : {{ $shedule->shedule_name }}</h4>
+                <h4>Shedule Date : {{ $shedule->date }}</h4>
+                <h4>Shedule Time : {{ $shedule->time }}</h4>
+                <h4>Lession Type : {{ $shedule->lesson_type }}</h4>
+                <h4>Instuctor name : {{ $shedule->instructor }}</h4>
+                <h4>Students</h4>
+                    <ul>
+                    @foreach ($shedule->sheduledstudents as $student)
+                        <li>{{ $student->student_id }}</li>
+                    @endforeach
+                    </ul>
+            </div>
+        </div>
+        @endforeach
+    </div>
+
 </div>
 @endsection

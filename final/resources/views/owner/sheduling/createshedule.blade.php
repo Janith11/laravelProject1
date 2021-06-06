@@ -1,6 +1,20 @@
 @extends('layouts.ownerapp')
 
 @section('content')
+
+<style>
+    img{
+        width: 60px;
+        height: auto;
+        border-radius: 50px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .setwidth{
+        max-width: 100px;
+    }
+
+</style>
+
 <div class="container">
 
     <div class="row mb-2">
@@ -15,7 +29,36 @@
         <a href="{{ route('owneraddshedule') }}" style="padding-top: 6px; padding-left: 10px"> > Calender</a>
     </div>
 
-    {{-- <form></form> --}}
+    <div class="row mb-2">
+        @if(session('instructorerror'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('instructorerror') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <script>
+                document.getElementById('instructor_card').className = 'card border-danger';
+            </script>
+        </div>
+        @endif
+    </div>
+
+    <div class="row mb-2">
+        @if(session('studenterror'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('studenterror') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <script>
+                document.getElementById('instructor_card').className = 'card border-danger';
+            </script>
+        </div>
+        @endif
+    </div>
+
+    <form action="{{ route('saveshedule') }}" method="POST">
+        @csrf
 
     <div class="row mb-2">
         <div class="col-lg-3" style="padding-top: 10px">
@@ -29,7 +72,8 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="sheduledate" name="date" value="{{ $date }}" disabled>
+                            <input type="text" class="form-control" value="{{ $date }}" disabled>
+                            <input type="hidden" class="form-control" id="sheduledate" name="date" value="{{ $date }}">
                         </div>
                     </div>
                 </div>
@@ -47,7 +91,8 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="sheduletime" name="time" value="{{ $time }}" disabled>
+                            <input type="text" class="form-control" value="{{ $time }}" disabled>
+                            <input type="hidden" class="form-control" id="sheduletime" name="time" value="{{ $time }}">
                         </div>
                     </div>
                 </div>
@@ -100,7 +145,7 @@
 
     {{-- instructor table --}}
     <div class="row mb-2">
-        <div class="card" style="width: 100%; border-radius: 10px">
+        <div class="card" style="width: 100%; border-radius: 10px" id="instructor_card">
             <div class="card-body">
                 <div class="row justify-content-between">
                     <div class="col-sm-6">
@@ -122,29 +167,29 @@
                                     <th scope="col">Profile</th>
                                     <th scope="col">Contact Number</th>
                                     <th scope="col">Vehicle Types</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($instructors as $instructor)
                                 <tr>
-                                    <th scope="row">
+                                    <th scope="row"  style="text-align: center; vertical-align: middle">
                                         <div class="form-check">
-                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{ $instructor->id }}" name="instructor[]">
+                                            <input class="form-check-input position-static" type="checkbox" value="{{ $instructor->user_id }}" name="instructor[]">
                                         </div>
                                     </th>
-                                    <td>
+                                    <td class="setwidth">
                                         <div class="row">
-                                            <div class="col">
-                                                <img class="card-img-top img-fluid rounded-circle w-50 mb-3 shadow mx-auto d-block m-3" src="https://avatarfiles.alphacoders.com/979/thumb-97920.png" alt="Card image cap">
+                                            <div class="col-4 m-n1 p-0 ">
+                                                <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar">
                                             </div>
-                                            <div class="col">
-                                                <h4>{{ $instructor->username }}</h4>
-                                                <br>
-                                                <h4>{{ $instructor->email }}</h4>
+                                            <div class="col-sm">
+                                                <h6>{{$instructor->user->f_name }} {{$instructor->user->l_name}}</h6>
+                                                <p>{{ $instructor->user->email}}</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>contact number here</td>
+                                    <td>{{ $instructor->user->contact_number }}</td>
                                     <td>
                                         <ul>
                                             {{-- @foreach (vehicletypes as vehicletype)
@@ -152,9 +197,15 @@
                                             @endforeach --}}
                                         </ul>
                                     </td>
+                                    <td style="text-align: center; vertical-align: middle">
+                                        <a href="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="vertical-align: middle">
+                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                            </svg>
+                                        </a>
+                                    </td>
                                 </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
@@ -175,13 +226,13 @@
                         <div class="form-group" id="all">
                             <input type="text" class="form-control" id="studentInput" placeholder="Search for name" style="border-radius: 50px" onkeyup="studentsearchfunction()">
                         </div>
-                        <div class="form-group" style="display: none"  id="group">
+                        {{-- <div class="form-group" style="display: none"  id="group">
                             <input type="text" class="form-control" id="groupInput" placeholder="Search for group id" style="border-radius: 50px" onkeyup="groupsearchfunction()">
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <hr style="border: 0.5px solid #222944">
-                <div class="row justify-content-start" style="padding-top: 10px; padding-bottom: 10px">
+                {{-- <div class="row justify-content-start" style="padding-top: 10px; padding-bottom: 10px">
                     <div class="col-sm-4">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -194,7 +245,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- all student table --}}
                 <div class="row" id="allstudents">
@@ -205,30 +256,37 @@
                                     <th scope="col"></th>
                                     <th scope="col">Profile</th>
                                     <th scope="col">Contact Number</th>
+                                    <th scope="col">Mountly Attendence</th>
+                                    <th scope="col"></th>
                                     {{-- <th scope="col">Handle</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($students as $student )
                                 <tr>
-                                    <td scope="row" style="vertical-align: center">
-                                        <div class="form-check">
-                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{ $student->user_id }}" >
-                                        </div>
+                                    <td scope="row" style="text-align: center; vertical-align: middle">
+                                        <input class="form-check-input position-static" type="checkbox" value="{{ $student->user_id }}" name="students[]">
                                     </td>
-                                    <td>
+                                    <td class="setwidth">
                                         <div class="row">
-                                            <div class="col">
-                                                <img class="card-img-top img-fluid rounded-circle w-50 mb-3 shadow mx-auto d-block m-3" src="https://avatarfiles.alphacoders.com/979/thumb-97920.png" alt="Card image cap">
+                                            <div class="col-4 m-n1 p-0 ">
+                                                <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar">
                                             </div>
-                                            <div class="col">
-                                                <h4>{{ $student->user->f_name }}</h4>
-                                                <br>
-                                                <h4>{{ $student->user->email }}</h4>
+                                            <div class="col-sm">
+                                                <h6>{{$student->user->f_name }} {{$student->user->l_name}}</h6>
+                                                <p>{{ $student->user->email}}</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>nothing</td>
+                                    <td>{{ $student->user->contact_number}}</td>
+                                    <td>attendence here</td>
+                                    <td style="text-align: center; vertical-align: middle">
+                                        <a href="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="vertical-align: middle">
+                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                            </svg>
+                                        </a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -237,32 +295,32 @@
                 </div>
 
                 {{-- student groups table --}}
-                <div class="row" id="studentgroups" style="display: none">
+                {{-- <div class="row" id="studentgroups" style="display: none">
                     <div class="table-responsive" style="padding-left: 10px; padding-right: 10px">
                         <table class="table" id="groupTable">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col"></th>
                                     <th scope="col">Group ID</th>
-                                    <th scope="col">Total Students</th>
+                                    <th scope="col">Total Students</th> --}}
                                     {{-- <th scope="col">Handle</th> --}}
-                                </tr>
+                                {{-- </tr>
                             </thead>
-                            <tbody>
+                            <tbody> --}}
                                 {{-- @foreach (studentgroups as studentgroup ) --}}
-                                <tr>
+                                {{-- <tr>
                                     <td scope="row" style="vertical-align: center">
                                         <div class="form-check">
                                             <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="" >
                                         </div>
                                     </td>
-                                    <td>
+                                    <td> --}}
                                         {{-- {{ studentgroup->id }} --}}
-                                    </td>
+                                    {{-- </td>
                                     <td>
                                         <div class="row">
                                             <div class="col">
-                                                {{-- {{ totalstudents }} --}}
+                                                {{ totalstudents }}
                                             </div>
                                             <div class="col">
                                                 <button class="btn" style="background: lightgray; border-radius: 50%; border: none">
@@ -273,25 +331,23 @@
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> --}}
                                 {{-- @endforeach --}}
-                            </tbody>
+                            {{-- </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
 
     <div class="row mb-2 justify-content-center" style="padding-top: 10px; padding-bottom: 20px">
         <div>
-        </div>
-        <div>
-            <a type="button" class="btn btn-success" href="" style="background-color: rgb(46, 190, 46) !important">Submit Shedule</a>
+            <button type="submit" class="btn btn-success">Submit Shedule</button>
         </div>
     </div>
 
-    {{-- </form> --}}
+    </form>
 
     <script>
 
@@ -302,7 +358,7 @@
             filter = input.value.toUpperCase();
             table = document.getElementById("instructorTable");
             tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
+            for (i = 0; i <script tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[0];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
@@ -314,7 +370,9 @@
                 }
             }
         }
+    </script>
 
+    <script>
     // student filter function
         function studentsearchfunction() {
             var input, filter, table, tr, td, i, txtValue;
@@ -335,26 +393,9 @@
             }
         }
 
-        // student group filter function
-        function groupsearchfunction(){
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("groupInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("groupTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
+    </script>
 
+<script>
         // display all student
         function displayallstudent(){
             var allstd = document.getElementById('allstudents');
@@ -379,13 +420,6 @@
             all_serach.style.display = 'none';
             group_search.style.display = 'block';
 
-        }
-
-        // submit form
-        function submitshedule(){
-            var select_theory, select_practicle;
-            select_theory = document.getElementById('theory');
-            select_practicle = document.getElementById('practicle');
         }
 
     </script>
