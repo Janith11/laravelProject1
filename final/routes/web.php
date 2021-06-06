@@ -65,7 +65,12 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/studentslist', 'Owner\StudentsController@index')->name('studentslist');
     Route::get('/addstudent', 'Owner\StudentsController@addstudent')->name('addstudent');
     Route::post('/addstudent', 'Owner\StudentsController@insertstudent')->name('insertstudent');
+
     Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
+
+    //testing insert student route
+    Route::get('/testinginsert', 'Owner\StudentsController@testinsertstudent')->name('testinsert');
+
 
     Route::get('/payments', 'Owner\paymentsController@index')->name('payments');
 
