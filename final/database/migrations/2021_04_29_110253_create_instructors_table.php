@@ -15,22 +15,9 @@ class CreateInstructorsTable extends Migration
     {
         Schema::create('instructors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('role_id')->default(2);
-            $table->string('frist_name');
-            $table->string('last_name');
-            $table->string('middle_name');
-            $table->string('nic_number')->unique();
-            $table->string('email')->unique();
-            $table->string('pasword')->default(bcrypt('12345678'));
-            $table->string('gender');
-            $table->string('contact_number');
-            $table->string('address_number');
-            $table->string('address_lineone');
-            $table->string('address_linetwo');
-            $table->string('vehicle_category');
-            $table->string('languages');
-            $table->date('dob');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')-on('users')->onUpdate('cascade');
         });
     }
 

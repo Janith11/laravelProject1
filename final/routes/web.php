@@ -59,14 +59,21 @@ Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewreque
 Route::middleware('checkrequest')->group(function(){
 
     Route::get('/instructors', 'Owner\IntructorsController@index')->name('instructors');
-    Route::get('/addinstructor', 'Owner\addinstructorcontroller@index')->name('addinstructor');
-    Route::post('/addinstructor', 'Owner\addinstructorcontroller@insertinstructor')->name('insertinstructor');
+    Route::get('/addinstructor', 'Owner\IntructorsController@addinstructor')->name('addinstructor');
+    Route::post('/addinstructor', 'Owner\IntructorsController@insertinstructor')->name('insertinstructor');
+    Route::get('/editinstructor/{user_id}', 'Owner\IntructorsController@editinstructor')->name('editinstructor');
+    Route::post('/updateinstructor/{user_id}', 'Owner\IntructorsController@updateinstructor')->name('updateinstructor');
 
     Route::get('/studentslist', 'Owner\StudentsController@index')->name('studentslist');
     Route::get('/addstudent', 'Owner\StudentsController@addstudent')->name('addstudent');
     Route::post('/addstudent', 'Owner\StudentsController@insertstudent')->name('insertstudent');
+    Route::get('/editstudent/{user_id}', 'Owner\StudentsController@editstudent')->name('editstudent');
+    Route::post('/updatestudent/{user_id}', 'Owner\StudentsController@updatestudent')->name('updatestudent');
 
     Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
+    
+    //testing insert student route
+    Route::get('/testinginsert', 'Owner\StudentsController@testinsertstudent')->name('testinsert');
 
     //testing insert student route
     Route::get('/testinginsert', 'Owner\StudentsController@testinsertstudent')->name('testinsert');
@@ -77,6 +84,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');
     Route::get('/addshedule', 'owner\ShedulingController@addshedule')->name('owneraddshedule');
     Route::get('/checkinput/{date}/{time}', 'owner\ShedulingController@checkinput')->name('checkinput');
+    Route::post('/saveshedule', 'Owner\ShedulingController@saveshedule')->name('saveshedule');
 
     Route::get('/vehicles', 'Owner\VehicleController@index')->name('vehicles');
     Route::get('/addvehicles', 'Owner\VehicleController@addvehicle')->name('addvehicles');
@@ -90,5 +98,3 @@ Route::middleware('checkrequest')->group(function(){
 });
 
 
-// test routes
-// Route::get('/viewstudent',function(){return view ('owner\viewstudent');});

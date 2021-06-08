@@ -15,7 +15,7 @@ class CreateSheduledStudentsTable extends Migration
     {
         Schema::create('sheduled_students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('shedule_id');
+            $table->unsignedBigInteger('shedule_id');
             $table->string('student_id');
             $table->timestamps();
         });
