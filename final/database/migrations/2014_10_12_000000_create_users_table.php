@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('address_no');
             $table->string('address_lineone');
             $table->string('address_linetwo');
-            $table->string('profile_img');
+            $table->string('profile_img')->default('none');
             $table->integer('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
