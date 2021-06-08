@@ -58,7 +58,7 @@
                             <input type="text" name="firstname" class="form-control" id="fristname" placeholder="Enter Frist name ...">
                         </div>
                     </div>
-                
+
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
                             <label for="middlename">Middle Name</label>
@@ -182,6 +182,7 @@
             </form>
         </div>
     </div>
+
 
 </div>
 
