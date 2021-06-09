@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -58,16 +59,16 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            // 'name' => ['required', 'string', 'max:255'],
-            // 'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'firstname' => ['required', 'string', 'max:255'],
+            // // 'name' => ['required', 'string', 'max:255'],
+            // // 'username' => ['required', 'string', 'max:255', 'unique:users'],
+             'firstname' => ['required', 'string', 'max:255'],
             'middlename' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'nicnumber' => ['required', 'string', 'max:15'],
-            'gender' => ['required', 'string', 'max:7'],
-            'contactnumber' => ['required', 'integer', 'max:15'],
+            // 'gender' => ['required', 'string', 'max:7'],
+            // 'contactno' => ['required','max:15'],
             'birthday' => ['required', 'string','date','max:255'],
             'addressno' => ['required', 'string', 'max:255'],
             'addresslineone' => ['required', 'string', 'max:255'],
@@ -83,7 +84,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user= User::create([
             'role_id' => 3,
             'f_name' => $data['firstname'],
             'm_name' => $data['middlename'],
@@ -91,8 +92,10 @@ class RegisterController extends Controller
             // 'username' => str_slug($data['username']),
             'email' => $data['email'],
             'nic_number' => $data['nicnumber'],
-            'gender' => $data['name'],
-            'contact_number' => $data['contactnumber'],
+            // 'gender' => $data['gender'],
+            'gender' => 'female',
+            'contact_number' => $data['contactno'],
+            'dob' => $data['birthday'],
             'address_no' => $data['addressno'],
             'address_lineone' => $data['addresslineone'],
             'address_linetwo' => $data['addresslinetwo'],
@@ -101,5 +104,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
 
         ]);
+        $user->student = Student::create([
+            'user_id' => $user->id,
+            'amount'=>0,
+            'total_fee'=>0,
+        ]);
+        
+        return $user;
     }
 }
