@@ -13,6 +13,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js" integrity="sha512-37SbZHAnGzLuZV850k61DfQdZ5cnahfloYHizjpEwDgZGw49+D6oswdI8EX3ogzKelDLjckhvlK0QZsY/7oxYg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    
     {{-- fontawesome icon link --}}
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
@@ -556,7 +558,7 @@ aside li.menu-label {
             <!-- Branding -->
 
             <div class="side-branding">
-                <a href="#">
+                <a href="{{ url('/') }}">
                     <img src="/images/logo.png" class="img-responsive">
                 </a>
             </div>
@@ -683,7 +685,7 @@ aside li.menu-label {
                     </a>
                 </li>
                 <li class="header-logo">
-                    <a href="/" class="header-branding"><img src="/images/logo2.png" class="img-responsive"> </a>
+                    <a href="{{ url('/') }}" class="header-branding"><img src="/images/logo2.png" class="img-responsive"> </a>
                 </li>
 
             </ul>
@@ -707,7 +709,8 @@ aside li.menu-label {
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="padding-right: 20px; font-size: 20px;">
-                                    {{ Auth::user()->username }} <span class="caret"></span>
+                                    {{ Auth::user()->f_name }}
+                                     <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background-color:#17252A;">

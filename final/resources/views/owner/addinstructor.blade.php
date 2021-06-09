@@ -12,10 +12,35 @@
         </div>
     </div>
 
-    <div class="row justify-content-md-center">
+    <div class="container">
         <div class="card" style="margin-top: 30px; padding:20px 20px 20px 20px; border-radius: 15px;">
             <h3 class="card-title">Add new Instructor</h3>
             <hr/>
+            
+            @if(session('successmsg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5>
+                    {{ session('successmsg') }}
+                </h5>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+            
+            @if(count($errors) > 0)
+            <div class="container">
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> Some problems with your input.
+                    <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                    </ul>
+                </div>
+            </div>
+            @endif
+
             <form action="{{ route('insertinstructor') }}" method="POST">
 
                 {{ csrf_field() }}
@@ -24,8 +49,15 @@
                     
                     <div class="col-sm 3" id="register_form_item">
                         <div class="form-group">
-                            <label for="fristname">Frist Name</label>
-                            <input type="text" name="fristname" class="form-control" id="fristname" placeholder="Enter Frist name ...">
+                            <label for="firstname">Frist Name</label>
+                            <input type="text" name="firstname" class="form-control" id="fristname" placeholder="Enter Frist name ...">
+                        </div>
+                    </div>
+
+                    <div class="col-sm 3" id="register_form_item">
+                        <div class="form-group">
+                            <label for="middlename">Middle Name</label>
+                            <input type="text" name="middlename" class="form-control" id="middlename" placeholder="Enter Middle name ...">
                         </div>
                     </div>
 
@@ -36,12 +68,6 @@
                         </div>
                     </div>
 
-                    <div class="col-sm 3" id="register_form_item">
-                        <div class="form-group">
-                            <label for="middlename">Middle Name</label>
-                            <input type="text" name="middlename" class="form-control" id="middlename" placeholder="Enter Middle name ...">
-                        </div>
-                    </div>
 
                 </div>
 
@@ -123,7 +149,7 @@
                 </div>
                 
                 <div class="row">
-                    <div class="col-sm 3" id="register_form_item">
+                    <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
                             <label for="category">Vehicle Category</label>
                             <select id="category" class="form-control" name="vehiclecategory">
@@ -134,7 +160,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm 3" id="register_form_item">
+                    {{-- <div class="col-sm 3" id="register_form_item">
                         <div class="form-group">
                             <label for="languages">Languages</label>
                             <select id="languages" class="form-control" name="language">
@@ -144,7 +170,7 @@
                                 <option value="tamil">Tamil</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="row">
