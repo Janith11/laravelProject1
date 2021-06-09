@@ -17,26 +17,82 @@
         <div class="col">
             <a href="{{ route('owneraddshedule') }}" type="button" class="btn btn-primary">Add New</a>
         </div>
+        <div class="col">
+            <a type="button" class="btn btn-primary" href="{{ route('timetable') }}">Daily Time Table</a>
+        </div>
     </div>
 
     <div class="row mb-2">
-        @foreach ($shedules as $shedule)
-        <div class="card">
-            <div class="card-body">
-                <h4>Shedule name : {{ $shedule->shedule_name }}</h4>
-                <h4>Shedule Date : {{ $shedule->date }}</h4>
-                <h4>Shedule Time : {{ $shedule->time }}</h4>
-                <h4>Lession Type : {{ $shedule->lesson_type }}</h4>
-                <h4>Instuctor name : {{ $shedule->instructor }}</h4>
-                <h4>Students</h4>
-                    <ul>
-                    @foreach ($shedule->sheduledstudents as $student)
-                        <li>{{ $student->student_id }}</li>
-                    @endforeach
-                    </ul>
+        @if(session('successmsg'))
+            <div class="alert alert-success" role="alert">
+                {{ session('successmsg') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="card" style="width: 100%; border-radius: 10px">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Shedules</h5>
+                        <p class="card-text">67</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card" style="width: 100%; border-radius: 10px">
+                    <div class="card-body">
+                        <h5 class="card-title">Completed Shedules</h5>
+                        <p class="card-text">67</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card" style="width: 100%; border-radius: 10px">
+                    <div class="card-body">
+                        <h5 class="card-title">Canceled Shedules</h5>
+                        <p class="card-text">67</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card" style="width: 100%; border-radius: 10px">
+                    <div class="card-body">
+                        <h5 class="card-title">Upcomming Shedules</h5>
+                        <p class="card-text">67</p>
+                    </div>
+                </div>
             </div>
         </div>
-        @endforeach
+        <div class="col-sm-9">
+            @foreach ($shedules as $shedule)
+            <div class="row">
+                <div class="card" style="border-radius: 10px; width: 100%">
+                    <div class="card-body">
+                        <h4>Shedule name : {{ $shedule->title }}</h4>
+                        <h4>Shedule Date : {{ $shedule->date }}</h4>
+                        <h4>Shedule Time : {{ $shedule->time }}</h4>
+                        <h4>Lession Type : {{ $shedule->lesson_type }}</h4>
+                        <h4>Instuctor name : {{ $shedule->instructor }}</h4>
+                        <h4>Students</h4>
+                            <ul>
+                            @foreach ($shedule->sheduledstudents as $student)
+                                <li>{{ $student->student_id }}</li>
+                            @endforeach
+                            </ul>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="row mb-2">
+
     </div>
 
 </div>

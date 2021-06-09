@@ -14,45 +14,31 @@
         <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> > Shedule List</a>
     </div>
 
-    {{-- <div class="row mb-2">
-        <div class="col">
-            <h4>Your calender</h4>
-        </div>
-    </div> --}}
-
     <div class="row mb-2">
-        <div class="col">
-            <div class="card" style="width: 100%">
-                <div class="card-body">
-                    <div id='calendar'></div>
-                </div>
+        @if(session('errormsg'))
+            <div class="alert alert-danger" role="alert" style="width: 100%">
+                {{ session('errormsg') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
+        @endif
     </div>
 
-
-  <!-- Modal -->
-    <div class="modal fade" id="settimemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: #222944">Set Start Time</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <div class="row mb-2">
+        <div class="card" style="width: 100%; border-radius: 10px">
+            <div class="card-header">
+                <div class="row justify-content-md-center">
+                    <div style="height: 15px; width: 15px; background-color: #90EE90; border-radius: 50%; display: inline-block;padding-left: 10px;"></div>
+                    <h6 style="padding-left: 10px; padding-right: 10px">Upcomming</h6>
+                    <div style="height: 15px; width: 15px; background-color: #3853EC; border-radius: 50%; display: inline-block;padding-left: 10px"></div>
+                    <h6 style="padding-left: 10px; padding-right: 10px">Complete</h6>
+                    <div style="height: 15px; width: 15px; background-color: #FF6D68; border-radius: 50%; display: inline-block;padding-left: 10px"></div>
+                    <h6 style="padding-left: 10px; padding-right: 10px">Uncomplete</h6>
                 </div>
-
-                <div class="modal-body">
-                    <form method="POST" id="gettime">
-                        <input type="time" name="time" id="time" value="00:00">
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="check()">Set Time</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="card-body">
+                <div id='calendar'></div>
             </div>
         </div>
     </div>
@@ -68,30 +54,17 @@
                 initialView: 'dayGridMonth',
                 selectable: true,
                 dateClick: function(info) {
-                    // alert('Date: ' + info.dateStr);
-                    // alert('Resource ID: ' + info.resource.id);
-                    // get selected date
                     date = info.dateStr;
                     $(document).ready(function(){
-                        $("#settimemodal").modal();
+                        var url = '{{ route("checkinput", ["date" => ":date"]) }}';
+                        url = url.replace(':date', date);
+                        document.location.href=url;
                     });
-                }
+                },
+                events: "{{ route('allevents') }}",
             });
             calendar.render();
         });
-
-        function check(){
-            var modal = document.getElementById('exampleModalCenter');
-            var time = document.getElementById('time').value;
-            if(time != '00:00'){
-                var url = '{{ route("checkinput", ["date" => ":date", "time" => ":time"]) }}';
-                url = url.replace(':date', date);
-                url = url.replace(':time', time);
-                document.location.href=url;
-
-                $('#exampleModalCenter').modal('hide');
-            }
-        }
 
     </script>
 

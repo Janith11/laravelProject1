@@ -12,6 +12,8 @@
 */
 
 //use Illuminate\Routing\Route;
+
+use App\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -66,17 +68,25 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/addstudent', 'Owner\StudentsController@addstudent')->name('addstudent');
     Route::post('/addstudent', 'Owner\StudentsController@insertstudent')->name('insertstudent');
     Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
-    
+
     //testing insert student route
     Route::get('/testinginsert', 'Owner\StudentsController@testinsertstudent')->name('testinsert');
 
     Route::get('/payments', 'Owner\paymentsController@index')->name('payments');
 
+    // sheduling part
     Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');
     Route::get('/addshedule', 'owner\ShedulingController@addshedule')->name('owneraddshedule');
-    Route::get('/checkinput/{date}/{time}', 'owner\ShedulingController@checkinput')->name('checkinput');
+    Route::get('/checkinput/{date}', 'owner\ShedulingController@checkinput')->name('checkinput');
     Route::post('/saveshedule', 'Owner\ShedulingController@saveshedule')->name('saveshedule');
+    Route::get('/allevents', 'Owner\ShedulingController@allevents')->name('allevents');
 
+    // session time table
+    Route::get('/timetable', 'owner\TimeTableController@index')->name('timetable');
+    Route::post('/timetable/addtimeslot', 'Owner\TimeTableController@inserttimeslot')->name('addtimeslot');
+    Route::delete('/timetable/deleteslot/{id}', 'Owner\TimeTableController@deletetimeslot')->name('deletetimeslot');
+
+    // vehicle part
     Route::get('/vehicles', 'Owner\VehicleController@index')->name('vehicles');
     Route::get('/addvehicles', 'Owner\VehicleController@addvehicle')->name('addvehicles');
     Route::post('/addvehicles', 'Owner\VehicleController@insertvehicle')->name('addvehicle');

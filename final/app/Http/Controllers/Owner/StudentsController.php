@@ -23,11 +23,11 @@ class StudentsController extends Controller
     public function viewstudent($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
         return view('owner\viewstudent',compact('student'));
-        
+
     }
     //insert student in to databse
-    public function insertstudent(Request $request){ 
-       
+    public function insertstudent(Request $request){
+
         $this->validate($request,[
             'firstname' => 'required',
             'middlename' => 'required',
@@ -54,7 +54,7 @@ class StudentsController extends Controller
         $user->contact_number = $request->contactnumber;
         $user->address_number = $request->addressnumber;
         $user->address_lineone = $request->addressstreatname;
-        $user->address_linetwo = $request->addresscity;   
+        $user->address_linetwo = $request->addresscity;
         $user->dob = $request->birthday;
 
         $user->save();
@@ -66,15 +66,16 @@ class StudentsController extends Controller
         $user->student()->save($student);
         return redirect()->route('ownershedulelist')->with('successmsg', 'one student added successfuly !');
     }
-    
-    public function testinsertstudent(){ 
 
+    public function testinsertstudent(){
+        //
+    }
 
     // >> button result page
-    public function viewstudent($user_id){
-        return view('owner\viewstudent', compact('user_id'));
+    // public function viewstudent($user_id){
+    //     return view('owner\viewstudent', compact('user_id'));
 
-    }
- 
+    // }
+
 
 }

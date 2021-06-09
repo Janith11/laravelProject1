@@ -15,8 +15,10 @@ class CreateOwnerShedulesTable extends Migration
     {
         Schema::create('owner_shedules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('shedule_name');
+            $table->string('title');
             $table->date('date');
+            $table->string('color')->default('#90EE9');
+            $table->string('textColor')->default('#222944');
             $table->time('time');
             $table->string('lesson_type');
             $table->string('instructor');

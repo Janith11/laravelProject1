@@ -513,12 +513,12 @@ aside li.menu-label {
         opacity: 1;
     }
 
-    .btn {
+    /* .btn {
         background-color: #143F5C;
         color: white;
         font-size: 16px;
         /* padding: 16px 32px; */
-    }
+    /* } */
 
     .btn:hover{
         background-color: #215A9B
@@ -540,9 +540,11 @@ aside li.menu-label {
         text-decoration: none;
     }
 
-
-
     </style>
+    <style>
+        .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20rem; }
+        .toggle.ios .toggle-handle { border-radius: 20rem; }
+      </style>
 </head>
 <body style="background-color: #E9E9E9;">
    <div>

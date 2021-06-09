@@ -57,6 +57,17 @@
         @endif
     </div>
 
+    <div class="row mb-2">
+        @if(session('chooseerror'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('chooseerror') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
+
     <form action="{{ route('saveshedule') }}" method="POST">
         @csrf
 
