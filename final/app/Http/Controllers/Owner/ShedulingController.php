@@ -35,12 +35,16 @@ class ShedulingController extends Controller
         $start_date = strtotime($current_date);
         $end_date = strtotime($date);
         $result = ($end_date - $start_date)/60/60/24;
+        $selectdayname = date('l', strtotime($date));
 
-        $timeslots = WeekDay::where('day_name', date('l'))->with('timeslots')->get();
+        $timeslots = WeekDay::where('day_name', $selectdayname)->with('timeslots')->get();
+        $timeslotscount = WeekDay::where('day_name', $selectdayname)->withcount('timeslots')->get();
+        $shedules = OwnerShedule::where('date', $date)->with('SheduledStudents')->get();
+        $shedulescount = OwnerShedule::where('date', $date)->withcount('SheduledStudents')->get();
 
         if($result >= 0){
-            return view('owner.sheduling.settimeslot', ['date' => $date, 'timeslots' => $timeslots]);
-            // return $timeslots;
+            return view('owner.sheduling.settimeslot', ['date' => $date, 'timeslots' => $timeslots, 'shedules' => $shedulescount, 'timeslotscount' => $timeslotscount]);
+            // return $timeslotscount;
         }else{
             return back()->with('errormsg', 'Cannot add Shedule for previous Day !!');
         }
