@@ -6,10 +6,38 @@
     <div class="card-deck">
         <div class="card" style="border: none; background-color: transparent !important;">
           <img class="card-img-top mx-auto d-block" src="https://cdn.pixabay.com/photo/2021/01/04/10/41/icon-5887126_1280.png" alt="Card image cap" style="width: 50%; height:auto;">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ $user->f_name }} {{ $user->l_name }}</h5>
+            <p class="card-text">{{ $user->email }}</p>
+            <table class="table table-borderless table-responsive">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td colspan="2">Larry the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="card" style="border: none; background-color: transparent !important;">
@@ -26,6 +54,7 @@
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <p>dhsgfbiyhsdgfsieyfg</p>
           </div>
         </div>
       </div>
