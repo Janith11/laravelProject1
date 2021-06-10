@@ -1,6 +1,69 @@
 @extends('layouts.ownerapp')
 
 @section('content')
+
+<style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    </style>
+
 <div class="container">
 
     <div class="row mb-2">
@@ -17,25 +80,46 @@
 
     <div class="row mb-2" style="padding-top: 10px">
         <div class="col-sm-3">
-            <div class="col">
-                <div class="card" style="width: 100%; border-radius: 10px">
-                    <div class="card-body">
-                        <div>
-                            <h5 class="card-title" style="color: #222944; font-weight: bold">Choose Time Slot</h5>
-                            <hr style="border: 0.5px solid #222944">
-                            <h5>Your Date : {{ $date }}</h5>
+            <div class="card" style="width: 100%; border-radius: 10px">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a href="{{ route('owneraddshedule') }}" type="button" class="btn" style="background-color: lightgray; border: none; border-radius: 50%">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-calendar-event" viewBox="0 0 16 16" >
+                                    <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                </svg>
+                            </a>
                         </div>
-                        <div class="text-center">
-                            <a type="button" class="btn btn-primary" href="{{ route('owneraddshedule') }}
-                            ">Change Date</a>
+                        <div class="col-sm-9">
+                            <h5 style=" padding-left: 10px; padding-top: 7px; color: #222944">{{ $date }}</h5>
+                            <small style=" padding-left: 10px;">your choose date</small>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
+            <div style="padding-top: 10px; padding-bottom: 10px">
+                <div class="card" style="border-radius: 10px; width: 100%;">
                     <div class="card-body">
-
+                        <h5 class="card-title" style="color: #222944; font-weight: bold">Already Alocated Times</h5>
+                        @if(count($shedules) == 0)
+                            <h5>There are not any shedule on this day</h5>
+                        @else
+                        <table class="table">
+                            <tbody>
+                                @foreach ($shedules as $shedule)
+                                <tr>
+                                    <td>
+                                        <h5>{{ $shedule->time }}</h5>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <h5 style="background-color: #4B053F; color: white; border-radius: 2px">{{ $shedule->sheduled_students_count }}</h5>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                          </table>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -45,7 +129,64 @@
                 <div class="card-body">
                     <h5 class="card-title" style="color: #222944; font-weight: bold">Choose Time Slot</h5>
                     <hr style="border: 0.5px solid #222944">
-                </h5>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            @foreach ($timeslotscount as $slotcount)
+                                @if ($slotcount->timeslots_count == 0)
+                                    <h5 style="color: #222944">You have not define any time slot for {{ $slotcount->day_name }}, <a href="{{ route('timetable') }}">create</a></h5>
+                                @else
+                                <form action="">
+                                @foreach ($timeslots as $timeslot)
+                                    <h5 style="color: #222944">defined time slots on {{ $timeslot->day_name }} </h5>
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            @foreach ($timeslot->timeslots as $time)
+                                            <tr>
+                                                <th>{{ $time->slot_name }}</th>
+                                                <td>{{ $time->time_slot }}</td>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="slottime" id="" value="{{ $time->slot_time }}">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @endforeach
+                                </form>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <h5 style="color: #222944; padding-right: 10px">Define Custome Slot</h5>
+                                <label class="switch">
+                                    <input type="checkbox" id="customslot">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div id="custome_slot">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Slot Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter slot name">
+                                    </div>
+                                    <div class="form-group">
+                                          <label for="exampleInputPassword1">Password</label>
+                                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    </div>
+                                    <div class="form-group form-check">
+                                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
