@@ -31,7 +31,7 @@
     <style>
         body {
         font-family: 'Source Sans Pro', sans-serif;
-        background: #F8F8F8;
+        background: #FCFCFC;
         font-weight: 400;
         color: #696769;
         font-size: 14px;
@@ -175,6 +175,11 @@ aside li.menu-label {
             max-height: 50px;
             margin-right: 65px;
             margin-top: -6px;
+        }
+        .card-body{
+            box-shadow: 0 4px 4px 0 rgba(0,0,0,0.1);
+            border: none;
+            background-color: white !important;
         }
 
         @media (max-width: 1100px) {
@@ -415,6 +420,7 @@ aside li.menu-label {
         box-shadow: 0px 0px 5px #E7E7E7;
         padding-top: 10px;
         margin-top: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
     #dash_text{
@@ -548,7 +554,7 @@ aside li.menu-label {
         .toggle.ios .toggle-handle { border-radius: 20rem; }
       </style>
 </head>
-<body style="background-color: #E9E9E9;">
+<body style="background-color: #FCFCFC;">
    <div>
        <!-- slidebar -->
     <aside>
