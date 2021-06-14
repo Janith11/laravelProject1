@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
         // class all seeders here
         $this->call([UsersTableSeeder::class,
                     RoleTableSeeder::class,
-                    StudentTableSeeder::class]);
+                    StudentTableSeeder::class,
+                    OwnerSheduleSeed::class,
+                    WeekDaySeed::class,
+                    InstructorSeeder::class]);
     }
 }

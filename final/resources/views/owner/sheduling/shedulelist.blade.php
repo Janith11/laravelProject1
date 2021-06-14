@@ -15,7 +15,7 @@
 
     <div class="row mb-2">
         <div class="col">
-            <a href="{{ route('owneraddshedule') }}" type="button" class="btn btn-primary">Add New</a>
+            <a href="{{ route('calendar') }}" type="button" class="btn btn-primary">Add New</a>
         </div>
         <div class="col">
             <a type="button" class="btn btn-primary" href="{{ route('timetable') }}">Daily Time Table</a>
@@ -36,34 +36,45 @@
     <div class="row mb-2">
         <div class="col-sm-3">
             <div class="row">
+                <h5>On this month</h5>
+            </div>
+            <div class="row" style="padding-top: 10px">
                 <div class="card" style="width: 100%; border-radius: 10px">
                     <div class="card-body">
                         <h5 class="card-title">Total Shedules</h5>
-                        <p class="card-text">67</p>
+                        <p class="card-text">{{ count($totalshedules) }}</p>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="padding-top: 10px">
                 <div class="card" style="width: 100%; border-radius: 10px">
                     <div class="card-body">
                         <h5 class="card-title">Completed Shedules</h5>
-                        <p class="card-text">67</p>
+                        <p class="card-text">{{ count($complateshedules) }}</p>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="padding-top: 10px">
                 <div class="card" style="width: 100%; border-radius: 10px">
                     <div class="card-body">
                         <h5 class="card-title">Canceled Shedules</h5>
-                        <p class="card-text">67</p>
+                        <p class="card-text">{{ count($canceledshedules) }}</p>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="padding-top: 10px">
                 <div class="card" style="width: 100%; border-radius: 10px">
                     <div class="card-body">
                         <h5 class="card-title">Upcomming Shedules</h5>
-                        <p class="card-text">67</p>
+                        <p class="card-text">{{ count($upcommingshedule) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px">
+                <div class="card" style="width: 100%; border-radius: 10px">
+                    <div class="card-body">
+                        <h5 class="card-title">Uncomplete Shedules</h5>
+                        <p class="card-text">{{ count($uncompleteshedules) }}</p>
                     </div>
                 </div>
             </div>
@@ -73,17 +84,18 @@
             <div class="row">
                 <div class="card" style="border-radius: 10px; width: 100%">
                     <div class="card-body">
-                        <h4>Shedule name : {{ $shedule->title }}</h4>
-                        <h4>Shedule Date : {{ $shedule->date }}</h4>
-                        <h4>Shedule Time : {{ $shedule->time }}</h4>
-                        <h4>Lession Type : {{ $shedule->lesson_type }}</h4>
-                        <h4>Instuctor name : {{ $shedule->instructor }}</h4>
-                        <h4>Students</h4>
-                            <ul>
-                            @foreach ($shedule->sheduledstudents as $student)
-                                <li>{{ $student->student_id }}</li>
-                            @endforeach
-                            </ul>
+                        <div class="row justify-content-between">
+                            <div class="col-sm-11">
+                                <p>You have to complate '{{ $shedule->title }}' shedule on {{ $shedule->date }} at {{ $shedule->time }} </p>
+                            </div>
+                            <div class="col">
+                                <a href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#222944" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

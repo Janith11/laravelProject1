@@ -26,6 +26,17 @@
     </div>
 
     <div class="row mb-2">
+        @if(session('errormessage'))
+            <div class="alert alert-danger" role="alert" style="width: 100%">
+                {{ session('errormessage') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
+
+    <div class="row mb-2">
         <div class="card" style="width: 100%; border-radius: 10px">
             <div class="card-header">
                 <div class="row justify-content-md-center">

@@ -85,9 +85,11 @@ Route::middleware('checkrequest')->group(function(){
 
     // sheduling part
     Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');
-    Route::get('/addshedule', 'owner\ShedulingController@addshedule')->name('owneraddshedule');
-    Route::get('/checkinput/{date}', 'owner\ShedulingController@checkinput')->name('checkinput');
-    Route::post('/saveshedule', 'Owner\ShedulingController@saveshedule')->name('saveshedule');
+    Route::get('/shedulelist/viewdetails/{id}', 'owner\ShedulingController@viewdetails')->name('viewdetails');
+    Route::get('/shedulelist/calendar', 'owner\ShedulingController@addshedule')->name('calendar');
+    Route::get('/addshedule/calendar/{date}', 'owner\ShedulingController@checkinput')->name('checkinput');
+    Route::post('/addshedule/settime','owner\ShedulingController@setsheduletime')->name('setsheduletime');
+    Route::post('/addshedule/saveshedule', 'Owner\ShedulingController@saveshedule')->name('saveshedule');
     Route::get('/allevents', 'Owner\ShedulingController@allevents')->name('allevents');
 
     // session time table
