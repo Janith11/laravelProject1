@@ -17,7 +17,7 @@ class CreateOwnerShedulesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->date('date');
-            $table->string('color')->default('#90EE9');
+            $table->string('color')->default('#17BE3C');
             $table->string('textColor')->default('#222944');
             $table->time('time');
             $table->string('lesson_type');

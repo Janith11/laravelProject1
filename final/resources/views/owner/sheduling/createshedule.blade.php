@@ -26,7 +26,8 @@
             </svg>
         </a>
         <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> > Shedule List</a>
-        <a href="{{ route('owneraddshedule') }}" style="padding-top: 6px; padding-left: 10px"> > Calender</a>
+        <a href="{{ route('calendar') }}" style="padding-top: 6px; padding-left: 10px"> > Calender</a>
+        {{-- <a href="{{ route('setsheduletime') }}" style="padding-top: 6px; padding-left: 10px"> > Time Slot</a> --}}
     </div>
 
     <div class="row mb-2">

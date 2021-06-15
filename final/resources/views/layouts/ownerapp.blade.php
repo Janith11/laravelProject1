@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js" integrity="sha512-37SbZHAnGzLuZV850k61DfQdZ5cnahfloYHizjpEwDgZGw49+D6oswdI8EX3ogzKelDLjckhvlK0QZsY/7oxYg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    
+
     {{-- fontawesome icon link --}}
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
@@ -319,12 +319,12 @@ aside li.menu-label {
     }
 
     #nav-item:hover{
-        background-color: #3AAFA9;
-        border-radius: 20px;
+        background-color: #ffffff10;
+        border-radius: 5px;
     }
 
     #nav-item:hover #item{
-        padding-left: 25px;
+        padding-left: 2px;
         transition-duration: 0.5s;
         /* color: #17252A; */
     }
@@ -621,7 +621,7 @@ aside li.menu-label {
                                 <a href="{{ route('ownershedulelist') }}" class="dropdownitem" >Shedule List</a>
                             </li>
                             <li>
-                                <a href="{{ route('owneraddshedule') }}" class="dropdownitem">Add Shedule</a>
+                                <a href="{{ route('calendar') }}" class="dropdownitem">Add Shedule</a>
                             </li>
                         </ul>
                     </div>

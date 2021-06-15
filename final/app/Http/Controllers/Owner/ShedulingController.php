@@ -17,8 +17,37 @@ use Illuminate\Support\Facades\DB;
 class ShedulingController extends Controller
 {
     public function index(){
+        // active(upcomming) = 1
+        // canceled = 0
+        // complete = 2
+        // uncomplate = 3
+
+        $from = date('Y-m-01');
+        $to = date('Y-m-t');
+        $current = date('Y-m-d');
+        $prevhour = date('H') - 1;
+        $currenthour = date('H');
+
+        $check = OwnerShedule::select('id')->whereBetween('date', [$from, $current])->where('shedule_status', '=', 1)->get();
+
+        if(count($check) > 0){
+            foreach ($check as $key => $value) {
+                $result = OwnerShedule::find($value->id);
+                $result->shedule_status = 3;
+                $result->color = "#831D26";
+                $result->textColor = "#FFFFFF";
+                $result->save();
+            }
+        }
+
         $shedules = OwnerShedule::where('shedule_status', '=', 1)->with('SheduledStudents')->get();
-        return view('owner.sheduling.shedulelist', compact('shedules'));
+        $totalshedules = OwnerShedule::whereBetween('date', [$from, $to])->get();
+        $complateshedules = OwnerShedule::where('shedule_status', '=', 2)->get();
+        $canceledshedules = OwnerShedule::where('shedule_status', '=', 0)->get();
+        $upcommingshedule = OwnerShedule::whereBetween('date', [$current , $to])->get();
+        $uncompleteshedules = OwnerShedule::where('shedule_status', '=', 3)->get();
+        return view('owner.sheduling.shedulelist', compact('shedules', 'totalshedules', 'complateshedules', 'canceledshedules', 'upcommingshedule', 'uncompleteshedules'));
+        return count($upcommingshedule);
     }
 
     public function addshedule(){
@@ -26,7 +55,7 @@ class ShedulingController extends Controller
     }
 
     public function allevents(){
-        $shedules = OwnerShedule::where('shedule_status', '=', 1)->get();
+        $shedules = OwnerShedule::all();
         return response()->json($shedules);
     }
 
@@ -44,7 +73,7 @@ class ShedulingController extends Controller
 
         if($result >= 0){
             return view('owner.sheduling.settimeslot', ['date' => $date, 'timeslots' => $timeslots, 'shedules' => $shedulescount, 'timeslotscount' => $timeslotscount]);
-            // return $timeslotscount;
+            // return $shedulescount;
         }else{
             return back()->with('errormsg', 'Cannot add Shedule for previous Day !!');
         }
@@ -59,7 +88,7 @@ class ShedulingController extends Controller
         $shedule = new OwnerShedule;
         $shedule_std = new SheduledStudents;
 
-        $shedule->shedule_name = $request->shedulename;
+        $shedule->title = $request->shedulename;
         $shedule->date = $request->date;
         $shedule->time = $request->time;
         $shedule->lesson_type = $request->lessontype;
@@ -77,44 +106,78 @@ class ShedulingController extends Controller
                     return back()->with('studenterror', 'You have to select an Students !!');
                 }else{
 
-                    $check = [];
-                    $date = $request->date;
-                    foreach ($select_students as $select_std) {
-                        $result = OwnerShedule::with('sheduledstudents')->whereHas("sheduledstudents",
-                            function ($query) use ($date, $select_std) {
-                                $query->where("date",$date)->where('student_id', $select_std);
-                            }
-                        )->count();
-                        $check[$select_std] = $result;
+                    $shedule->instructor = $select_instructor[0];
+                    $shedule->save();
+
+                    $students = [];
+                    foreach($select_students as $student){
+                        $students[] = [
+                            'student_id' => $student
+                        ];
                     }
 
-                    $message = '';
-                    foreach($check as $s_id => $value){
-                        if($value == 1){
-                            $message = $message." Student $s_id has another session on this day !!\n\n";
-                        }
-                    }
+                    $shedule->sheduledstudents()->createMany($students);
 
-                    if(strlen($message) != 0){
-                        return back()->with('chooseerror', $message);
-                    }else{
-                        $shedule->instructor = $select_instructor[0];
-                        $shedule->save();
-
-                        $students = [];
-                        foreach($select_students as $student){
-                            $students[] = [
-                                'student_id' => $student
-                            ];
-                        }
-
-                        $shedule->sheduledstudents()->createMany($students);
-
-                        return redirect()->route('ownershedulelist')->with('successmsg', 'Shedule Created Seccessfuly !!');
-                    }
+                    return redirect()->route('ownershedulelist')->with('successmsg', 'Shedule Created Seccessfuly !!');
                 }
             }
         }
+    }
+
+    // validate time slot
+    public function setsheduletime(Request $request){
+        $currentdate = date('Y-m-d');
+        $date = $request->date;
+
+        $instructors = Instructor::with('user')->get();
+
+        $students_id = OwnerShedule::with('sheduledstudents')->where('date', $date)->get();
+
+        $studentwithshedule = [];
+        foreach ($students_id as $key => $value) {
+            foreach ($value->sheduledstudents as $id) {
+                $studentwithshedule[] = $id->student_id;
+            }
+        }
+
+        $havesheduled = collect($studentwithshedule);
+
+        if (count($studentwithshedule) > 0) {
+            $filterstudents = Student::with('user')->whereNotIn('user_id', $havesheduled)->get();
+            if (count($filterstudents) == 0) {
+                return redirect()->route('calendar')->with('errormessage', 'Cannot add new shedule on this day becouse of all student have session on this day !!');
+            }else{
+                $students = $filterstudents;
+            }
+        }else{
+            $students = Student::with('user')->get();
+        }
+
+        if ($request->has('slotdivider')) {
+            $custome_slot_name = $request->customeslotname;
+            $custome_time_slot = $request->custometime;
+            if ($custome_time_slot == '') {
+                return back()->with('errormessage', 'If you choose custome slot you have to enter time slot !!');
+            }else{
+                $time = $request->custometime;
+                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
+                // return $students;
+            }
+        }else{
+            $slot = $request->slottime;
+            if($slot == ''){
+                return back()->with('errormessage', 'Please choose time slot or define custome one !!');
+            }else{
+                $time = $slot[0];
+                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
+                // return $students;
+            }
+        }
+    }
+
+    public function viewdetails($id){
+        $shedule = OwnerShedule::find($id)->with('SheduledStudents')->get();
+        return view('owner.sheduling.viewsheduledetails', compact('shedule'));
     }
 
 }

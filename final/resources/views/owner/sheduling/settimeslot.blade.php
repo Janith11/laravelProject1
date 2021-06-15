@@ -75,7 +75,18 @@
             </svg>
         </a>
         <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> > Shedule List</a>
-        <a href="{{ route('owneraddshedule') }}" style="padding-top: 6px; padding-left: 10px"> >  Calendar</a>
+        <a href="{{ route('calendar') }}" style="padding-top: 6px; padding-left: 10px"> >  Calendar</a>
+    </div>
+
+    <div class="row mb-2">
+        @if(session('errormessage'))
+            <div class="alert alert-danger" role="alert" style="width: 100%">
+                {{ session('errormessage') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
     </div>
 
     <div class="row mb-2" style="padding-top: 10px">
@@ -84,7 +95,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3">
-                            <a href="{{ route('owneraddshedule') }}" type="button" class="btn" style="background-color: lightgray; border: none; border-radius: 50%">
+                            <a href="{{ route('calendar') }}" type="button" class="btn" style="background-color: lightgray; border: none; border-radius: 50%">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-calendar-event" viewBox="0 0 16 16" >
                                     <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
                                     <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
@@ -132,29 +143,29 @@
                     <div class="row">
                         <div class="col-sm-6">
                             @foreach ($timeslotscount as $slotcount)
+                            <form action="{{ route('setsheduletime') }}" method="POST">
+                                @csrf
                                 @if ($slotcount->timeslots_count == 0)
                                     <h5 style="color: #222944">You have not define any time slot for {{ $slotcount->day_name }}, <a href="{{ route('timetable') }}">create</a></h5>
                                 @else
-                                <form action="">
-                                @foreach ($timeslots as $timeslot)
-                                    <h5 style="color: #222944">defined time slots on {{ $timeslot->day_name }} </h5>
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            @foreach ($timeslot->timeslots as $time)
-                                            <tr>
-                                                <th>{{ $time->slot_name }}</th>
-                                                <td>{{ $time->time_slot }}</td>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="slottime" id="" value="{{ $time->slot_time }}">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                @endforeach
-                                </form>
+                                    @foreach ($timeslots as $timeslot)
+                                        <h5 style="color: #222944">Choose time slots on {{ $timeslot->day_name }} </h5>
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                @foreach ($timeslot->timeslots as $time)
+                                                <tr>
+                                                    <th>{{ $time->slot_name }}</th>
+                                                    <td>{{ $time->time_slot }}</td>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="slottime[]" id="radios" value="{{ $time->time_slot }}">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    @endforeach
                                 @endif
                             @endforeach
                         </div>
@@ -162,34 +173,45 @@
                             <div class="row">
                                 <h5 style="color: #222944; padding-right: 10px">Define Custome Slot</h5>
                                 <label class="switch">
-                                    <input type="checkbox" id="customslot">
+                                    <input type="checkbox" id="customslot" name="slotdivider" onclick="customeslot()">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
                             <div class="row">
-                                <div id="custome_slot">
+                                <div id="custome_slot" >
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Slot Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter slot name">
+                                        <input type="text" class="form-control" id="date" name="date" value="{{ $date }}" hidden>
                                     </div>
                                     <div class="form-group">
-                                          <label for="exampleInputPassword1">Password</label>
-                                          <input type="password" class="form-control" >
+                                          <label for="time">Time</label>
+                                          <input type="time" name="custometime" class="form-control" id="custometime" disabled>
                                     </div>
-                                    <div class="form-group form-check">
-                                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row justify-content-md-center">
+                        <button class="btn btn-primary" type="submit">Confirm Time Slot</button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function customeslot() {
+            var checkBox = document.getElementById("customslot");
+            var text = document.getElementById("text");
+            if (checkBox.checked == true){
+                document.getElementById('custometime').disabled = false;
+                $('input[name="slottime"]').attr('disabled', 'disabled');
+            } else {
+                document.getElementById('custometime').disabled = true;
+                $('input[name="slottime"]').removeAttr('disabled');
+            }
+        }
+    </script>
 
 </div>
 @endsection
