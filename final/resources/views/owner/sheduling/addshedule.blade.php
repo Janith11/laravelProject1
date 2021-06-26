@@ -40,12 +40,14 @@
         <div class="card" style="width: 100%; border-radius: 10px">
             <div class="card-header">
                 <div class="row justify-content-md-center">
-                    <div style="height: 15px; width: 15px; background-color: #90EE90; border-radius: 50%; display: inline-block;padding-left: 10px;"></div>
+                    <div style="height: 15px; width: 15px; background-color: #78E9F1; border-radius: 50%; display: inline-block;padding-left: 10px;"></div>
                     <h6 style="padding-left: 10px; padding-right: 10px">Upcomming</h6>
-                    <div style="height: 15px; width: 15px; background-color: #3853EC; border-radius: 50%; display: inline-block;padding-left: 10px"></div>
+                    <div style="height: 15px; width: 15px; background-color: #1BEC49; border-radius: 50%; display: inline-block;padding-left: 10px"></div>
                     <h6 style="padding-left: 10px; padding-right: 10px">Complete</h6>
-                    <div style="height: 15px; width: 15px; background-color: #FF6D68; border-radius: 50%; display: inline-block;padding-left: 10px"></div>
-                    <h6 style="padding-left: 10px; padding-right: 10px">Uncomplete</h6>
+                    <div style="height: 15px; width: 15px; background-color: #E47C06; border-radius: 50%; display: inline-block;padding-left: 10px"></div>
+                    <h6 style="padding-left: 10px; padding-right: 10px">Incomplete</h6>
+                    <div style="height: 15px; width: 15px; background-color: #520505; border-radius: 50%; display: inline-block;padding-left: 10px"></div>
+                    <h6 style="padding-left: 10px; padding-right: 10px">Cancel</h6>
                 </div>
             </div>
             <div class="card-body">

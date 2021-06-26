@@ -7,7 +7,7 @@ use phpDocumentor\Reflection\Types\This;
 
 class SheduledStudents extends Model
 {
-    protected $fillable = ['student_id'];
+    protected $fillable = ['shedule_id','student_id'];
 
     // make relation between sheeduledstudents and ownershedule model
     public function ownershedule(){
