@@ -179,6 +179,7 @@
                                     <th scope="col">Profile</th>
                                     <th scope="col">Contact Number</th>
                                     <th scope="col">Vehicle Types</th>
+                                    <th scope="col">Work hours</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -190,12 +191,12 @@
                                             <input class="form-check-input position-static" type="checkbox" value="{{ $instructor->user_id }}" name="instructor[]">
                                         </div>
                                     </th>
-                                    <td class="setwidth">
+                                    <td>
                                         <div class="row">
-                                            <div class="col-4 m-n1 p-0 ">
-                                                <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar">
+                                            <div style="display: inline-block">
+                                                <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="profile image">
                                             </div>
-                                            <div class="col-sm">
+                                            <div style="display: inline-block; padding-left: 10px; vertical-align: middle">
                                                 <h6>{{$instructor->user->f_name }} {{$instructor->user->l_name}}</h6>
                                                 <p>{{ $instructor->user->email}}</p>
                                             </div>
@@ -208,6 +209,9 @@
                                                 <li>{{ vehicletype }}</li>
                                             @endforeach --}}
                                         </ul>
+                                    </td>
+                                    <td>
+                                        work hours
                                     </td>
                                     <td style="text-align: center; vertical-align: middle">
                                         <a href="">
@@ -279,12 +283,12 @@
                                     <td scope="row" style="text-align: center; vertical-align: middle">
                                         <input class="form-check-input position-static" type="checkbox" value="{{ $student->user_id }}" name="students[]">
                                     </td>
-                                    <td class="setwidth">
+                                    <td>
                                         <div class="row">
-                                            <div class="col-4 m-n1 p-0 ">
-                                                <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar">
+                                            <div style="display: inline-block">
+                                                <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="profile image">
                                             </div>
-                                            <div class="col-sm">
+                                            <div style="display: inline-block; padding-left: 10px; vertical-align: middle">
                                                 <h6>{{$student->user->f_name }} {{$student->user->l_name}}</h6>
                                                 <p>{{ $student->user->email}}</p>
                                             </div>

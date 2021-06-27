@@ -18,4 +18,8 @@ class Student extends Model
     public function sheduledstudents(){
         return $this->hasMany(SheduledStudents::class, 'student_id', 'user_id');
     }
+
+    public function alertforstudents(){
+        return $this->hasMany(AlertForStudent::class, 'student_id', 'user_id');
+    }
 }

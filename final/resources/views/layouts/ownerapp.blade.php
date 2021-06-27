@@ -329,6 +329,7 @@ aside li.menu-label {
         /* color: #17252A; */
     }
 
+
     #item{
         padding: 0px;
         position: relative;
@@ -528,9 +529,9 @@ aside li.menu-label {
         /* padding: 16px 32px; */
     /* } */
 
-    .btn:hover{
+    /* .btn:hover{
         background-color: #215A9B
-    }
+    } */
 
     /* adding new style */
     .dropdown-container {
@@ -546,6 +547,18 @@ aside li.menu-label {
 
     .dropdounitem:hover{
         text-decoration: none;
+    }
+
+    #card{
+        padding-top: 10px;
+    }
+
+    .card{
+        border-radius: 10px;
+    }
+
+    .card-body{
+        border-radius: 10px;
     }
 
     </style>

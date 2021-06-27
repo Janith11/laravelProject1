@@ -91,6 +91,13 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/addshedule/settime','owner\ShedulingController@setsheduletime')->name('setsheduletime');
     Route::post('/addshedule/saveshedule', 'Owner\ShedulingController@saveshedule')->name('saveshedule');
     Route::get('/allevents', 'Owner\ShedulingController@allevents')->name('allevents');
+    Route::get('/shedulelist/postpond', 'owner\ShedulingController@postpond')->name('postpond');
+    Route::get('/shedulelist/cancel/{id}', 'owner\ShedulingController@cancel')->name('cancel');
+    Route::post('/shedulelist/cancel', 'owner\ShedulingController@updateascancel')->name('updateascancel');
+    Route::get('shedulelist/todayshedules', 'owner\ShedulingController@todayshedules')->name('todayshedules');
+    Route::get('shedulelist/allshedules', 'owner\ShedulingController@allshedules')->name('allshedules');
+    Route::get('shedulelist/todayshedules/markascomplete/{id}', 'owner\ShedulingController@markascomplete')->name('markascomplete');
+    Route::post('shedulelist/todayshedules/saveascomplete', 'owner\ShedulingController@saveascomplete')->name('saveascomplete');
 
     // session time table
     Route::get('/timetable', 'owner\TimeTableController@index')->name('timetable');

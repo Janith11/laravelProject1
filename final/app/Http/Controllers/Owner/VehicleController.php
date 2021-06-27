@@ -15,7 +15,7 @@ class VehicleController extends Controller
         if($vehicle_count > 0){
             return view('owner.vehicles', compact('vehicles', 'vehicle_count'));
         }else{
-            return view('owner.vehicles', ['vehicle_count' => 0, 'emptymsg' => 'helow']);
+            return view('owner.vehicles', ['vehicle_count' => 0, 'emptymsg' => 'hellow']);
         }
 
     }
