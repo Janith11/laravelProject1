@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use App\Student;
+use App\TrainingVehicleCategory;
 use App\User;
+use App\VehicleCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,19 +14,22 @@ class StudentsController extends Controller
 {
     public function index(){
         $students = Student::with('user')->get();
-        return view('owner\studentslist', compact('students'));
+        return view('owner.students.studentslist', compact('students'));
     }
 
     //return add student page (form)
     public function addstudent(){
-        return view('owner\addstudent');
+        $vehicle_category = VehicleCategory::all();
+        return view('owner.students.addstudent', compact('vehicle_category'));
     }
+
     // >> button result page
     public function viewstudent($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
-        return view('owner\viewstudent',compact('student'));
+        return view('owner.students.viewstudent',compact('student'));
 
     }
+
     //insert student in to databse
     public function insertstudent(Request $request){
 
@@ -39,41 +44,50 @@ class StudentsController extends Controller
             'addressnumber' => 'required',
             'addressstreatname' => 'required',
             'addresscity' => 'required',
-
             'birthday' => 'required|date',
         ]);
 
-        $user = new User;
+        $categories = $request->category;
+        if (empty($categories)) {
+            return back()->with('categoryerror', 'You nedd to select training categories !!');
+        }
 
-        $user->f_name = $request->firstname;
-        $user->m_name = $request->middlename;
-        $user->l_name = $request->lastname;
-        $user->nic_number = $request->nicnumber;
-        $user->email = $request->email;
-        $user->gender = $request->gender;
-        $user->contact_number = $request->contactnumber;
-        $user->address_no = $request->addressnumber;
-        $user->address_lineone = $request->addressstreatname;
-        $user->address_linetwo = $request->addresscity;
-        $user->dob = $request->birthday;
-        $user->password =bcrypt('123456789');
-        $user->profile_img= 'none';
+        $user = User::create([
+            'f_name' => $request->firstname,
+            'm_name' => $request->middlename,
+            'l_name' => $request->lastname,
+            'nic_number' => $request->nicnumber,
+            'email' => $request->email,
+            'gender' => $request->gender,
+            'contact_number' => $request->contactnumber,
+            'address_no' => $request->addressnumber,
+            'address_lineone' => $request->addressstreatname,
+            'address_linetwo' => $request->addresscity,
+            'dob' => $request->birthday,
+            'password' => bcrypt('123456789'),
+            'profile_img'=> 'default_profile.jpg'
+        ]);
 
+        $student = Student::create([
+            'user_id' => $user->id,
+            'total_fee' => 0,
+            'amount' => 0,
+        ]);
 
-        $user->save();
+        foreach ($categories as $category) {
+            $training_type = TrainingVehicleCategory::create([
+                'category_id' => $category,
+                'user_id' => $user->id,
+            ]);
+        }
 
-        $student = new Student;
-
-
-        $student->total_fee = 0;
-        $student->amount = 0;
-        $user->student()->save($student);
         return redirect()->route('addstudent')->with('successmsg', 'one student added successfuly !');
+
     }
 
     public function editstudent($user_id){
         $student = Student::where('user_id', '=',$user_id)->with('user')->get();
-        return view('owner.editstudent',compact('student'));
+        return view('owner.students.editstudent',compact('student'));
     }
 
     public function updatestudent(Request $request, $user_id){

@@ -2,6 +2,16 @@
 
 @section('content')
 
+<style>
+    #error{
+        background-color: #DA203FCC;
+        color: #222944;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+</style>
+
 <div class="container">
 
     <div class="row mb-2">
@@ -42,7 +52,7 @@
                     <form action="{{ route('updateascancel') }}" method="POST">
                         @csrf
                         @foreach ($shedule as $result)
-                            <input type="hidden" name="id" value="{{ $result->id }}">
+                            <input type="hidden" name="id" value="{{ $result->id }}" id="id">
                         @endforeach
                         <div class="form-group">
                             <label for="reson" style="color: #222944">Give a Reson, why do you cancel this shedule</label>
@@ -79,6 +89,16 @@
             }else{
                 document.getElementById('reson').innerHTML = "Unable to attend today's program due to a training vehicle was repaired";
             }
+        }
+    </script>
+
+    <script>
+        function send_data(){
+            var reson = document.getElementById('reson').value;
+            var shedule_id = document.getElementById('id').value;
+            let url = '{{ route("updateascancel", ["id" => ":id"]) }}';
+            url = url.replace(':id', shedule_id);
+            document.location.href=url;
         }
     </script>
 

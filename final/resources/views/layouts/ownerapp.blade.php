@@ -629,12 +629,21 @@ aside li.menu-label {
                         <i class="fa fa-caret-down" style="padding-left: 10px"></i>
                     </a>
                     <div class="dropdown-container">
-                        <ul style="list-style-type:disc;">
+                        <ul style="list-style-type:disc !important;">
                             <li>
                                 <a href="{{ route('ownershedulelist') }}" class="dropdownitem" >Shedule List</a>
                             </li>
                             <li>
                                 <a href="{{ route('calendar') }}" class="dropdownitem">Add Shedule</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('timetable') }}" class="dropdownitem">Time Slots</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('todayshedules') }}" class="dropdownitem">Today Shedule</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('allshedules') }}" class="dropdownitem">All Shedule</a>
                             </li>
                         </ul>
                     </div>
@@ -649,6 +658,12 @@ aside li.menu-label {
                 <li class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href=" {{ route('vehicles') }} "><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Vehicles</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=" {{ route('vehiclecategory') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Category</span>
                     </a>
                 </li>
 
