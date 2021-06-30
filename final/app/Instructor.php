@@ -11,4 +11,9 @@ class Instructor extends Model
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    // create relation between instructor and owner shedule
+    public function ownershedules(){
+        return $this->hasMany(OwnerShedule::class, 'instructor', 'user_id');
+    }
 }

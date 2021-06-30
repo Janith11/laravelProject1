@@ -66,6 +66,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/editinstructor/{user_id}', 'Owner\IntructorsController@editinstructor')->name('editinstructor');
     Route::post('/updateinstructor/{user_id}', 'Owner\IntructorsController@updateinstructor')->name('updateinstructor');
 
+    // students
     Route::get('/studentslist', 'Owner\StudentsController@index')->name('studentslist');
     Route::get('/addstudent', 'Owner\StudentsController@addstudent')->name('addstudent');
     Route::post('/addstudent', 'Owner\StudentsController@insertstudent')->name('insertstudent');
@@ -113,6 +114,15 @@ Route::middleware('checkrequest')->group(function(){
     Route::delete('/deletevehicles/{id}', 'Owner\VehicleController@deletevehicles')->name('deletevehicles');
     Route::post('/searchvehicle', 'Owner\VehicleController@searchvehicle')->name('searchvehicle');
 
+    // vehicle category
+    Route::get('/vehicle_category_list', 'owner\VehicleCategoryController@index')->name('vehiclecategory');
+    Route::get('/vehicle_category_list/add_category', 'owner\VehicleCategoryController@add')->name('addvehiclecategory');
+    Route::post('/vehicle_category_list/save_category', 'owner\VehicleCategoryController@savecategory')->name('savecategory');
+    Route::get('/vehicle_category_list/edit_category/{id}','owner\VehicleCategoryController@editcategory')->name('editcategory');
+    Route::post('/vehicle_category_list/update_category', 'owner\VehicleCategoryController@update_category')->name('updatecategory');
+    Route::delete('/vehicle_category_list/delete_category/{id}', 'owner\VehicleCategoryController@delete_category')->name('deletecategory');
+
+    // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
 });
 

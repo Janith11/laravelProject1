@@ -19,7 +19,13 @@ class Student extends Model
         return $this->hasMany(SheduledStudents::class, 'student_id', 'user_id');
     }
 
+    // create relation between alert for students
     public function alertforstudents(){
         return $this->hasMany(AlertForStudent::class, 'student_id', 'user_id');
+    }
+
+    // create relation between attendance
+    public function attendances(){
+        return $this->hasMany(Attendance::class, 'user_id', 'user_id');
     }
 }

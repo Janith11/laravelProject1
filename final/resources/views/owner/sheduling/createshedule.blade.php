@@ -211,14 +211,13 @@
                                         </ul>
                                     </td>
                                     <td>
-                                        work hours
-                                    </td>
-                                    <td style="text-align: center; vertical-align: middle">
-                                        <a href="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="vertical-align: middle">
-                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                            </svg>
-                                        </a>
+                                        @if(count($instructor->ownershedules) == 0)
+                                            free
+                                        @else
+                                            @foreach($instructor->ownershedules as $shedule)
+                                                {{ $shedule->time }}
+                                            @endforeach
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -295,13 +294,16 @@
                                         </div>
                                     </td>
                                     <td>{{ $student->user->contact_number}}</td>
-                                    <td>attendence here</td>
-                                    <td style="text-align: center; vertical-align: middle">
-                                        <a href="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-three-dots-vertical" viewBox="0 0 16 16" style="vertical-align: middle">
-                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                            </svg>
-                                        </a>
+                                    <td>
+                                        @if (count($student->attendances) == 0)
+                                            not attend
+                                        @else
+                                            @foreach($student->attendances as $attendance)
+                                                <ul>
+                                                    <li>{{ $attendance->date }}/{{ $attendance->attendance }}</li>
+                                                </ul>
+                                            @endforeach
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

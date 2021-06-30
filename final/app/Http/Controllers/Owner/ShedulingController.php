@@ -184,6 +184,7 @@ class ShedulingController extends Controller
                         $user_attendance = [
                             'shedule_id' => $shedule->id,
                             'user_id' => $user,
+                            'date' => $request->date,
                             'attendance' => 0,
                         ];
                         // insert attendance details
@@ -201,9 +202,12 @@ class ShedulingController extends Controller
     public function setsheduletime(Request $request){
         $currentdate = date('Y-m-d');
         $date = $request->date;
+        $first_day = date('m-01-Y');
+        $last_day = date('m-t-Y');
 
-        $instructors = Instructor::with('user')->get();
-        // $instructor_work_times = OwnerShedule::where()->whereBetween('date', [])->get();
+        $instructors = Instructor::with(['user', 'ownershedules' => function($query) use($date){
+            $query->where('date', $date);
+        }])->get();
 
         $students_id = OwnerShedule::with('sheduledstudents')->where('date', $date)->get();
 
@@ -217,7 +221,9 @@ class ShedulingController extends Controller
         $havesheduled = collect($studentwithshedule);
 
         if (count($studentwithshedule) > 0) {
-            $filterstudents = Student::with('user')->whereNotIn('user_id', $havesheduled)->get();
+            $filterstudents = Student::with(['user', 'attendances' => function($query) use($first_day, $last_day){
+                $query->whereBetween('date', [$first_day, $last_day]);
+            }])->whereNotIn('user_id', $havesheduled)->get();
             if (count($filterstudents) == 0) {
                 return redirect()->route('calendar')->with('errormessage', 'Cannot add new shedule on this day becouse of all student have session on this day !!');
             }else{
@@ -225,7 +231,12 @@ class ShedulingController extends Controller
                 // $student_attendance = Attendance::
             }
         }else{
-            $students = Student::with('user')->get();
+            // $students = Student::with(['user', 'attendances' => function($query) use($first_day, $last_day){
+            //     $query->where('attendance', 1);
+            // }])->get();
+            $students = Student::with(['user','attendances' => function($query) use($first_day, $last_day){
+                $query->where('attendance', 1);
+            }])->get();
         }
 
         if ($request->has('slotdivider')) {
@@ -244,8 +255,8 @@ class ShedulingController extends Controller
                 return back()->with('errormessage', 'Please choose time slot or define custome one !!');
             }else{
                 $time = $slot[0];
-                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
-                // return $students;
+                // return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
+                return $students;
             }
         }
     }
@@ -340,10 +351,12 @@ class ShedulingController extends Controller
         $attendance_list = Attendance::where('shedule_id', $id)->get();
         $attendances_list_id = [];
         foreach ($attendance_list as $attendance) {
-            $attendances_list_id[] = $attendance;
+            $attendances_list_id[] = $attendance->id;
         }
         foreach ($attendances_list_id as $id) {
-            Attendance::find($id)->delete();
+            $attend = Attendance::find($id);
+            $attend->attendance = 2;
+            $attend->save();
         }
 
         return redirect()->route('ownershedulelist')->with('successmsg', 'Sheduled cancel Successfully !! ');
