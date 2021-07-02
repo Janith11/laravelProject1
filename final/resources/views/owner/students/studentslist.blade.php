@@ -81,7 +81,7 @@
                                     </svg>
                                 </div>
                                 <div style="display: inline-block">
-                                    <h3 id="h">21432</h3>
+                                    <h3 id="h">{{ $requst_students }}</h3>
                                     <small>student requests</small>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                                     </svg>
                                 </div>
                                 <div style="display: inline-block">
-                                    <h3 id="h">21432</h3>
+                                    <h3 id="h">{{ $complete_students }}</h3>
                                     <small>finish course</small>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
                                     </svg>
                                 </div>
                                 <div style="display: inline-block">
-                                    <h3 id="h">21432</h3>
+                                    <h3 id="h">{{ count($students) - $complete_students }}</h3>
                                     <small>in progress</small>
                                 </div>
                             </div>

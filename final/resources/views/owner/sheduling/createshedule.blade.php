@@ -299,10 +299,21 @@
                                             not attend
                                         @else
                                             @foreach($student->attendances as $attendance)
-                                                <ul>
-                                                    <li>{{ $attendance->date }}/{{ $attendance->attendance }}</li>
-                                                </ul>
+                                                @php
+                                                    $time=strtotime($attendance->date);
+                                                    $month=date("F",$time);
+                                                    $year=date("Y",$time);
+                                                    $c_month = Date('M');
+                                                    $c_year = Date('Y');
+                                                    if (($month==$c_month) && ($year == $c_year)) {
+                                                        echo "<ul><li>
+                                                                $attendance->date / $attendance->attendance
+                                                        </li></ul>";
+                                                    }
+                                                @endphp
+
                                             @endforeach
+                                            not attend
                                         @endif
                                     </td>
                                 </tr>

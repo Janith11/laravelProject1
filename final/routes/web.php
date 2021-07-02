@@ -124,6 +124,11 @@ Route::middleware('checkrequest')->group(function(){
 
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
+    Route::post('/settings/savedetails', 'Owner\SettingController@savedetails')->name('savedetails');
+    Route::post('/settings/saveopnehours', 'Owner\SettingController@saveopenhours')->name('saveopenhours');
+    Route::post('/settings/savecompanylogo', 'Owner\SettingController@savelogo')->name('savelogo');
+    Route::post('/settings/saveshedulingtype', 'Owner\SettingController@changeshedulingtype')->name('changeshedulingtype');
+
 });
 
 

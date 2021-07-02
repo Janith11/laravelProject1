@@ -50,3 +50,7 @@ class User extends Authenticatable
     }
 
 }
+
+// pending = 0
+// active = 1
+// complete = 2

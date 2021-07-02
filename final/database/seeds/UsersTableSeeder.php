@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
             'address_no' => 'A10',
             'address_lineone' => 'payagala',
             'address_linetwo' => 'kaluthara',
-            'profile_img' => 'none',
+            'profile_img' => 'default_profile.jpg',
             'status' => '1',
         ]);
 
@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
             'address_no' => 'B/11',
             'address_lineone' => 'keselwaththa',
             'address_linetwo' => 'monaragala',
-            'profile_img' => 'none',
+            'profile_img' => 'default_profile.jpg',
             'status' => '1',
         ]);
 
@@ -62,7 +62,7 @@ class UsersTableSeeder extends Seeder
             'address_no' => '8/1',
             'address_lineone' => 'Araththana',
             'address_linetwo' => 'Mathugama',
-            'profile_img' => 'none',
+            'profile_img' => 'default_profile.jpg',
             'status' => '1',
         ]);
     }
