@@ -1,5 +1,6 @@
 <?php
 
+use App\ShedulingType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,9 @@ class DatabaseSeeder extends Seeder
                     StudentTableSeeder::class,
                     OwnerSheduleSeed::class,
                     WeekDaySeed::class,
-                    InstructorSeeder::class]);
+                    InstructorSeeder::class,
+                    CompanyDetailsSeeder::class,
+                    OpenHoursSeeder::class,
+                    ShedulingTypeSeeder::class]);
     }
 }

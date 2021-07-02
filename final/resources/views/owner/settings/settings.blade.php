@@ -1,0 +1,368 @@
+@extends('layouts.ownerapp')
+
+@section('content')
+
+<style>
+    #heding{
+        color: #222944;
+        font-weight: bold
+    }
+
+</style>
+
+<div class="container">
+
+    <div class="row mb-2">
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Settings</h5>
+        <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
+        <a href="{{ route('owner.ownerdashboad') }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
+                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+            </svg>
+        </a>
+        <a style="padding-top: 6px; padding-left: 10px"> / Settings</a>
+    </div>
+
+    <div class="row-mb-2">
+        @if(session('successmsg'))
+            <div class="alert alert-success" role="alert" style="width: 100%">
+                {{ session('successmsg') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
+
+    <div class="row-mb-2">
+        @if(session('error'))
+            <div class="alert alert-danger" role="alert" style="width: 100%">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
+
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="row-mb-2">
+        <div>
+            <button class="btn btn-primary" id="details">Company Details</button>
+            <button class="btn btn-primary" id="hours">Open Hours</button>
+            <button class="btn btn-primary" id="other">Other</button>
+        </div>
+    </div>
+
+    <div class="row-mb-2">
+        {{-- company details --}}
+        <div id="company_details">
+            <form action="{{ route('savedetails') }}" method="POST">
+                @csrf
+                <div id="card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 id="heding">Company Details</h5>
+                            <hr style="border: 0.5px solid #222944">
+                            @foreach($details as $detail)
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label id="heding">Company Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter name" name="c_name" value="{{ $detail->company_name }}" id="details">
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="heding">Company Email</label>
+                                        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="c_email" value="{{ $detail->email }}" id="details">
+                                    </div>
+                                    <div class="form-group">
+                                        <label id="heding">Contact Numer</label>
+                                        <input type="text" class="form-control"  placeholder="Contact Number" name="c_contact_number" value="{{ $detail->contact_number }}" id="details">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label id="heding">Company Address</label>
+                                        <input type="text" class="form-control"  placeholder="Address No." name="address_no" value="{{ $detail->address_no }}" id="details">
+                                        <small>address number</small>
+                                        <input type="text" class="form-control"  placeholder="Address Line One" name="address_lineone" value="{{ $detail->address_lineone }}" id="details">
+                                        <small>address line one</small>
+                                        <input type="text" class="form-control"  placeholder="Address Line Two" name="address_linetwo" value="{{ $detail->address_linetwo }}" id="details">
+                                        <small>address line two</small>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            <div class="row-mb-2">
+                                <div id="card">
+                                    <div class="text-center" >
+                                        <button type="submit" class="btn btn-success" id="save" >Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        {{-- open hours --}}
+        <div id="open_hours">
+            <div id="card">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('saveopenhours') }}" method="POST">
+                            @csrf
+                            <h5 id="heding">Open Hours</h5>
+                            <hr style="border: 0.5px solid #222944">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">From</th>
+                                            <th scope="col">To</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach($open_hours as $open_hour)
+                                            @if($open_hour->weekday_id == 1)
+                                                <tr>
+                                                    <th scope="col">Monday</th>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="monday_from" value="{{ $open_hour->from }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="monday_to" value="{{ $open_hour->to }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @elseif ($open_hour->weekday_id == 2)
+                                                <tr>
+                                                    <th scope="col">Tuesday</th>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="tuesday_from" value="{{ $open_hour->from }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="tuesday_to" value="{{ $open_hour->to }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @elseif ($open_hour->weekday_id == 3)
+                                                <tr>
+                                                    <th scope="col">Wednesday</th>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="wednesday_from" value="{{ $open_hour->from }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="wednesday_to" value="{{ $open_hour->to }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @elseif ($open_hour->weekday_id == 4)
+                                                <tr>
+                                                    <th scope="col">Thursday</th>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="thursday_from" value="{{ $open_hour->from }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="thursday_to" value="{{ $open_hour->to }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @elseif ($open_hour->weekday_id == 5)
+                                                <tr>
+                                                    <th scope="col">Friday</th>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="friday_from" value="{{ $open_hour->from }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="friday_to" value="{{ $open_hour->to }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @elseif ($open_hour->weekday_id == 6)
+                                                <tr>
+                                                    <th scope="col">Saturday</th>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="saturday_from" value="{{ $open_hour->from }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="saturday_to" value="{{ $open_hour->to }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @else
+                                                <tr>
+                                                    <th scope="col">Sunday</th>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="sunday_from" value="{{ $open_hour->from }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="time" class="form-control" name="sunday_to" value="{{ $open_hour->to }}" id="time">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row-mb-2">
+                                <div id="card">
+                                    <div class="text-center" >
+                                        <button type="submit" class="btn btn-success" id="time_save">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- other settings --}}
+        <div id="others">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div id="card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 id="heding">Company Logo</h5>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        @foreach($details as $detail)
+                                            <img src="/uploadimages/company_logo/{{$detail->logo}}" alt="company logo" class="img-thumbnail">
+                                        @endforeach
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <form action="{{ route('savelogo') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <input type="file" class="form-control-file" name="c_logo">
+                                                <small>The logo size should be 540x150</small>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-success" type="submit">Save Image</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div id="card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 id="heding">Sheduling Type</h5>
+                                <form action="{{ route('changeshedulingtype') }}" method="POST">
+                                    @csrf
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="shedule_type" value="1" id="one">
+                                        <label class="form-check-label">
+                                            By Owner
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="shedule_type"  value="2" id="two">
+                                        <label class="form-check-label">
+                                            Only Students
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <div id="card">
+                                            <button class="btn btn-success" type="submit">Change Type</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    $( document ).ready(function() {
+        // $('input').prop("disabled",true);
+        $('#open_hours').hide();
+        $('#others').hide();
+
+        if({{ $type }} == 1) {
+            $("#one").attr('checked', 'checked');
+        } else {
+            $("#two").attr('checked', 'checked');
+        }
+
+    });
+
+    // $('#edit').click(function(){
+    //     $('#save').removeAttr("disabled");
+    //     $("input[id = 'details']").removeAttr("disabled");
+    // });
+
+    // $('#time_edit').click(function(){
+    //     $('#time_save').removeAttr("disabled");
+    //     $("input[id = 'time']").removeAttr("disabled");
+    // });
+
+    $('#details').click(function(){
+        $('#company_details').show();
+        $('#open_hours').hide();
+        $('#others').hide();
+    });
+
+    $('#hours').click(function(){
+        $('#open_hours').show();
+        $('#company_details').hide();
+        $('#others').hide();
+    });
+
+    $('#other').click(function(){
+        $('#open_hours').hide();
+        $('#company_details').hide();
+        $('#others').show();
+    });
+
+</script>
+
+@endsection

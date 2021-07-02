@@ -221,22 +221,18 @@ class ShedulingController extends Controller
         $havesheduled = collect($studentwithshedule);
 
         if (count($studentwithshedule) > 0) {
-            $filterstudents = Student::with(['user', 'attendances' => function($query) use($first_day, $last_day){
-                $query->whereBetween('date', [$first_day, $last_day]);
-            }])->whereNotIn('user_id', $havesheduled)->get();
+            $filterstudents = Student::with(['user', 'attendances'])->whereNotIn('user_id', $havesheduled)->whereHas('user', function($query){
+                $query->where('status', 1);
+            })->get();
             if (count($filterstudents) == 0) {
                 return redirect()->route('calendar')->with('errormessage', 'Cannot add new shedule on this day becouse of all student have session on this day !!');
             }else{
                 $students = $filterstudents;
-                // $student_attendance = Attendance::
             }
         }else{
-            // $students = Student::with(['user', 'attendances' => function($query) use($first_day, $last_day){
-            //     $query->where('attendance', 1);
-            // }])->get();
-            $students = Student::with(['user','attendances' => function($query) use($first_day, $last_day){
-                $query->where('attendance', 1);
-            }])->get();
+            $students = Student::with(['user','attendances'])->whereHas('user', function($query){
+                $query->where('status', 1);
+            })->get();
         }
 
         if ($request->has('slotdivider')) {
@@ -255,8 +251,8 @@ class ShedulingController extends Controller
                 return back()->with('errormessage', 'Please choose time slot or define custome one !!');
             }else{
                 $time = $slot[0];
-                // return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
-                return $students;
+                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
+                // return $students;
             }
         }
     }
