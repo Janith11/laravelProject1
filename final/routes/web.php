@@ -138,5 +138,3 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/settings/saveshedulingtype', 'Owner\SettingController@changeshedulingtype')->name('changeshedulingtype');
 
 });
-
-
