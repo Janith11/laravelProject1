@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\AddStudentMiddleware;
 use App\Http\Middleware\CheckRequest;
+use App\Http\Middleware\StudentProfile;
 use App\Http\Middleware\InstructorMiddleware;
 use App\Http\Middleware\OwnerMiddleware;
 use App\Http\Middleware\StudentMiddleware;
@@ -73,7 +74,8 @@ class Kernel extends HttpKernel
         'checkrequest' => CheckRequest::class,
         'viewstudents' => ViewStudents::class,
         'viewinstructors' => ViewInstructors::class,
-        'addstudent' => AddStudentMiddleware::class
+        'addstudent' => AddStudentMiddleware::class,
+        'studentprofile'=> StudentProfile::class
     ];
 
     /**

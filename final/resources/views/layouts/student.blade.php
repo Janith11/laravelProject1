@@ -576,14 +576,14 @@ aside li.menu-label {
                     </a>
                 </li>
 
-                {{-- <li class="nav-item  mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('instructors') }}"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Instructors</span>
+               <li class="nav-item  mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('studentresults') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Exam Results</span>
                     </a>
                 </li>
 
 
-                <li class="menu-label">Students</li>
+                {{--  <li class="menu-label">Students</li>
                 <div class="dropdown-divider"></div>
 
                 <li class="nav-item mb-3" id="nav-item">

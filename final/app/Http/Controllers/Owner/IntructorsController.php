@@ -92,7 +92,7 @@ class IntructorsController extends Controller
             
             $user->save();    
         
-            return redirect()->route('instructors')->with('successmsg', 'Instructor was updated successfuly !');
+            return redirect()->route('instructors')->with('successmsg', 'Instructor is updated successfuly !');
     }
     
 }

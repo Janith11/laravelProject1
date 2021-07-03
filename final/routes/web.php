@@ -124,6 +124,19 @@ Route::middleware('checkrequest')->group(function(){
 
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
+
+    //exam
+    Route::get('/results','Owner\ExamController@index')->name('ownerexamresult');
+    Route::get('/editresults/{id}','Owner\ExamController@edit')->name('editexamlist');
+    Route::post('/editresults/save/{id}','Owner\ExamController@saveexamlist')->name('saveexamlist');
+    Route::get('/addresults/{id}','Owner\ExamController@addresults')->name('addnewexamresult');
 });
 
+   
+//Check and grouping all of the students
+    Route::middleware('studentprofile')->group(function(){
 
+        //examination results
+        Route::get('/results','Student\ExamresultController@index')->name('studentresults');
+
+    });
