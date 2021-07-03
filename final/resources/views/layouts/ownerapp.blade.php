@@ -668,6 +668,12 @@ aside li.menu-label {
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=" {{ route('allposts') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Posts</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href=" {{ route('settings') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Settings</span>
                     </a>

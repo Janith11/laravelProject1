@@ -122,6 +122,14 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/vehicle_category_list/update_category', 'owner\VehicleCategoryController@update_category')->name('updatecategory');
     Route::delete('/vehicle_category_list/delete_category/{id}', 'owner\VehicleCategoryController@delete_category')->name('deletecategory');
 
+    // post
+    Route::get('/post', 'owner\PostController@index')->name('allposts');
+    Route::get('/post/createpost', 'owner\PostController@makeposts')->name('createpost');
+    Route::post('/post/savepost', 'owner\PostController@savepost')->name('savepost');
+    Route::delete('/post/deletepost/{id}', 'owner\PostController@deletepost')->name('deletepost');
+    Route::get('/post/editpost/{id}', 'owner\PostController@editpost')->name('editpost');
+    Route::post('/post/updatepost', 'owner\PostController@updatepost')->name('updatepost');
+
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
     Route::post('/settings/savedetails', 'Owner\SettingController@savedetails')->name('savedetails');
