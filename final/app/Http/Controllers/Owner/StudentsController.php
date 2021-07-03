@@ -13,8 +13,16 @@ use Illuminate\Support\Facades\DB;
 class StudentsController extends Controller
 {
     public function index(){
-        $students = Student::with('user')->get();
-        return view('owner.students.studentslist', compact('students'));
+        $students = Student::with('user')->whereHas('user' , function($query){
+            $query->where('status', 1);
+        })->get();
+        $requst_students = Student::with('user')->whereHas('user', function($query){
+            $query->where('status', 0);
+        })->count();
+        $complete_students = Student::with('user')->whereHas('user', function($query){
+            $query->where('status', 2);
+        })->count();
+        return view('owner.students.studentslist', compact('students', 'requst_students', 'complete_students'));
     }
 
     //return add student page (form)
@@ -65,7 +73,8 @@ class StudentsController extends Controller
             'address_linetwo' => $request->addresscity,
             'dob' => $request->birthday,
             'password' => bcrypt('123456789'),
-            'profile_img'=> 'default_profile.jpg'
+            'profile_img' => 'default_profile.jpg',
+            'status' => 1
         ]);
 
         $student = Student::create([
@@ -104,24 +113,24 @@ class StudentsController extends Controller
             'birthday' => 'required|date',
         ]);
 
-            $user = User::find($user_id);
+        $user = User::find($user_id);
 
 
-            $user->f_name = $request->firstname;
-            $user->role_id = 2;
-            $user->m_name = $request->middlename;
-            $user->l_name = $request->lastname;
-            $user->nic_number = $request->nicnumber;
-            $user->gender = $request->gender;
-            $user->contact_number = $request->contactnumber;
-            $user->address_no = $request->addressnumber;
-            $user->address_lineone = $request->addressstreatname;
-            $user->address_linetwo = $request->addresscity;
-            $user->dob = $request->birthday;
+        $user->f_name = $request->firstname;
+        $user->role_id = 2;
+        $user->m_name = $request->middlename;
+        $user->l_name = $request->lastname;
+        $user->nic_number = $request->nicnumber;
+        $user->gender = $request->gender;
+        $user->contact_number = $request->contactnumber;
+        $user->address_no = $request->addressnumber;
+        $user->address_lineone = $request->addressstreatname;
+        $user->address_linetwo = $request->addresscity;
+        $user->dob = $request->birthday;
 
-            $user->save();
+        $user->save();
 
-            return redirect()->route('studentslist')->with('successmsg', 'Student was updated successfuly !');
+        return redirect()->route('studentslist')->with('successmsg', 'Student was updated successfuly !');
 
     }
 

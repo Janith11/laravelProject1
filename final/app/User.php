@@ -49,4 +49,12 @@ class User extends Authenticatable
         return $this->hasOne(Instructor::class, 'user_id', 'id');
     }
 
+    public function posts(){
+        return $this->hasMany(Posts::class, 'user_id', 'id');
+    }
+
 }
+
+// pending = 0
+// active = 1
+// complete = 2

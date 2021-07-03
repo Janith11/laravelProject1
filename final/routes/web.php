@@ -122,14 +122,31 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/vehicle_category_list/update_category', 'owner\VehicleCategoryController@update_category')->name('updatecategory');
     Route::delete('/vehicle_category_list/delete_category/{id}', 'owner\VehicleCategoryController@delete_category')->name('deletecategory');
 
+    // post
+    Route::get('/post', 'owner\PostController@index')->name('allposts');
+    Route::get('/post/createpost', 'owner\PostController@makeposts')->name('createpost');
+    Route::post('/post/savepost', 'owner\PostController@savepost')->name('savepost');
+    Route::delete('/post/deletepost/{id}', 'owner\PostController@deletepost')->name('deletepost');
+    Route::get('/post/editpost/{id}', 'owner\PostController@editpost')->name('editpost');
+    Route::post('/post/updatepost', 'owner\PostController@updatepost')->name('updatepost');
+
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
+
 
     //exam
     Route::get('/results','Owner\ExamController@index')->name('ownerexamresult');
     Route::get('/editresults/{id}','Owner\ExamController@edit')->name('editexamlist');
     Route::post('/editresults/save/{id}','Owner\ExamController@saveexamlist')->name('saveexamlist');
     Route::get('/addresults/{id}','Owner\ExamController@addresults')->name('addnewexamresult');
+
+    
+    Route::post('/settings/savedetails', 'Owner\SettingController@savedetails')->name('savedetails');
+    Route::post('/settings/saveopnehours', 'Owner\SettingController@saveopenhours')->name('saveopenhours');
+    Route::post('/settings/savecompanylogo', 'Owner\SettingController@savelogo')->name('savelogo');
+    Route::post('/settings/saveshedulingtype', 'Owner\SettingController@changeshedulingtype')->name('changeshedulingtype');
+
+
 });
 
    
