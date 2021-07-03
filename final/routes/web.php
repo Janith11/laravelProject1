@@ -132,9 +132,27 @@ Route::middleware('checkrequest')->group(function(){
 
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
+
+
+    //exam
+    Route::get('/results','Owner\ExamController@index')->name('ownerexamresult');
+    Route::get('/editresults/{id}','Owner\ExamController@edit')->name('editexamlist');
+    Route::post('/editresults/save/{id}','Owner\ExamController@saveexamlist')->name('saveexamlist');
+    Route::get('/addresults/{id}','Owner\ExamController@addresults')->name('addnewexamresult');
+
+
     Route::post('/settings/savedetails', 'Owner\SettingController@savedetails')->name('savedetails');
     Route::post('/settings/saveopnehours', 'Owner\SettingController@saveopenhours')->name('saveopenhours');
     Route::post('/settings/savecompanylogo', 'Owner\SettingController@savelogo')->name('savelogo');
     Route::post('/settings/saveshedulingtype', 'Owner\SettingController@changeshedulingtype')->name('changeshedulingtype');
 
+
 });
+
+//Check and grouping all of the students
+    Route::middleware('studentprofile')->group(function(){
+
+        //examination results
+        Route::get('/results','Student\ExamresultController@index')->name('studentresults');
+
+    });

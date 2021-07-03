@@ -16,10 +16,10 @@ class CreateExamsTable extends Migration
         Schema::create('exams', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->String('type');
-            $table->date('date');
-            $table->String('result');
-            $table->tinyInteger('attempt');
+            $table->String('type')->default('none');
+            $table->date('date')->nullable();
+            $table->String('result')->default('none');
+            $table->tinyInteger('attempt')->default(0);
             $table->timestamps();
         });
     }

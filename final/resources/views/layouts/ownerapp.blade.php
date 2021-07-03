@@ -618,6 +618,12 @@ aside li.menu-label {
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('ownerexamresult') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Exam result</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href="{{ route('payments') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Payments</span>
                     </a>
