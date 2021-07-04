@@ -1,4 +1,4 @@
-@extends('layouts.ownerapp')
+@extends('layouts.instructorapp')
 
 @section('content')
 
@@ -16,7 +16,7 @@
     <div class="row mb-2">
         <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Post</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
-        <a href="{{ route('owner.ownerdashboad') }}">
+        <a href="{{ route('instructor.instructordashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
@@ -27,7 +27,7 @@
     <div class="row-mb-2">
         <div class="row justify-content-end">
             <div id="card" style="padding-right: 15px">
-                <a type="button" class="btn btn-primary" href="{{ route('createpost') }}" >Create Post</a>
+                <a type="button" class="btn btn-primary" href="{{ route('instructorcreatepost') }}" >Create Post</a>
             </div>
         </div>
     </div>
@@ -37,6 +37,19 @@
             <div class="alert alert-success">
                 <h5>
                     {{ session('successmsg') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+        @endif
+    </div>
+
+    <div class="row-mb-2">
+        @if (session('errormsg'))
+            <div class="alert alert-success">
+                <h5>
+                    {{ session('errormsg') }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -87,7 +100,7 @@
                                     <div style="display: inline-block; padding-right: 10px">
                                         <div>
                                             <div style="display: inline-block">
-                                                <a href="{{ route('editpost', $post->id) }}">
+                                                <a href="{{ route('instructoreditpost', [$post->id, $post->user_id]) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
@@ -95,7 +108,7 @@
                                                 </a>
                                             </div>
                                             <div style="display: inline-block">
-                                                <form method="POST" action="{{ route('deletepost', $post->id) }}" id="delete-form-{{ $post->id }}" style="display: none">
+                                                <form method="POST" action="{{ route('instructordeletepost', [$post->id, $post->user_id]) }}" id="delete-form-{{ $post->id }}" style="display: none">
                                                     @csrf
                                                     @method('delete')
                                                 </form>
