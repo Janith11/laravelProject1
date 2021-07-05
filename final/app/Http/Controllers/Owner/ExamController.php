@@ -42,8 +42,31 @@ class ExamController extends Controller
     }
 
     public function addresults($user_id){
-        return ($user_id);
+        $student = Student::where('user_id','=',$user_id)->with('user')->get();
+        $examdetails = Student::where('user_id','=',$user_id)->with('exams')->get();
+        return view ('owner.exam.addexamlist', compact('student','examdetails'));
+    }
 
+    public function saveresults(Request $request){
+                
+        $this->validate($request,[
+            'userid'=>'required',
+            'type'=> 'required',
+            'date'=> 'required|date',
+            'result'=> 'required',
+            'attempt'=> 'required',
+        ]);
+   
+        $exam = Exam::create([
+        'user_id'=>$request->userid,
+        'type'=>$request->type,
+        'date'=>$request->date,
+        'result'=>$request->result,
+        'attempt'=>$request->attempt
+
+    ]);
+    return redirect()->route('ownerexamresult')->with('successmsg', 'Exam result is added successfully !');
+        
     }
  
 }

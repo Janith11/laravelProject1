@@ -95,13 +95,9 @@
                           </tr>
                         </tbody>
                     </table>
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                  <div class="card-body">
+
                     <h4 class="card-title">Classes</h4>
-                    <div class="table-responsive">
+                   
                     <table class="table mt-5">
                         <tbody>
                           <tr>
@@ -122,10 +118,54 @@
                           </tbody>
                       </table>
                     </div>
+                  
+                  </div>
+                </div>
+              </div>
+              @endforeach
+                          
+              
+              <div class="card mt-4 mb-2">
+                  
+                <div class="card-body">
+                    <h4 class="card-title">Exam Results</h4>
+                    @foreach ($examdetails as $examdetail)
+                    @foreach ($examdetail->exams as $exam)
+                       
+                    <div class="table-responsive">
+                   
+                      <table class="table mt-5">
+                       
+                      <tbody>
+                          <tr>
+                            <td scope="row">Type</td>
+                            <td><h5>{{ $exam->type }}</h5></td>
+                          </tr>
+                          <tr>
+                            <td scope="row">Exam date</td>
+                            <td><h5>{{ $exam->date }}</h5></td>
+                          </tr>
+                          <tr>
+                            <td scope="row">Result</td>
+                            <td><h5>{{ $exam->result }}</h5></td>
+                          </tr>
+                          <tr>
+                            <td scope="row">Attempt</td>
+                            <td><h5>{{ $exam->attempt }}</h5></td>
+                          </tr>
+                          <tr>
+                            <td scope="row"><a href="{{ route('editexamlist',$exam->user_id) }}" type="button" class="btn btn-primary">Edit Results</a></button></td>
+                            </tr>
+                          </tbody>
+                      </table>
+                    </div>
+                    @endforeach
+                    @endforeach
                   </div>
 
                 </div>
               </div>
+              
         </div>
       </div>
 
@@ -168,7 +208,7 @@
                 <td>Cash</td>
                 <td>15,000</td>
               </tr>
-              @endforeach
+              
             </tbody>
           </table>
             </div>

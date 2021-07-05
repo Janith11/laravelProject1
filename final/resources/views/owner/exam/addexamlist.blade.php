@@ -10,18 +10,7 @@
             </svg>
         </a>
     </div>
-
-    <div class="row mb-2 justify-content-end">
-        <div style="display: inline-block">
-            
-            <div style="display: inline-block">
-                <a href="{{ route('calendar') }}" type="button" class="btn btn-primary">Add New</a>
-            </div>
-            <div style="display: inline-block">
-                <a type="button" class="btn btn-primary" href="{{ route('timetable') }}">View Student</a>
-            </div>
-        </div>
-    </div>
+   
 
     <div class="row-mb-2">
         @if(session('successmsg'))
@@ -75,7 +64,7 @@
         <div id="card">
             <div class="card">
                 <div class="card-body">
-                    <h5 style="color: #222944; font-weight: bold">Student result sheet</h5>
+                    <h5 style="color: #222944; font-weight: bold">Add new result sheet</h5>
                     <hr style="border: 0.5px solid #222944">
                     <form >
 
@@ -106,18 +95,18 @@
                         </div>
                     </form>
                         @endforeach
-                    
+                         
+                        @foreach ($student as $s)
+                        <form action="{{ route('saveresults') }}" method="POST">     
                         
-                        @foreach ($examdetails as $examdetail)
-                        @foreach ($examdetail->exams as $exam)
-                        <form action="{{ route('saveexamlist',$exam->id) }}" method="POST"> 
                         @csrf
-                       
+                        <input type="text" name="userid" value="{{ $s->user_id}}" style="display: none">
+                        @endforeach
                         <div class="row">
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="attempt">Attempt</label>
-                                    <input type="text" name="attempt" class="form-control"  placeholder="Enter the attempt..." value="{{ $exam->attempt }}">
+                                    <input type="text" name="attempt" class="form-control"  placeholder="Enter the attempt...">
                                 </div>
                             </div>
                             
@@ -129,9 +118,9 @@
                                 <div class="form-group">
                                     <label for="result">Result</label>
                                     <select  class="form-control" name="result">
-                                        <option value= "pass" {{ 'pass' == $exam->result ? 'selected' : ''}} >Pass</option>
-                                        <option value= "fail" {{ 'fail' == $exam->result ? 'selected' : ''}}>Fail</option>
-                                        <option value= "none" {{ 'none' == $exam->result ? 'selected' : ''}}" >None</option>
+                                        <option value= "none" >None</option>
+                                        <option value= "pass">Pass</option>
+                                        <option value= "fail">Fail</option>
                                     </select>
                                 </div>
                             </div>
@@ -141,9 +130,9 @@
                                 <div class="form-group">
                                     <label for="type">Type</label>
                                     <select  class="form-control" name="type">
-                                        <option value= "theory" {{ 'theory' == $exam->type ? 'selected' : ''}} >Theory</option>
-                                        <option value= "practical" {{ 'practical' == $exam->type ? 'selected' : ''}} >Practical</option>
-                                        <option value= "none" {{ 'none' == $exam->type ? 'selected' : ''}} >None</option>
+                                        <option value= "none">None</option>
+                                        <option value= "theory">Theory</option>
+                                        <option value= "practical">Practical</option>
                                     </select>
                                 </div>
                             </div>
@@ -151,7 +140,7 @@
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="bithday">Exam date</label>
-                                    <input type="date" class="form-control" id="bithday" name="date" value="{{ $exam->date }}">
+                                    <input type="date" class="form-control" id="bithday" name="date">
                                 </div>
                             </div>
 
@@ -160,14 +149,13 @@
                         
                         <div class="row">
                             <div class="col-sm 4" id="register_form_item">
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-primary">Add Result</button>
                             </div>
                         </div>
 
                     </form>
                     <hr style="border: 0.5px solid #222944">
-                    @endforeach
-                    @endforeach
+                   
                 </div>
             </div>
         </div>

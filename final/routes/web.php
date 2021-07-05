@@ -131,10 +131,12 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/post/updatepost', 'owner\PostController@updatepost')->name('updatepost');
 
     //exam
-    Route::get('/results','Owner\ExamController@index')->name('ownerexamresult');
+    Route::get('/resultstest','Owner\ExamController@index')->name('ownerexamresult');
     Route::get('/editresults/{id}','Owner\ExamController@edit')->name('editexamlist');
     Route::post('/editresults/save/{id}','Owner\ExamController@saveexamlist')->name('saveexamlist');
     Route::get('/addresults/{id}','Owner\ExamController@addresults')->name('addnewexamresult');
+    Route::post('/addresults','Owner\ExamController@saveresults')->name('saveresults');
+    
 
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
@@ -153,3 +155,5 @@ Route::middleware('checkrequest')->group(function(){
         Route::get('/results','Student\ExamresultController@index')->name('studentresults');
 
     });
+
+

@@ -35,8 +35,8 @@
         font-family: 'Rubik', sans-serif;
         background: #F8F8F8;
         font-weight: 400;
-        color: #ffffff;
-        font-size: 14px;
+        color: #222222;
+        font-size: 16px;
         overflow-x: hidden;
 }
         a{
@@ -439,7 +439,7 @@ aside li.menu-label {
     }
 
     #card{
-        border-radius: 100px;
+        border-radius: 25px;
     }
 
     #page_header{
@@ -802,6 +802,9 @@ aside li.menu-label {
     <!-- main content -->
     <div class="main-content" style="background-color: #1776D2">
         @yield('content')
+    </div>
+    <div>
+        @yield('contenttwo')
     </div>
 
    </div>
