@@ -18,7 +18,7 @@
                 <a href="{{ route('addnewexamresult',$s->user_id) }}" type="button" class="btn btn-primary">Add New</a>
             </div>
             <div style="display: inline-block">
-                {{-- <a type="button" class="btn btn-primary" href="{{ route('timetable') }}">View Student</a> --}}
+                <a type="button" class="btn btn-primary" href="{{ route('viewstudent', $s->user_id) }}">View Student</a>
             </div>
             @endforeach
         </div>
@@ -163,8 +163,7 @@
                             <div class="col-sm 4" id="register_form_item">
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
-                        </div>
-
+                        </div>                       
                     </form>
                     <hr style="border: 0.5px solid #222944">
                     @endforeach

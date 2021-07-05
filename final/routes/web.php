@@ -136,6 +136,8 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/editresults/{id}','Owner\ExamController@edit')->name('editexamlist');
     Route::post('/editresults/save/{id}','Owner\ExamController@saveexamlist')->name('saveexamlist');
     Route::get('/addresults/{id}','Owner\ExamController@addresults')->name('addnewexamresult');
+    Route::post('/addresults','Owner\ExamController@saveresults')->name('saveresults');
+    
 
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
@@ -153,7 +155,11 @@ Route::middleware('studentprofile')->group(function(){
     //examination results
     Route::get('/results','Student\ExamresultController@index')->name('studentresults');
 
-});
+
+    });
+
+
+
 
 //instructor dashboad
 Route::middleware('instructordashboard')->group(function(){
@@ -167,3 +173,4 @@ Route::middleware('instructordashboard')->group(function(){
     Route::post('/posts/updatepost', 'Instructor\PostsController@updatepost')->name('instructorupdatepost');
 
 });
+

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Student;
 use App\TrainingVehicleCategory;
 use App\User;
+use App\Exam;
 use App\VehicleCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,8 @@ class StudentsController extends Controller
     // >> button result page
     public function viewstudent($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
-        return view('owner.students.viewstudent',compact('student'));
+        $examdetails = Student::where('user_id','=',$user_id)->with('exams')->get();
+        return view('owner.students.viewstudent',compact('student','examdetails'));
 
     }
 
