@@ -48,7 +48,6 @@ class PostController extends Controller
         foreach ($posts as $post) {
             $message = $post->message;
         }
-        // return $message;
         return view('owner.post.editpost', compact('posts', 'message'));
     }
 

@@ -13,6 +13,7 @@
 
 //use Illuminate\Routing\Route;
 
+use App\Instructor;
 use App\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -131,7 +132,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/post/updatepost', 'owner\PostController@updatepost')->name('updatepost');
 
     //exam
-    Route::get('/results','Owner\ExamController@index')->name('ownerexamresult');
+    Route::get('/resultstest','Owner\ExamController@index')->name('ownerexamresult');
     Route::get('/editresults/{id}','Owner\ExamController@edit')->name('editexamlist');
     Route::post('/editresults/save/{id}','Owner\ExamController@saveexamlist')->name('saveexamlist');
     Route::get('/addresults/{id}','Owner\ExamController@addresults')->name('addnewexamresult');
@@ -147,9 +148,22 @@ Route::middleware('checkrequest')->group(function(){
 });
 
 //Check and grouping all of the students
-    Route::middleware('studentprofile')->group(function(){
+Route::middleware('studentprofile')->group(function(){
 
-        //examination results
-        Route::get('/results','Student\ExamresultController@index')->name('studentresults');
+    //examination results
+    Route::get('/results','Student\ExamresultController@index')->name('studentresults');
 
-    });
+});
+
+//instructor dashboad
+Route::middleware('instructordashboard')->group(function(){
+
+    // posts
+    Route::get('/posts', 'Instructor\PostsController@index')->name('instructorpostlist');
+    Route::get('/posts/createpost', 'Instructor\PostsController@createposts')->name('instructorcreatepost');
+    Route::get('/posts/editpost/{id}/{user_id}', 'Instructor\PostsController@editposts')->name('instructoreditpost');
+    Route::delete('/posts/deletepost/{id}/{user_id}', 'Instructor\PostsController@deletepost')->name('instructordeletepost');
+    Route::post('/posts/savepost', 'Instructor\PostsController@savepost')->name('instructorsavepost');
+    Route::post('/posts/updatepost', 'Instructor\PostsController@updatepost')->name('instructorupdatepost');
+
+});
