@@ -72,20 +72,28 @@
                     <div id="card">
                         <div class="card border-dark">
                             <div class="card-header" style="background-color: #222944 !important; color: white; border-radius: 10px 10px 0px 0px">
-                                <div>
-                                    <div style="display: inline-block">
-                                        <img src="/uploadimages/owner_profile/{{ $post->user->profile_img }}" alt="profile image">
-                                    </div>
-                                    <div style="display: inline-block;padding-left: 10px">
-                                        <h5> {{ $post->user->f_name }} {{ $post->user->l_name }} <small>
-                                                @if($post->user->role_id == 1)
-                                                    ( owner )
-                                                @else
-                                                    ( instructor )
-                                                @endif
-                                            </small>
-                                        </h5>
-                                    </div>
+                                <div style="display: inline-flex">
+                                    @if($post->user->role_id == 1)
+                                        <div style="display: inline-block">
+                                            <img src="/uploadimages/owner_profile/{{ $post->user->profile_img }}" alt="profile image">
+                                        </div>
+                                        <div style="display: inline-block;padding-left: 10px">
+                                            <h5>
+                                                {{ $post->user->f_name }} {{ $post->user->l_name }}
+                                            </h5>
+                                            <small> ( owner )</small>
+                                        </div>
+                                    @else
+                                        <div style="display: inline-block">
+                                            <img src="/uploadimages/instructors_profiles/{{ $post->user->profile_img }}" alt="profile image">
+                                        </div>
+                                        <div style="display: inline-block;padding-left: 10px">
+                                            <h5>
+                                                {{ $post->user->f_name }} {{ $post->user->l_name }}
+                                            </h5>
+                                            <small>( instructor )</small>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card-body">
