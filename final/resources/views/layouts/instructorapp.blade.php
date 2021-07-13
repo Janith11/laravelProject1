@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.css">
 
 
+        {{-- csrf token added janith --}}
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
         body {
@@ -601,6 +603,12 @@ aside li.menu-label {
                     </a>
                 </li>
 
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=" {{ route('instructorchat') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Chat</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
     </aside>
@@ -741,14 +749,14 @@ aside li.menu-label {
     // Jquery start
     $(document).ready(function() {
     // sidebar - scroll container
-    $('.slimscroll-menu').slimscroll({
-        height: 'auto',
-        position: 'right',
-        size: "3px",
-        color: '#9ea5ab',
-        wheelStep: 5,
-        touchScrollStep: 50
-    });
+    // $('.slimscroll-menu').slimscroll({
+    //     height: 'auto',
+    //     position: 'right',
+    //     size: "3px",
+    //     color: '#9ea5ab',
+    //     wheelStep: 5,
+    //     touchScrollStep: 50
+    // });
     $('aside a').each(function() {
     if ($(this).attr('href') == window.location.pathname) {
         $(this).addClass('active');

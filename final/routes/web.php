@@ -146,9 +146,15 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/settings/savecompanylogo', 'Owner\SettingController@savelogo')->name('savelogo');
     Route::post('/settings/saveshedulingtype', 'Owner\SettingController@changeshedulingtype')->name('changeshedulingtype');
 
+    // owner chat
+    Route::get('/owner/chat', 'Owner\ChatController@index')->name('ownerchat');
+    Route::get('/contacts', 'Owner\ChatController@get');
+    Route::get('/conversation/{id}', 'Owner\ChatController@getMessagesFor');
+    Route::post('/conversation/send', 'Owner\ChatController@send');
 
+   
 });
-
+ 
 //Check and grouping all of the students
 Route::middleware('studentprofile')->group(function(){
 
@@ -172,5 +178,11 @@ Route::middleware('instructordashboard')->group(function(){
     Route::post('/posts/savepost', 'Instructor\PostsController@savepost')->name('instructorsavepost');
     Route::post('/posts/updatepost', 'Instructor\PostsController@updatepost')->name('instructorupdatepost');
 
+
+    //Chat
+    Route::get('/Ichat', 'Instructor\ChatController@index')->name('instructorchat');
+    Route::get('/contactsI', 'Instructor\ChatController@get');
+    Route::get('/conversationI/{id}', 'Instructor\ChatController@getMessagesFor');
+    Route::post('/conversationI/send', 'Instructor\ChatController@send');
 });
 

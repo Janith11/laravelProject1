@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
                     CompanyDetailsSeeder::class,
                     OpenHoursSeeder::class,
                     ShedulingTypeSeeder::class,
-                    ExamTableSeeder::class
+                    ExamTableSeeder::class,
+                    SheduledStudentSeed::class,
+                    
                 ]);
     }
 }
