@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js" integrity="sha512-37SbZHAnGzLuZV850k61DfQdZ5cnahfloYHizjpEwDgZGw49+D6oswdI8EX3ogzKelDLjckhvlK0QZsY/7oxYg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
@@ -26,6 +26,8 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.css">
 
+    {{-- csrf token added janith --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
     <style>
@@ -590,7 +592,7 @@ aside li.menu-label {
 
                 <!-- margin botton mb-5 added for the scroll testing -->
                 <li class="nav-item  mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('owner.ownerdashboad') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('owner.ownerdashboad') }}"><i class="fas fa-tachometer-alt"></i>
                         <span class="menu-title " id="item">Dashboard</span>
                     </a>
                 </li>
@@ -620,6 +622,12 @@ aside li.menu-label {
                 <li class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href="{{ route('ownerexamresult') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Exam result</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('ownerchat') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Chat</span>
                     </a>
                 </li>
 
@@ -859,16 +867,16 @@ aside li.menu-label {
 
 <script>
     // Jquery start
-    $(document).ready(function() {
+    // $(document).ready(function() {
     // sidebar - scroll container
-    $('.slimscroll-menu').slimscroll({
-        height: 'auto',
-        position: 'right',
-        size: "3px",
-        color: '#9ea5ab',
-        wheelStep: 5,
-        touchScrollStep: 50
-    });
+    // $('.slimscroll-menu').slimscroll({
+    //     height: 'auto',
+    //     position: 'right',
+    //     size: "3px",
+    //     color: '#9ea5ab',
+    //     wheelStep: 5,
+    //     touchScrollStep: 50
+    // });
     $('aside a').each(function() {
     if ($(this).attr('href') == window.location.pathname) {
         $(this).addClass('active');
@@ -895,7 +903,7 @@ aside li.menu-label {
     });
     // tooltip
     // $('[data-toggle="tooltip"]').tooltip();
-    });
+    // });
 </script>
 
 <script>
