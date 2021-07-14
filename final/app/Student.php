@@ -33,4 +33,9 @@ class Student extends Model
     public function exams(){
         return $this->hasMany(Exam::class, 'user_id','user_id');
     }
+
+    // training categories
+    public function trainingvahiclecategorys(){
+        return $this->hasMany(TrainingVehicleCategory::class, 'user_id', 'user_id');
+    }
 }

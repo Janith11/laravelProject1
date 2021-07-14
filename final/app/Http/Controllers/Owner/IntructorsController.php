@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Instructor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 class IntructorsController extends Controller
@@ -30,7 +31,7 @@ class IntructorsController extends Controller
             'addressnumber' => 'required',
             'addressstreatname' => 'required',
             'addresscity' => 'required',
-            
+
             'birthday' => 'required|date',
         ]);
 
@@ -47,13 +48,13 @@ class IntructorsController extends Controller
         $user->contact_number = $request->contactnumber;
         $user->address_no = $request->addressnumber;
         $user->address_lineone = $request->addressstreatname;
-        $user->address_linetwo = $request->addresscity;   
+        $user->address_linetwo = $request->addresscity;
         $user->dob = $request->birthday;
-        $user->password =bcrypt('123456789');
+        $user->password = Hash::make('123456789');
         $user->profile_img= 'none';
-       
-        $user->save();    
-                
+
+        $user->save();
+
         $user->instructor()->save($instructor);
         return redirect()->route('insertinstructor')->with('successmsg', 'one Instructor wasadded successfuly !');
     }
@@ -76,7 +77,7 @@ class IntructorsController extends Controller
         ]);
 
             $user = User::find($user_id);
-            
+
 
             $user->f_name = $request->firstname;
             $user->role_id = 2;
@@ -87,12 +88,12 @@ class IntructorsController extends Controller
             $user->contact_number = $request->contactnumber;
             $user->address_no = $request->addressnumber;
             $user->address_lineone = $request->addressstreatname;
-            $user->address_linetwo = $request->addresscity;   
+            $user->address_linetwo = $request->addresscity;
             $user->dob = $request->birthday;
-            
-            $user->save();    
-        
+
+            $user->save();
+
             return redirect()->route('instructors')->with('successmsg', 'Instructor is updated successfuly !');
     }
-    
+
 }
