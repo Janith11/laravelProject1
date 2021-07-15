@@ -6,9 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learners</title>
+
+    {{-- link for small calendar --}}
+    {{-- <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'> --}}
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script>
@@ -16,7 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     {{-- fontawesome icon link --}}
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    {{-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> --}}
 
 
     {{-- <link rel="preconnect" href="https://fonts.gstatic.com"> --}}
@@ -561,6 +566,11 @@ aside li.menu-label {
         border-radius: 10px;
     }
 
+    .btn{
+        border-radius: 50px !important;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
     </style>
     <style>
         .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20rem; }
@@ -585,7 +595,7 @@ aside li.menu-label {
             <!-- navigation -->
             <ul>
 
-                <li class="menu-label">Main</li>
+                {{-- <li class="menu-label">Main</li> --}}
                 <div class="dropdown-divider"></div>
 
                 <!-- margin botton mb-5 added for the scroll testing -->
@@ -596,8 +606,38 @@ aside li.menu-label {
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=""><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Attendance</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('instructorstudentslist') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Students</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('instructorshedulelist') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Shedules</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=""><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Salary</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href=" {{ route('instructorpostlist') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Posts</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=" {{ route('instructorprofile') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Profile</span>
                     </a>
                 </li>
 

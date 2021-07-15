@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('nic_number')->unique();
             $table->string('gender');
-            $table->integer('contact_number');
+            $table->string('contact_number');
             $table->date('dob');
             $table->string('address_no');
             $table->string('address_lineone');

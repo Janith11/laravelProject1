@@ -12,4 +12,9 @@ class VehicleCategory extends Model
     public function sessionhours(){
         return $this->hasMany(SessionHour::class, 'category_id', 'id');
     }
+
+    //training vehicle category
+    public function trainingvehiclecategorys(){
+        return $this->hasMany(TrainingVehicleCategory::class, 'category_id', 'id');
+    }
 }

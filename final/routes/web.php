@@ -61,6 +61,7 @@ Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewreque
 // create route group with middleware
 Route::middleware('checkrequest')->group(function(){
 
+    //instructors
     Route::get('/instructors', 'Owner\IntructorsController@index')->name('instructors');
     Route::get('/addinstructor', 'Owner\IntructorsController@addinstructor')->name('addinstructor');
     Route::post('/addinstructor', 'Owner\IntructorsController@insertinstructor')->name('insertinstructor');
@@ -98,11 +99,11 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/shedulelist/cancel', 'owner\ShedulingController@updateascancel')->name('updateascancel');
     Route::get('shedulelist/todayshedules', 'owner\ShedulingController@todayshedules')->name('todayshedules');
     Route::get('shedulelist/allshedules', 'owner\ShedulingController@allshedules')->name('allshedules');
-    Route::get('shedulelist/todayshedules/markascomplete/{id}', 'owner\ShedulingController@markascomplete')->name('markascomplete');
-    Route::post('shedulelist/todayshedules/saveascomplete', 'owner\ShedulingController@saveascomplete')->name('saveascomplete');
+    Route::get('shedulelist/todayshedules/markascomplete/{id}', 'Owner\ShedulingController@markascomplete')->name('markascomplete');
+    Route::post('shedulelist/todayshedules/saveascomplete', 'Owner\ShedulingController@saveascomplete')->name('saveascomplete');
 
     // session time table
-    Route::get('/timetable', 'owner\TimeTableController@index')->name('timetable');
+    Route::get('/timetable', 'Owner\TimeTableController@index')->name('timetable');
     Route::post('/timetable/addtimeslot', 'Owner\TimeTableController@inserttimeslot')->name('addtimeslot');
     Route::delete('/timetable/deleteslot/{id}', 'Owner\TimeTableController@deletetimeslot')->name('deletetimeslot');
 
@@ -116,20 +117,20 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/searchvehicle', 'Owner\VehicleController@searchvehicle')->name('searchvehicle');
 
     // vehicle category
-    Route::get('/vehicle_category_list', 'owner\VehicleCategoryController@index')->name('vehiclecategory');
-    Route::get('/vehicle_category_list/add_category', 'owner\VehicleCategoryController@add')->name('addvehiclecategory');
-    Route::post('/vehicle_category_list/save_category', 'owner\VehicleCategoryController@savecategory')->name('savecategory');
-    Route::get('/vehicle_category_list/edit_category/{id}','owner\VehicleCategoryController@editcategory')->name('editcategory');
-    Route::post('/vehicle_category_list/update_category', 'owner\VehicleCategoryController@update_category')->name('updatecategory');
-    Route::delete('/vehicle_category_list/delete_category/{id}', 'owner\VehicleCategoryController@delete_category')->name('deletecategory');
+    Route::get('/vehicle_category_list', 'Owner\VehicleCategoryController@index')->name('vehiclecategory');
+    Route::get('/vehicle_category_list/add_category', 'Owner\VehicleCategoryController@add')->name('addvehiclecategory');
+    Route::post('/vehicle_category_list/save_category', 'Owner\VehicleCategoryController@savecategory')->name('savecategory');
+    Route::get('/vehicle_category_list/edit_category/{id}','Owner\VehicleCategoryController@editcategory')->name('editcategory');
+    Route::post('/vehicle_category_list/update_category', 'Owner\VehicleCategoryController@update_category')->name('updatecategory');
+    Route::delete('/vehicle_category_list/delete_category/{id}', 'Owner\VehicleCategoryController@delete_category')->name('deletecategory');
 
     // post
-    Route::get('/post', 'owner\PostController@index')->name('allposts');
-    Route::get('/post/createpost', 'owner\PostController@makeposts')->name('createpost');
-    Route::post('/post/savepost', 'owner\PostController@savepost')->name('savepost');
-    Route::delete('/post/deletepost/{id}', 'owner\PostController@deletepost')->name('deletepost');
-    Route::get('/post/editpost/{id}', 'owner\PostController@editpost')->name('editpost');
-    Route::post('/post/updatepost', 'owner\PostController@updatepost')->name('updatepost');
+    Route::get('/post', 'Owner\PostController@index')->name('allposts');
+    Route::get('/post/createpost', 'Owner\PostController@makeposts')->name('createpost');
+    Route::post('/post/savepost', 'Owner\PostController@savepost')->name('savepost');
+    Route::delete('/post/deletepost/{id}', 'Owner\PostController@deletepost')->name('deletepost');
+    Route::get('/post/editpost/{id}', 'Owner\PostController@editpost')->name('editpost');
+    Route::post('/post/updatepost', 'Owner\PostController@updatepost')->name('updatepost');
 
     //exam
     Route::get('/resultstest','Owner\ExamController@index')->name('ownerexamresult');
@@ -146,6 +147,17 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/settings/savecompanylogo', 'Owner\SettingController@savelogo')->name('savelogo');
     Route::post('/settings/saveshedulingtype', 'Owner\SettingController@changeshedulingtype')->name('changeshedulingtype');
 
+    // attendances
+    Route::get('/attendanceslist', 'Owner\EmplooyeeAttendanceController@index')->name('attendanceslist');
+    Route::get('/attendanceslist/todayattendance', 'Owner\EmplooyeeAttendanceController@todayattendance')->name('todayattendance');
+    Route::post('/attendanceslist/checkin', 'Owner\EmplooyeeAttendanceController@savecheckin')->name('savecheckin');
+    Route::post('/attendanceslist/checkout', 'Owner\EmplooyeeAttendanceController@savecheckout')->name('savecheckout');
+    Route::post('/attendanceslist/absent', 'Owner\EmplooyeeAttendanceController@saveabsent')->name('saveabsent');
+
+    //employee leaves
+    Route::get('/leaverequest', 'Owner\LeaveController@leaverequest')->name('leaverequest');
+    Route::post('/leaverequest/accept', 'Owner\LeaveController@acceptrequest')->name('acceptrequest');
+    Route::post('/leaverequest/ignore', 'Owner\LeaveController@ignorerequest')->name('ignorerequest');
 
 });
 
@@ -164,6 +176,21 @@ Route::middleware('studentprofile')->group(function(){
 //instructor dashboad
 Route::middleware('instructordashboard')->group(function(){
 
+    //allevents
+    Route::post('/instructorallevents', 'Instructor\InstructorDashboadController@instructorallevents')->name('instructorallevents');
+
+    //shedules
+    Route::get('/sheduledetails/{id}', "Instructor\ShedulingController@todaysheduledetails")->name('instructortodayshedulesdetails');
+    Route::get('/reportattendance/{id}', 'Instructor\ShedulingController@reportattendance')->name('reportattendance');
+    Route::post('/informattendance', 'Instructor\ShedulingController@saveattendance')->name('informattendance');
+    Route::get('/sheduleslist', 'Instructor\ShedulingController@shedulepage')->name('instructorshedulelist');
+    Route::get('/sheduleslist/lastthirydays', 'Instructor\ShedulingController@lastthirtydays')->name('lastthirydays');
+    Route::get('/sheduleslist/lastsixmonth', 'Instructor\ShedulingController@lastsixmonth')->name('lastsixmonth');
+    Route::get('/sheduleslist/lastyear', 'Instructor\ShedulingController@lastyear')->name('lastyear');
+    Route::get('/sheduleslist/allshedules', 'Instructor\ShedulingController@allshedules')->name('instructorallshedules');
+    Route::get('/sheduleslist/calendar', 'Instructor\ShedulingController@calendar')->name('instructorcalendar');
+    Route::get('/sheduleslist/calendarevents', 'Instructor\ShedulingController@calendarevents')->name('instructorcalendarevents');
+
     // posts
     Route::get('/posts', 'Instructor\PostsController@index')->name('instructorpostlist');
     Route::get('/posts/createpost', 'Instructor\PostsController@createposts')->name('instructorcreatepost');
@@ -171,6 +198,17 @@ Route::middleware('instructordashboard')->group(function(){
     Route::delete('/posts/deletepost/{id}/{user_id}', 'Instructor\PostsController@deletepost')->name('instructordeletepost');
     Route::post('/posts/savepost', 'Instructor\PostsController@savepost')->name('instructorsavepost');
     Route::post('/posts/updatepost', 'Instructor\PostsController@updatepost')->name('instructorupdatepost');
+
+    // students
+    Route::get('/studentslists', 'Instructor\StudentController@index')->name('instructorstudentslist');
+    Route::get('/studentslists/details/{id}', 'Instructor\StudentController@details')->name('instructorstudentsdetails');
+
+    //instructor profile
+    Route::get('/instructorprofile', 'Instructor\ProfileController@index')->name('instructorprofile');
+    Route::post('/instructorprofile/update', 'Instructor\ProfileController@updateprofile')->name('updateinstructorprofile');
+    Route::post('/instructorprofile/updateprofileimage', 'Instructor\ProfileController@updateprofilepicture')->name('instructorupdateprofilepicture');
+    Route::get('/instructorprofile/changepassword', 'Instructor\ChangePasswordController@index')->name('instructorchangepassword');
+    Route::post('/instructorprofile/updatepassword', 'Instructor\ChangePasswordController@store')->name('updateinstructorpassword');
 
 });
 

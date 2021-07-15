@@ -561,6 +561,11 @@ aside li.menu-label {
         border-radius: 10px;
     }
 
+    .btn{
+        border-radius: 50px !important;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
     </style>
     <style>
         .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20rem; }
@@ -676,6 +681,12 @@ aside li.menu-label {
                 <li class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href=" {{ route('allposts') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Posts</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=" {{ route('attendanceslist') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Attendances</span>
                     </a>
                 </li>
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'm_name'  => 'Pramuditha',
             'l_name' => 'Silva',
             'email'   => 'janith@gmail.com',
-            'password' => bcrypt('rootowner'),
+            'password' => Hash::make('rootowner'),
             'nic_number' => '123456789',
             'gender' => 'male',
             'contact_number' => '0712447339',
@@ -36,7 +37,7 @@ class UsersTableSeeder extends Seeder
             'm_name'  => 'Udana',
             'l_name' => 'Jayasinghe',
             'email'   => 'anushka@gmail.com',
-            'password' => bcrypt('rootinstructor'),
+            'password' => Hash::make('rootinstructor'),
             'nic_number' => '789123456',
             'gender' => 'male',
             'contact_number' => '0712447339',
@@ -54,7 +55,7 @@ class UsersTableSeeder extends Seeder
             'm_name'  => 'Jayathilake',
             'l_name' => 'Mallawarachchi',
             'email'   => 'maleesha@gmail.com',
-            'password' => bcrypt('rootstudent'),
+            'password' => Hash::make('rootstudent'),
             'nic_number' => '987456321',
             'gender' => 'female',
             'contact_number' => '0712447339',

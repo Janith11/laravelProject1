@@ -53,6 +53,10 @@ class User extends Authenticatable
         return $this->hasMany(Posts::class, 'user_id', 'id');
     }
 
+    public function emplooyeeleaves(){
+        return $this->hasMany(EmplooyeeLeave::class, 'user_id', 'id');
+    }
+
 }
 
 // pending = 0
