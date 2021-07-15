@@ -21,4 +21,9 @@ class Instructor extends Model
     public function employeeatendancess(){
         return $this->hasMany(EmployeeAttendances::class, 'user_id', 'user_id');
     }
+
+    //relation with employee leaves
+    public function emplooyeeleaves(){
+        return $this->hasMany(EmplooyeeLeave::class, 'user_id', 'user_id');
+    }
 }
