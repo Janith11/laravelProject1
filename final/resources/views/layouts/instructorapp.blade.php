@@ -638,13 +638,14 @@ aside li.menu-label {
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-<<<<<<< HEAD
                     <a class="nav-link" href=" {{ route('instructorprofile') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Profile</span>
-=======
+                    </a>
+                </li>
+
+                <li  class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href=" {{ route('instructorchat') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Chat</span>
->>>>>>> Janith
                     </a>
                 </li>
 

@@ -43,11 +43,11 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-<<<<<<< HEAD
+
 // import Echo from 'laravel-echo'
-=======
+
 import Echo from 'laravel-echo'
->>>>>>> Janith
+
 
 window.Pusher = require('pusher-js');
 
