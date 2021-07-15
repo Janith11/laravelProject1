@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.css">
 
 
+        {{-- csrf token added janith --}}
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
         body {
@@ -636,8 +638,13 @@ aside li.menu-label {
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
+<<<<<<< HEAD
                     <a class="nav-link" href=" {{ route('instructorprofile') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Profile</span>
+=======
+                    <a class="nav-link" href=" {{ route('instructorchat') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Chat</span>
+>>>>>>> Janith
                     </a>
                 </li>
 

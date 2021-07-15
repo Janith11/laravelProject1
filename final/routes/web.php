@@ -147,6 +147,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/settings/savecompanylogo', 'Owner\SettingController@savelogo')->name('savelogo');
     Route::post('/settings/saveshedulingtype', 'Owner\SettingController@changeshedulingtype')->name('changeshedulingtype');
 
+
     // attendances
     Route::get('/attendanceslist', 'Owner\EmplooyeeAttendanceController@index')->name('attendanceslist');
     Route::get('/attendanceslist/todayattendance', 'Owner\EmplooyeeAttendanceController@todayattendance')->name('todayattendance');
@@ -159,15 +160,27 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/leaverequest/accept', 'Owner\LeaveController@acceptrequest')->name('acceptrequest');
     Route::post('/leaverequest/ignore', 'Owner\LeaveController@ignorerequest')->name('ignorerequest');
 
-});
+    // owner chat
+    Route::get('/owner/chat', 'Owner\ChatController@index')->name('ownerchat');
+    Route::get('/contacts', 'Owner\ChatController@get');
+    Route::get('/conversation/{id}', 'Owner\ChatController@getMessagesFor');
+    Route::post('/conversation/send', 'Owner\ChatController@send');
 
+
+   
+});
+ 
 //Check and grouping all of the students
 Route::middleware('studentprofile')->group(function(){
 
     //examination results
     Route::get('/results','Student\ExamresultController@index')->name('studentresults');
 
-
+    // Student chats
+    Route::get('/Schat', 'Student\ChatController@index')->name('studentchat');
+    Route::get('/contactsS', 'Student\ChatController@get');
+    Route::get('/conversationS/{id}', 'Student\ChatController@getMessagesFor');
+    Route::post('/conversationS/send', 'Student\ChatController@send');
     });
 
 
@@ -199,6 +212,7 @@ Route::middleware('instructordashboard')->group(function(){
     Route::post('/posts/savepost', 'Instructor\PostsController@savepost')->name('instructorsavepost');
     Route::post('/posts/updatepost', 'Instructor\PostsController@updatepost')->name('instructorupdatepost');
 
+
     // students
     Route::get('/studentslists', 'Instructor\StudentController@index')->name('instructorstudentslist');
     Route::get('/studentslists/details/{id}', 'Instructor\StudentController@details')->name('instructorstudentsdetails');
@@ -209,6 +223,12 @@ Route::middleware('instructordashboard')->group(function(){
     Route::post('/instructorprofile/updateprofileimage', 'Instructor\ProfileController@updateprofilepicture')->name('instructorupdateprofilepicture');
     Route::get('/instructorprofile/changepassword', 'Instructor\ChangePasswordController@index')->name('instructorchangepassword');
     Route::post('/instructorprofile/updatepassword', 'Instructor\ChangePasswordController@store')->name('updateinstructorpassword');
+
+    //Chat
+    Route::get('/Ichat', 'Instructor\ChatController@index')->name('instructorchat');
+    Route::get('/contactsI', 'Instructor\ChatController@get');
+    Route::get('/conversationI/{id}', 'Instructor\ChatController@getMessagesFor');
+    Route::post('/conversationI/send', 'Instructor\ChatController@send');
 
 });
 

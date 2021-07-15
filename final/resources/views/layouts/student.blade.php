@@ -29,6 +29,8 @@
     {{-- google fonts  --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
 
+      {{-- csrf token added janith --}}
+      <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
         body {
@@ -579,6 +581,12 @@ aside li.menu-label {
                <li class="nav-item  mb-3" id="nav-item">
                     <a class="nav-link" href="{{ route('studentresults') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Exam Results</span>
+                    </a>
+                </li>
+
+                <li class="nav-item  mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('studentchat') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Chat</span>
                     </a>
                 </li>
 

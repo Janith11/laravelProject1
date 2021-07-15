@@ -162,6 +162,7 @@
                                 <td>
                                     <div class="row">
                                         <div style="display: inline-block">
+                                            {{-- /uploadimages/students_profiles/default_image.jpg --}}
                                             <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="profile image">
                                         </div>
                                         <div style="display: inline-block; padding-left: 10px; vertical-align: middle">
