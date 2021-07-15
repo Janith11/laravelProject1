@@ -1,9 +1,9 @@
 <template>
     <div class="contact-lists">
-        <ul>
-            <li v-for="contact in sortedContacts" :key="contact.id" @click="selectContact(contact)" :class="{'selected': contact==selected}">
+        <ul class="list-group ">
+            <li class=" d-flex justify-content-between align-items-center" v-for="contact in sortedContacts" :key="contact.id" @click="selectContact(contact)" :class="{'selected': contact==selected}">
                 <div class="avatar">
-                    <img :src="contact.profile_image" :alt="contact.name">
+                    <img class="img-fluid " :src="'./uploadimages/students_profiles/default_profiles.jpg'" :alt="contact.name">
                 </div>
                 <div class="contact">
                     <p class="name">{{contact.f_name}}</p>
@@ -52,55 +52,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .contact-lists{
-        flex: 2;
-        max-height: 600px;
-        overflow: scroll;
-        border-left: 1px solid #979797;
-    }
-    ul{
-        list-style-type: none;
-        scroll-padding-left: 0;
+    // .contact-lists{
+    //     flex: 2;
+    //     max-height: 600px;
+    //     overflow: scroll;
+    //     border-right: 1px solid #979797;
+    // }
+    // ul{
+    //     list-style-type: none;
+    //     scroll-padding-left: 0;
         
-        li{
-            display: flex;
-            padding: 2px;
-            border-bottom: 1px solid #aaaaaa;
-            height:80px;
-            position:relative;
-            cursor: pointer;
+        
+    //     li{
+            
+    //         display: flex;
+    //         padding: 2px;
+    //         border-bottom: 1px solid #0b156e6b;
+    //         height:80px;
+    //         position:relative;
+    //         cursor: pointer;
+         
+    
+    //         &.selected{
+    //             background: rgba(27, 34, 139, 0.157);
+    //         }
+    
+    //         .avatar{
+    //             flex: 1;
+    //             display: flex;
+    //             align-items: center ;
 
-            &.selected{
-                background: rgb(190, 190, 190);
-            }
+    //             img{
+    //                 width: 35px;
+    //                 border-radius: 50%;
+    //                 margin: 0 auto ;
+    //             }
+    //         }
+    //         .contact{
+    //             flex: 3;
+    //             font-size: 12px;
+    //             overflow: hidden;
+    //             display: flex;
+    //             flex-direction: column;
+    //             justify-content: left ;
 
-            .avatar{
-                flex: 1;
-                display: flex;
-                align-items: center ;
+    //             p{
+    //                 margin: 0;
 
-                img{
-                    width: 35px;
-                    border-radius: 50%;
-                    margin: 0 auto ;
-                }
-            }
-            .contact{
-                flex: 3;
-                font-size: 12px;
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-                justify-content: center ;
-
-                p{
-                    margin: 0;
-
-                    &.name{
-                        font-weight: bold;
-                    }
-                }
-            }
-        }
-    }
+    //                 &.name{
+    //                     font-weight: bold;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 </style>

@@ -1,13 +1,13 @@
 <template>
 <div class="chat-app">
-    <ConversationI :contact="selectedContact" :messages="messages" @new="saveNewMessage"/>   
-    <ContactListI :contacts="contacts"  @selected="startConversationWith"/>
+    <ConversationS :contact="selectedContact" :messages="messages" @new="saveNewMessage"/>   
+    <ContactListS :contacts="contacts"  @selected="startConversationWith"/>
 </div>
 </template>
 
 <script>
-    import ConversationI from './ConversationI.vue';
-    import ContactListI from './ContactListI.vue';
+    import ConversationS from './ConversationS.vue';
+    import ContactListS from './ContactListS.vue';
 
     export default {
         
@@ -33,7 +33,7 @@
                 this.handleIncoming(e.message);
             });
             
-            axios.get('/contactsI')
+            axios.get('/contactsS')
                 .then((response) =>{
                      
                     this.contacts=response.data;
@@ -43,7 +43,7 @@
         methods: {
             startConversationWith(contact){
                 this.updateUnreadCount(contact, true);
-                axios.get(`/conversationI/${contact.id}`)
+                axios.get(`/conversationS/${contact.id}`)
                 .then((response) =>{
                     this.messages = response.data;
                     this.selectedContact = contact;
@@ -78,7 +78,7 @@
             }
 
         },
-        components:{ConversationI, ContactListI}
+        components:{ConversationS, ContactListS}
     }
 </script>
 

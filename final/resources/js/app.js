@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('chat-app', require('./components/ChatApp.vue').default);
 Vue.component('chat-instructor', require('./components/Instructor/ChatAppInstrctor.vue').default);
+Vue.component('chat-student', require('./components/Student/ChatAppStudent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

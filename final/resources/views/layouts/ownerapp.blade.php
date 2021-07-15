@@ -11,8 +11,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js" integrity="sha512-37SbZHAnGzLuZV850k61DfQdZ5cnahfloYHizjpEwDgZGw49+D6oswdI8EX3ogzKelDLjckhvlK0QZsY/7oxYg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js" integrity="sha512-37SbZHAnGzLuZV850k61DfQdZ5cnahfloYHizjpEwDgZGw49+D6oswdI8EX3ogzKelDLjckhvlK0QZsY/7oxYg==" crossorigin="anonymous"></script> --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     {{-- fontawesome icon link --}}
@@ -861,16 +862,17 @@ aside li.menu-label {
 
 <script>
     // Jquery start
-    // $(document).ready(function() {
+    $(document).ready(function() {
     // sidebar - scroll container
-    // $('.slimscroll-menu').slimscroll({
-    //     height: 'auto',
-    //     position: 'right',
-    //     size: "3px",
-    //     color: '#9ea5ab',
-    //     wheelStep: 5,
-    //     touchScrollStep: 50
-    // });
+    $('.slimscroll-menu').slimscroll({
+        height: 'auto',
+        position: 'right',
+        size: "3px",
+        color: '#9ea5ab',
+        wheelStep: 5,
+        touchScrollStep: 50
+    });
+
     $('aside a').each(function() {
     if ($(this).attr('href') == window.location.pathname) {
         $(this).addClass('active');
@@ -895,9 +897,9 @@ aside li.menu-label {
         $("aside").addClass("open-menu");
     }
     });
-    // tooltip
-    // $('[data-toggle="tooltip"]').tooltip();
-    // });
+
+  
+   });
 </script>
 
 <script>

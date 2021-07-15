@@ -1,7 +1,11 @@
 <template>
-<div class="chat-app">
-    <Conversation :contact="selectedContact" :messages="messages" @new="saveNewMessage"/>   
+<div class="chat-app row">
+    <div class="col-3">
     <ContactsList :contacts="contacts"  @selected="startConversationWith"/>
+    </div>
+    <div class="col-9">
+    <Conversation :contact="selectedContact" :messages="messages" @new="saveNewMessage"/>   
+    </div>
 </div>
 </template>
 
@@ -84,6 +88,7 @@
 
 <style lang="scss" scoped>
 .chat-app{
-    display: flex ;
+    // display: flex ;
+    background-color: rgba(1, 131, 143, 0.363);
 }
 </style>

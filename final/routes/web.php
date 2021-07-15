@@ -161,7 +161,11 @@ Route::middleware('studentprofile')->group(function(){
     //examination results
     Route::get('/results','Student\ExamresultController@index')->name('studentresults');
 
-
+    // Student chats
+    Route::get('/Schat', 'Student\ChatController@index')->name('studentchat');
+    Route::get('/contactsS', 'Student\ChatController@get');
+    Route::get('/conversationS/{id}', 'Student\ChatController@getMessagesFor');
+    Route::post('/conversationS/send', 'Student\ChatController@send');
     });
 
 

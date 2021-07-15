@@ -749,14 +749,14 @@ aside li.menu-label {
     // Jquery start
     $(document).ready(function() {
     // sidebar - scroll container
-    // $('.slimscroll-menu').slimscroll({
-    //     height: 'auto',
-    //     position: 'right',
-    //     size: "3px",
-    //     color: '#9ea5ab',
-    //     wheelStep: 5,
-    //     touchScrollStep: 50
-    // });
+    $('.slimscroll-menu').slimscroll({
+        height: 'auto',
+        position: 'right',
+        size: "3px",
+        color: '#9ea5ab',
+        wheelStep: 5,
+        touchScrollStep: 50
+    });
     $('aside a').each(function() {
     if ($(this).attr('href') == window.location.pathname) {
         $(this).addClass('active');

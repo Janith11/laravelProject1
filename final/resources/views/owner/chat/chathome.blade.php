@@ -10,13 +10,12 @@
  <script src="{{ asset('js/app.js') }}" defer></script>
 
 <div class="container">
-    <div id="app" id="card" style="height: 100vh">
-        <div class="card">
-            <h5 class="card-header">All Chat</h5>
-            <div class="card-body">
+    <div id="app"  >
+        <div class="card bg-primary">
+            <h5 class="card-header"></h5>
+            <div class="card-body bg-dark">
               <p class="card-text"></p>
-              <chat-app :user="{{ Auth::user() }}"><chat-app/>   
-              
+              <chat-app   :user="{{ Auth::user() }}"><chat-app/>   
             </div>
           </div>
     </div>

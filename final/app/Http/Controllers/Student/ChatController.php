@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Instructor;
+namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class ChatController extends Controller
 {
     public function index(){
-        return view('instructor.chat.instructorchat');
+        return view('student.chat.studentchathome');
     }
 
     public function get(){
