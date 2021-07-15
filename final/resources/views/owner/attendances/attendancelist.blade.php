@@ -32,6 +32,7 @@
         <div class="row justify-content-end">
             <div id="card">
                 <a href="{{ route('todayattendance') }}" type="button" class="btn btn-primary">Today</a>
+                <a href="{{ route('leaverequest') }}" type="button" class="btn btn-primary">Leave Request</a>
             </div>
         </div>
     </div>

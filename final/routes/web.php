@@ -148,6 +148,14 @@ Route::middleware('checkrequest')->group(function(){
     // attendances
     Route::get('/attendanceslist', 'Owner\EmplooyeeAttendanceController@index')->name('attendanceslist');
     Route::get('/attendanceslist/todayattendance', 'Owner\EmplooyeeAttendanceController@todayattendance')->name('todayattendance');
+    Route::post('/attendanceslist/checkin', 'Owner\EmplooyeeAttendanceController@savecheckin')->name('savecheckin');
+    Route::post('/attendanceslist/checkout', 'Owner\EmplooyeeAttendanceController@savecheckout')->name('savecheckout');
+    Route::post('/attendanceslist/absent', 'Owner\EmplooyeeAttendanceController@saveabsent')->name('saveabsent');
+
+    //employee leaves
+    Route::get('/leaverequest', 'Owner\LeaveController@leaverequest')->name('leaverequest');
+    Route::post('/leaverequest/accept', 'Owner\LeaveController@acceptrequest')->name('acceptrequest');
+    Route::post('/leaverequest/ignore', 'Owner\LeaveController@ignorerequest')->name('ignorerequest');
 
 });
 
