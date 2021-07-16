@@ -774,21 +774,34 @@ aside li.menu-label {
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="padding-right: 20px; font-size: 20px;">
-                                    {{ Auth::user()->f_name }}
-                                     <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background-color:#17252A;">
-
-                                    <!-- <div>
-                                        <div class="profile-picture">
-                                            <img id="img" src="https://images.unsplash.com/photo-1542103749-8ef59b94f47e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+                                {{-- id="navbarDropdown" --}}
+                                <a id="logout" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="padding-right: 20px; font-size: 20px;">
+                                    <div>
+                                        <div style="display: inline-block">
+                                            <img src="/uploadimages/owner_profile/{{ Auth::user()->profile_img }}" alt="Profile Img" class="rounded-circle border border-dark" style="width: 30px; height: auto;">
                                         </div>
-                                        <div class="username">
+                                        <div style="display: inline-block">
+                                            {{ Auth::user()->f_name }}
+                                            <span class="caret"></span>
+                                        </div>
+                                        <div style="display: inline-block">
+
+                                        </div>
+                                    </div>
+
+                                </a>
+                                {{--  --}}
+
+                                <div id="toggle" style="background-color:#17252A;" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <div>
+                                        <div style="display: inline-block">
+                                            <img id="img" src="/uploadimages/owner_profile/{{ Auth::user()->profile_img }}" alt="Profile Image">
+                                        </div>
+                                        <div style="display: inline-block">
                                             {{ Auth::user()->username }}
                                         </div>
-                                    </div> -->
+                                    </div>
 
                                     <div class="dropdown-divider"></div>
 
@@ -859,7 +872,6 @@ aside li.menu-label {
                             </li>
                         @endguest
                     </ul>
-
             </nav>
         </div>
     </header>
@@ -874,6 +886,10 @@ aside li.menu-label {
 <script>
     // Jquery start
     $(document).ready(function() {
+
+        // hide logout panel
+        $('#toggle').hide();
+
     // sidebar - scroll container
     $('.slimscroll-menu').slimscroll({
         height: 'auto',
@@ -909,7 +925,11 @@ aside li.menu-label {
     }
     });
 
-  
+
+   });
+
+   $('#logout').click(function(){
+        $('#toggle').toggle();
    });
 </script>
 
