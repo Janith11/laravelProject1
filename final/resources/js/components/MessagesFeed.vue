@@ -3,7 +3,8 @@
         <ul v-if="contact">
             <li v-for="message in messages" :class="`message${message.to == contact.id ? ' sent' : ' received'}`" :key="message.id">
                 <div class="text">
-                    {{ message.text }}
+                    {{ message.text }} <br>
+                    <small>{{message.created_at}}</small>
                 </div>
             </li>
         </ul>
@@ -41,7 +42,7 @@
 
 <style lang="scss" scoped>
     .feed{
-        background: rgb(228, 228, 228);
+        background: #F2F2F2;
         height: 100vh;
         max-height: 470px;
         overflow: scroll;
@@ -67,7 +68,8 @@
                         text-align: left;
 
                         .text{
-                            background: silver;
+                            background:#1776D2;
+                            color: beige;
                         }                       
                     }
 
@@ -81,8 +83,12 @@
                  }
             }
         }
-
-           
-
     }
+
+    @media only screen and (max-width: 600px) {
+        .feed{
+            max-height: 60vh;
+        }
+  }
+
 </style>

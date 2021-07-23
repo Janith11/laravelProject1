@@ -66,5 +66,23 @@ class UsersTableSeeder extends Seeder
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
         ]);
+
+        DB::table('users')->insert([
+            'role_id' => '4',
+            'f_name'  => 'Kamal',
+            'm_name'  => 'Chamara',
+            'l_name' => 'Addaraarachchi',
+            'email'   => 'kamal@gmail.com',
+            'password' => Hash::make('rootcandidate'),
+            'nic_number' => '987654321',
+            'gender' => 'female',
+            'contact_number' => '0712447338',
+            'dob' => '1990-5-31',
+            'address_no' => 'A16',
+            'address_lineone' => 'Amaya Road',
+            'address_linetwo' => 'Piliyandala',
+            'profile_img' => 'default_profile.jpg',
+            'status' => '1',
+        ]);
     }
 }

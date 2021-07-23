@@ -1,7 +1,9 @@
 @extends('layouts.ownerapp')
 @section('content')
 
-
+<style>
+  
+</style>
  
 
  {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
@@ -10,9 +12,10 @@
  <script src="{{ asset('js/app.js') }}" defer></script>
 
 <div class="container">
-    <div id="app"  >
-        <div class="card bg-primary">
-            <h5 class="card-header"></h5>
+  <h5>chat</h5>
+    <div id="app">
+        <div class="card bg-light">
+            {{-- <h5 class="card-header"></h5> --}}
             <div class="card-body bg-dark">
               <p class="card-text"></p>
               <chat-app   :user="{{ Auth::user() }}"><chat-app/>   

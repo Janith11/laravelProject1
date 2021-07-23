@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VehicleCategory extends Model
 {
-    protected $fillable = ['category_code', 'name', 'base_type'];
+    protected $fillable = ['category_code', 'name', 'transmission'];
 
     // create relation vehcile category and session hours
     public function sessionhours(){

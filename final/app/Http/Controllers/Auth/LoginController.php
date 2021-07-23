@@ -40,8 +40,10 @@ class LoginController extends Controller
             $this->redirectTo = route('owner.ownerdashboad');
         }elseif (Auth::check() && Auth::user()->role->id == 2){
             $this->redirectTo = route('instructor.instructordashboad');
-        }else{
+        }elseif (Auth::check() && Auth::user()->role->id == 3){
             $this->redirectTo = route('student.studentdashboad');
+        }else{
+            $this->redirectTo = route('candidate.candidatedashboard');
         }
         $this->middleware('guest')->except('logout');
     }

@@ -18,5 +18,11 @@ class StudentTableSeeder extends Seeder
             'total_fee' => '16000',
             'group_number' => '1',
         ]);
+        DB::table('students')->insert([
+            'user_id' => '4',
+            'amount' => '6000',
+            'total_fee' => '17500',
+            'group_number' => '1',
+        ]);
     }
 }

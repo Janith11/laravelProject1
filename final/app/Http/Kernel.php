@@ -11,6 +11,7 @@ use App\Http\Middleware\OwnerMiddleware;
 use App\Http\Middleware\StudentMiddleware;
 use App\Http\Middleware\ViewInstructors;
 use App\Http\Middleware\ViewStudents;
+use App\Http\Middleware\CandidateMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -77,7 +78,8 @@ class Kernel extends HttpKernel
         'viewinstructors' => ViewInstructors::class,
         'addstudent' => AddStudentMiddleware::class,
         'studentprofile'=> StudentProfile::class,
-        'instructordashboard' => InstructorDashboardMiddleware::class
+        'instructordashboard' => InstructorDashboardMiddleware::class,
+        'candidate'=> CandidateMiddleware::class
     ];
 
     /**

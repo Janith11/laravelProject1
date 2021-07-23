@@ -51,7 +51,7 @@
 
     <div class="row-mb-2">
         @if(session('successmsg'))
-            <div class="alert alert-danger" role="alert" style="width: 100%">
+            <div class="alert alert-success" role="alert" style="width: 100%">
                 {{ session('successmsg') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -72,30 +72,55 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <h5  style="color: #222944">Category Code</h5>
-                                    <input type="text" class="form-control" name="category_code">
-                                    <small>use standed category code</small>
+                                    {{-- <input type="text" class="form-control" name="category_code">
+                                    <small>use standed category code</small> --}}
+                                    <select id="category" class="form-control" name="category_code">
+                                        <option value="A">A</option>
+                                        <option value="B1">B1</option>
+                                        <option value="C1">C1</option>
+                                        <option value="C">C</option>
+                                    </select>
                                 </div>
-                                <h5 style="color: #222944;">This category save as</h5>
-                                <div class="form-check">
+                                {{-- <h5 style="color: #222944;">This category save as</h5> --}}
+                                {{-- <div class="form-check">
                                     <input class="form-check-input" type="radio" name="base_type" value="light_vehicle" checked>
                                     <label class="form-check-label">
                                         Light Vehicles
                                     </label>
-                                </div>
-                                <div class="form-check">
+                                </div> --}}
+                                {{-- <div class="form-check">
                                     <input class="form-check-input" type="radio" name="base_type"  value="heavy_vehicle">
                                     <label class="form-check-label">
                                         Heavy Vehicles
                                     </label>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <h5 style="color: #222944">Category Name</h5>
-                                    <input type="text" class="form-control" name="category_name">
-                                    <small>give short name</small>
+                                    {{-- <input type="text" class="form-control" name="category_name"> --}}
+                                    <select id="category" class="form-control" name="category_name">
+                                        <option value="bike">Bike</option>
+                                        <option value="threeweel">Threeweel</option>
+                                        <option value="dualpurposes">Car, Van, Dual Purpose</option>
+                                        <option value="heavyvehical">Heavy Vehical</option>
+                                    </select>
+                                    
                                 </div>
                             </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <h5 style="color: #222944">Transmission</h5>
+                                    {{-- <input type="text" class="form-control" name="category_name"> --}}
+                                    <select id="category" class="form-control" name="transmission">
+                                        <option value="automanual">Auto/Manual Both</option>
+                                        <option value="manual">Manual Only</option>
+                                    </select>
+                                    <small class="text-danger">*If it has only manual transmission mark as <B>Manual</B></small>
+                                </div>
+                            </div>
+
                             <div class="col-sm-4">
                                 <h5 style="color: #222944">Session Days</h5>
                                 <div class="form-group">
@@ -126,7 +151,7 @@
                             <div class="card-body">
                                 <h5><span id="heading">Category Code : </span>{{ $category->category_code}}</h5>
                                 <h5><span id="heading">Category Name : </span>{{ $category->name}}</h5>
-                                <h5><span id="heading">Main Category : </span>{{ $category->base_type}}</h5>
+                                <h5><span id="heading">Main Category : </span>{{ $category->transmission}}</h5>
                                 <h5>
                                     <span id="heading">Session Days</span>
                                     <table class="table table-bordered">

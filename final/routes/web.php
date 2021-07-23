@@ -232,3 +232,9 @@ Route::middleware('instructordashboard')->group(function(){
 
 });
 
+//candidate middleware
+Route::group(['as' => 'candidate.', 'prefix' => 'candidate', 'namespace' => 'candidate', 'middleware' => ['auth', 'candidate']],
+    function(){
+        Route::get('dashboard', 'CandidateController@index')->name('candidatedashboard');
+    }
+);

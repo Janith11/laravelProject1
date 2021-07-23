@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Student;
+use App\StudentCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -44,8 +45,10 @@ class RegisterController extends Controller
             $this->redirectTo = route('owner.ownerdashboad');
         }elseif (Auth::check() && Auth::user()->role->id == 2){
             $this->redirectTo = route('instructor.instructordashboad');
-        }else{
+        }elseif (Auth::check() && Auth::user()->role->id == 3){
             $this->redirectTo = route('student.studentdashboad');
+        }else{
+            $this->redirectTo = route('candidate.candidatedashboard');
         }
         $this->middleware('guest');
     }
@@ -57,7 +60,23 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
+    // protected function validator(Request $data)
     {
+
+        // $selected_category = $data['vehicle_category'];
+        // $test=[];
+        // foreach ($selected_category as  $category) {
+        //     $row =[];
+        //     if(($category == 'B1') || ($category == 'C')) {
+        //         $row[$category] = [ $data[$category], 3 ];
+        //     }
+        //     else{
+        //         $row[$category] = [ $data[$category], $data["trans".$category]  ];
+        //     }
+        //     array_push($test,$row);
+        // }
+        //  dd($test->category_code);
+    //    dd($data);
         return Validator::make($data, [
             // // 'name' => ['required', 'string', 'max:255'],
             // // 'username' => ['required', 'string', 'max:255', 'unique:users'],
@@ -67,14 +86,17 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'nicnumber' => ['required', 'string', 'max:15'],
-            // 'gender' => ['required', 'string', 'max:7'],
-            // 'contactno' => ['required','max:15'],
+            'gender' => ['required', 'string', 'max:7'],
+            'contactno' => ['required','max:15'],
             'birthday' => ['required', 'string','date','max:255'],
             'addressno' => ['required', 'string', 'max:255'],
             'addresslineone' => ['required', 'string', 'max:255'],
             'addresslinetwo' => ['required', 'string', 'max:255'],
         ]);
+
     }
+
+    
 
     /**
      * Create a new user instance after a valid registration.
@@ -85,7 +107,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user= User::create([
-            'role_id' => 3,
+            'role_id' => 4,
             'f_name' => $data['firstname'],
             'm_name' => $data['middlename'],
             'l_name' => $data['lastname'],
@@ -110,6 +132,43 @@ class RegisterController extends Controller
             'total_fee'=>0,
         ]);
         
+        $selected_category = $data['vehicle_category'];
+        $test=[];
+        foreach ($selected_category as  $category) {
+            $row =[];
+            if(($category == 'B1') || ($category == 'C')) {
+                $row[$category] = [ $data[$category], "3" ];
+            }
+            else{
+                $row[$category] = [ $data[$category], $data["trans".$category]  ];
+            }
+            array_push($test,$row);
+        }
+        foreach($test as $value){
+            foreach($value as $key=>$val1){
+           
+            $transmission = '';
+            $trainig='';
+            $count=0;
+            foreach($val1 as $val2){
+                if($count == 0){
+                    $trainig =$val2;
+                }else{
+                    $transmission=$val2;
+                }
+                $count+=1;
+            }
+            $count = 0;
+            StudentCategory::create([
+                'user_id'=>$user->id,
+                'category'=>$key,
+                'tstatus'=>$trainig,
+                'transmission'=>$transmission
+            ]);
+        }
+            
+        }
+       
         return $user;
     }
 }

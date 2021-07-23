@@ -29,5 +29,12 @@ class RoleTableSeeder extends Seeder
             'name' => 'Student',
             'slug' => 'student'
         ]);
+
+        // set candidate demo data
+        DB::table('roles')->insert([
+            'name' => 'Candidate',
+            'slug' => 'candidate'
+        ]);
+        
     }
 }

@@ -1,6 +1,6 @@
 <template>
-    <div class="composer">
-        <textarea v-model="message" @keydown.enter="send" placeholder="Message..."></textarea>
+    <div class="composer form-group">
+        <textarea class="form-control" v-model="message" @keydown.enter="send" placeholder="Message..."></textarea>
     </div>
 </template>
 

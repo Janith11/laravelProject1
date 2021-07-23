@@ -573,6 +573,114 @@ aside li.menu-label {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
+        /* scrollbar styles */
+        .scrollbar-deep-purple::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px; }
+
+        .scrollbar-deep-purple::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5; }
+
+        .scrollbar-deep-purple::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #512da8; }
+
+        .scrollbar-deep-purple {
+        scrollbar-color: #512da8 #F5F5F5;
+        }
+
+        .scrollbar-cyan::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px; }
+
+        .scrollbar-cyan::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5; }
+
+        .scrollbar-cyan::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #00bcd4; }
+
+        .scrollbar-cyan {
+        scrollbar-color: #00bcd4 #F5F5F5;
+        }
+
+        .scrollbar-dusty-grass::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px; }
+
+        .scrollbar-dusty-grass::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5; }
+
+        .scrollbar-dusty-grass::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-image: -webkit-linear-gradient(330deg, #d4fc79 0%, #96e6a1 100%);
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); }
+
+        .scrollbar-ripe-malinka::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px; 
+        }
+
+        .scrollbar-ripe-malinka::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5; 
+        }
+
+        .scrollbar-ripe-malinka::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-image: -webkit-linear-gradient(330deg, #f093fb 0%, #f5576c 100%);
+        background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%); 
+        }
+
+        .bordered-deep-purple::-webkit-scrollbar-track {
+        -webkit-box-shadow: none;
+        border: 1px solid #512da8; 
+        }
+
+        .bordered-deep-purple::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: none; 
+        }
+
+        .bordered-cyan::-webkit-scrollbar-track {
+        -webkit-box-shadow: none;
+        border: 1px solid #00bcd4; 
+        }
+
+        .bordered-cyan::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: none; 
+        }
+
+        .square::-webkit-scrollbar-track {
+        border-radius: 0 !important; 
+        }
+
+        .square::-webkit-scrollbar-thumb {
+        border-radius: 0 !important; 
+        }
+
+        .thin::-webkit-scrollbar {
+        width: 6px; 
+        }
+
+        .example-1 {
+        position: relative;
+        overflow-y: scroll;
+        height: 100vh; 
+        }
+
+
+
     </style>
     <style>
         .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20rem; }
@@ -583,7 +691,7 @@ aside li.menu-label {
    <div>
        <!-- slidebar -->
     <aside>
-        <div class="slimscroll-menu" id='sidebar'>
+        <div class="slimscroll-menu example-1 scrollbar-deep-blue bordered-deep-purple thin" id='sidebar'>
             <!-- close the menu  -->
             <a href="#" class="close-aside"><img src="images/close.png" alt=""></a>
             <!-- Branding -->
@@ -789,14 +897,14 @@ aside li.menu-label {
     // Jquery start
     $(document).ready(function() {
     // sidebar - scroll container
-    $('.slimscroll-menu').slimscroll({
-        height: 'auto',
-        position: 'right',
-        size: "3px",
-        color: '#9ea5ab',
-        wheelStep: 5,
-        touchScrollStep: 50
-    });
+    // $('.slimscroll-menu').slimscroll({
+    //     height: 'auto',
+    //     position: 'right',
+    //     size: "3px",
+    //     color: '#9ea5ab',
+    //     wheelStep: 5,
+    //     touchScrollStep: 50
+    // });
     $('aside a').each(function() {
     if ($(this).attr('href') == window.location.pathname) {
         $(this).addClass('active');
