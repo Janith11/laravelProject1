@@ -1,15 +1,20 @@
 <template>
-    <div class="contact-lists">
-        <ul class="list-group ">
-            <li class=" d-flex justify-content-between align-items-center" v-for="contact in sortedContacts" :key="contact.id" @click="selectContact(contact)" :class="{'selected': contact==selected}">
-                <div class="avatar">
-                    <img class="img-fluid " :src="'./uploadimages/students_profiles/default_profiles.jpg'" :alt="contact.name">
+    <div class="contact-lists border-right overflow-auto">
+        <ul class="list-group mt-1">
+            <li class=" d-flex justify-content-between align-items-center p-1  m-0" v-for="contact in sortedContacts" :key="contact.id" @click="selectContact(contact)" :class="{'selected': contact==selected}">
+                <div class="row">
+                <div class="avatar col float-left">
+                    <img class="rounded-circle border border-success" :src="'https://www.w3schools.com/howto/img_avatar.png'" :alt="contact.name">
                 </div>
-                <div class="contact">
-                    <p class="name">{{contact.f_name}}</p>
-                    <p class="name">ID: {{contact.id}}</p>
+                <div class="contact col">
+                    <h5 class="name">{{contact.f_name}}</h5>
+                    <p class="name studentid">ID: {{contact.id}}</p>
                 </div>
-                <span class="unread" v-if="contact.unread" >{{contact.unread}}</span>
+                <div class="col align-middle mt-2 mybadge">
+                 <span class="badge badge-success float-right" v-if="contact.unread" >{{contact.unread}}</span>
+                <!-- <span class="unread sr-only" v-if="contact.unread" > 1{{contact.unread}}</span> -->
+                </div>
+            </div>
             </li>
         </ul>
     </div>
@@ -52,11 +57,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    img{
+        max-height: 55px;
+        width: auto;
+    }
+    // .avatar{
+    //     display: inline-block;
+    // }
+    // .contact{
+    //     display: inline-block;
+    // }
+    li{
+        background-color: rgb(245, 245, 245);
+        border-radius: 10px;
+    &.selected{
+      background-color: #1775d246;
+        padding: 0px;
+        margin: 0px;;
+    }
+    }
+    @media only screen and (max-width: 600px) {
+        body {
+           img{
+               display: none;
+               
+           }
+           .contact{
+               .name{
+                   font-size: 10px;
+                   padding-right: 0px; 
+                   margin: 0px;
+               }
+               .studentid{
+                       display: none;
+                   }
+           }
+           .mybadge{
+               margin: 0px;
+           }
+            }
+        }
+    
     // .contact-lists{
-    //     flex: 2;
-    //     max-height: 600px;
-    //     overflow: scroll;
-    //     border-right: 1px solid #979797;
+        // flex: 2;
+        // max-height: 100px;
+        // overflow: sco;
+        // border-right: 1px solid #979797;
     // }
     // ul{
     //     list-style-type: none;

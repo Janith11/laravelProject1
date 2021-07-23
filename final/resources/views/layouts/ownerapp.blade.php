@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" integrity="sha512-cJMgI2OtiquRH4L9u+WQW+mz828vmdp9ljOcm/vKTQ7+ydQUktrPVewlykMgozPP+NUBbHdeifE6iJ6UVjNw5Q==" crossorigin="anonymous"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.js" integrity="sha512-37SbZHAnGzLuZV850k61DfQdZ5cnahfloYHizjpEwDgZGw49+D6oswdI8EX3ogzKelDLjckhvlK0QZsY/7oxYg==" crossorigin="anonymous"></script> --}}
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -569,6 +569,113 @@ aside li.menu-label {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
+    /* scrollbar styles */
+            .scrollbar-deep-purple::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px; }
+
+        .scrollbar-deep-purple::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5; }
+
+        .scrollbar-deep-purple::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #512da8; }
+
+        .scrollbar-deep-purple {
+        scrollbar-color: #512da8 #F5F5F5;
+        }
+
+        .scrollbar-cyan::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px; }
+
+        .scrollbar-cyan::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5; }
+
+        .scrollbar-cyan::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #00bcd4; }
+
+        .scrollbar-cyan {
+        scrollbar-color: #00bcd4 #F5F5F5;
+        }
+
+        .scrollbar-dusty-grass::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px; }
+
+        .scrollbar-dusty-grass::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5; }
+
+        .scrollbar-dusty-grass::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-image: -webkit-linear-gradient(330deg, #d4fc79 0%, #96e6a1 100%);
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); }
+
+        .scrollbar-ripe-malinka::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px; 
+        }
+
+        .scrollbar-ripe-malinka::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5; 
+        }
+
+        .scrollbar-ripe-malinka::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-image: -webkit-linear-gradient(330deg, #f093fb 0%, #f5576c 100%);
+        background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%); 
+        }
+
+        .bordered-deep-purple::-webkit-scrollbar-track {
+        -webkit-box-shadow: none;
+        border: 1px solid #512da8; 
+        }
+
+        .bordered-deep-purple::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: none; 
+        }
+
+        .bordered-cyan::-webkit-scrollbar-track {
+        -webkit-box-shadow: none;
+        border: 1px solid #00bcd4; 
+        }
+
+        .bordered-cyan::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: none; 
+        }
+
+        .square::-webkit-scrollbar-track {
+        border-radius: 0 !important; 
+        }
+
+        .square::-webkit-scrollbar-thumb {
+        border-radius: 0 !important; 
+        }
+
+        .thin::-webkit-scrollbar {
+        width: 6px; 
+        }
+
+        .example-1 {
+        position: relative;
+        overflow-y: scroll;
+        height: 100vh; 
+        }
+
+
     </style>
     <style>
         .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20rem; }
@@ -579,9 +686,9 @@ aside li.menu-label {
    <div>
        <!-- slidebar -->
     <aside>
-        <div class="slimscroll-menu" id='sidebar'>
+        <div class="slimscroll-menu example-1 scrollbar-deep-blue bordered-deep-purple thin" id='sidebar'>
             <!-- close the menu  -->
-            <a href="#" class="close-aside"><img src="images/close.png" alt=""></a>
+            <a href="#" class="close-aside"><i class="fa fa-times" aria-hidden="true"></i></a>
             <!-- Branding -->
 
             <div class="side-branding">
@@ -598,13 +705,13 @@ aside li.menu-label {
 
                 <!-- margin botton mb-5 added for the scroll testing -->
                 <li class="nav-item  mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('owner.ownerdashboad') }}"><i class="fas fa-tachometer-alt"></i>
+                    <a class="nav-link" href="{{ route('owner.ownerdashboad') }}">
                         <span class="menu-title " id="item">Dashboard</span>
                     </a>
                 </li>
 
                 <li class="nav-item  mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('instructors') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('instructors') }}">
                         <span class="menu-title" id="item">Instructors</span>
                     </a>
                 </li>
@@ -614,37 +721,37 @@ aside li.menu-label {
                 <div class="dropdown-divider"></div>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('studentslist') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('studentslist') }}">
                         <span class="menu-title" id="item">Students List</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('addstudent') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('addstudent') }}">
                         <span class="menu-title" id="item">Add Students</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('ownerexamresult') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('ownerexamresult') }}">
                         <span class="menu-title" id="item">Exam result</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('ownerchat') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('ownerchat') }}">
                         <span class="menu-title" id="item">Chat</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('payments') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('payments') }}">
                         <span class="menu-title" id="item">Payments</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-2" id="nav-item">
-                    <a type="button" class="dropdown-btn"><i><img src="images/dashboard.png" alt=""></i>
+                    <a type="button" class="dropdown-btn">
                         <span class="menu-title" id="item">Scheduling</span>
                         <i class="fa fa-caret-down" style="padding-left: 10px"></i>
                     </a>
@@ -670,37 +777,37 @@ aside li.menu-label {
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('viewrequest') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('viewrequest') }}">
                         <span class="menu-title" id="item">Request</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=" {{ route('vehicles') }} "><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href=" {{ route('vehicles') }} ">
                         <span class="menu-title" id="item">Vehicles</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=" {{ route('vehiclecategory') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href=" {{ route('vehiclecategory') }}">
                         <span class="menu-title" id="item">Category</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=" {{ route('allposts') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href=" {{ route('allposts') }}">
                         <span class="menu-title" id="item">Posts</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=" {{ route('attendanceslist') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href=" {{ route('attendanceslist') }}">
                         <span class="menu-title" id="item">Attendances</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=" {{ route('settings') }}"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href=" {{ route('settings') }}">
                         <span class="menu-title" id="item">Settings</span>
                     </a>
                 </li>
@@ -712,13 +819,13 @@ aside li.menu-label {
                 <div class="dropdown-divider"></div>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link">
                         <span class="menu-title" id="item">View Price</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link"><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link">
                         <span class="menu-title" id="item">Change Price</span>
                     </a>
                 </li>
@@ -891,14 +998,14 @@ aside li.menu-label {
         $('#toggle').hide();
 
     // sidebar - scroll container
-    $('.slimscroll-menu').slimscroll({
-        height: 'auto',
-        position: 'right',
-        size: "3px",
-        color: '#9ea5ab',
-        wheelStep: 5,
-        touchScrollStep: 50
-    });
+    // $('.slimscroll-menu').slimscroll({
+    //     height: 'auto',
+    //     position: 'right',
+    //     size: "3px",
+    //     color: '#9ea5ab',
+    //     wheelStep: 5,
+    //     touchScrollStep: 50
+    // });
 
     $('aside a').each(function() {
     if ($(this).attr('href') == window.location.pathname) {

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVehicleCategoriesTable extends Migration
+class CreateStudentCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateVehicleCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vehicle_categories', function (Blueprint $table) {
+        Schema::create('student_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('category_code');
-            $table->string('name');
-            $table->string('transmission');
+            $table->integer('user_id');
+            $table->string('category'); //vehicale category bike car
+            $table->string('tstatus'); //training or without training
+            $table->string('transmission')->nullable();//auto or manual transmission
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateVehicleCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicle_categories');
+        Schema::dropIfExists('student_categories');
     }
 }

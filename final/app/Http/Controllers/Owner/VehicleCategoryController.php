@@ -22,8 +22,6 @@ class VehicleCategoryController extends Controller
     public function savecategory(Request $request){
 
         $this->validate($request,[
-            'category_code' => 'required',
-            'category_name' => 'required',
             'theory_session' => 'required',
             'practicle_session' => 'required',
         ]);
@@ -31,7 +29,7 @@ class VehicleCategoryController extends Controller
         $vahicle_category = [
             'category_code' => $request->category_code,
             'name' => $request->category_name,
-            'base_type' => $request->base_type
+            'transmission' => $request->transmission
         ];
 
         $category = VehicleCategory::create($vahicle_category);
