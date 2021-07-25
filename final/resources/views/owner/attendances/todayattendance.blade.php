@@ -147,7 +147,7 @@
                         <div id="card">
                             <div class="card">
                                 <div class="card-body" style="border-left: 10px solid #FCC134">
-                                    <h5 style="color: #222944; font-weight: bold; font-size: 30px;">10</h5>
+                                    <h5 style="color: #222944; font-weight: bold; font-size: 30px;">{{ $todayleaves }}</h5>
                                     <h6 style="color: #222944">Leaves</h6>
                                 </div>
                             </div>
@@ -172,11 +172,9 @@
                         <div class="card-body">
                             <h5 style="color: #222944; font-weight: bold;">Today</h5>
                             <hr style="border-top: 1px solid #222944">
-                            @if(session('message'))
-                                <h5>
-                                    {{ session('message') }}
-                                </h5>
-                            @else
+                            {{-- @if(count($instructors) == 0)
+                                <h5>All instructors are leave on today !!</h5>
+                            @else --}}
                             <div class="table-responsive">
                                 <table class="table">
                                     @foreach($instructors as $instructor)
@@ -219,19 +217,19 @@
                                                                 document.getElementById('time').innerText = "{{ $attend->present_time }}";
                                                             </script>
                                                         @elseif ($attend->status == 1)
-                                                            <h5>Attend</h5>
+                                                            <h5 style="color: #222944">Attend</h5>
                                                             <script>
                                                                 var element = document.getElementById('details');
                                                                 element.style.borderLeft = '5px solid #222944';
                                                                 var start = "{{ $attend->present_time }}";
                                                                 var end = "{{ $attend->leave_time }}";
-                                                                var timestart = new Date("01/01/2021"+start).getHours();
-                                                                var timeend = new Date("01/01/2021"+end).getHours();
-                                                                var diff = timeend - timestart;
-                                                                document.getElementById('time').innerText = diff;
+                                                                var timestart = new Date("01/01/2021 "+start).getTime();
+                                                                var timeend = new Date("01/01/2021 "+end).getTime();
+                                                                var diff = (timeend - timestart)/ 60 /60 / 1000;
+                                                                document.getElementById('time').innerText = diff+" hours worked";
                                                             </script>
                                                         @else
-                                                            <h5>Absent</h5>
+                                                            <h5 style="color: #E22A38">Leave</h5>
                                                             <script>
                                                                 var element = document.getElementById('details');
                                                                 element.style.borderLeft = '5px solid #E22A38';
@@ -244,7 +242,7 @@
                                             </td>
                                         </tr>
 
-                                        <tr id="input_checkin">
+                                        <tr id="input_checkin" style="display: none">
 
                                             <td>
                                                 <h5 style="color: #222944">Set Checkin Time</h5>
@@ -273,7 +271,7 @@
 
                                         </tr>
 
-                                        <tr id="input_checkout">
+                                        <tr id="input_checkout" style="display: none">
 
                                             <td>
                                                 <h5 style="color: #222944">Set Checkout Time</h5>
@@ -317,7 +315,7 @@
                                 </table>
                             </div>
 
-                            @endif
+                            {{-- @endif --}}
                         </div>
                     </div>
                 </div>

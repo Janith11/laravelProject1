@@ -21,6 +21,7 @@
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
+        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('attendanceslist') }}"> / Attendance List</a>
         <a style="padding-top: 6px; padding-left: 10px"> / Leave Requests</a>
     </div>
 
@@ -65,12 +66,17 @@
         <div id="card">
             <div class="card">
                 <div class="card-body">
+                    @if(count($pending_requests) == 0)
+                        <div class="alert alert-info" role="alert">
+                            <h5>No any pending leaves yet</h5>
+                        </div>
+                    @else
                     <h5 style="color: #222944; font-weight: bold">Manage Leave Request</h5>
                     <hr style="border-top: 1px solid #222944">
                     <div class="table-responsive">
                         <table class="table">
                             @foreach($pending_requests as $request)
-                                <tr>
+                                <tr id="row-{{ $request->id }}">
                                     <td>
                                         <div class="text-center">
                                             <img src="/uploadimages/instructors_profiles/{{ $request->user->profile_img }}" alt="Profile Image" >
@@ -85,7 +91,11 @@
                                     </td>
                                     <td>
                                         <h6 style="color: #222944">Total Leaves in this month</h6>
-                                        34
+                                        @foreach($users_lives as $key => $users_leave)
+                                            @if($key == $request->user->id)
+                                                {{ $users_leave }}
+                                            @endif
+                                        @endforeach
                                     </td>
                                     <td class="float-right">
                                         <button class="btn btn-danger" id="btn_ignore">Ignore</button>
@@ -104,9 +114,18 @@
                                         </form>
                                     </td>
                                 </tr>
+                                <script>
+                                    var letters = '0123456789ABCDEF';
+                                    var color = '#';
+                                    for (var i = 0; i < 6; i++) {
+                                        color += letters[Math.floor(Math.random() * 16)];
+                                    }
+                                    document.getElementById('row-{{ $request->id }}').style.borderLeft = '10px solid '+color;
+                                </script>
                             @endforeach
                         </table>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

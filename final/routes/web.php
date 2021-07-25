@@ -138,7 +138,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/editresults/save/{id}','Owner\ExamController@saveexamlist')->name('saveexamlist');
     Route::get('/addresults/{id}','Owner\ExamController@addresults')->name('addnewexamresult');
     Route::post('/addresults','Owner\ExamController@saveresults')->name('saveresults');
-    
+
 
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
@@ -146,7 +146,10 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/settings/saveopnehours', 'Owner\SettingController@saveopenhours')->name('saveopenhours');
     Route::post('/settings/savecompanylogo', 'Owner\SettingController@savelogo')->name('savelogo');
     Route::post('/settings/saveshedulingtype', 'Owner\SettingController@changeshedulingtype')->name('changeshedulingtype');
-
+    Route::post('/settings/savesprofile', 'Owner\SettingController@saveprofiledetails')->name('saveprofiledetails');
+    Route::post('/settings/savesprofileimage', 'Owner\SettingController@updateprofilepicture')->name('updateownerprofileimage');
+    Route::get('settings/password', 'Owner\SettingController@password')->name('ownerpassword');
+    Route::post('settings/password/save', 'Owner\SettingController@store')->name('saveownerpassword');
 
     // attendances
     Route::get('/attendanceslist', 'Owner\EmplooyeeAttendanceController@index')->name('attendanceslist');
@@ -154,11 +157,16 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/attendanceslist/checkin', 'Owner\EmplooyeeAttendanceController@savecheckin')->name('savecheckin');
     Route::post('/attendanceslist/checkout', 'Owner\EmplooyeeAttendanceController@savecheckout')->name('savecheckout');
     Route::post('/attendanceslist/absent', 'Owner\EmplooyeeAttendanceController@saveabsent')->name('saveabsent');
+    Route::get('/attendanceslist/attendancedetails/{id}', 'Owner\EmplooyeeAttendanceController@attendancedetails')->name('attendancedetails');
+    Route::get('/attendanceslist/attendancedetails/calender/{id}', 'Owner\EmplooyeeAttendanceController@instructorattendancedetails')->name('instructorattendancedetails');
+    Route::get('/attendanceslist/unmarkedattendance', 'Owner\EmplooyeeAttendanceController@unmarkedattendance')->name('unmarkedattendance');
+    Route::post('/attendanceslist/unmarkedattendance/save', 'Owner\EmplooyeeAttendanceController@saveunmarkedattend')->name('saveunmarkedattendance');
 
     //employee leaves
     Route::get('/leaverequest', 'Owner\LeaveController@leaverequest')->name('leaverequest');
     Route::post('/leaverequest/accept', 'Owner\LeaveController@acceptrequest')->name('acceptrequest');
     Route::post('/leaverequest/ignore', 'Owner\LeaveController@ignorerequest')->name('ignorerequest');
+    Route::get('/leavedetails/{id}', 'Owner\LeaveController@levaedetails')->name('leavedetails');
 
     // owner chat
     Route::get('/owner/chat', 'Owner\ChatController@index')->name('ownerchat');
@@ -166,10 +174,15 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/conversation/{id}', 'Owner\ChatController@getMessagesFor');
     Route::post('/conversation/send', 'Owner\ChatController@send');
 
+    // payroll
+    Route::get('/saray', 'Owner\SalaryController@index')->name('salary');
+    Route::get('/salary/calculatesalary/{id}', 'Owner\SalaryController@calculatesalary')->name('calculatesalary');
+    Route::post('/salary/calculatesalary/save', 'Owner\SalaryController@savesalary')->name('savesalary');
+    Route::post('/salary/addexpense', 'Owner\ExpenseController@makeexpense')->name('addexpense');
+    Route::get('/salary/history', 'Owner\SalaryController@history')->name('history');
 
-   
 });
- 
+
 //Check and grouping all of the students
 Route::middleware('studentprofile')->group(function(){
 
@@ -229,6 +242,20 @@ Route::middleware('instructordashboard')->group(function(){
     Route::get('/contactsI', 'Instructor\ChatController@get');
     Route::get('/conversationI/{id}', 'Instructor\ChatController@getMessagesFor');
     Route::post('/conversationI/send', 'Instructor\ChatController@send');
+
+    // attendances
+    Route::get('/instructorattendancelist', 'Instructor\AttendanceController@index')->name('instructorattendancelist');
+    Route::get('/leaverequestdetails', 'instructor\LeaveController@request')->name('instructorleaverequestdetails');
+    Route::post('/requestleave', 'instructor\LeaveController@requestleave')->name('requestleave');
+    Route::get('/pendingrequests', 'instructor\LeaveController@pendingrequestdetails')->name('instructorpendingrequests');
+    Route::get('/leaverequestdetails/month', 'Instructor\AttendanceController@month');
+    Route::delete('/cancel/{id}', 'instructor\LeaveController@cancelrequest')->name('cancel');
+    Route::get('/instructorattendance', 'Instructor\AttendanceController@calendar')->name('instructorattendancecalendar');
+    Route::get('/instructorattendancelist/monthleavedetails', 'instructor\LeaveController@leavedetails')->name('monthleavedetails');
+    Route::get('/instructorattendancelist/monthleavedetails/all', 'instructor\LeaveController@allleavedetails')->name('instructorallleavedetails');
+
+    //payroll
+    Route::get('/instructorsalary', 'Instructor\SalaryController@index')->name('instructorsalary');
 
 });
 

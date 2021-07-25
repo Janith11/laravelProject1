@@ -5,18 +5,27 @@ namespace App\Http\Controllers\Owner;
 use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\OpenHour;
+use App\Rules\MatchOldPassword;
 use App\ShedulingType;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Image;
 
 class SettingController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index(){
         $details = CompanyDetails::all();
         $open_hours = OpenHour::all();
         $shedulingtype = ShedulingType::first();
         $type =  $shedulingtype->type;
-        return view('owner.settings.settings', compact('details', 'open_hours', 'type'));
+        $owners = User::where('id', 1)->get();
+        // return $owners;
+        return view('owner.settings.settings', compact('details', 'open_hours', 'type', 'owners'));
     }
 
     public function savedetails(Request $request){
@@ -114,6 +123,84 @@ class SettingController extends Controller
         $type->save();
 
         return redirect()->route('settings')->with('successmsg', 'Update Sheduling type successfully !!');
+    }
+
+    public function saveprofiledetails(Request $request){
+        $this->validate($request, [
+            'first_name' => 'required|min:5|alpha',
+            'middle_name' => 'required|min:5|alpha',
+            'last_name' => 'required|min:5|alpha',
+            'nic_number' => 'required|digits:9|alpha_num',
+            'date_of_birth' => 'required|date',
+            'email' => 'required|email',
+            'mobile_number' => 'required|digits:10|alpha_num',
+            'address_no' => 'required',
+            'address_line_one' => 'required|alpha',
+            'address_line_two' => 'required|alpha',
+        ]);
+
+        $instructor_id = 1;
+        $instructor = User::find($instructor_id);
+        $instructor->f_name = $request->first_name;
+        $instructor->m_name = $request->middle_name;
+        $instructor->l_name = $request->last_name;
+        $instructor->email = $request->email;
+        $instructor->nic_number = $request->nic_number;
+        $instructor->gender = $request->gender;
+        $instructor->contact_number = $request->mobile_number;
+        $instructor->dob = $request->date_of_birth;
+        $instructor->address_no = $request->address_no;
+        $instructor->address_lineone = $request->address_line_one;
+        $instructor->address_linetwo = $request->address_line_two;
+        $instructor->save();
+
+        return redirect()->route('settings')->with('successmsg', 'Profile Update Successfully !!');
+    }
+
+    public function updateprofilepicture(Request $request){
+        $folderPath = public_path('uploadimages/owner_profile/');
+
+        $image_parts = explode(";base64,", $request->image);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+
+        $imageName = uniqid() . '.png';
+
+        $imageFullPath = $folderPath.$imageName;
+
+        file_put_contents($imageFullPath, $image_base64);
+
+        $instructor_id = 1;
+        $profileimage = User::find($instructor_id);
+        $profileimage->profile_img = $imageName;
+        $profileimage->save();
+
+        return response()->json(['success'=>'Crop Image Uploaded Successfully']);
+    }
+
+    public function password(){
+        return view('owner.settings.changepassword');
+    }
+
+    public function store(Request $request){
+        // return 'hi';
+
+        $this->validate($request, [
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => 'required|min:8',
+            're_enter_password' => ['same:new_password'],
+            // |min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$|confirmed
+        ]);
+
+        $instructor_id = 1;
+
+        $instructor = User::find($instructor_id);
+        $instructor->password = Hash::make($request->new_password);
+        $instructor->save();
+
+        return redirect()->route('settings')->with('successmsg', 'Password Change Successfully !!');
+
     }
 
 }

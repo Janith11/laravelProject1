@@ -51,6 +51,23 @@
         <button type="button" class="checkall btn btn-primary">Select all</button>
     </div>
 
+    @if(count($reports) != 0)
+        <div class="alert alert-info" role="alert">
+            <h5>Instructor has report attendance</h5>
+            <ul style="list-style-type: disc">
+                @foreach($reports as $report)
+                    <li>
+                        @foreach($students_details as $student)
+                            @if($student->user_id == $report->user_id)
+                                {{$student->user->f_name}} is attend.
+                            @endif
+                        @endforeach
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('saveascomplete') }}" method="POST">
         @csrf
         @foreach($shedule as $sdl)

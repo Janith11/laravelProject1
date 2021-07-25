@@ -693,11 +693,34 @@ aside li.menu-label {
                     </a>
                 </li>
 
-                <li class="nav-item mb-3" id="nav-item">
+                <li class="nav-item mb-2" id="nav-item">
+                    <a type="button" class="dropdown-btn"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">HRMS</span>
+                        <i class="fa fa-caret-down" style="padding-left: 10px"></i>
+                    </a>
+                    <div class="dropdown-container">
+                        <ul style="list-style-type:disc !important;">
+                            <li>
+                                <a href="{{ route('attendanceslist') }}" class="dropdownitem" >Attendances</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('salary') }}" class="dropdownitem">Payroll</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                {{-- <li class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href=" {{ route('attendanceslist') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Attendances</span>
                     </a>
                 </li>
+
+                <li class="nav-item mb-3" id="nav-item">
+                    <a class="nav-link" href=" {{ route('salary') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Salary</span>
+                    </a>
+                </li> --}}
 
                 <li class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href=" {{ route('settings') }}"><i><img src="images/dashboard.png" alt=""></i>
@@ -792,12 +815,12 @@ aside li.menu-label {
                                 </a>
                                 {{--  --}}
 
-                                <div id="toggle" style="background-color:#17252A;" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div id="toggle" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                                     <div>
-                                        <div style="display: inline-block">
-                                            <img id="img" src="/uploadimages/owner_profile/{{ Auth::user()->profile_img }}" alt="Profile Image">
-                                        </div>
+                                        {{-- <div style="display: inline-block">
+                                            <img id="img" src="/uploadimages/owner_profile/{{ Auth::user()->profile_img }}" alt="Profile Image" class="rounded-circle border border-dark" style="width: 30px; height: auto;">
+                                        </div> --}}
                                         <div style="display: inline-block">
                                             {{ Auth::user()->username }}
                                         </div>

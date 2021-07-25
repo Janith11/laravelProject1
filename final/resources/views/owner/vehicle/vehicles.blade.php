@@ -11,28 +11,31 @@
                     <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
                 </svg>
             </a>
+            <a style="padding-top: 6px; padding-left: 10px"> / Vehicle list</a>
         </div>
 
         <div class="row mb-2">
             <div class="card" style="width: 100%;">
                 <div class="card-body">
-                    <div class="row justify-content-end">
-                        <div class="col-lg-3">
+                    <div class="row justify-content-between">
+                        <div class="float-left" style="padding-left: 10px">
                             <h5 style="color: #222944">Total Vehicle : {{ $vehicle_count }}</h5>
                         </div>
-                        <div class="col-lg-3" style="text-align: right">
-                            <a href="{{ route('addvehicles') }}" type="button" class="btn btn-success" style="color: #222944; background-color: #FFAF38">Add New</a>
-                        </div>
-                        <div class="col-lg-3">
-                            <form method="post" action="{{ route('searchvehicle') }}">
-                                @csrf
-                                <div class="form-group">
-                                    <input type="test" class="form-control" id="searchvehicle" aria-describedby="emailHelp" placeholder="Enter Vehicle Name" name="searchvehicle" style="width: 100%">
-                                </div>
-                        </div>
-                        <div class="col-lg-3">
-                                <button type="submit" class="btn" style="background-color: #0B7714; color: white">Search</button>
-                            </form>
+                        <div class="float-right">
+                            <div style="display: inline-block">
+                                <a href="{{ route('addvehicles') }}" type="button" class="btn btn-success" style="color: #222944; background-color: #FFAF38">Add New</a>
+                            </div>
+                            <div style="display: inline-block">
+                                <form method="post" action="{{ route('searchvehicle') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <input type="test" class="form-control" id="searchvehicle" aria-describedby="emailHelp" placeholder="Enter Vehicle Name" name="searchvehicle" style="width: 100%">
+                                    </div>
+                            </div>
+                            <div style="display: inline-block">
+                                    <button type="submit" class="btn" style="background-color: #0B7714; color: white">Search</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
