@@ -54,9 +54,6 @@ Route::group(['as' => 'student.', 'prefix' => 'student', 'namespace' => 'Student
     }
 );
 
-// create route for access page through middleware
-Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewrequest')->middleware('checkrequest');
-
 
 // create route group with middleware
 Route::middleware('checkrequest')->group(function(){
@@ -166,6 +163,9 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/conversation/{id}', 'Owner\ChatController@getMessagesFor');
     Route::post('/conversation/send', 'Owner\ChatController@send');
 
+    //requests
+    Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewrequest');
+    Route::get('/reviewrequest/{id}', 'Owner\ViewrequestController@get')->name('reviewrequest');
 
    
 });

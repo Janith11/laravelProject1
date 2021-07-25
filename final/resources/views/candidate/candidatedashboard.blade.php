@@ -37,7 +37,31 @@
     </style>
 </head>
 <body id="bgcolour">
-    <div class="container-fluid ">
+   
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Welcome</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="link">
+            <ul class="navbar-nav  ml-auto">
+              <li class="nav-item active ">
+                <a class="nav-link" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();" >
+                    {{ __('Logout') }}
+                </a>
+              </li>
+            </ul>
+            </div>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+          </div>
+      </nav>
+
         <div class="container">
             <div class="card mt-5 rounded">
               <div class="card-body">
@@ -80,7 +104,7 @@
             </div>
             
         </div>    
-    </div>  
+    
     
     @if (auth()->user()->status == '1')
     <div class="modal" tabindex="-1" role="dialog" id="myModal">
