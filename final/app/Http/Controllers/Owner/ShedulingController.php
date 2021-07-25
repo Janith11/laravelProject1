@@ -8,6 +8,8 @@ use App\OwnerShedule;
 use App\SheduleAlert;
 use App\AlertForStudent;
 use App\Attendance;
+use App\EmplooyeeLeave;
+use App\EmployeeAttendances;
 use App\SheduledStudents;
 use App\Student;
 use App\TimeTable;
@@ -204,10 +206,20 @@ class ShedulingController extends Controller
         $date = $request->date;
         $first_day = date('m-01-Y');
         $last_day = date('m-t-Y');
+        $today = Carbon::now()->today();
 
-        $instructors = Instructor::with(['user', 'ownershedules' => function($query) use($date){
+        // =================== here want to change ====================
+        $leave_instructors = EmployeeAttendances::where('date', $date)->where('status', 1)->get();
+        $absent_ids = [];
+        foreach ($leave_instructors as $instructor) {
+            $absent_ids[] = $instructor->user_id;
+        }
+        $leaves = collect($absent_ids);
+        $instructors = Instructor::with(['user' => function($query){
+            $query->where('status', 1);
+        }, 'ownershedules' => function($query) use($date){
             $query->where('date', $date);
-        }])->get();
+        }])->whereNotIn('user_id', $leaves)->get();
 
         $students_id = OwnerShedule::with('sheduledstudents')->where('date', $date)->get();
 
@@ -277,7 +289,9 @@ class ShedulingController extends Controller
             $instructors[] = $res->instructor;
         }
         $instructor = collect($instructors);
-        $instructor_details = Instructor::with('user')->whereIn('user_id', $instructor)->get();
+        $instructor_details = Instructor::with(['user' => function($query){
+            $query->where('status', 1);
+        }])->whereIn('user_id', $instructor)->get();
 
         // get students details
         $students = [];
@@ -370,6 +384,7 @@ class ShedulingController extends Controller
     public function markascomplete($id){
 
         $shedule = OwnerShedule::where('id', $id)->with('SheduledStudents')->get();
+        $reports = Attendance::where('sheule_id', $id)->where('attendance', 3)->get();
 
         //get instructor details
         $instructors = [];
@@ -377,7 +392,9 @@ class ShedulingController extends Controller
             $instructors[] = $res->instructor;
         }
         $instructor = collect($instructors);
-        $instructor_details = Instructor::with('user')->whereIn('user_id', $instructor)->get();
+        $instructor_details = Instructor::with(['user' => function($query){
+            $query->where('status', 1);
+        }])->whereIn('user_id', $instructor)->get();
 
         // get students details
         $students = [];
@@ -389,7 +406,7 @@ class ShedulingController extends Controller
         $student = collect($students);
         $students_details = Student::with('user')->whereIn('user_id', $student)->get();
 
-        return view('owner.sheduling.markascomplete', compact('students_details', 'instructor_details', 'shedule'));
+        return view('owner.sheduling.markascomplete', compact('students_details', 'instructor_details', 'shedule', 'reports'));
     }
 
     public function saveascomplete(Request $request){

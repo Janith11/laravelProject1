@@ -17,7 +17,8 @@ class CreateEmplooyeeLeavesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->string('reson');
-            $table->date('date');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->string('type');
             $table->integer('status');
             $table->timestamps();

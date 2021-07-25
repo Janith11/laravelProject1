@@ -13,15 +13,15 @@ class VehicleController extends Controller
         $vehicles = Vehicle::all();
         $vehicle_count = Vehicle::count();
         if($vehicle_count > 0){
-            return view('owner.vehicles', compact('vehicles', 'vehicle_count'));
+            return view('owner.vehicle.vehicles', compact('vehicles', 'vehicle_count'));
         }else{
-            return view('owner.vehicles', ['vehicle_count' => 0, 'emptymsg' => 'hellow']);
+            return view('owner.vehicle.vehicles', ['vehicle_count' => 0, 'emptymsg' => 'hellow']);
         }
 
     }
 
     public function addvehicle(){
-        return view('owner.addvehicle');
+        return view('owner.vehicle.addvehicle');
     }
 
     public function insertvehicle(Request $request){
@@ -72,7 +72,7 @@ class VehicleController extends Controller
     public function editvehicle($id){
 
         $editvehicle = Vehicle::find($id);
-        return view('owner.editvehicle', compact('editvehicle'));
+        return view('owner.vehicle.editvehicle', compact('editvehicle'));
     }
 
     public function updatevehicle(Request $request, $id){
@@ -119,7 +119,7 @@ class VehicleController extends Controller
 
         $searchvehicle = Vehicle::where('name','=', $name)->get();
         if( count($searchvehicle) > 0){
-            return view('owner.searchvehicleresult', compact('searchvehicle'));
+            return view('owner.vehicle.searchvehicleresult', compact('searchvehicle'));
         }else{
             return back()->with('searcherror', 'No Match Items !!');
         }

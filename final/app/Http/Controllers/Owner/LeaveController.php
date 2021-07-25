@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Owner;
 use App\EmplooyeeLeave;
 use App\Http\Controllers\Controller;
 use App\Instructor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 // 0 - pending
 // 1 - confirm
@@ -14,8 +16,25 @@ use Illuminate\Http\Request;
 class LeaveController extends Controller
 {
     public function leaverequest(){
+
+        $firstday = Carbon::now()->startOfMonth();
+        $lastday = Carbon::now()->endOfMonth();
+
         $pending_requests = EmplooyeeLeave::with('user')->where('status', 0)->get();
-        return view('owner.leave.leaverequest', compact('pending_requests'));
+
+        $users = [];
+
+        foreach ($pending_requests as $request) {
+            $users[] = $request->user_id;
+        }
+
+        $users_lives = [];
+        foreach ($users as $user) {
+            $count = EmplooyeeLeave::where('user_id', $user)->whereBetween('start_date', [$firstday, $lastday])->where('status', 1)->count();
+            $users_lives[$user] = $count;
+        }
+
+        return view('owner.leave.leaverequest', compact('pending_requests', 'users_lives'));
     }
 
     public function acceptrequest(Request $request){
@@ -34,6 +53,12 @@ class LeaveController extends Controller
         $request->save();
 
         return redirect()->route('leaverequest')->with('successmsg', 'Ignore request successfully !!');
+    }
+
+    public function levaedetails($id){
+        $details = EmplooyeeLeave::where('user_id', $id)->orderBy('start_date')->get()->reverse();
+        // return $details;
+        return view('owner.leave.leavedetails', compact('details'));
     }
 
 }

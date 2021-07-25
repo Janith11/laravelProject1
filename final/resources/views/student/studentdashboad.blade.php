@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container" >
-    
+
     <div class="card-deck">
         <div class="card" style="border: none; background-color: transparent !important;">
-          <img class="card-img-top mx-auto d-block" src="https://cdn.pixabay.com/photo/2021/01/04/10/41/icon-5887126_1280.png" alt="Card image cap" style="width: 50%; height:auto;">
+          <img class="card-img-top mx-auto d-block" src="/uploadimages/students_profiles/{{ Auth::user()->profile_img }}" style="width: 70%; height:auto; border-radius: 50%">
           <div class="card-body text-center">
             <h5 class="card-title">{{ $user->f_name }} {{ $user->l_name }}</h5>
             <p class="card-text">{{ $user->email }}</p>

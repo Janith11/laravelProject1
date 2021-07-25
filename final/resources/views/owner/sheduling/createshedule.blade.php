@@ -25,8 +25,8 @@
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> > Shedule List</a>
-        <a href="{{ route('calendar') }}" style="padding-top: 6px; padding-left: 10px"> > Calender</a>
+        <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> / Shedule List</a>
+        <a href="{{ route('calendar') }}" style="padding-top: 6px; padding-left: 10px"> / Calender</a>
         {{-- <a href="{{ route('setsheduletime') }}" style="padding-top: 6px; padding-left: 10px"> > Time Slot</a> --}}
     </div>
 
@@ -171,6 +171,11 @@
                 </div>
                 <hr style="border: 0.5px solid #222944">
                 <div class="row">
+                    @if(count($instructors) == 0)
+                        <div class="alert alert-info" role="alert" style="width: 100%">
+                            <h5><strong>Wooops!!</strong> all instructors are leave today !! (you can't shedule)</h5>
+                        </div>
+                    @else
                     <div class="table-responsive" style="padding-left: 10px; padding-right: 10px">
                         <table class="table"  id="instructorTable">
                             <thead class="thead-dark">
@@ -224,6 +229,7 @@
                             </tbody>
                         </table>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

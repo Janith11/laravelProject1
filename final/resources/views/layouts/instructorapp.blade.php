@@ -716,7 +716,7 @@ aside li.menu-label {
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=""><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('instructorattendancelist') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Attendance</span>
                     </a>
                 </li>
@@ -734,7 +734,7 @@ aside li.menu-label {
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=""><i><img src="images/dashboard.png" alt=""></i>
+                    <a class="nav-link" href="{{ route('instructorsalary') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Salary</span>
                     </a>
                 </li>

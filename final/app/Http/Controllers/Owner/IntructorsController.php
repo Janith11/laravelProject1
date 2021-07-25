@@ -13,10 +13,10 @@ class IntructorsController extends Controller
 {
     public function index(){
         $instructors = Instructor::with('user')->get();
-        return view('owner.instructors', compact('instructors'));
+        return view('owner.instructor.instructors', compact('instructors'));
     }
     public function addinstructor(){
-        return view ('owner.addinstructor');
+        return view('owner.instructor.addinstructor');
     }
     public function insertinstructor(Request $request){
 
@@ -60,7 +60,7 @@ class IntructorsController extends Controller
     }
     public function editinstructor($user_id){
         $Instructor = Instructor::where('user_id', '=',$user_id)->with('user')->get();
-        return view('owner.editinstructor',compact('Instructor'));
+        return view('owner.instructor.editinstructor',compact('Instructor'));
     }
     public function updateinstructor(Request $request, $user_id){
         $this->validate($request,[

@@ -1,10 +1,14 @@
 @extends('layouts.ownerapp')
 @section('content')
 
+<<<<<<< HEAD
 <style>
   
 </style>
  
+=======
+
+>>>>>>> rane
 
  {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 
@@ -18,7 +22,7 @@
             {{-- <h5 class="card-header"></h5> --}}
             <div class="card-body bg-dark">
               <p class="card-text"></p>
-              <chat-app   :user="{{ Auth::user() }}"><chat-app/>   
+              <chat-app   :user="{{ Auth::user() }}"><chat-app/>
             </div>
           </div>
     </div>
