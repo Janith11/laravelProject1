@@ -89,7 +89,7 @@
                           <td>5,000</td>
                         </tr>
                         <tr>
-                          <td scope="row"><button class="btn btn-primary">Pay</button></td>
+                          <td scope="row"><a class="btn btn-primary" href="{{ route('studentpayments',$s->id) }}">Pay Here</a></td>
                           </tr>
                         </tbody>
                     </table>
@@ -169,7 +169,7 @@
         </div>
       </div>
 
-      <div id="Invoices" class="tabcontent">
+      <div id="Invoices" class="tabcontent container">
         <div class="mydiv1" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="table-responsive">
           <table class="table">
