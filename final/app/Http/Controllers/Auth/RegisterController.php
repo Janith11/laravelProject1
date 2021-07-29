@@ -114,23 +114,23 @@ class RegisterController extends Controller
             // 'username' => str_slug($data['username']),
             'email' => $data['email'],
             'nic_number' => $data['nicnumber'],
-            // 'gender' => $data['gender'],
-            'gender' => 'female',
+            'gender' => $data['gender'],
+            // 'gender' => 'female',
             'contact_number' => $data['contactno'],
             'dob' => $data['birthday'],
             'address_no' => $data['addressno'],
             'address_lineone' => $data['addresslineone'],
             'address_linetwo' => $data['addresslinetwo'],
-            'profile_img' => 'null',
+            'profile_img' => 'default_profile.jpg',
             'status' => 1,
             'password' => Hash::make($data['password']),
 
         ]);
-        $user->student = Student::create([
-            'user_id' => $user->id,
-            'amount'=>0,
-            'total_fee'=>0,
-        ]);
+        // $user->student = Student::create([
+        //     'user_id' => $user->id,
+        //     'amount'=>0,
+        //     'total_fee'=>0,
+        // ]);
         
         $selected_category = $data['vehicle_category'];
         $test=[];

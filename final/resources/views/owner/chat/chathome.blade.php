@@ -1,14 +1,7 @@
 @extends('layouts.ownerapp')
 @section('content')
 
-<<<<<<< HEAD
-<style>
-  
-</style>
- 
-=======
 
->>>>>>> rane
 
  {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 

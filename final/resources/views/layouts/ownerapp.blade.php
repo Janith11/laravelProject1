@@ -800,12 +800,9 @@ aside li.menu-label {
                     </a>
                 </li>
 
-<<<<<<< HEAD
-                <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=" {{ route('attendanceslist') }}">
-=======
+
                 <li class="nav-item mb-2" id="nav-item">
-                    <a type="button" class="dropdown-btn"><i><img src="images/dashboard.png" alt=""></i>
+                    <a type="button" class="dropdown-btn">
                         <span class="menu-title" id="item">HRMS</span>
                         <i class="fa fa-caret-down" style="padding-left: 10px"></i>
                     </a>
@@ -823,23 +820,21 @@ aside li.menu-label {
 
                 {{-- <li class="nav-item mb-3" id="nav-item">
                     <a class="nav-link" href=" {{ route('attendanceslist') }}"><i><img src="images/dashboard.png" alt=""></i>
->>>>>>> rane
+
                         <span class="menu-title" id="item">Attendances</span>
                     </a>
                 </li>
 
                 <li class="nav-item mb-3" id="nav-item">
-<<<<<<< HEAD
+
                     <a class="nav-link" href=" {{ route('settings') }}">
-=======
                     <a class="nav-link" href=" {{ route('salary') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Salary</span>
                     </a>
                 </li> --}}
 
                 <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=" {{ route('settings') }}"><i><img src="images/dashboard.png" alt=""></i>
->>>>>>> rane
+                    <a class="nav-link" href=" {{ route('settings') }}">
                         <span class="menu-title" id="item">Settings</span>
                     </a>
                 </li>

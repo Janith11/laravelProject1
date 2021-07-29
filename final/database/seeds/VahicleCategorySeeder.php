@@ -13,15 +13,27 @@ class VahicleCategorySeeder extends Seeder
     public function run()
     {
         DB::table('vehicle_categories')->insert([
-            'category_code' => 'A1',
-            'name' => 'Scooter (auto)',
-            'base_type' => 'light_vehicle',
+            'category_code' => 'A',
+            'name' => 'bike',
+            'transmission'=>'automanual',
         ]);
 
         DB::table('vehicle_categories')->insert([
-            'category_code' => 'A',
-            'name' => 'Motor Bicycle (manual)',
-            'base_type' => 'light_vehicle',
+            'category_code' => 'B1',
+            'name' => 'threeweel',
+            'transmission'=>'manual',
+        ]);
+
+        DB::table('vehicle_categories')->insert([
+            'category_code' => 'C1',
+            'name' => 'dualpurposes',
+            'transmission'=>'automanual',
+        ]);
+
+        DB::table('vehicle_categories')->insert([
+            'category_code' => 'C',
+            'name' => 'heavyvehical',
+            'transmission'=>'manual',
         ]);
     }
 }

@@ -36,11 +36,31 @@
     <div class="row-mb-2">
         <div class="row justify-content-end">
             <div style="padding-right: 15px">
-                <a type="button" class="btn btn-info" style="color: white" href="{{ route('addstudent') }}">View Deleted Requests</a>
+                <a type="button" class="btn btn-info" style="color: white" href="{{ route('viewdeleterequests') }}">View Deleted Requests</a>
             </div>
         </div>
     </div>
 
+    <div class="row-mb-2">
+        @if(session('successmsg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5>
+                    {{ session('successmsg') }}
+                </h5>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
+
+    <div class="row-mb-2">
+        @if(session('error'))
+            <div class="alert alert-danger">
+                <h5>{{ session('error') }}</h5>
+            </div>
+        @endif
+    </div>
     {{-- start the loop  --}}
     <div class="mt-4">
 
@@ -56,9 +76,12 @@
                         <div class="col-3">
                             <a href="{{ route('reviewrequest', $r->id) }}" class="btn btn-success ">Review</a>
                         </div>
+                        <form action="{{ route('declinerequest', $r->id) }}" method="POST">
+                            @csrf
                         <div class="col-3">
-                            <a href="#" class="btn btn-danger ">Decline</a>
+                            <button type="submit" class="btn btn-danger">Decline</button>
                         </div>
+                        </form>
                 </div>
               </div>
             </div>

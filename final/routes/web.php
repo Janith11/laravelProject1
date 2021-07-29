@@ -71,6 +71,12 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/addstudent', 'Owner\StudentsController@insertstudent')->name('insertstudent');
     Route::get('/editstudent/{user_id}', 'Owner\StudentsController@editstudent')->name('editstudent');
     Route::post('/updatestudent/{user_id}', 'Owner\StudentsController@updatestudent')->name('updatestudent');
+    Route::get('/editstudentcategory/{id}', 'Owner\StudentsController@viewcategory')->name('categoryview');
+
+    //student category part update and add category in the studentcontroller
+    Route::post('/updatecategory/test/{id}/{userid}', 'Owner\StudentsController@updatecategory')->name('updatestudentcategory');
+    Route::delete('/deletestudentcategory/{id}/{userid}', 'Owner\StudentsController@deleteecategory')->name('deletestudentvehiclecategory');
+    Route::post('/updatecategory/addnewcategory','Owner\StudentsController@addnewcategory')->name('addnewstudentcategory');
 
     Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
 
@@ -172,8 +178,13 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/conversation/send', 'Owner\ChatController@send');
 
     //requests
-    Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewrequest');
+    Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewrequest'); 
     Route::get('/reviewrequest/{id}', 'Owner\ViewrequestController@get')->name('reviewrequest');
+    Route::post('/acceptrequest/{id}', 'Owner\ViewrequestController@accept')->name('acceptrequest');
+    Route::post('/declinerequest/{id}', 'Owner\ViewrequestController@decline')->name('declinerequest');
+    Route::get('/requests/view/declinerequests','Owner\ViewrequestController@viewdeleterequests')->name('viewdeleterequests');
+    Route::post('/declinerequest/restore/{id}', 'Owner\ViewrequestController@restorerequest')->name('restorestudentrequests');
+    Route::delete('/declinerequest/delete/{id}', 'Owner\ViewrequestController@deleterequest')->name('deletestudentrequests');
 
     // payroll
     Route::get('/saray', 'Owner\SalaryController@index')->name('salary');
