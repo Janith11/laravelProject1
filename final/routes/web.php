@@ -69,6 +69,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/studentslist', 'Owner\StudentsController@index')->name('studentslist');
     Route::get('/addstudent', 'Owner\StudentsController@addstudent')->name('addstudent');
     Route::post('/addstudent', 'Owner\StudentsController@insertstudent')->name('insertstudent');
+    Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
     Route::get('/editstudent/{user_id}', 'Owner\StudentsController@editstudent')->name('editstudent');
     Route::post('/updatestudent/{user_id}', 'Owner\StudentsController@updatestudent')->name('updatestudent');
     Route::get('/editstudentcategory/{id}', 'Owner\StudentsController@viewcategory')->name('categoryview');
@@ -78,16 +79,15 @@ Route::middleware('checkrequest')->group(function(){
     Route::delete('/deletestudentcategory/{id}/{userid}', 'Owner\StudentsController@deleteecategory')->name('deletestudentvehiclecategory');
     Route::post('/updatecategory/addnewcategory','Owner\StudentsController@addnewcategory')->name('addnewstudentcategory');
 
-    Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
-
     //testing insert student route
     Route::get('/testinginsert', 'Owner\StudentsController@testinsertstudent')->name('testinsert');
 
     //testing insert student route
     Route::get('/testinginsert', 'Owner\StudentsController@testinsertstudent')->name('testinsert');
 
-
-    Route::get('/payments', 'Owner\paymentsController@index')->name('payments');
+    //payments
+    Route::get('/payments', 'Owner\paymentsController@index')->name('payments');//view payments list with students page
+    Route::get('/payments/pay/{id}','Owner\paymentsController@studentpayments')->name('studentpayments');
 
     // sheduling part
     Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');
