@@ -25,7 +25,9 @@ class DatabaseSeeder extends Seeder
                     ExamTableSeeder::class,
                     SheduledStudentSeed::class,
                     ExpenseSeeder::class,
-                    SalarySeeder::class
+                    SalarySeeder::class,
+                    VahicleCategorySeeder::class,
+                    StudentCategorySeeder::class,
                 ]);
     }
 }

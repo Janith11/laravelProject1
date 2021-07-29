@@ -1,7 +1,7 @@
 @extends('layouts.ownerapp')
 
 @section('content')
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
     label{
         color: #222944;
@@ -13,6 +13,7 @@
 
     <!-- start first row  -->
     <div class="row mb-2">
+        <div class="col-12">
         <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Students</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
         <a href="{{ route('owner.ownerdashboad') }}">
@@ -22,6 +23,7 @@
         </a>
         <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentslist') }}"> / Students List</a>
         <a style="padding-top: 6px; padding-left: 10px" > / Add Students</a>
+     </div>
     </div>
 
     <div class="row-mb-2">
@@ -114,18 +116,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-8" id="register_form_item">
+                            <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
                                     <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-
                             <div class="col-sm-4" id="register_form_item">
-
                                 <label for="gender">Gender</label>
                                 <div class="row">
                                     <div class="col" id="register_form_item">
@@ -136,7 +133,6 @@
                                             </label>
                                         </div>
                                     </div>
-
                                     <div class="col" id="register_form_item">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="gender" id="female" value="Female" checked>
@@ -161,61 +157,89 @@
                                     <input type="date" class="form-control" id="bithday" name="birthday">
                                 </div>
                             </div>
-
                         </div>
 
-                        <div id="card">
-                            <div class="card">
-                                <div class="card-body" style="background-color: #D5EDDA !important">
-                                    <div class="row">
-                                        <label style="padding-left: 15px">Vehicle Category</label>
-                                    </div>
-                                    <div class="row">
-                                        @if(count($vehicle_category) == 0)
-                                            <div class="form-group">
-                                                <input type="text" name="category" class="form-control"  value="no vehicle categories" disabled>
-                                            </div>
-                                        @else
-                                            @foreach($vehicle_category as $category)
-                                                <div class="col-sm-2">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" name="category[]" type="checkbox" value="{{ $category->id }}">
-                                                        <label class="form-check-label">
-                                                        {{ $category->category_code }}
-                                                        </label>
-                                                        <small>{{ $category->name }}</small>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <label style="padding-left: 15px; padding-top: 10px">Address</label>
-                        </div>
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
-
+                                    <label style="padding-left: 15px; padding-top: 10px">Address No</label>
                                     <input type="text" name="addressnumber" class="form-control" id="addresslineone" placeholder="Address No ...">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
+                                    <label style="padding-left: 15px; padding-top: 10px">Address Line One</label>
                                     <input type="text" name="addressstreatname" class="form-control" id="addresslinetwo" placeholder="Street ...">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
+                                    <label style="padding-left: 15px; padding-top: 10px">Address Line Two</label>
                                     <input type="text" name="addresscity" class="form-control" id="addresslinethree" placeholder="city ...">
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="form-group">  
+                            @foreach ($vehicalcategory as $vehicle) 
+                            <div class="row">
+                            <div class="col-md-4 mt-2" id="{{ $vehicle->category_code }}A">
+                                <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $vehicle->category_code }}" id="{{ $vehicle->category_code }}1">
+                                <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}1" class="col-form-label text-md-right">{{ $vehicle->name }}</label>
+                            </div>
+                        {{-- <div id="{{ $vehicle->category_code }}B"> --}}
+                            <div class="col-md-4 mt-2" > 
+                                <div class="btn-group" id="{{ $vehicle->category_code }}B">                       
+                                    <input type="radio" class="btn-check " name="{{ $vehicle->category_code }}" value="Training" id="{{ $vehicle->id }}1" autocomplete="off" />
+                                    <label class="btn btn-outline-success mr-2" for="{{ $vehicle->id }}1">Training</label>
+                                  
+                                    <input type="radio" class="btn-check" name="{{ $vehicle->category_code }}" value="Without Training" id="{{ $vehicle->id }}2" autocomplete="off" />
+                                    <label class="btn btn-outline-danger" for="{{ $vehicle->id }}2">Without Training</label>
+                                  </div>
+                            </div>
+                            @if( $vehicle->transmission == 'automanual')
+                            <div class="col-md-4 mt-2" id="{{ $vehicle->category_code }}B">
+                                <div class="btn-group">                       
+                                    <input type="radio" class="btn-check" name="trans{{ $vehicle->category_code }}" value="Auto" id="{{ $vehicle->id }}3" autocomplete="off"/>
+                                    <label class="btn btn-outline-success mr-2" for="{{ $vehicle->id }}3">Auto Transmission</label>
+                                  
+                                    <input type="radio" class="btn-check" name="trans{{ $vehicle->category_code }}" value="Manual" id="{{ $vehicle->id }}4" autocomplete="off" />
+                                    <label class="btn btn-outline-danger" for="{{ $vehicle->id }}4">Manual Transmission</label>
+                                  </div>
+                            </div> 
+                        {{-- </div>  --}}
+                             @endif
+                                @error('birthday')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>          
+                        @endforeach   
+                    </div> 
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="text" name="price" class="form-control is-valid" id="price" placeholder="Total Price" value="17500">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="groupnumber">Group Number</label>
+                                <input type="text" name="groupnumber" class="form-control is-valid" id="groupnumber" placeholder="Group Number" value="1">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="groupnumber">Default Password</label>
+                                <input type="text" name="groupnumber" class="form-control is-valid " id="groupnumber" placeholder="Group Number" value="Learner@2021" disabled>
+                            </div>
+                        </div>
+                    </div>
 
                         <div class="row">
                             <div class="col-sm 4" id="register_form_item">
@@ -228,7 +252,6 @@
             </div>
         </div>
     </div>
-
 
 </div>
 

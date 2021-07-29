@@ -35,20 +35,6 @@ class ExamTableSeeder extends Seeder
             'attempt'   => '2',
         ]);
 
-        DB::table('exams')->insert([
-            'user_id' => '4',
-            'type'  => 'theory',
-            'date'  => '2021-06-30',
-            'result' => 'pass',
-            'attempt'   => '1',
-        ]);
-
-        DB::table('exams')->insert([
-            'user_id' => '4',
-            'type'  => 'practical',
-            'date'  => '2021-09-30',
-            'result' => 'pass',
-            'attempt'   => '1',
-        ]);
+        
     }
 }

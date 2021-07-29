@@ -8,6 +8,7 @@ use App\TrainingVehicleCategory;
 use App\User;
 use App\Exam;
 use App\VehicleCategory;
+use App\StudentCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,8 +29,9 @@ class StudentsController extends Controller
 
     //return add student page (form)
     public function addstudent(){
-        $vehicle_category = VehicleCategory::all();
-        return view('owner.students.addstudent', compact('vehicle_category'));
+        // $vehicle_category = VehicleCategory::all();
+        $vehicalcategory=VehicleCategory::all();
+        return view('owner.students.addstudent', compact('vehicalcategory'));
     }
 
     // >> button result page
@@ -55,13 +57,10 @@ class StudentsController extends Controller
             'addressstreatname' => 'required',
             'addresscity' => 'required',
             'birthday' => 'required|date',
+            'price'=>'required',
+            'groupnumber'=>'required',
+            'vehicle_category'=>'required'
         ]);
-
-        $categories = $request->category;
-        if (empty($categories)) {
-            return back()->with('categoryerror', 'You nedd to select training categories !!');
-        }
-
         $user = User::create([
             'f_name' => $request->firstname,
             'm_name' => $request->middlename,
@@ -74,23 +73,68 @@ class StudentsController extends Controller
             'address_lineone' => $request->addressstreatname,
             'address_linetwo' => $request->addresscity,
             'dob' => $request->birthday,
-            'password' => bcrypt('123456789'),
+            'password' => bcrypt('Learner@2021'),
             'profile_img' => 'default_profile.jpg',
-            'status' => 1
+            'status' => 1,
+            'role_id'=>3
         ]);
 
         $student = Student::create([
             'user_id' => $user->id,
-            'total_fee' => 0,
+            'total_fee' => $request->price,
             'amount' => 0,
+            'group_number'=>$request->groupnumber,
+        ]);
+        $exams=Exam::create([
+            'user_id'=>$user->id,
+            'type'=> 'theory',
+            'result'=>'none',
+            'attempt'=>1
+        ]);
+        $exams=Exam::create([
+            'user_id'=>$user->id,
+            'type'=> 'practical',
+            'result'=>'none',
+            'attempt'=>1
         ]);
 
-        foreach ($categories as $category) {
-            $training_type = TrainingVehicleCategory::create([
-                'category_id' => $category,
-                'user_id' => $user->id,
+        $selected_category = $request['vehicle_category'];
+        $test=[];
+        foreach ($selected_category as  $category) {
+            $row =[];
+            if(($category == 'B1') || ($category == 'C')) {
+                $row[$category] = [ $request[$category], "3" ];
+            }
+            else{
+                $row[$category] = [ $request[$category], $request["trans".$category]  ];
+            }
+            array_push($test,$row);
+        }
+        foreach($test as $value){
+            foreach($value as $key=>$val1){
+           
+            $transmission = '';
+            $trainig='';
+            $count=0;
+            foreach($val1 as $val2){
+                if($count == 0){
+                    $trainig =$val2;
+                }else{
+                    $transmission=$val2;
+                }
+                $count+=1;
+            }
+            $count = 0;
+            StudentCategory::create([
+                'user_id'=>$user->id,
+                'category'=>$key,
+                'tstatus'=>$trainig,
+                'transmission'=>$transmission
             ]);
         }
+            
+        }
+        
 
         return redirect()->route('addstudent')->with('successmsg', 'one student added successfuly !');
 
@@ -119,7 +163,7 @@ class StudentsController extends Controller
 
 
         $user->f_name = $request->firstname;
-        $user->role_id = 2;
+        $user->role_id = 3;
         $user->m_name = $request->middlename;
         $user->l_name = $request->lastname;
         $user->nic_number = $request->nicnumber;
@@ -129,11 +173,56 @@ class StudentsController extends Controller
         $user->address_lineone = $request->addressstreatname;
         $user->address_linetwo = $request->addresscity;
         $user->dob = $request->birthday;
-
         $user->save();
 
         return redirect()->route('studentslist')->with('successmsg', 'Student was updated successfuly !');
 
+    }
+    public function viewcategory($user_id){
+        $category=StudentCategory::where('user_id',$user_id)->get();
+        $havecategory=StudentCategory::where('user_id',$user_id)->select('category')->get();
+        $notcategory=VehicleCategory::whereNotIn('category_code',$havecategory)->get();
+        // return $notcategory;
+        return view('owner.students.editcategory',compact('category','notcategory'));
+    }
+
+    public function updatecategory(Request $request,$id,$userid){
+        
+        $this->validate($request,[
+            'category' => 'required',
+            'tstatus' => 'required',
+            'transmission' => 'required',
+        ]);
+
+        $studentcategory = StudentCategory::find($id);
+        $studentcategory->category =$request->category;
+        $studentcategory->tstatus =$request->tstatus;
+        $studentcategory->transmission =$request->transmission;
+        $studentcategory->save();
+
+        return redirect()->route('categoryview',$userid)->with('successmsg', 'Student Category is updated successfully !');
+
+    }
+
+    public function deleteecategory($id,$userid){
+        StudentCategory::find($id)->delete();
+        return redirect()->route('categoryview',$userid)->with('successmsg', 'Student Category is deleted successfully !');
+    }
+    public function addnewcategory(Request $request){
+        $this->validate($request,[
+            'userid' => 'required',
+            'category_code'=>'required',
+            'tstatus' => 'required',
+            'transmission' => 'required',
+        ]);
+        $student_category=StudentCategory::create([
+            'user_id'=>$request->userid,
+            'category'=>$request->category_code,
+            'tstatus'=>$request->tstatus,
+            'transmission'=>$request->transmission,
+        ]);
+        return redirect()->route('categoryview',$request->userid)->with('successmsg', 'Student new Category is updated
+         successfully !');
     }
 
 }
