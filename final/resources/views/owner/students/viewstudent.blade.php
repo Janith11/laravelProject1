@@ -44,10 +44,6 @@
                           <td>{{$s->user_id}}</td>
                         </tr>
                         <tr>
-                          <td scope="row">Catagory</td>
-                          <td>not define</td>
-                        </tr>
-                        <tr>
                           <td scope="row">Email</td>
                           <td>{{$s->user->email}}</td>
                         </tr>
@@ -63,8 +59,10 @@
                           <td scope="row">Address</td>
                           <td><small>{{$s->user->address_no}}, {{$s->user->address_lineone}}, {{$s->user->address_linetwo}}</small></td>
                         </tr>
-
-
+                        <tr>
+                          <td scope="row">View Categories</td>
+                          <td scope="row"><a href="{{ route('categoryview',$s->user->id) }}" type="button" class="btn btn-success">Category</a></button></td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -91,7 +89,7 @@
                           <td>5,000</td>
                         </tr>
                         <tr>
-                          <td scope="row"><button class="btn btn-primary">Pay</button></td>
+                          <td scope="row"><a class="btn btn-primary" href="{{ route('studentpayments',$s->id) }}">Pay Here</a></td>
                           </tr>
                         </tbody>
                     </table>
@@ -125,17 +123,20 @@
               @endforeach
 
 
+
               <div class="card mt-4 mb-2">
+
 
                 <div class="card-body">
                     <h4 class="card-title">Exam Results</h4>
                     @foreach ($examdetails as $examdetail)
                     @foreach ($examdetail->exams as $exam)
 
-                    <div class="table-responsive">
 
+                    <div class="card col-md-6">
+                      <div class="card-body">
+                      <div class="table-responsive">
                       <table class="table mt-5">
-
                       <tbody>
                           <tr>
                             <td scope="row">Type</td>
@@ -159,17 +160,18 @@
                           </tbody>
                       </table>
                     </div>
+                      </div>
+                    </div>
                     @endforeach
                     @endforeach
                   </div>
-
                 </div>
               </div>
 
         </div>
       </div>
 
-      <div id="Invoices" class="tabcontent">
+      <div id="Invoices" class="tabcontent container">
         <div class="mydiv1" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="table-responsive">
           <table class="table">

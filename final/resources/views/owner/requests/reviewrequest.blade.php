@@ -19,6 +19,7 @@
         color: inherit;
     }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 
 <div class="container">
@@ -45,12 +46,16 @@
                 <div class="card-body">
                     <h5 style="color: #222944; font-weight: bold">Review new Student</h5>
                     <hr style="border: 0.5px solid #222944">
-                    <form action="{{ route('insertstudent') }}" method="POST">
+                    @foreach ($registration as $r)
+                    <form action="{{ route('acceptrequest',$r->id) }}" method="POST">
 
                         @csrf
 
                         <div class="row">
+<<<<<<< HEAD
                             @foreach ($registration as $r)
+=======
+>>>>>>> c9f91cfc81f0b1e6898bbae514c442925fc03dda
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="fristname">Frist Name</label>
@@ -129,11 +134,15 @@
 
                         </div>
 
+<<<<<<< HEAD
 
 
 
 
                         <div class="row">
+=======
+                     <div class="row">
+>>>>>>> c9f91cfc81f0b1e6898bbae514c442925fc03dda
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label >Address</label>
@@ -162,36 +171,47 @@
 
                                 <div class="col-sm-4">
                                     <div class="col-md-4 mt-2" id="{{ $c->category_code }}A">
-                                        <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $c->category }}" id="{{ $c->category }}1" checked>
-                                        <label class="btn btn-outline-primary btn-block" for="{{ $c->category }}1" class="col-form-label text-md-right">{{ $c->category }}</label>
+                                        <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $c->category }}" id="{{ $c->category }}1" checked required>
+                                        <label class="btn btn-outline-dark btn-block" for="{{ $c->category }}1" class="col-form-label text-md-right">{{ $c->category }}</label>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <div class="btn-group" id="{{ $c->category }}B">
-                                        <input type="radio" class="btn-check" name="{{ $c->category }}" value="Training" id="{{ $c->id }}1" autocomplete="off" />
-                                        <label class="btn btn-outline-success" for="{{ $c->id }}1">Training</label>
+                                    <div class="btn-group " id="{{ $c->category }}B">
+                                        <input type="radio" class="btn-check " name="{{ $c->category }}" value="Training" id="{{ $c->id }}1" {{ $c->tstatus == 'Training' ? 'checked' : '' }} />
+                                        <label class="btn btn-outline-success m-1" for="{{ $c->id }}1">Training</label>
 
-                                        <input type="radio" class="btn-check" name="{{ $c->category }}" value="Without Training" id="{{ $c->id }}2" autocomplete="off" />
-                                        <label class="btn btn-outline-danger" for="{{ $c->id }}2">Without Training</label>
+                                        <input type="radio" class="btn-check" name="{{ $c->category }}" value="Without Training" id="{{ $c->id }}2" {{ $c->tstatus == 'Without Training' ? 'checked' : '' }}/>
+                                        <label class="btn btn-outline-danger m-1" for="{{ $c->id }}2">Without Training</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    @if( $c->transmission == 'automanual')
+                                    @if( $c->transmission != '3')
                                     <div class="btn-group">
-                                        <input type="radio" class="btn-check" name="trans{{ $c->category_code }}" value="Auto" id="{{ $c->id }}3" autocomplete="off"/>
-                                        <label class="btn btn-outline-success" for="{{ $c->id }}3">Auto Transmission</label>
+                                        <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Auto" id="{{ $c->id }}3" {{ $c->transmission == 'Auto' ? 'checked' : '' }}/>
+                                        <label class="btn btn-outline-success m-1" for="{{ $c->id }}3">Auto Transmission</label>
 
-                                        <input type="radio" class="btn-check" name="trans{{ $c->category_code }}" value="Manual" id="{{ $c->id }}4" autocomplete="off" />
-                                        <label class="btn btn-outline-danger" for="{{ $c->id }}4">Manual Transmission</label>
+                                        <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Manual" id="{{ $c->id }}4" {{ $c->transmission == 'Manual' ? 'checked' : '' }}/>
+                                        <label class="btn btn-outline-danger m-1" for="{{ $c->id }}4">Manual Transmission</label>
                                     </div>
                                     @endif
                                 </div>
                             </div>
-
-
-
                         @endforeach
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input type="text" name="price" class="form-control is-valid" id="price" placeholder="Total Price" value="17500">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="groupnumber">Group Number</label>
+                                    <input type="text" name="groupnumber" class="form-control is-valid" id="groupnumber" placeholder="Group Number" value="1">
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm 4" id="register_form_item">
                                 <button type="submit" class="btn btn-success">Reviewed & Register</button>

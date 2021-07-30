@@ -69,10 +69,15 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/studentslist', 'Owner\StudentsController@index')->name('studentslist');
     Route::get('/addstudent', 'Owner\StudentsController@addstudent')->name('addstudent');
     Route::post('/addstudent', 'Owner\StudentsController@insertstudent')->name('insertstudent');
+    Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
     Route::get('/editstudent/{user_id}', 'Owner\StudentsController@editstudent')->name('editstudent');
     Route::post('/updatestudent/{user_id}', 'Owner\StudentsController@updatestudent')->name('updatestudent');
+    Route::get('/editstudentcategory/{id}', 'Owner\StudentsController@viewcategory')->name('categoryview');
 
-    Route::get('/viewstudent/{user_id}', 'Owner\StudentsController@viewstudent')->name('viewstudent');
+    //student category part update and add category in the studentcontroller
+    Route::post('/updatecategory/test/{id}/{userid}', 'Owner\StudentsController@updatecategory')->name('updatestudentcategory');
+    Route::delete('/deletestudentcategory/{id}/{userid}', 'Owner\StudentsController@deleteecategory')->name('deletestudentvehiclecategory');
+    Route::post('/updatecategory/addnewcategory','Owner\StudentsController@addnewcategory')->name('addnewstudentcategory');
 
     //testing insert student route
     Route::get('/testinginsert', 'Owner\StudentsController@testinsertstudent')->name('testinsert');
@@ -80,8 +85,9 @@ Route::middleware('checkrequest')->group(function(){
     //testing insert student route
     Route::get('/testinginsert', 'Owner\StudentsController@testinsertstudent')->name('testinsert');
 
-
-    Route::get('/payments', 'Owner\paymentsController@index')->name('payments');
+    //payments
+    Route::get('/payments', 'Owner\paymentsController@index')->name('payments');//view payments list with students page
+    Route::get('/payments/pay/{id}','Owner\paymentsController@studentpayments')->name('studentpayments');
 
     // sheduling part
     Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');
@@ -172,8 +178,13 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/conversation/send', 'Owner\ChatController@send');
 
     //requests
-    Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewrequest');
+    Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewrequest'); 
     Route::get('/reviewrequest/{id}', 'Owner\ViewrequestController@get')->name('reviewrequest');
+    Route::post('/acceptrequest/{id}', 'Owner\ViewrequestController@accept')->name('acceptrequest');
+    Route::post('/declinerequest/{id}', 'Owner\ViewrequestController@decline')->name('declinerequest');
+    Route::get('/requests/view/declinerequests','Owner\ViewrequestController@viewdeleterequests')->name('viewdeleterequests');
+    Route::post('/declinerequest/restore/{id}', 'Owner\ViewrequestController@restorerequest')->name('restorestudentrequests');
+    Route::delete('/declinerequest/delete/{id}', 'Owner\ViewrequestController@deleterequest')->name('deletestudentrequests');
 
     // payroll
     Route::get('/saray', 'Owner\SalaryController@index')->name('salary');
