@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-        
+
         <!-- start first row  -->
     <div class="row">
         <div class="card" style="width: 100%;">
@@ -16,7 +16,7 @@
         <div class="card" style="margin-top: 30px; padding:20px 20px 20px 20px; border-radius: 15px;">
             <h3 class="card-title">Add new Instructor</h3>
             <hr/>
-            
+
             @if(session('successmsg'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <h5>
@@ -27,7 +27,7 @@
                 </button>
             </div>
             @endif
-            
+
             @if(count($errors) > 0)
             <div class="container">
                 <div class="alert alert-danger">
@@ -46,7 +46,7 @@
                 {{ csrf_field() }}
 
                 <div class="row">
-                    
+
                     <div class="col-sm 3" id="register_form_item">
                         <div class="form-group">
                             <label for="firstname">Frist Name</label>
@@ -88,9 +88,9 @@
                 </div>
 
                 <div class="row">
-                    
+
                     <div class="col-sm 3" id="register_form_item">
-                        
+
                         <label for="gender">Gender</label>
                         <div class="row">
                             <div class="col" id="register_form_item">
@@ -147,7 +147,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm 4" id="register_form_item">
                         <button type="submit" class="btn btn-primary">Register</button>
@@ -191,5 +191,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .instructor').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection

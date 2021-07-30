@@ -1,7 +1,7 @@
 @extends('layouts.ownerapp')
 @section('content')
 <style>
-    img{
+    #img{
         width: 60px;
         height: auto;
         border-radius: 50px;
@@ -34,10 +34,10 @@
         <a style="padding-top: 6px; padding-left: 10px"> / Review requests</a>
     </div>
 
-    
+
 
     {{-- start the loop  --}}
-    
+
 
     <div class="row-mb-2">
         <div id="card">
@@ -50,7 +50,7 @@
                         @csrf
 
                         <div class="row">
-                            @foreach ($registration as $r)                            
+                            @foreach ($registration as $r)
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="fristname">Frist Name</label>
@@ -129,10 +129,10 @@
 
                         </div>
 
-                        
 
-                                            
-                        
+
+
+
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -155,11 +155,11 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         @endforeach
                         @foreach ($category as $c)
                             <div class="row">
-                                
+
                                 <div class="col-sm-4">
                                     <div class="col-md-4 mt-2" id="{{ $c->category_code }}A">
                                         <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $c->category }}" id="{{ $c->category }}1" checked>
@@ -168,29 +168,29 @@
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <div class="btn-group" id="{{ $c->category }}B">                       
+                                    <div class="btn-group" id="{{ $c->category }}B">
                                         <input type="radio" class="btn-check" name="{{ $c->category }}" value="Training" id="{{ $c->id }}1" autocomplete="off" />
                                         <label class="btn btn-outline-success" for="{{ $c->id }}1">Training</label>
-                                      
+
                                         <input type="radio" class="btn-check" name="{{ $c->category }}" value="Without Training" id="{{ $c->id }}2" autocomplete="off" />
                                         <label class="btn btn-outline-danger" for="{{ $c->id }}2">Without Training</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     @if( $c->transmission == 'automanual')
-                                    <div class="btn-group">                       
+                                    <div class="btn-group">
                                         <input type="radio" class="btn-check" name="trans{{ $c->category_code }}" value="Auto" id="{{ $c->id }}3" autocomplete="off"/>
                                         <label class="btn btn-outline-success" for="{{ $c->id }}3">Auto Transmission</label>
-                                      
+
                                         <input type="radio" class="btn-check" name="trans{{ $c->category_code }}" value="Manual" id="{{ $c->id }}4" autocomplete="off" />
                                         <label class="btn btn-outline-danger" for="{{ $c->id }}4">Manual Transmission</label>
                                     </div>
                                     @endif
-                                </div>    
-                            </div>   
-                            
-                            
-                            
+                                </div>
+                            </div>
+
+
+
                         @endforeach
                         <div class="row">
                             <div class="col-sm 4" id="register_form_item">
@@ -204,10 +204,16 @@
         </div>
     </div>
 
-       
-    
+
+
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .requests').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection
 

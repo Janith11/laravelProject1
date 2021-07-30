@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-            <!-- end of the first row  --> 
+            <!-- end of the first row  -->
             <!-- start hidden filter  -->
             <div class="form search-filter mt-2" style="display: none;">
                 <div class="form-group">
@@ -44,7 +44,7 @@
                 </div>
             @endif
             <!-- end alert section -->
-            
+
             <!-- start the card of the instructors  -->
             <div class="row mt-5">
                 @foreach($instructors as $instructor)
@@ -69,4 +69,11 @@
                 @endforeach
             </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $('aside ul .instructor').css('border-left', '5px solid #00bcd4');
+        })
+    </script>
+    
 @endsection

@@ -13,7 +13,7 @@
 
     <div class="row mb-2 justify-content-end">
         <div style="display: inline-block">
-            @foreach ($student as $s)  
+            @foreach ($student as $s)
             <div style="display: inline-block">
                 <a href="{{ route('addnewexamresult',$s->user_id) }}" type="button" class="btn btn-primary">Add New</a>
             </div>
@@ -80,10 +80,10 @@
                     <hr style="border: 0.5px solid #222944">
                     <form >
 
-                        
+
 
                         <div class="row">
-                            @foreach ($student as $s) 
+                            @foreach ($student as $s)
                            <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -107,13 +107,13 @@
                         </div>
                     </form>
                         @endforeach
-                    
-                        
+
+
                         @foreach ($examdetails as $examdetail)
                         @foreach ($examdetail->exams as $exam)
-                        <form action="{{ route('saveexamlist',$exam->id) }}" method="POST"> 
+                        <form action="{{ route('saveexamlist',$exam->id) }}" method="POST">
                         @csrf
-                       
+
                         <div class="row">
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
@@ -121,7 +121,7 @@
                                     <input type="text" name="attempt" class="form-control"  placeholder="Enter the attempt..." value="{{ $exam->attempt }}">
                                 </div>
                             </div>
-                            
+
                         </div>
 
                         <div class="row">
@@ -136,7 +136,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
 
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
@@ -156,14 +156,14 @@
                                 </div>
                             </div>
 
-                        </div>                   
-                           
-                        
+                        </div>
+
+
                         <div class="row">
                             <div class="col-sm 4" id="register_form_item">
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
-                        </div>                       
+                        </div>
                     </form>
                     <hr style="border: 0.5px solid #222944">
                     @endforeach
@@ -173,7 +173,12 @@
         </div>
     </div>
 
-    
-
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .students').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection

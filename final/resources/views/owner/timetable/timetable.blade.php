@@ -160,4 +160,10 @@
 
 </div>
 
+<script>
+    $(document).ready(function(){
+        $('aside ul .shedulings').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection

@@ -11,7 +11,7 @@
                 </button>
             </div>
         @endif
-        
+
         @if(session('error'))
         <div class="alert alert-danger">
             <h5>{{ session('error') }}</h5>
@@ -30,7 +30,7 @@
             </div>
         </div>
         @endif
-        
+
 <div class="container">
 
         <!-- start first row  -->
@@ -52,15 +52,15 @@
                 {{ csrf_field() }}
 
                 <div class="row">
-                    
-                    
+
+
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
                             <label for="fristname">Frist Name</label>
                             <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Enter Frist name ..." value="{{ $instructor->user->f_name }}">
                         </div>
                     </div>
-                
+
                     <div class="col-sm-3" id="register_form_item">
                         <div class="form-group">
                             <label for="middlename">Middle Name</label>
@@ -186,5 +186,11 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .instructor').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection

@@ -11,12 +11,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <style>
         #bgcolour{
-            width: 100%; 
+            width: 100%;
             height: 100vh;
             /* color: #fff; */
             background: linear-gradient(-45deg,#EE7752,#E73C7E,#23A6D5,#23D5AB);
-            background-size: 4000% 4000%; 
-            position: relative; 
+            background-size: 4000% 4000%;
+            position: relative;
             animation: change 15s ease-in-out infinite;
         }
         @keyframes change{
@@ -28,22 +28,22 @@
                 background-position: 0 50%;
             }
         }
-        .card { 
+        .card {
           background-color: rgba(245, 245, 245, 0.6);
           box-shadow: 6 6px 8px 0 rgba(0,0,0,0.2);
-          transition: 0.3s; 
+          transition: 0.3s;
         }
-        
+
     </style>
 </head>
 <body id="bgcolour">
-   
+
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Welcome</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-      
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <div class="link">
             <ul class="navbar-nav  ml-auto">
@@ -100,12 +100,12 @@
                   <p>You can inform the administration by using email or contact number given in the coutact us page.</p>
                   @endif
                   {{-- <p>{{ Auth::user()->created_at }}</p> --}}
-                </div>  
+                </div>
             </div>
-            
-        </div>    
-    
-    
+
+        </div>
+
+
     @if (auth()->user()->status == '1')
     <div class="modal" tabindex="-1" role="dialog" id="myModal">
         <div class="modal-dialog " role="document">
@@ -120,7 +120,7 @@
               {{-- <p>Modal body text goes here.</p> --}}
               <img src="/images/candidate/trophy.gif" alt="candidate" class="img-fluid">
               <h3 class="mt-3 mb-2 text-center text-success">Congratulations!</h3>
-    
+
               <p class="text-center"> <span class="text-info">{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</span> ,you have been personally reviewd and selected by the administration.</p>
               <p class="text-center"><b>Good Luck!</b></p>
             </div>

@@ -145,8 +145,8 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/settings/saveshedulingtype', 'Owner\SettingController@changeshedulingtype')->name('changeshedulingtype');
     Route::post('/settings/savesprofile', 'Owner\SettingController@saveprofiledetails')->name('saveprofiledetails');
     Route::post('/settings/savesprofileimage', 'Owner\SettingController@updateprofilepicture')->name('updateownerprofileimage');
-    Route::get('settings/password', 'Owner\SettingController@password')->name('ownerpassword');
-    Route::post('settings/password/save', 'Owner\SettingController@store')->name('saveownerpassword');
+    Route::get('/settings/password', 'Owner\SettingController@password')->name('ownerpassword');
+    Route::post('/settings/password/save', 'Owner\SettingController@store')->name('saveownerpassword');
 
     // attendances
     Route::get('/attendanceslist', 'Owner\EmplooyeeAttendanceController@index')->name('attendanceslist');
@@ -195,7 +195,17 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/contactsS', 'Student\ChatController@get');
     Route::get('/conversationS/{id}', 'Student\ChatController@getMessagesFor');
     Route::post('/conversationS/send', 'Student\ChatController@send');
-    });
+
+    //instructor profile
+    Route::get('/studentprofile', 'Student\StudentProfileController@index')->name('studentprofile');
+    Route::post('/studentprofile/update', 'Student\StudentProfileController@updateprofile')->name('updatestudentprofile');
+    Route::post('/studentprofile/updateprofileimage', 'Student\StudentProfileController@updateprofilepicture')->name('studentupdateprofilepicture');
+    // Route::get('/studentprofile/changepassword'. 'Student\StudentProfileController@passwordchange')->name('studentchangepassword');
+    // Route::post('/studentprofile/updatepassword', 'Student\StudentProfileController@store')->name('updatestudentpassword');
+    Route::get('/studentprofile/changepassword', 'Student\StudentProfileController@changepassword')->name('studentchangepassword');
+    Route::post('/studentprofile/changepassword/save', 'Student\StudentProfileController@store')->name('studentupdatepassword');
+
+});
 
 
 
@@ -225,7 +235,6 @@ Route::middleware('instructordashboard')->group(function(){
     Route::delete('/posts/deletepost/{id}/{user_id}', 'Instructor\PostsController@deletepost')->name('instructordeletepost');
     Route::post('/posts/savepost', 'Instructor\PostsController@savepost')->name('instructorsavepost');
     Route::post('/posts/updatepost', 'Instructor\PostsController@updatepost')->name('instructorupdatepost');
-
 
     // students
     Route::get('/studentslists', 'Instructor\StudentController@index')->name('instructorstudentslist');

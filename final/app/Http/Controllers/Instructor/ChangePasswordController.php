@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Hash;
 
 class ChangePasswordController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth');
-    }
+    // public function __construct(){
+    //     $this->middleware('auth');
+    // }
 
     public function index(){
         return view('instructor.profile.changepassword');

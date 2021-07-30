@@ -1,15 +1,5 @@
 @extends('layouts.ownerapp')
 @section('content')
-
-<<<<<<< HEAD
-<style>
-  
-</style>
- 
-=======
-
->>>>>>> rane
-
  {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 
 
@@ -27,4 +17,11 @@
           </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .chat').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection
