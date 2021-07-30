@@ -66,34 +66,34 @@
 
         <div class="row">
             @foreach ($requests as $r)
-            <div class="col-sm-6 mt-1">
-              <div class="card">
-                <div class="card-body row m-1">
-                        <div class="col-6">
-                            <h5 class="card-title">{{ $r->f_name }} {{ $r->l_name }}</h5>
-                            <p class="card-text"><b>ID: {{ $r->nic_number}}</b></p>
+                <div class="col-sm-6 mt-1">
+                    <div class="card">
+                        <div class="card-body row m-1">
+                            <div class="col-6">
+                                <h5 class="card-title">{{ $r->f_name }} {{ $r->l_name }}</h5>
+                                <p class="card-text"><b>ID: {{ $r->nic_number}}</b></p>
+                            </div>
+                            <div class="col-3">
+                                <a href="{{ route('reviewrequest', $r->id) }}" class="btn btn-success ">Review</a>
+                            </div>
+                            <form action="{{ route('declinerequest', $r->id) }}" method="POST">
+                                @csrf
+                                <div class="col-3">
+                                    <button type="submit" class="btn btn-danger">Decline</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-3">
-                            <a href="{{ route('reviewrequest', $r->id) }}" class="btn btn-success ">Review</a>
-                        </div>
-                        <form action="{{ route('declinerequest', $r->id) }}" method="POST">
-                            @csrf
-                        <div class="col-3">
-                            <button type="submit" class="btn btn-danger">Decline</button>
-                        </div>
-                        </form>
+                    </div>
                 </div>
-              </div>
-            </div>
             @endforeach
         </div>
     </div>
 </div>
 
-<script>
+{{-- <script>
     $(document).ready(function(){
         $('aside ul .requests').css('border-left', '5px solid #00bcd4');
     })
-</script>
+</script> --}}
 
 @endsection
