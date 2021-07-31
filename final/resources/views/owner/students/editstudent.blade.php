@@ -11,7 +11,7 @@
                 </button>
             </div>
         @endif
-        
+
         @if(session('error'))
         <div class="alert alert-danger">
             <h5>{{ session('error') }}</h5>
@@ -30,7 +30,7 @@
             </div>
         </div>
         @endif
-        
+
 <div class="container">
 
         <!-- start first row  -->
@@ -44,8 +44,8 @@
             </a>
             <a style="padding-top: 6px; padding-left: 10px"> / Edit Student</a>
         </div>
-    
-        
+
+
 
     <div class="row justify-content-md-center">
         <div class="container mt-3" >
@@ -59,13 +59,14 @@
                 {{ csrf_field() }}
 
                 <div class="row">
+
                     <div class="col-sm-4" id="register_form_item">
                         <div class="form-group">
                             <label for="fristname">Frist Name</label>
                             <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Enter Frist name ..." value="{{ $estu->user->f_name }}">
                         </div>
                     </div>
-                
+
                     <div class="col-sm-4" id="register_form_item">
                         <div class="form-group">
                             <label for="middlename">Middle Name</label>
@@ -118,7 +119,7 @@
                             <input type="text" name="contactnumber" class="form-control" id="contactnumber" placeholder="Enter Contact Number ..." value="{{ $estu->user->contact_number}}">
                         </div>
                     </div>
-                </div>        
+                </div>
 
                 <div class="row">
                     <div class="col-sm-4">
@@ -143,7 +144,7 @@
                     </div>
                 </div>
                 @endforeach
-               
+
                 <div class="row">
                     <div class="col-sm 4" id="register_form_item">
                         <button type="submit" class="btn btn-primary">Update</button>
@@ -151,11 +152,17 @@
                 </div>
             </form>
            </div>
-        </div>    
+        </div>
 
         </div>
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .students').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection

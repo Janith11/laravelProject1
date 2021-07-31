@@ -11,7 +11,14 @@
         </a>
         <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentslist') }}"> / Processing</a>
     </div>
-      
+
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .students').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection

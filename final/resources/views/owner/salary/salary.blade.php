@@ -3,11 +3,12 @@
 @section('content')
 
 <style>
-    img{
+    #img{
         width: 60px;
         height: auto;
         border-radius: 50px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding-left: 0px;
     }
 </style>
 
@@ -117,7 +118,7 @@
                                                 <td style="vertical-align: middle">
                                                     <div>
                                                         <div style="display: inline-block">
-                                                            <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Profile Image">
+                                                            <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Profile Image" id="img">
                                                         </div>
                                                         <div style="display: inline-block">
                                                             <h5 style="color: #222944; font-weight: bold">{{ $instructor->user->f_name }} {{ $instructor->user->l_name }}</h5>
@@ -190,5 +191,11 @@
 
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .hrms').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection

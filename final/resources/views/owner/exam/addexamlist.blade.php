@@ -10,7 +10,7 @@
             </svg>
         </a>
     </div>
-   
+
 
     <div class="row-mb-2">
         @if(session('successmsg'))
@@ -68,10 +68,10 @@
                     <hr style="border: 0.5px solid #222944">
                     <form >
 
-                        
+
 
                         <div class="row">
-                            @foreach ($student as $s) 
+                            @foreach ($student as $s)
                            <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -95,10 +95,10 @@
                         </div>
                     </form>
                         @endforeach
-                         
+
                         @foreach ($student as $s)
-                        <form action="{{ route('saveresults') }}" method="POST">     
-                        
+                        <form action="{{ route('saveresults') }}" method="POST">
+
                         @csrf
                         <input type="text" name="userid" value="{{ $s->user_id}}" style="display: none">
                         @endforeach
@@ -109,7 +109,7 @@
                                     <input type="text" name="attempt" class="form-control"  placeholder="Enter the attempt...">
                                 </div>
                             </div>
-                            
+
                         </div>
 
                         <div class="row">
@@ -124,7 +124,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
 
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
@@ -144,9 +144,9 @@
                                 </div>
                             </div>
 
-                        </div>                   
-                           
-                        
+                        </div>
+
+
                         <div class="row">
                             <div class="col-sm 4" id="register_form_item">
                                 <button type="submit" class="btn btn-primary">Add Result</button>
@@ -155,13 +155,18 @@
 
                     </form>
                     <hr style="border: 0.5px solid #222944">
-                   
+
                 </div>
             </div>
         </div>
     </div>
 
-    
-
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .students').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection

@@ -95,7 +95,7 @@
                     </table>
 
                     <h4 class="card-title">Classes</h4>
-                   
+
                     <table class="table mt-5">
                         <tbody>
                           <tr>
@@ -116,25 +116,27 @@
                           </tbody>
                       </table>
                     </div>
-                  
+
                   </div>
                 </div>
               </div>
               @endforeach
-                          
-              
-              <div class="card  row mt-4 mb-2">
+
+
+
+              <div class="card mt-4 mb-2">
+
+
                 <div class="card-body">
                     <h4 class="card-title">Exam Results</h4>
                     @foreach ($examdetails as $examdetail)
                     @foreach ($examdetail->exams as $exam)
-                     
+
+
                     <div class="card col-md-6">
                       <div class="card-body">
                       <div class="table-responsive">
-                   
                       <table class="table mt-5">
-                       
                       <tbody>
                           <tr>
                             <td scope="row">Type</td>
@@ -159,13 +161,13 @@
                       </table>
                     </div>
                       </div>
-                    </div>  
+                    </div>
                     @endforeach
                     @endforeach
                   </div>
                 </div>
               </div>
-              
+
         </div>
       </div>
 
@@ -208,7 +210,7 @@
                 <td>Cash</td>
                 <td>15,000</td>
               </tr>
-              
+
             </tbody>
           </table>
             </div>
@@ -236,8 +238,14 @@
 
       // Get the element with id="defaultOpen" and click on it
       document.getElementById("defaultOpen").click();
-      </script>
+    </script>
 
-<
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .students').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection
 

@@ -640,4 +640,10 @@
 
 </script>
 
+<script>
+    $(document).ready(function(){
+        $('aside ul .settings').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection

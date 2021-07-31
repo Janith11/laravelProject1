@@ -105,7 +105,7 @@
                                         <option value="dualpurposes">Car, Van, Dual Purpose</option>
                                         <option value="heavyvehical">Heavy Vehical</option>
                                     </select>
-                                    
+
                                 </div>
                             </div>
 
@@ -197,6 +197,12 @@
     $('#addcategory').click(function(){
         $('#addcategorypanel').toggle();
     });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .category').css('border-left', '5px solid #00bcd4');
+    })
 </script>
 
 @endsection

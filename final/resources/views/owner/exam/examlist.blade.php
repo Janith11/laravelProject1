@@ -14,7 +14,7 @@
     <div class="row mb-2">
         <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
     </div>
-    
+
     <div class="row-mb-2">
         @if(session('successmsg'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -42,7 +42,7 @@
                     <th scope="col">Date</th>
                     <th scope="col">Result</th>
                     <th scope="col">Attempt</th>
-                    
+
                   </tr>
                 </thead>
                 <tbody>
@@ -58,7 +58,7 @@
                     <td><a href=""><i class="fas fa-angle-double-right"></i></a></td>
                   </tr>
                   @endforeach
-                  @endforeach 
+                  @endforeach
                 </tbody>
             </table>
         </div>
@@ -67,5 +67,10 @@
 
 </div>
 
+<script>
+    $(document).ready(function(){
+        $('aside ul .students').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection

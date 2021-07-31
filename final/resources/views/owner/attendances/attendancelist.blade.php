@@ -260,6 +260,12 @@
 
 </div>
 
+<script>
+    $(document).ready(function(){
+        $('aside ul .hrms').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection
 
 {{-- nvmv --}}

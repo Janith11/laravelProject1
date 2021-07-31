@@ -27,6 +27,7 @@
 
     <div class="row-mb-2">
         @if(session('successmsg'))
+
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <h5>
                     {{ session('successmsg') }}
@@ -35,31 +36,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-        @endif
-    </div>
 
-    <div class="row-mb-2">
-        @if(session('error'))
-            <div class="alert alert-danger">
-                <h5>{{ session('error') }}</h5>
-            </div>
-        @endif
-    </div>
+            @endif
 
-    <div class="row-mb-2">
-        @if(session('categoryerror'))
-            <div class="alert alert-danger">
-                <h5>{{ session('categoryerror') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </h5>
-            </div>
-        @endif
-    </div>
-
-    <div class="col-mb-2">
-        @if(count($errors) > 0)
+            @if(count($errors) > 0)
             <div class="container">
                 <div class="alert alert-danger">
                     <strong>Whoops!</strong> Some problems with your input.
@@ -240,5 +220,11 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .instructor').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection

@@ -45,7 +45,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                @foreach ($studentslist as $slist)              
+                @foreach ($studentslist as $slist)
                   <tr>
                     <th scope="row">{{ $slist->created_at }}</th>
                     <td>{{ $slist->user_id }}</td>
@@ -65,4 +65,10 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .students').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 @endsection

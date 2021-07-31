@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     public function index(){
-        $students = Student::with(['user', 'trainingvahiclecategorys' => function($query){
+        $students = Student::with(['user' , 'trainingvahiclecategorys' => function($query){
             $query->with('vehiclecategory');
         }])->get();
         return view('instructor.students.studentlist', compact('students'));

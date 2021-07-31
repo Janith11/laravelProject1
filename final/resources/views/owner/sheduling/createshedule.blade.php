@@ -3,11 +3,12 @@
 @section('content')
 
 <style>
-    img{
+    #img{
         width: 60px;
         height: auto;
         border-radius: 50px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-left: 0px;
     }
     .setwidth{
         max-width: 100px;
@@ -199,7 +200,7 @@
                                     <td>
                                         <div class="row">
                                             <div style="display: inline-block">
-                                                <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="profile image">
+                                                <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="profile image" id="img">
                                             </div>
                                             <div style="display: inline-block; padding-left: 10px; vertical-align: middle">
                                                 <h6>{{$instructor->user->f_name }} {{$instructor->user->l_name}}</h6>
@@ -291,7 +292,7 @@
                                     <td>
                                         <div class="row">
                                             <div style="display: inline-block">
-                                                <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="profile image">
+                                                <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="profile image" id="img">
                                             </div>
                                             <div style="display: inline-block; padding-left: 10px; vertical-align: middle">
                                                 <h6>{{$student->user->f_name }} {{$student->user->l_name}}</h6>
@@ -460,4 +461,11 @@
     </script>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .shedulings').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.ownerapp')
 @section('content')
 <style>
-    img{
+    #img{
         width: 60px;
         height: auto;
         border-radius: 50px;
@@ -35,10 +35,10 @@
         <a style="padding-top: 6px; padding-left: 10px"> / Review requests</a>
     </div>
 
-    
+
 
     {{-- start the loop  --}}
-    
+
 
     <div class="row-mb-2">
         <div id="card">
@@ -46,12 +46,16 @@
                 <div class="card-body">
                     <h5 style="color: #222944; font-weight: bold">Review new Student</h5>
                     <hr style="border: 0.5px solid #222944">
-                    @foreach ($registration as $r)                            
+                    @foreach ($registration as $r)
                     <form action="{{ route('acceptrequest',$r->id) }}" method="POST">
 
                         @csrf
 
                         <div class="row">
+<<<<<<< HEAD
+                            @foreach ($registration as $r)
+=======
+>>>>>>> c9f91cfc81f0b1e6898bbae514c442925fc03dda
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="fristname">Frist Name</label>
@@ -130,7 +134,15 @@
 
                         </div>
 
+<<<<<<< HEAD
+
+
+
+
+                        <div class="row">
+=======
                      <div class="row">
+>>>>>>> c9f91cfc81f0b1e6898bbae514c442925fc03dda
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label >Address</label>
@@ -152,11 +164,11 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         @endforeach
                         @foreach ($category as $c)
                             <div class="row">
-                                
+
                                 <div class="col-sm-4">
                                     <div class="col-md-4 mt-2" id="{{ $c->category_code }}A">
                                         <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $c->category }}" id="{{ $c->category }}1" checked required>
@@ -165,26 +177,26 @@
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <div class="btn-group " id="{{ $c->category }}B">                       
+                                    <div class="btn-group " id="{{ $c->category }}B">
                                         <input type="radio" class="btn-check " name="{{ $c->category }}" value="Training" id="{{ $c->id }}1" {{ $c->tstatus == 'Training' ? 'checked' : '' }} />
                                         <label class="btn btn-outline-success m-1" for="{{ $c->id }}1">Training</label>
-                                      
+
                                         <input type="radio" class="btn-check" name="{{ $c->category }}" value="Without Training" id="{{ $c->id }}2" {{ $c->tstatus == 'Without Training' ? 'checked' : '' }}/>
                                         <label class="btn btn-outline-danger m-1" for="{{ $c->id }}2">Without Training</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     @if( $c->transmission != '3')
-                                    <div class="btn-group">                       
+                                    <div class="btn-group">
                                         <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Auto" id="{{ $c->id }}3" {{ $c->transmission == 'Auto' ? 'checked' : '' }}/>
                                         <label class="btn btn-outline-success m-1" for="{{ $c->id }}3">Auto Transmission</label>
-                                      
+
                                         <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Manual" id="{{ $c->id }}4" {{ $c->transmission == 'Manual' ? 'checked' : '' }}/>
                                         <label class="btn btn-outline-danger m-1" for="{{ $c->id }}4">Manual Transmission</label>
                                     </div>
                                     @endif
-                                </div>    
-                            </div>   
+                                </div>
+                            </div>
                         @endforeach
                         <div class="row">
                             <div class="col-sm-4">
@@ -212,10 +224,16 @@
         </div>
     </div>
 
-       
-    
+
+
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .requests').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection
 

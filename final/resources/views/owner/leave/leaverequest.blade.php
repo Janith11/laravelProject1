@@ -3,11 +3,12 @@
 @section('content')
 
 <style>
-    img{
+    #img{
         width: 60px;
         height: auto;
         border-radius: 50px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding-left: 0px;
     }
 </style>
 
@@ -79,7 +80,7 @@
                                 <tr id="row-{{ $request->id }}">
                                     <td>
                                         <div class="text-center">
-                                            <img src="/uploadimages/instructors_profiles/{{ $request->user->profile_img }}" alt="Profile Image" >
+                                            <img src="/uploadimages/instructors_profiles/{{ $request->user->profile_img }}" alt="Profile Image" id="img">
                                             <h6 style="color: #222944">
                                                 {{ $request->user->f_name }} {{ $request->user->l_name }}
                                             </h6>
@@ -141,6 +142,12 @@
     $('#btn_ignore').click(function(){
         $('#ignore').submit();
     });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .hrms').css('border-left', '5px solid #00bcd4');
+    })
 </script>
 
 @endsection

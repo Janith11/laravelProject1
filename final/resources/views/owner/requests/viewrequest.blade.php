@@ -1,7 +1,7 @@
 @extends('layouts.ownerapp')
 @section('content')
 <style>
-    img{
+    #img{
         width: 60px;
         height: auto;
         border-radius: 50px;
@@ -86,9 +86,14 @@
               </div>
             </div>
             @endforeach
-        </div>          
+        </div>
     </div>
 </div>
 
+<script>
+    $(document).ready(function(){
+        $('aside ul .requests').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection

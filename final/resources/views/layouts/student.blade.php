@@ -601,55 +601,55 @@ aside li.menu-label {
         .scrollbar-ripe-malinka::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
         background-color: #F5F5F5;
-        border-radius: 10px; 
+        border-radius: 10px;
         }
 
         .scrollbar-ripe-malinka::-webkit-scrollbar {
         width: 12px;
-        background-color: #F5F5F5; 
+        background-color: #F5F5F5;
         }
 
         .scrollbar-ripe-malinka::-webkit-scrollbar-thumb {
         border-radius: 10px;
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
         background-image: -webkit-linear-gradient(330deg, #f093fb 0%, #f5576c 100%);
-        background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%); 
+        background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
         }
 
         .bordered-deep-purple::-webkit-scrollbar-track {
         -webkit-box-shadow: none;
-        border: 1px solid #512da8; 
+        border: 1px solid #512da8;
         }
 
         .bordered-deep-purple::-webkit-scrollbar-thumb {
-        -webkit-box-shadow: none; 
+        -webkit-box-shadow: none;
         }
 
         .bordered-cyan::-webkit-scrollbar-track {
         -webkit-box-shadow: none;
-        border: 1px solid #00bcd4; 
+        border: 1px solid #00bcd4;
         }
 
         .bordered-cyan::-webkit-scrollbar-thumb {
-        -webkit-box-shadow: none; 
+        -webkit-box-shadow: none;
         }
 
         .square::-webkit-scrollbar-track {
-        border-radius: 0 !important; 
+        border-radius: 0 !important;
         }
 
         .square::-webkit-scrollbar-thumb {
-        border-radius: 0 !important; 
+        border-radius: 0 !important;
         }
 
         .thin::-webkit-scrollbar {
-        width: 6px; 
+        width: 6px;
         }
 
         .example-1 {
         position: relative;
         overflow-y: scroll;
-        height: 100vh; 
+        height: 100vh;
         }
 
 
@@ -698,6 +698,11 @@ aside li.menu-label {
                     </a>
                 </li>
 
+                <li class="nav-item  mb-3" id="nav-item">
+                    <a class="nav-link" href="{{ route('studentprofile') }}"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Profile</span>
+                    </a>
+                </li>
 
                 {{--  <li class="menu-label">Students</li>
                 <div class="dropdown-divider"></div>
