@@ -56,11 +56,9 @@ class StudentsController extends Controller
             'addressnumber' => 'required',
             'addressstreatname' => 'required',
             'addresscity' => 'required',
-            'birthday' => 'required|date',
-            'price'=>'required',
-            'groupnumber'=>'required',
+            'birthday' => 'required|date', 
             'vehicle_category'=>'required'
-        ]);
+            ]);
         $user = User::create([
             'f_name' => $request->firstname,
             'm_name' => $request->middlename,
