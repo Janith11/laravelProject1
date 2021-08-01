@@ -26,7 +26,16 @@
             </div>
         </div>
     </div>
-
+    @if(session('successmsg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5>
+                    {{ session('successmsg') }}
+                </h5>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
     <div class="card mt-3">
         <div class="card-body">
             <table class="table table-striped table-sm table-hover">
@@ -39,7 +48,7 @@
                     <th scope="col">Transition Description</th>
                     <th scope="col">Amount</th>
                     {{-- amount means the paid price now  --}}
-                    <th scope="col">Balance</th>
+                    <th scope="col">Total Paid</th>
                     <th scope="col">Total Fee</th>
                     <th scope="col"></th>
                   </tr>
@@ -50,12 +59,12 @@
                     <th scope="row">{{ $slist->created_at }}</th>
                     <td>{{ $slist->user_id }}</td>
                     <td>{{ $slist->user->f_name }} {{ $slist->user->l_name }}</td>
-                    <td>Credit</td>
-                    <td>Total fee paid</td>
-                    <td>2000</td>
+                    <td>{{ $slist->type }}</td>
+                    <td>{{ $slist->description }}</td>
                     <td>{{ $slist->amount }}</td>
+                    <td>{{ $slist->student->paid_amount }}</td>
                     {{-- amount column means total-paid money --}}
-                    <td>{{ $slist->total_fee }}</td>
+                    <td>{{ $slist->student->total_fee }}</td>
                     <td><a href="{{ route('viewstudent', $slist->user_id) }}"><i class="fa fa-info text-secondary" data-toggle="tooltip" data-placement="bottom" title="View Student" aria-hidden="true"></i></a></td>
                   </tr>
                  @endforeach

@@ -8,14 +8,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
+<style>
+    .card{
+        box-shadow: 6px 6px 20px 6px;
+        border-radius: 45px;
+        /* background: rgb(139,211,217); */
+        /* background: linear-gradient(90deg, rgba(139,211,217,1) 0%, rgba(108,98,198,1) 47%, rgba(22,64,247,1) 100%); */
+    }
+</style>
 <div class="container col-12">
     <div class="row ">
         <div >
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                {{-- <div class="card-header">{{ __('Register') }}</div> --}}
 
                 <div class="card-body">
+                    <h3 class="mt-1 mb-4">{{ __('Register') }}</h3>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
 
-    protected $fillable = ['user_id', 'amount', 'total_fee', 'group_number'];
+    protected $fillable = ['user_id', 'paid_amount', 'total_fee','completed_session','total_session', 'group_number'];
 
     // make retation between student and users
     public function user(){
@@ -37,5 +37,10 @@ class Student extends Model
     // training categories
     public function trainingvahiclecategorys(){
         return $this->hasMany(TrainingVehicleCategory::class, 'user_id', 'user_id');
+    }
+
+    //payment logs
+    public function paymentlogs(){
+        return $this->hasMany(PaymentLog::class,'user_id','user_id');
     }
 }

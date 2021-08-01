@@ -34,7 +34,8 @@ class ViewrequestController extends Controller
             'addressnumber' => 'required',
             'addressstreatname' => 'required',
             'addresscity' => 'required',
-            'price' => 'required'   
+            'price' => 'required',
+            'totalsession' => 'required'
         ]);
             $user = User::find($id);
 
@@ -55,8 +56,10 @@ class ViewrequestController extends Controller
 
             $student = Student::create([
                 'user_id' => $user->id,
+                'paid_amount' => 0,
                 'total_fee' => $request->price,
-                'amount' => 0,
+                'completed_session'=>0,
+                'total_session'=>$request->totalsession,
                 'group_number'=>$request->groupnumber,
             ]);
             $exams=Exam::create([

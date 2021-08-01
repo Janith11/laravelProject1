@@ -179,8 +179,8 @@
                                 <td>{{ $student->user_id}}</td>
                                 <td>{{ $student->group_number}}</td>
                                 <td>{{ $student->amount}}</td>
-                                <td><a href="{{ route('editstudent', $student->user_id) }}"><i class="fas fa-pencil-alt"></i></a></td>
-                                <td><a href="{{ route('viewstudent', $student->user_id) }}"><i class="fas fa-angle-double-right"></i></a></td>
+                                <td><a class="btn btn-primary" href="{{ route('editstudent', $student->user_id) }}"><i class="fas fa-pencil-alt"></i></a></td>
+                                <td><a class="btn btn-info" href="{{ route('viewstudent', $student->user_id) }}"><i class="fas fa-angle-double-right"></i></a></td>
                             </tr>
                             @endforeach
 

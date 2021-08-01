@@ -48,21 +48,36 @@
             <!-- start the card of the instructors  -->
             <div class="row mt-5">
                 @foreach($instructors as $instructor)
-                    <div class="col-sm-3 mb-2">
-                        <div class="card text-center">
-                            <div class="gradient">
-                                <img src="https://image.flaticon.com/icons/png/512/147/147144.png" style="max-width: 100px; height: auto;" class="card-img-top mx-auto rounded-circle mt-3" alt="" id="image">
+                    <div class="col-sm-4 mb-2">
+                        <div class="card rounded">
+                            <div class="gradient text-center p-2">
+                                <img class="rounded-circle border border-success" style="max-width: 200px" src="/uploadimages/students_profiles/{{ $instructor->user->profile_img }}" alt="profile image">
                             </div>
-                            <div class="card-body">
-                            <h5 class="card-title">Name : {{ $instructor->user->f_name }} {{ $instructor->user->l_name }}</h5>
-                            <h5 class="card-title">ID : {{ $instructor->user->id }}</h5>
-                            <h5 class="card-title">Email : {{ $instructor->user->email }}</h5>
-                            <h5 class="card-title">Contact : </h5>
-                            <a href="{{ route('editinstructor', $instructor->user_id) }}" class="btn btn-warning">Edit</a>
-                            <a href="#" class="btn btn-danger">Remove</a>
-                          </div>
-                          <div class="card-footer">
-                            <small class="text-muted">since 2018</small>
+                            <div class="card-body shadow">
+                                <table class="table table-sm">
+                                    <tbody>
+                                      <tr>
+                                        <td scope="row"><h5 class="card-title">Name</h5></td>
+                                        <td><h5>{{ $instructor->user->f_name }} {{ $instructor->user->l_name }}</h5></td>
+                                      </tr>
+                                      <tr>
+                                        <td ><h5 class="card-title">ID</h5></td>
+                                        <td><h5>{{ $instructor->user->id }}</h5></td>
+                                      </tr>
+                                      <tr>
+                                        <td ><h5 class="card-title">Email</h5></td>
+                                        <td><h5>{{ $instructor->user->email }}</h5></td>
+                                      </tr>
+                                      <tr>
+                                        <td ><h5 class="card-title">Contact</h5></td>
+                                        <td><h5>{{ $instructor->user->contact_number }}</h5></td>
+                                      </tr>
+                                      <tr>
+                                        <td ><a href="{{ route('editinstructor', $instructor->user_id) }}" class="btn btn-warning">Edit</a></td>
+                                        <td><a href="#" class="btn btn-danger">Remove</a></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                           </div>
                         </div>
                       </div>
