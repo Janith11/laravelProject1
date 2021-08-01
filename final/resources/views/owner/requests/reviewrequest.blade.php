@@ -52,10 +52,6 @@
                         @csrf
 
                         <div class="row">
-<<<<<<< HEAD
-                            @foreach ($registration as $r)
-=======
->>>>>>> c9f91cfc81f0b1e6898bbae514c442925fc03dda
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="fristname">Frist Name</label>
@@ -134,15 +130,7 @@
 
                         </div>
 
-<<<<<<< HEAD
-
-
-
-
-                        <div class="row">
-=======
                      <div class="row">
->>>>>>> c9f91cfc81f0b1e6898bbae514c442925fc03dda
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label >Address</label>
@@ -209,6 +197,12 @@
                                 <div class="form-group">
                                     <label for="groupnumber">Group Number</label>
                                     <input type="text" name="groupnumber" class="form-control is-valid" id="groupnumber" placeholder="Group Number" value="1">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="groupnumber">Number of Session Days</label>
+                                    <input type="text" name="totalsession" class="form-control is-valid" id="groupnumber" placeholder="Total Session days" value="30">
                                 </div>
                             </div>
                         </div>

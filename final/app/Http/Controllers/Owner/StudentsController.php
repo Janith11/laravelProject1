@@ -57,7 +57,8 @@ class StudentsController extends Controller
             'addressstreatname' => 'required',
             'addresscity' => 'required',
             'birthday' => 'required|date', 
-            'vehicle_category'=>'required'
+            'vehicle_category'=>'required',
+            'totalsession'=>'required'
             ]);
         $user = User::create([
             'f_name' => $request->firstname,
@@ -79,8 +80,10 @@ class StudentsController extends Controller
 
         $student = Student::create([
             'user_id' => $user->id,
+            'paid_amount' => 0,
             'total_fee' => $request->price,
-            'amount' => 0,
+            'completed_session'=>0,
+            'total_session'=>$request->totalsession,
             'group_number'=>$request->groupnumber,
         ]);
         $exams=Exam::create([

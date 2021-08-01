@@ -132,5 +132,49 @@ class IntructorsController extends Controller
 
             return redirect()->route('instructors')->with('successmsg', 'Instructor is updated successfuly !');
     }
+    public function viewcategory($user_id){
+        $category=StudentCategory::where('user_id',$user_id)->get();
+        $havecategory=StudentCategory::where('user_id',$user_id)->select('category')->get();
+        $notcategory=VehicleCategory::whereNotIn('category_code',$havecategory)->get();
+        // return $notcategory;
+        return view('owner.instructor.viewcategory',compact('category','notcategory'));
+    }
+    public function addnewcategory(Request $request){
+        $this->validate($request,[
+            'userid' => 'required',
+            'category_code'=>'required',
+            'tstatus' => 'required',
+            'transmission' => 'required',
+        ]);
+        $student_category=StudentCategory::create([
+            'user_id'=>$request->userid,
+            'category'=>$request->category_code,
+            'tstatus'=>$request->tstatus,
+            'transmission'=>$request->transmission,
+        ]);
+        return redirect()->route('instructorcategorypage',$request->userid)->with('successmsg', 'Student new Category is updated
+         successfully !');
+    }
+    public function updatecategory(Request $request,$id,$userid){
+        
+        $this->validate($request,[
+            'category' => 'required',
+            'tstatus' => 'required',
+            'transmission' => 'required',
+        ]);
+
+        $studentcategory = StudentCategory::find($id);
+        $studentcategory->category =$request->category;
+        $studentcategory->tstatus =$request->tstatus;
+        $studentcategory->transmission =$request->transmission;
+        $studentcategory->save();
+
+        return redirect()->route('instructorcategorypage',$userid)->with('successmsg', 'Instructor Category is updated successfully !');
+
+    }
+    public function deleteecategory($id,$userid){
+        StudentCategory::find($id)->delete();
+        return redirect()->route('instructorcategorypage',$userid)->with('successmsg', 'Instructor Category is deleted successfully !');
+    }
 
 }

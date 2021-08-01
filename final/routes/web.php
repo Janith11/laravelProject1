@@ -64,6 +64,10 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/addinstructor', 'Owner\IntructorsController@insertinstructor')->name('insertinstructor');
     Route::get('/editinstructor/{user_id}', 'Owner\IntructorsController@editinstructor')->name('editinstructor');
     Route::post('/updateinstructor/{user_id}', 'Owner\IntructorsController@updateinstructor')->name('updateinstructor');
+    Route::get('/updateinstructor/categoryview/{id}','Owner\IntructorsController@viewcategory')->name('instructorcategorypage');
+    Route::post('/updateinstructor/categoryview/newcategory','Owner\IntructorsController@addnewcategory')->name('addnewinstructorcategory');
+    Route::post('/updateinstructor/categoryview/updatecategory/{id}/{userid}','Owner\IntructorsController@updatecategory')->name('updateinstructorcategory');
+    Route::delete('/updateinstructor/categoryview/deletecategory/{id}/{userid}', 'Owner\IntructorsController@deleteecategory')->name('deleteinstructorvehiclecategory');
 
     // students
     Route::get('/studentslist', 'Owner\StudentsController@index')->name('studentslist');
@@ -88,6 +92,7 @@ Route::middleware('checkrequest')->group(function(){
     //payments
     Route::get('/payments', 'Owner\paymentsController@index')->name('payments');//view payments list with students page
     Route::get('/payments/pay/{id}','Owner\paymentsController@studentpayments')->name('studentpayments');
+    Route::post('/payments/pay/processing','Owner\paymentsController@insertpayment')->name('paystudentpatment');
 
     // sheduling part
     Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');

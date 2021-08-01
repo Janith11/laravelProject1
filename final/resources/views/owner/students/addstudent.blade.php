@@ -235,17 +235,24 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
+                                <label for="groupnumber">Total Session days</label>
+                                <input type="text" name="totalsession" class="form-control is-valid" id="groupnumber" placeholder="Total Session Days" value="30">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
                                 <label for="groupnumber">Default Password</label>
                                 <input type="text" name="groupnumber" class="form-control is-valid " id="groupnumber" placeholder="Group Number" value="Learner@2021" disabled>
                             </div>
                         </div>
                     </div>
-
-                        <div class="row">
-                            <div class="col-sm 4" id="register_form_item">
-                                <button type="submit" class="btn btn-primary">Register</button>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm 4" id="register_form_item">
+                            <button type="submit" class="btn btn-primary">Register</button>
                         </div>
+                    </div>
 
                     </form>
                 </div>
