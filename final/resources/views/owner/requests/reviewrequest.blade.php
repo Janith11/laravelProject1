@@ -131,8 +131,7 @@
                             </div>
 
                         </div>
-
-
+                        
                      <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -200,6 +199,12 @@
                                 <div class="form-group">
                                     <label for="groupnumber">Group Number</label>
                                     <input type="text" name="groupnumber" class="form-control is-valid" id="groupnumber" placeholder="Group Number" value="1">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="groupnumber">Number of Session Days</label>
+                                    <input type="text" name="totalsession" class="form-control is-valid" id="groupnumber" placeholder="Total Session days" value="30">
                                 </div>
                             </div>
                         </div>

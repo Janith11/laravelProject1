@@ -37,7 +37,7 @@
                 <div class="card-body">
                   <h4 class="card-title text-center">{{$s->user->f_name}} {{$s->user->l_name}}</h4>
                   <div class="table-responsive">
-                  <table class="table mt-5">
+                  <table class="table mt-5 table-sm">
                       <tbody>
                         <tr>
                           <td scope="row">ID</td>
@@ -72,7 +72,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Billing</h4>
                   <div class="table-responsive">
-                  <table class="table mt-5">
+                  <table class="table mt-5 table-sm">
                       <tbody>
                         <tr>
                           <td scope="row">Total</td>
@@ -81,15 +81,15 @@
                         </tr>
                         <tr>
                           <td scope="row">Paid</td>
-                          <td>{{ $s->amount}}</td>
+                          <td>{{ $s->paid_amount}}</td>
 
                         </tr>
                         <tr>
                           <td scope="row">Unpaid</td>
-                          <td>5,000</td>
+                          <td>{{$s->total_fee- $s->paid_amount}}</td>
                         </tr>
                         <tr>
-                          <td scope="row"><a class="btn btn-primary" href="{{ route('studentpayments',$s->id) }}">Pay Here</a></td>
+                          <td scope="row"><a class="btn btn-primary" href="{{ route('studentpayments',$s->user->id) }}">Pay Here</a></td>
                           </tr>
                         </tbody>
                     </table>

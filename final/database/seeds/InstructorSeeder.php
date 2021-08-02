@@ -13,8 +13,16 @@ class InstructorSeeder extends Seeder
     public function run()
     {
         DB::table('instructors')->insert([
-            'user_id' => '2',
-            
+            'user_id' => '2',  
+        ]);
+        DB::table('instructors')->insert([
+            'user_id' => '3',  
+        ]);
+        DB::table('instructors')->insert([
+            'user_id' => '4',  
+        ]);
+        DB::table('instructors')->insert([
+            'user_id' => '5',  
         ]);
     }
 }
