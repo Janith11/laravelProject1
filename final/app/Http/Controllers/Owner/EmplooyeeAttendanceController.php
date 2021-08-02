@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
 use App\Http\Controllers\Controller;
@@ -96,8 +97,10 @@ class EmplooyeeAttendanceController extends Controller
 
         $unmarked_attendances = EmployeeAttendances::where('date', '<', $today)->where('status', 0)->count();
 
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
         // return $leaves;
-        return view('owner.attendances.attendancelist', compact('employees', 'attendances', 'leaves', 'leave_count', 'unmarked_attendances'));
+        return view('owner.attendances.attendancelist', compact('employees', 'attendances', 'leaves', 'leave_count', 'unmarked_attendances', 'logo'));
     }
 
     public function todayattendance(){
@@ -175,7 +178,10 @@ class EmplooyeeAttendanceController extends Controller
         $not_attend = EmployeeAttendances::where('date', $today)->where('status', 0)->count();
         $todayleaves = EmployeeAttendances::where('date', $today)->where('status', 3)->count();
 
-        return view('owner.attendances.todayattendance', compact('instructors', 'still_working', 'not_attend', 'todayleaves'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
+        return view('owner.attendances.todayattendance', compact('instructors', 'still_working', 'not_attend', 'todayleaves', 'logo'));
     }
 
     public function savecheckin(Request $request){
@@ -240,7 +246,11 @@ class EmplooyeeAttendanceController extends Controller
         }])->where('user_id', $user_id)->get();
         $pending_leaves = EmplooyeeLeave::where('user_id', $user_id)->where('status', 0)->count();
         $total_leaves = EmployeeAttendances::where('user_id', $user_id)->where('status', 3)->count();
-        return view('owner.attendances.attendancedetails', compact('users', 'pending_leaves', 'total_leaves'));
+
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
+        return view('owner.attendances.attendancedetails', compact('users', 'pending_leaves', 'total_leaves', 'logo'));
     }
 
     public function instructorattendancedetails($id){
@@ -272,11 +282,15 @@ class EmplooyeeAttendanceController extends Controller
 
     public function unmarkedattendance(){
         $today = Carbon::now()->today();
-        $unmarked_attendances_list = EmployeeAttendances::where('status', 0)->where('date', '<', $today)->get();
+        $unmarked_attendances_list = EmployeeAttendances::whereIn('status', [0, 2])->where('date', '<', $today)->get();
         $instructors = Instructor::with(['user' => function($query){
             $query->where('status', 1);
         }])->get();
-        return view('owner.attendances.unmarkedattendance', compact('unmarked_attendances_list', 'instructors'));
+
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
+        return view('owner.attendances.unmarkedattendance', compact('unmarked_attendances_list', 'instructors', 'logo'));
     }
 
     public function saveunmarkedattend(Request $request){

@@ -142,7 +142,6 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/addresults/{id}','Owner\ExamController@addresults')->name('addnewexamresult');
     Route::post('/addresults','Owner\ExamController@saveresults')->name('saveresults');
 
-
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
     Route::post('/settings/savedetails', 'Owner\SettingController@savedetails')->name('savedetails');
@@ -178,7 +177,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/conversation/send', 'Owner\ChatController@send');
 
     //requests
-    Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewrequest'); 
+    Route::get('/viewrequist', 'Owner\ViewrequestController@index')->name('viewrequest');
     Route::get('/reviewrequest/{id}', 'Owner\ViewrequestController@get')->name('reviewrequest');
     Route::post('/acceptrequest/{id}', 'Owner\ViewrequestController@accept')->name('acceptrequest');
     Route::post('/declinerequest/{id}', 'Owner\ViewrequestController@decline')->name('declinerequest');
@@ -211,10 +210,13 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/studentprofile', 'Student\StudentProfileController@index')->name('studentprofile');
     Route::post('/studentprofile/update', 'Student\StudentProfileController@updateprofile')->name('updatestudentprofile');
     Route::post('/studentprofile/updateprofileimage', 'Student\StudentProfileController@updateprofilepicture')->name('studentupdateprofilepicture');
-    // Route::get('/studentprofile/changepassword'. 'Student\StudentProfileController@passwordchange')->name('studentchangepassword');
-    // Route::post('/studentprofile/updatepassword', 'Student\StudentProfileController@store')->name('updatestudentpassword');
     Route::get('/studentprofile/changepassword', 'Student\StudentProfileController@changepassword')->name('studentchangepassword');
     Route::post('/studentprofile/changepassword/save', 'Student\StudentProfileController@store')->name('studentupdatepassword');
+
+    // sheduling part
+    Route::get('/studentshedule', 'Student\ShedulingController@index')->name('studentsheduling');
+    Route::get('/allstudentshedules/{id}', 'Student\ShedulingController@events')->name('studentallshedules');
+    Route::get('/studentshedule/getdate/{date}', 'Student\ShedulingController@checkdate')->name('checkdate');
 
 });
 

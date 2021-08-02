@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\Vehicle;
 use Illuminate\Http\Request;
@@ -12,16 +13,20 @@ class VehicleController extends Controller
     public function index(){
         $vehicles = Vehicle::all();
         $vehicle_count = Vehicle::count();
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
         if($vehicle_count > 0){
-            return view('owner.vehicle.vehicles', compact('vehicles', 'vehicle_count'));
+            return view('owner.vehicle.vehicles', compact('vehicles', 'vehicle_count', 'logo'));
         }else{
-            return view('owner.vehicle.vehicles', ['vehicle_count' => 0, 'emptymsg' => 'hellow']);
+            return view('owner.vehicle.vehicles', ['vehicle_count' => 0, 'emptymsg' => 'hellow', 'logo' => 'logo']);
         }
 
     }
 
     public function addvehicle(){
-        return view('owner.vehicle.addvehicle');
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.vehicle.addvehicle', compact('logo'));
     }
 
     public function insertvehicle(Request $request){
@@ -70,9 +75,10 @@ class VehicleController extends Controller
     }
 
     public function editvehicle($id){
-
         $editvehicle = Vehicle::find($id);
-        return view('owner.vehicle.editvehicle', compact('editvehicle'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.vehicle.editvehicle', compact('editvehicle', 'logo'));
     }
 
     public function updatevehicle(Request $request, $id){
@@ -116,10 +122,12 @@ class VehicleController extends Controller
         ]);
 
         $name = $request->searchvehicle;
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
 
         $searchvehicle = Vehicle::where('name','=', $name)->get();
         if( count($searchvehicle) > 0){
-            return view('owner.vehicle.searchvehicleresult', compact('searchvehicle'));
+            return view('owner.vehicle.searchvehicleresult', compact('searchvehicle', 'logo'));
         }else{
             return back()->with('searcherror', 'No Match Items !!');
         }

@@ -704,6 +704,23 @@ aside li.menu-label {
                     </a>
                 </li>
 
+                <li class="nav-item mb-2" id="nav-item">
+                    <a type="button" class="dropdown-btn"><i><img src="images/dashboard.png" alt=""></i>
+                        <span class="menu-title" id="item">Scheduling</span>
+                        <i class="fa fa-caret-down" style="padding-left: 10px"></i>
+                    </a>
+                    <div class="dropdown-container">
+                        <ul style="list-style-type:disc;">
+                            <li>
+                                <a href="{{ route('studentsheduling') }}" class="dropdownitem" >Shedule List</a>
+                            </li>
+                            <li>
+                                <a class="dropdownitem">Add Shedule</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
                 {{--  <li class="menu-label">Students</li>
                 <div class="dropdown-divider"></div>
 

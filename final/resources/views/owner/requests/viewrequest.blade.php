@@ -90,10 +90,10 @@
     </div>
 </div>
 
-{{-- <script>
+<script>
     $(document).ready(function(){
         $('aside ul .requests').css('border-left', '5px solid #00bcd4');
     })
-</script> --}}
+</script>
 
 @endsection

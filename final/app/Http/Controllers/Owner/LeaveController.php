@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\EmplooyeeLeave;
 use App\Http\Controllers\Controller;
 use App\Instructor;
@@ -34,7 +35,10 @@ class LeaveController extends Controller
             $users_lives[$user] = $count;
         }
 
-        return view('owner.leave.leaverequest', compact('pending_requests', 'users_lives'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
+        return view('owner.leave.leaverequest', compact('pending_requests', 'users_lives', 'logo'));
     }
 
     public function acceptrequest(Request $request){
@@ -57,8 +61,9 @@ class LeaveController extends Controller
 
     public function levaedetails($id){
         $details = EmplooyeeLeave::where('user_id', $id)->orderBy('start_date')->get()->reverse();
-        // return $details;
-        return view('owner.leave.leavedetails', compact('details'));
+        $detail = CompanyDetails::first();
+        $logo = $detail->logo;
+        return view('owner.leave.leavedetails', compact('details', 'logo'));
     }
 
 }

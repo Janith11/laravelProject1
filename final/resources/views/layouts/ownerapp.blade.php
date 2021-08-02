@@ -732,9 +732,9 @@
                 <a href="#" class="close-aside"><i class="fa fa-times" aria-hidden="true"></i></a>
                 <!-- Branding -->
 
-                <div class="side-branding">
+                <div class="side-branding text-center">
                     <a href="{{ url('/') }}">
-                        <img src="/images/logo.png" class="img-responsive">
+                        <img src="/uploadimages/company_logo/{{ $logo }}" class="img-responsive" style="height: 100px; width: auto; padding-right: 9px !important">
                     </a>
                 </div>
 
@@ -960,141 +960,6 @@
             </div>
         </aside>
 
-        <!-- header -->
-        {{-- <header style="background-color: #FFFFFF !important;">
-
-            <div class="header-left">
-                <ul class="nav header-links pull-right">
-                    <li class="humbager">
-                        <a href="" class="btn btn-light">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-list" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="header-logo">
-                        <a href="{{ url('/') }}" class="header-branding"><img src="/images/logo2.png" class="img-responsive"> </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- message and message notification should be added -->
-            <div class="header-right">
-
-                <nav class="nav">
-                    <ul class="navbar-nav ml-auto">
-                            <!-- Authentication Links -->
-                            @guest
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                                @if (Route::has('register'))
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    </li>
-                                @endif
-                            @else
-
-                            <div>
-                                <div style="display: inline-block">
-                                    <li>
-                                        link one
-                                    </li>
-                                </div>
-                                <div style="display: inline-block">
-                                    <li class="nav-item dropdown">
-
-                                        <!-- <li id="logout" class="nav-link float-right" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="padding-right: 20px; font-size: 20px;"> -->
-                                        <a id="logout" class="nav-link" href="#" style="padding-right: 20px;">
-                                            <div>
-                                                <div style="display: inline-block;">
-                                                    <h5 class="user-name" style="padding-right:10px">{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</h5>
-                                                    <span class="caret"></span>
-                                                </div>
-                                                <div style="display: inline-block; float:right">
-                                                    <img src="/uploadimages/owner_profile/{{ Auth::user()->profile_img }}" alt="Profile Image" class="rounded-circle border border-dark" style="width: 30px; height: auto;" >
-                                                </div>
-                                            </div>
-                                        </a>
-
-                                        <div id="toggle" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                                            <div class="dropdown-divider"></div>
-
-                                            <div class="item_div">
-                                                <div class="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-pencil-square" viewBox="0 0 16 16" id="svg">
-                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                                    </svg>
-                                                </div>
-                                                <div class="link">
-                                                    <a class="dropdown-item" href="#" id="dropdown_item">
-                                                        Edit Profile
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="item_div">
-
-                                                <div class="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-gear-fill" viewBox="0 0 16 16" id="svg">
-                                                        <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-                                                    </svg>
-                                                </div>
-                                                <div class="link">
-                                                    <a class="dropdown-item" href="#" id="dropdown_item">
-                                                        Setting & Privacy
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="item_div">
-
-                                                <div class="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-question-circle-fill" viewBox="0 0 16 16"  id="svg">
-                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
-                                                    </svg>
-                                                </div>
-                                                <div class="link">
-                                                    <a class="dropdown-item" href="#" id="dropdown_item">
-                                                        Help & Support
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="dropdown-divider"></div>
-
-                                            <div class="item_div">
-                                                <div class="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                                                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                                                    </svg>
-                                                </div>
-                                                <div class="link">
-                                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
-                                                                    document.getElementById('logout-form').submit();"  id="dropdown_item">
-                                                        {{ __('Logout') }}
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </li>
-                                </div>
-                            </div>
-                            @endguest
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </header> --}}
-
         <!--Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: white !important; box-shadow: 0 0 45px 0 rgba(0, 0, 0, 0.12); !important">
 
@@ -1111,9 +976,9 @@
                                 </a>
                             </li>
                         </div>
-                        <div style="display: inline-block">
+                        <div style="display: inline-block; padding-left: 10px">
                             <li class="header-logo">
-                                <a href="{{ url('/') }}" class="header-branding"><img src="/images/logo2.png" class="img-responsive"> </a>
+                                <a href="{{ url('/') }}" class="header-branding"><img src="/uploadimages/company_logo/{{ $logo }}" class="img-responsive" style="height: 50px; width: auto"> </a>
                             </li>
                         </div>
                     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Instructor;
@@ -13,10 +14,14 @@ class IntructorsController extends Controller
 {
     public function index(){
         $instructors = Instructor::with('user')->get();
-        return view('owner.instructor.instructors', compact('instructors'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.instructor.instructors', compact('instructors', 'logo'));
     }
     public function addinstructor(){
-        return view('owner.instructor.addinstructor');
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.instructor.addinstructor', compact('logo'));
     }
     public function insertinstructor(Request $request){
 
@@ -58,10 +63,14 @@ class IntructorsController extends Controller
         $user->instructor()->save($instructor);
         return redirect()->route('insertinstructor')->with('successmsg', 'one Instructor wasadded successfuly !');
     }
+
     public function editinstructor($user_id){
         $Instructor = Instructor::where('user_id', '=',$user_id)->with('user')->get();
-        return view('owner.instructor.editinstructor',compact('Instructor'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.instructor.editinstructor',compact('Instructor', 'logo'));
     }
+
     public function updateinstructor(Request $request, $user_id){
         $this->validate($request,[
             'firstname' => 'required',

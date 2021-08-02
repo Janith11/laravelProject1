@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
 use App\Http\Controllers\Controller;
@@ -80,6 +81,8 @@ class OwnerDashboadController extends Controller
         }
         //end
 
-        return view('owner.ownerdashboad', compact('count'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.ownerdashboad', compact('count', 'logo'));
     }
 }

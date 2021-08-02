@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\Student;
 use App\TrainingVehicleCategory;
@@ -24,21 +25,28 @@ class StudentsController extends Controller
         $complete_students = Student::with('user')->whereHas('user', function($query){
             $query->where('status', 2);
         })->count();
-        return view('owner.students.studentslist', compact('students', 'requst_students', 'complete_students'));
+
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
+        return view('owner.students.studentslist', compact('students', 'requst_students', 'complete_students', 'logo'));
     }
 
     //return add student page (form)
     public function addstudent(){
-        // $vehicle_category = VehicleCategory::all();
         $vehicalcategory=VehicleCategory::all();
-        return view('owner.students.addstudent', compact('vehicalcategory'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.students.addstudent', compact('vehicalcategory', 'logo'));
     }
 
     // >> button result page
     public function viewstudent($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
         $examdetails = Student::where('user_id','=',$user_id)->with('exams')->get();
-        return view('owner.students.viewstudent',compact('student','examdetails'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.students.viewstudent',compact('student','examdetails', 'logo'));
 
     }
 
@@ -112,7 +120,7 @@ class StudentsController extends Controller
         }
         foreach($test as $value){
             foreach($value as $key=>$val1){
-           
+
             $transmission = '';
             $trainig='';
             $count=0;
@@ -132,9 +140,9 @@ class StudentsController extends Controller
                 'transmission'=>$transmission
             ]);
         }
-            
+
         }
-        
+
 
         return redirect()->route('addstudent')->with('successmsg', 'one student added successfuly !');
 
@@ -142,7 +150,9 @@ class StudentsController extends Controller
 
     public function editstudent($user_id){
         $student = Student::where('user_id', '=',$user_id)->with('user')->get();
-        return view('owner.students.editstudent',compact('student'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.students.editstudent',compact('student', 'logo'));
     }
 
     public function updatestudent(Request $request, $user_id){
@@ -182,12 +192,13 @@ class StudentsController extends Controller
         $category=StudentCategory::where('user_id',$user_id)->get();
         $havecategory=StudentCategory::where('user_id',$user_id)->select('category')->get();
         $notcategory=VehicleCategory::whereNotIn('category_code',$havecategory)->get();
-        // return $notcategory;
-        return view('owner.students.editcategory',compact('category','notcategory'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.students.editcategory',compact('category','notcategory', 'logo'));
     }
 
     public function updatecategory(Request $request,$id,$userid){
-        
+
         $this->validate($request,[
             'category' => 'required',
             'tstatus' => 'required',

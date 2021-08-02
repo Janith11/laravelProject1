@@ -24,8 +24,9 @@ class SettingController extends Controller
         $shedulingtype = ShedulingType::first();
         $type =  $shedulingtype->type;
         $owners = User::where('id', 1)->get();
-        // return $owners;
-        return view('owner.settings.settings', compact('details', 'open_hours', 'type', 'owners'));
+        $detail = CompanyDetails::first();
+        $logo = $detail->logo;
+        return view('owner.settings.settings', compact('details', 'open_hours', 'type', 'owners', 'logo'));
     }
 
     public function savedetails(Request $request){
@@ -180,7 +181,9 @@ class SettingController extends Controller
     }
 
     public function password(){
-        return view('owner.settings.changepassword');
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.settings.changepassword', compact('logo'));
     }
 
     public function store(Request $request){

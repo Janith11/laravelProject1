@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\Student;
 use App\User;
@@ -12,9 +13,13 @@ class paymentsController extends Controller
 {
     public function index(){
         $studentslist = Student::with('user')->get();
-        return view('owner.payment.viewpayments',compact('studentslist'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.payment.viewpayments',compact('studentslist', 'logo'));
     }
     public function studentpayments($userid){
-        return view('owner.payment.viewpaymentpage');
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.payment.viewpaymentpage', compact('logo'));
     }
 }

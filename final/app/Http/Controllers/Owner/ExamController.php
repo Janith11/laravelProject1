@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Student;
@@ -12,15 +13,19 @@ class ExamController extends Controller
 {
     public function index(){
         $students = Student::with('exams')->get();
-        return view('owner.exam.examlist', compact('students'));
-        // return ($students);
-        // dd($students);
-    }  
+
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
+        return view('owner.exam.examlist', compact('students', 'logo'));
+    }
 
     public function edit($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
         $examdetails = Student::where('user_id','=',$user_id)->with('exams')->get();
-        return view ('owner.exam.editexamlist', compact('student','examdetails'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view ('owner.exam.editexamlist', compact('student','examdetails', 'logo'));
     }
 
     public function saveexamlist(Request $request, $id){
@@ -31,24 +36,26 @@ class ExamController extends Controller
             'attempt'=> 'required',
         ]);
         $exams = Exam::find($id);
-        
+
         $exams->type=$request->type;
         $exams->date=$request->date;
         $exams->result=$request->result;
         $exams->attempt=$request->attempt;
 
-        $exams->save(); 
+        $exams->save();
         return redirect()->route('ownerexamresult')->with('successmsg', 'Exam details is updated successfuly !');
     }
 
     public function addresults($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
         $examdetails = Student::where('user_id','=',$user_id)->with('exams')->get();
-        return view ('owner.exam.addexamlist', compact('student','examdetails'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view ('owner.exam.addexamlist', compact('student','examdetails', 'logo'));
     }
 
     public function saveresults(Request $request){
-                
+
         $this->validate($request,[
             'userid'=>'required',
             'type'=> 'required',
@@ -56,7 +63,7 @@ class ExamController extends Controller
             'result'=> 'required',
             'attempt'=> 'required',
         ]);
-   
+
         $exam = Exam::create([
         'user_id'=>$request->userid,
         'type'=>$request->type,
@@ -66,7 +73,7 @@ class ExamController extends Controller
 
     ]);
     return redirect()->route('ownerexamresult')->with('successmsg', 'Exam result is added successfully !');
-        
+
     }
- 
+
 }

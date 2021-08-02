@@ -36,7 +36,7 @@
         @endif
     </div>
     <div class="row mt-5">
-        @foreach ($deleterequests as $d)        
+        @foreach ($deleterequests as $d)
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -77,7 +77,7 @@
                         </form>
                           </tr>
                         </tbody>
-                      </table> 
+                      </table>
                 </div>
             </div>
         </div>
@@ -85,4 +85,11 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .requests').css('border-left', '5px solid #00bcd4');
+    })
+</script>
+
 @endsection

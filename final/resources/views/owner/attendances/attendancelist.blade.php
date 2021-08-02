@@ -228,7 +228,7 @@
                                                 <div style="background-color: #E22D54; color: #222944; padding: 5px 5px 5px 5px; border-radius: 50%; width: 50px; height: 50px" class="btn">
                                                     @foreach($leaves as $leave)
                                                         @if($leave->user_id == $employee->user_id)
-                                                            <h5 style="padding-top: 7px">{{ $attendance->count }}</h5>
+                                                            <h5 style="padding-top: 7px">{{ $leave->count }}</h5>
                                                         @endif
                                                     @endforeach
                                                 </div>
