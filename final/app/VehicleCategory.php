@@ -17,4 +17,7 @@ class VehicleCategory extends Model
     public function trainingvehiclecategorys(){
         return $this->hasMany(TrainingVehicleCategory::class, 'category_id', 'id');
     }
+    public function studentcategory(){
+        return $this->hasMany(StudentCategory::class, 'category', 'category_code');
+    }
 }

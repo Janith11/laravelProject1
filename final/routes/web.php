@@ -198,6 +198,9 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/salary/addexpense', 'Owner\ExpenseController@makeexpense')->name('addexpense');
     Route::get('/salary/history', 'Owner\SalaryController@history')->name('history');
 
+    //RequestAlert
+    Route::get('requestalert','Owner\RequestAlertController@index')->name('viewalert');
+
 });
 
 //Check and grouping all of the students

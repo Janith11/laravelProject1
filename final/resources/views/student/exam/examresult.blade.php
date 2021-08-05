@@ -10,77 +10,13 @@
             </svg>
         </a>
     </div>
-
-    {{-- <div class="row mb-2 justify-content-end">
-        <div style="display: inline-block">
-            @foreach ($student as $s)  
-            <div style="display: inline-block">
-                <a href="{{ route('addnewexamresult',$s->user_id) }}" type="button" class="btn btn-primary">Add New</a>
-            </div>
-            <div style="display: inline-block">
-                <a type="button" class="btn btn-primary" href="{{ route('viewstudent', $s->user_id) }}">View Student</a>
-            </div>
-            @endforeach
-        </div>
-    </div> --}}
-
-    {{-- <div class="row-mb-2">
-        @if(session('successmsg'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <h5>
-                    {{ session('successmsg') }}
-                </h5>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-    </div>
-
     <div class="row-mb-2">
-        @if(session('error'))
-            <div class="alert alert-danger">
-                <h5>{{ session('error') }}</h5>
-            </div>
-        @endif
-    </div>
-
-    <div class="row-mb-2">
-        @if(session('categoryerror'))
-            <div class="alert alert-danger">
-                <h5>{{ session('categoryerror') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </h5>
-            </div>
-        @endif
-    </div>
-
-    <div class="col-mb-2">
-        @if(count($errors) > 0)
-            <div class="container">
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> Some problems with your input.
-                    <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                    </ul>
-                </div>
-            </div>
-        @endif
-    </div> --}}
-
-    <div class="row-mb-2">
-        <div id="card" >
-            <div class="card" id="card" >
+        <div id="card" >   
+          <div class="card-body">
+            <div class="card mt-2">
                 <div class="card-body">
                     <h5 style="color: #222944; font-weight: bold"> Result sheet</h5>
-                    <hr style="border: 0.5px solid #222944">
-                    <form >
-                 @csrf
-
+                    <hr style="border: 0.5px solid #222944">    
                         <div class="row">
                             @foreach ($users as $s) 
                            <div class="col-sm-4" id="register_form_item">
@@ -89,59 +25,70 @@
                                     <p>{{ $s->user->f_name }} {{ $s->user->l_name }}</p>
                                 </div>
                             </div>
-
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="nic">NIC</label>
                                     <p>{{ $s->user->nic_number }}</p>
                                 </div>
                             </div>
-
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="contact number">Contact number</label>
                                     <p>{{ $s->user->contact_number }}</p>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </div>                  
                         @endforeach
-                    
-                        
-                        @foreach ($examdetails as $examdetail)
-                        @foreach ($examdetail->exams as $exam)
-                        <form action="{{ route('saveexamlist',$exam->id) }}" method="POST"> 
-                        @csrf
-                       
-                        <ul class="list-group ">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                              Exam type
-                              <span class=" badge-pill">{{ $exam->type }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                              Exam date
-                              <span class="badge-pill">{{ $exam->type }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                              Result
-                              <span class="badge badge-primary badge-pill">{{ $exam->result }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Attempt
-                                <span class=" badge-pill">{{ $exam->attempt }}</span>
-                              </li>                            
-                          </ul>             
-                    </form>
-                    <hr style="border: 0.5px solid #222944">
-                    @endforeach
-                    @endforeach
+                </div>
+            </div>                       
+            @foreach ($examdetails as $examdetail)
+            @foreach ($examdetail->exams as $exam)
+            <div class="card">
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col">
+                                    <p>Exam Type</p>
+                                </div>
+                                <div class="col">
+                                    {{ $exam->type }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Exam Date
+                                </div>
+                                <div class="col">
+                                    date                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Result
+                                </div>
+                                <div class="col">
+                                    {{ $exam->result }}                                     
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Attempt</p>
+                                </div>
+                                <div class="col">
+                                    {{ $exam->attempt }}
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    {{-- <hr style="border: 0.5px solid #222944"> --}}
                 </div>
             </div>
-        </div>
-    </div>
-
-    
-
-</div>
+            @endforeach
+            @endforeach
+          </div>    
+        </div> 
+    </div> 
 @endsection
 

@@ -712,10 +712,10 @@
         }
 
         .dropdown-menu{
-            box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+            /* box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%); */
             position: absolute !important;
-            z-index: 1 !important;
-            float: left !important;
+            z-index: 9999 !important;
+            /* float: left !important; */
         }
 
     </style>
@@ -955,6 +955,18 @@
                             </div>
                         </div>
                     </li>
+                    <li class="nav-item mb-3 vehicle" id="nav-item">
+                        <div style="padding-left: 10px">
+                            <div style="display: inline-block">
+                                <img src="/uploadimages/other/dashboardicons/vehicles.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                            </div>
+                            <div style="display: inline-block">
+                                <a class="nav-link" href=" {{ route('viewalert') }} ">
+                                    <span class="menu-title" id="item">Notifications</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
 
                 </ul>
             </div>
@@ -1140,7 +1152,7 @@
                                 </li>
                             </div>
                             <div style="display: inline-block">
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown pull-left">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div>
                                             <div style="display: inline-block;">
@@ -1152,7 +1164,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                    <div class="dropdown-menu dropdown-menu-left pull-left" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" href="#">
                                             <div>
                                                 <div style="display: inline-block">

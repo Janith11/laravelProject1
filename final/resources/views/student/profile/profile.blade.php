@@ -1,4 +1,4 @@
-@extends('layouts.instructorapp')
+@extends('layouts.student')
 
 @section('content')
 

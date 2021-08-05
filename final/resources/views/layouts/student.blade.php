@@ -658,7 +658,7 @@ aside li.menu-label {
 
     </style>
 </head>
-<body style="background-color: #ffffff;">
+<body style="background-color: #1776D2">
    <div>
        <!-- slidebar -->
     <aside>
@@ -921,7 +921,7 @@ aside li.menu-label {
     </header>
 
     <!-- main content -->
-    <div class="main-content" style="background-color: #1776D2">
+    <div class="main-content">
         @yield('content')
     </div>
     <div>
