@@ -6,145 +6,32 @@
     #card{
         padding: 10px;
     }
+    .card{
+        border-radius: 10px;
+    }
+    .card-body{
+        border-radius: 10px;
+    }
 
-    .progress{
-        width: 150px;
-        height: 150px;
-        line-height: 150px;
-        background: none;
-        margin: 0 auto;
-        box-shadow: none;
+    /* style for progress bar */
+    span#procent {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        font-size: 50px;
+        transform: translate(-50%, -50%);
+        color: #41B883;
+    }
+
+    span#procent::after {
+        content: '%';
+    }
+
+    .canvas-wrap {
         position: relative;
-    }
-
-    .progress:after{
-        content: "";
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        border: 15px solid #f2f5f5;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    .progress > span{
-        width: 50%;
-        height: 100%;
-        overflow: hidden;
-        position: absolute;
-        top: 0;
-        z-index: 1;
-    }
-
-    .progress .progress-left{
-        left: 0;
-    }
-
-    .progress .progress-bar{
-        width: 100%;
-        height: 100%;
-        background: none;
-        border-width: 15px;
-        border-style: solid;
-        position: absolute;
-        top: 0;
-    }
-
-    .progress .progress-left .progress-bar{
-        left: 100%;
-        border-top-right-radius: 80px;
-        border-bottom-right-radius: 80px;
-        border-left: 0;
-        -webkit-transform-origin: center left;
-        transform-origin: center left;
-    }
-
-    .progress .progress-right{
-        right: 0;
-    }
-
-    .progress .progress-right .progress-bar{
-        left: -100%;
-        border-top-left-radius: 80px;
-        border-bottom-left-radius: 80px;
-        border-right: 0;
-        -webkit-transform-origin: center right;
-        transform-origin: center right;
-        animation: loading-1 1.8s linear forwards;
-    }
-
-    .progress .progress-value{
-        width: 100%;
-        height: 100%;
-        font-size: 24px;
-        color: rgb(250, 245, 245);
-        text-align: center;
-        position: absolute;
-    }
-
-    .progress.yellow .progress-bar{
-        border-color: #21E278;
-    }
-
-    .progress.yellow .progress-left .progress-bar{
-        animation: loading-3
-         1s linear forwards 1.8s;
-    }
-
-    @keyframes loading-1{
-        0%{
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100%{
-            -webkit-transform: rotate(180deg);
-            transform: rotate(180deg);
-        }
-    }
-
-    @keyframes loading-2{
-        0%{
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100%{
-            -webkit-transform: rotate(144deg);
-            transform: rotate(144deg);
-        }
-    }
-
-    @keyframes loading-3{
-        0%{
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100%{
-            -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
-        }
-    }
-
-    @keyframes loading-4{
-        0%{
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100%{
-            -webkit-transform: rotate(36deg);
-            transform: rotate(36deg);
-        }
-    }
-
-    @keyframes loading-5{
-        0%{
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100%{
-            -webkit-transform: rotate(126deg);
-            transform: rotate(126deg);
-        }
+        width: 200px;
+        height: 200px;
     }
 </style>
 
@@ -162,8 +49,8 @@
     </div>
 
     <div class="row justify-content-end">
-        <div id="card">
-            <a class="btn btn-primary" type="button" style="color: white;" href="{{ route('studentallshedules', Auth::user()->id) }}">Request Slot</a>
+        <div id="card" style="padding-right: 30px">
+            <a class="btn btn-primary" type="button" style="color: white;" href="{{ route('studentpendingrequests') }}">Pending Request</a>
         </div>
     </div>
 
@@ -175,41 +62,115 @@
         @endif
     </div>
 
-    <div class="row">
-        <div class="col-sm-9">
-            <div id="card">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 style="color: #222944; font-weight: bold">Shedule Calender</h5>
-                        <hr style="border-top: 1px solid #222944">
-                        <div id='calendar'></div>
-                    </div>
-                </div>
+    <div class="row-mb-2">
+        @if(session('succesmsg'))
+            <div class="alert alert-success" role="alert">
+                <h5>{{ session('succesmsg') }}</h5>
             </div>
-        </div>
+        @endif
+    </div>
+
+    <div class="row">
+
         <div class="col-sm-3">
             <div id="card">
                 <div class="card">
-                    <div class="card-body">
-                        <h5 style="color: #222944; font-weight: bold">Your Progress</h5>
+                    <div class="card-body" style="background-color: #1E1F30 !important">
+                        <h5 style="color: #85E801; font-weight: bold">Your Progress</h5>
                         <hr style="border-top: 1px solid #222944">
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="progress yellow">
-                                <span class="progress-left">
-                                    <span class="progress-bar"></span>
-                                </span>
-                                <span class="progress-right">
-                                    <span class="progress-bar"></span>
-                                </span>
-                                <div class="progress-value" style="color: #222944">90%</div>
+                        <div>
+                            <div class="text-center">
+                                <canvas id="canvas" width="180" height="180"></canvas>
+                                <span id="procent" style="padding-top: 30px"></span>
                             </div>
                         </div>
-
+                        <div class="float-right">
+                            <a href="{{ route('studentcompletedshedules') }}" style="text-decoration: none !important">
+                                <div style="background-color: #88004F; padding: 5px; border-radius: 5px;">
+                                    <h6 style="color: #f2f5f5; margin-bottom: 0px !important; ">{{ $completed_session->completed_session }}/{{ $total_session->total_session }}</h6>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-9">
+            @if($total_session->total_session == $completed_session->completed_session)
+                <div id="card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="/images/candidate/trophy.gif" alt="candidate" class="img-fluid" style="width: 80%;height: auto">
+                            </div>
+                            <h3 class="mt-3 mb-2 text-center text-success">Congratulations!</h3>
+
+                            <p class="text-center"> <span class="text-info">{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</span> ,you have been successfuly complete practicle and theory sessions.</p>
+                            <p class="text-center"><b>Good Luck!</b></p>
+                            <div id="card">
+                                <p class="text-center">If you want more training session please request</p>
+                                <div class="text-center">
+                                    <a class="btn btn-success" type="button" style="color: white">Request More Sessions</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div id="card">
+                    <div class="card" style="border: 1px solid #222944">
+                        <div class="card-body" style="border-left: 10px solid #FAD51B !important;">
+                            <h5 style="color: #222944; font-weight: bold">Today Shedules</h5>
+                            <hr style="border-top: 1px solid #222944">
+
+                            @if(count($today_sessions) == 0)
+                                <div class="alert alert-info" role="alert">
+                                    <h6>No any session on this day</h6>
+                                </div>
+                            @else
+                                <div class="table-responsive">
+                                    <table class="table" id="todaysessions">
+                                        <thead style="display: none">
+                                            <th>sdfg</th>
+                                            <th>fgh</th>
+                                            <th>gjhg</th>
+                                            <th>gjhg</th>
+                                            <th>gjfghj</th>
+                                        </thead>
+                                        @foreach($today_sessions as $session)
+                                            <tr>
+                                                <td>Session Number</td>
+                                                <td style="display: none">{{ $session->date }} {{ $session->time }}</td>
+                                                <td>{{ $session->time }}</td>
+                                                <td>{{ $session->lesson_type }}</td>
+                                                @if ($session->shedule_status == 2)
+                                                    <td>Completed</td>
+                                                @else
+                                                    <td id="countdown"></td>
+                                                @endif
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div id="card">
+                    <div class="card" style="border: 1px solid #222944">
+                        <div class="card-body">
+                            <h5 style="color: #222944; font-weight: bold">Shedule Calender</h5>
+                            <hr style="border-top: 1px solid #222944">
+                            <div class="table-responsive">
+                                <div id='calendar'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+
     </div>
 
 </div>
@@ -243,7 +204,92 @@
         });
         calendar.render();
         calendar.setOption('height', 'auto');
+        calendar.setOption('width', 'auto');
     });
+
+    // script for progressbar
+    window.onload = function() {
+
+        var progress = {{ $progress }};
+
+        var can = document.getElementById('canvas'),
+            spanProcent = document.getElementById('procent'),
+            c = can.getContext('2d');
+
+        var posX = can.width / 2,
+            posY = can.height / 2,
+            fps = 1000 / 200,
+            procent = 0,
+            oneProcent = 360 / 100,
+            result = oneProcent * progress;
+
+        c.lineCap = 'round';
+        arcMove();
+
+        function arcMove(){
+            var deegres = 0;
+            var acrInterval = setInterval (function() {
+                deegres += 1;
+                c.clearRect( 0, 0, can.width, can.height );
+                procent = deegres / oneProcent;
+
+                spanProcent.innerHTML = procent.toFixed();
+
+                c.beginPath();
+                c.arc( posX, posY, 70, (Math.PI/180) * 270, (Math.PI/180) * (270 + 360) );
+                c.strokeStyle = '#30323F';
+                c.lineWidth = '10';
+                c.stroke();
+
+                c.beginPath();
+                c.strokeStyle = '#62C2FE';
+                c.lineWidth = '10';
+                c.arc( posX, posY, 70, (Math.PI/180) * 270, (Math.PI/180) * (270 + deegres) );
+                c.stroke();
+                if( deegres >= result ) clearInterval(acrInterval);
+            }, fps);
+        }
+    }
+</script>
+
+<script>
+
+    var table = document.getElementById("todaysessions");
+    var x = setInterval(
+    function () {
+
+        for (var i = 1, row; row = table.rows[i]; i++) {
+            //iterate through rows
+            //rows would be accessed using the "row" variable assigned in the for loop
+
+            var endDate = row.cells[1];
+            countDownDate = new Date(endDate.innerHTML.replace(/-/g, "/")).getTime();
+            var countDown = row.cells[4];
+            // Update the count down every 1 second
+
+            // Get todays date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now an the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element
+            countDown.innerHTML = (hours + " : "
+                + minutes + " : " + seconds);
+
+            //If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                countDown.innerHTML = "Expired Shedule";
+            }
+        }
+    }, 1000);
 
 </script>
 
