@@ -222,6 +222,9 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/studentshedule', 'Student\ShedulingController@index')->name('studentsheduling');
     Route::get('/allstudentshedules/{id}', 'Student\ShedulingController@events')->name('studentallshedules');
     Route::get('/studentshedule/getdate/{date}', 'Student\ShedulingController@checkdate')->name('checkdate');
+    Route::post('/studentshedule/getdate/requestslot', 'Student\ShedulingController@requestslot')->name('requestslot');
+    Route::get('/studentshedule/completedshedules', 'Student\ShedulingController@completedshedules')->name('studentcompletedshedules');
+    Route::get('/studentshedule/pendingrequests', 'Student\ShedulingController@pendingrequest')->name('studentpendingrequests');
 
 });
 

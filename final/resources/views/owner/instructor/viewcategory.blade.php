@@ -14,7 +14,7 @@
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentslist') }}"> / Update Instructor</a>
+        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('instructors') }}"> / Update Instructor</a>
         <a style="padding-top: 6px; padding-left: 10px"> / Update Category</a>
     </div>
 
@@ -37,17 +37,17 @@
                         <th scope="col">Update</th>
                      </tr>
                     </thead>
-                   
+
                     <tbody>
-                        
+
                         <form action="{{ route('addnewinstructorcategory') }}" method="POST">
-                            @csrf  
-                            @foreach ($category as $c1)                            
+                            @csrf
+                            @foreach ($category as $c1)
                             <tr>
                                 <td style="display: none"> <input type="text" name="userid" value="{{ $c1->user_id }}">
                                 </td>
                             @endforeach
-                            @foreach ($notcategory as $n)   
+                            @foreach ($notcategory as $n)
                             <td>
                                 <div class="form-group">
                                     <input type="text" name="category_code"value="{{ $n->category_code }}" style="display: none">
@@ -76,11 +76,11 @@
                             </td>
                             @endif
                             <td><button type="submit" class="btn btn-success">Add Category</button>  </td>
-                        </form> 
-                    </tr>              
-                    @endforeach 
+                        </form>
+                    </tr>
+                    @endforeach
                     </tbody>
-                  </table>    
+                  </table>
             </div>
         </div>
     </div>
@@ -118,11 +118,11 @@
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>
-               
+
                 <tbody>
-                    @foreach ($category as $c)   
+                    @foreach ($category as $c)
                     <form action="{{ route('updateinstructorcategory',[$c->id, $c->user_id]) }}" method="POST">
-                        @csrf  
+                        @csrf
                         <tr>
                             <td style="display: none"> <input type="text" name="cid" value="{{ $c->id }}">
                             </td>
@@ -158,7 +158,7 @@
                         </td>
                         @endif
                         <td><button type="submit" class="btn btn-success">Update</button>  </td>
-                    </form> 
+                    </form>
                         <td>
                             <form method="POST" action="{{ route('deleteinstructorvehiclecategory', [$c->id, $c->user_id]) }}" id="delete-form-{{ $c->id }}" style="display: none">
                                 @csrf
@@ -173,10 +173,10 @@
                             </button>
                         </td>
                     </tr>
-                                
-                @endforeach 
+
+                @endforeach
                 </tbody>
-              </table>          
+              </table>
         </div>
       </div>
 </div>
@@ -186,3 +186,4 @@
     });
 </script>
 @endsection
+

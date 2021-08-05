@@ -29,6 +29,7 @@ class ShedulingController extends Controller
         // canceled = 0
         // complete = 2
         // incomplate = 3
+        // request = 4
 
         $prevhour = date('H') - 1;
         $currenthour = date('H');

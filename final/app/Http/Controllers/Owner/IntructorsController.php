@@ -144,8 +144,9 @@ class IntructorsController extends Controller
         $category=StudentCategory::where('user_id',$user_id)->get();
         $havecategory=StudentCategory::where('user_id',$user_id)->select('category')->get();
         $notcategory=VehicleCategory::whereNotIn('category_code',$havecategory)->get();
-        // return $notcategory;
-        return view('owner.instructor.viewcategory',compact('category','notcategory'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.instructor.viewcategory',compact('category','notcategory', 'logo'));
     }
     public function addnewcategory(Request $request){
         $this->validate($request,[

@@ -75,7 +75,6 @@
                 </ul>
             </div>
         </div>
-<<<<<<< HEAD
     @endif
 
     <!-- start first row  -->
@@ -84,10 +83,6 @@
         <div class="container" style="margin-top: 30px; padding:20px 20px 20px 20px; border-radius: 15px;">
             <h3 class="card-title">Edit a Instructor</h3>
             <hr/>
-=======
-        @endif
-
->>>>>>> 03dfd3cdfa5fe56a95766f49d6529aa1b1b9221c
             @foreach ($Instructor as $instructor)
             <form action="{{ route('updateinstructor', $instructor->user_id) }}" method="POST">
                 {{ csrf_field() }}
