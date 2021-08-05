@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\Student;
 use App\User;
@@ -12,14 +13,20 @@ use Illuminate\Support\Facades\DB;
 class paymentsController extends Controller
 {
     public function index(){
-       $studentslist = PaymentLog::with('user')->with('student')->orderBy('updated_at', 'desc')->get();
-        // return $studentslist;
-        return view('owner.payment.viewpayments',compact('studentslist'));
+        $studentslist = PaymentLog::with('user')->with('student')->orderBy('updated_at', 'desc')->get();
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.payment.viewpayments',compact('studentslist', 'logo'));
     }
+
     public function studentpayments($userid){
         $studentdetails=Student::where('user_id',$userid)->with('user')->get();
-        return view('owner.payment.viewpaymentpage',compact('studentdetails'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.payment.viewpaymentpage', compact('studentdetails','logo'));
+
     }
+
     public function insertpayment(Request $request){
         $this->validate($request,[
             'sid' => 'required',

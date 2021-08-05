@@ -262,7 +262,6 @@
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-
                 // Display the result in the element
                 countDown.innerHTML = ( hours + " : "
                     + minutes + " : " + seconds);

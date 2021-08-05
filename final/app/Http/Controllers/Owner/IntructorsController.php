@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Instructor;
@@ -15,11 +16,15 @@ class IntructorsController extends Controller
 {
     public function index(){
         $instructors = Instructor::with('user')->get();
-        return view('owner.instructor.instructors', compact('instructors'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.instructor.instructors', compact('instructors', 'logo'));
     }
     public function addinstructor(){
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
         $vehicalcategory=VehicleCategory::all();
-        return view('owner.instructor.addinstructor',compact('vehicalcategory'));
+        return view('owner.instructor.addinstructor',compact('vehicalcategory','logo'));
     }
     public function insertinstructor(Request $request){
         $this->validate($request,[
@@ -71,7 +76,7 @@ class IntructorsController extends Controller
         }
         foreach($test as $value){
             foreach($value as $key=>$val1){
-           
+
             $transmission = '';
             $trainig='';
             $count=0;
@@ -97,8 +102,11 @@ class IntructorsController extends Controller
 
     public function editinstructor($user_id){
         $Instructor = Instructor::where('user_id', '=',$user_id)->with('user')->get();
-        return view('owner.instructor.editinstructor',compact('Instructor'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.instructor.editinstructor',compact('Instructor', 'logo'));
     }
+
     public function updateinstructor(Request $request, $user_id){
         $this->validate($request,[
             'firstname' => 'required',
@@ -136,8 +144,9 @@ class IntructorsController extends Controller
         $category=StudentCategory::where('user_id',$user_id)->get();
         $havecategory=StudentCategory::where('user_id',$user_id)->select('category')->get();
         $notcategory=VehicleCategory::whereNotIn('category_code',$havecategory)->get();
-        // return $notcategory;
-        return view('owner.instructor.viewcategory',compact('category','notcategory'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.instructor.viewcategory',compact('category','notcategory', 'logo'));
     }
     public function addnewcategory(Request $request){
         $this->validate($request,[
@@ -156,7 +165,7 @@ class IntructorsController extends Controller
          successfully !');
     }
     public function updatecategory(Request $request,$id,$userid){
-        
+
         $this->validate($request,[
             'category' => 'required',
             'tstatus' => 'required',

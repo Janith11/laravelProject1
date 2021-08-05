@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmplooyeeLeave extends Model
 {
-    protected $fillable = ['user_id', 'reson', 'start_date', 'end_date', 'type', 'status'];
+    protected $fillable = ['user_id', 'reson', 'start_date', 'end_date', 'status'];
 
     public function instructor(){
         return $this->belongsTo(Instructor::class, 'user_id', 'user_id');

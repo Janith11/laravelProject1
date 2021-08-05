@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\SessionHour;
 use App\VehicleCategory;
@@ -12,11 +13,15 @@ class VehicleCategoryController extends Controller
 {
     public function index(){
         $categories = VehicleCategory::with('sessionhours')->get();
-        return view('owner.vehicle_category.categorylist', compact('categories'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.vehicle_category.categorylist', compact('categories', 'logo'));
     }
 
     public function add(){
-        return view('owner.vehicle_category.addcategory');
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.vehicle_category.addcategory', compact('logo'));
     }
 
     public function savecategory(Request $request){
@@ -54,7 +59,9 @@ class VehicleCategoryController extends Controller
 
     public function editcategory($id){
         $results = VehicleCategory::where('id', $id)->with('sessionhours')->get();
-        return view('owner.vehicle_category.editcategory', compact('results'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.vehicle_category.editcategory', compact('results', 'logo'));
         // return $results;
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\TimeSlots;
 use App\TimeTable;
@@ -12,7 +13,9 @@ class TimeTableController extends Controller
 {
     public function index(){
         $timetable = WeekDay::with('timeslots')->get();
-        return view('owner.timetable.timetable', compact('timetable'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.timetable.timetable', compact('timetable', 'logo'));
     }
 
     public function inserttimeslot(Request $request){

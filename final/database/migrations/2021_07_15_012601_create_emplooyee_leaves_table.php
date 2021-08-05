@@ -19,7 +19,6 @@ class CreateEmplooyeeLeavesTable extends Migration
             $table->string('reson');
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->string('type');
             $table->integer('status');
             $table->timestamps();
         });

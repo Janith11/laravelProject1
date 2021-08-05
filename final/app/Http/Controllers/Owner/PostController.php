@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\Posts;
 use App\User;
@@ -12,11 +13,15 @@ class PostController extends Controller
 {
     public function index(){
         $posts = Posts::with('user')->get();
-        return view('owner.post.allpost', compact('posts'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.post.allpost', compact('posts', 'logo'));
     }
 
     public function makeposts(){
-        return view('owner.post.createpost');
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.post.createpost', compact('logo'));
     }
 
     public function savepost(Request $request){
@@ -48,7 +53,9 @@ class PostController extends Controller
         foreach ($posts as $post) {
             $message = $post->message;
         }
-        return view('owner.post.editpost', compact('posts', 'message'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.post.editpost', compact('posts', 'message', 'logo'));
     }
 
     public function updatepost(Request $request){

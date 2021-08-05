@@ -8,6 +8,7 @@ use App\OwnerShedule;
 use App\SheduleAlert;
 use App\AlertForStudent;
 use App\Attendance;
+use App\CompanyDetails;
 use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
 use App\SheduledStudents;
@@ -28,6 +29,7 @@ class ShedulingController extends Controller
         // canceled = 0
         // complete = 2
         // incomplate = 3
+        // request = 4
 
         $prevhour = date('H') - 1;
         $currenthour = date('H');
@@ -86,12 +88,17 @@ class ShedulingController extends Controller
         $uncompleteshedules_sixmonth = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 3)->get();
         $uncompleteshedules_year = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 3)->get();
 
-        return view('owner.sheduling.shedulelist', compact('shedules','totalshedules', 'today_shedules', 'totalshedules_month', 'totalshedules_lastmonth', 'next_shedules','totalshedules_sixmonth', 'totalshedules_year','complateshedules_month','complateshedules_lastmonth', 'complateshedules_sixmonth', 'complateshedules_year', 'canceledshedules_month','canceledshedules_lastmonth', 'canceledshedules_sixmonth','canceledshedules_year', 'uncompleteshedules_month', 'uncompleteshedules_lastmonth', 'uncompleteshedules_sixmonth', 'uncompleteshedules_year'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
+        return view('owner.sheduling.shedulelist', compact('shedules','totalshedules', 'today_shedules', 'totalshedules_month', 'totalshedules_lastmonth', 'next_shedules','totalshedules_sixmonth', 'totalshedules_year','complateshedules_month','complateshedules_lastmonth', 'complateshedules_sixmonth', 'complateshedules_year', 'canceledshedules_month','canceledshedules_lastmonth', 'canceledshedules_sixmonth','canceledshedules_year', 'uncompleteshedules_month', 'uncompleteshedules_lastmonth', 'uncompleteshedules_sixmonth', 'uncompleteshedules_year', 'logo'));
         // return $today_shedules;
     }
 
     public function addshedule(){
-        return view('owner.sheduling.addshedule');
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.sheduling.addshedule', compact('logo'));
     }
 
     public function allevents(){
@@ -208,12 +215,23 @@ class ShedulingController extends Controller
         $last_day = date('m-t-Y');
         $today = Carbon::now()->today();
 
-        // =================== here want to change ====================
-        $leave_instructors = EmployeeAttendances::where('date', $date)->where('status', 1)->get();
+        // absent instructors id list
         $absent_ids = [];
-        foreach ($leave_instructors as $instructor) {
-            $absent_ids[] = $instructor->user_id;
+        // check single day leaves
+        $single_leave_days = EmplooyeeLeave::where('start_date', $date)->where('status', 1)->get();
+        if(count($single_leave_days) > 0){
+            foreach ($single_leave_days as $leave) {
+                $absent_ids[] = $leave->user_id;
+            }
         }
+        // check more leave days
+        $more_leave_days = EmplooyeeLeave::where('start_date', '<', $date)->where('end_date', '>=', $date)->where('status', 1)->get();
+        if (count($more_leave_days) > 0) {
+            foreach ($more_leave_days as $leave) {
+                $absent_ids[] = $leave->user_id;
+            }
+        }
+
         $leaves = collect($absent_ids);
         $instructors = Instructor::with(['user' => function($query){
             $query->where('status', 1);
@@ -247,6 +265,9 @@ class ShedulingController extends Controller
             })->get();
         }
 
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
         if ($request->has('slotdivider')) {
             $custome_slot_name = $request->customeslotname;
             $custome_time_slot = $request->custometime;
@@ -254,7 +275,7 @@ class ShedulingController extends Controller
                 return back()->with('errormessage', 'If you choose custome slot you have to enter time slot !!');
             }else{
                 $time = $request->custometime;
-                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
+                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students', 'logo'));
                 // return $students;
             }
         }else{
@@ -263,7 +284,7 @@ class ShedulingController extends Controller
                 return back()->with('errormessage', 'Please choose time slot or define custome one !!');
             }else{
                 $time = $slot[0];
-                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
+                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students', 'logo'));
                 // return $students;
             }
         }
@@ -305,18 +326,25 @@ class ShedulingController extends Controller
             $query->where('shedulealert_id', $alert_id);
         }])->whereIn('user_id', $student)->get();
 
-        return view('owner.sheduling.viewsheduledetails', compact('result', 'instructor_details', 'students_details', 'total_alert', 'read_alert'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
+        return view('owner.sheduling.viewsheduledetails', compact('result', 'instructor_details', 'students_details', 'total_alert', 'read_alert', 'logo'));
     }
 
     public function allshedules(){
         $shedules = OwnerShedule::all();
-        return view('owner.sheduling.allshedules', compact('shedules'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.sheduling.allshedules', compact('shedules', 'logo'));
     }
 
     //cancel shedule
     public function cancel($id){
         $shedule = OwnerShedule::where('id', $id)->get();
-        return view('owner.sheduling.cancelshedule', compact('shedule'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.sheduling.cancelshedule', compact('shedule', 'logo'));
     }
 
     public function updateascancel(Request $request){
@@ -376,7 +404,9 @@ class ShedulingController extends Controller
     public function todayshedules(){
         $current = Carbon::today();
         $today_shedules = OwnerShedule::where('date', $current)->get();
-        return view('owner.sheduling.todayshedules', compact('today_shedules'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.sheduling.todayshedules', compact('today_shedules', 'logo'));
     }
 
 
@@ -406,7 +436,10 @@ class ShedulingController extends Controller
         $student = collect($students);
         $students_details = Student::with('user')->whereIn('user_id', $student)->get();
 
-        return view('owner.sheduling.markascomplete', compact('students_details', 'instructor_details', 'shedule', 'reports'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+
+        return view('owner.sheduling.markascomplete', compact('students_details', 'instructor_details', 'shedule', 'reports', 'logo'));
     }
 
     public function saveascomplete(Request $request){

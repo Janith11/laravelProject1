@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\Events\NewMessage;
 use Illuminate\Http\Request;
@@ -12,12 +13,20 @@ use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
+    public $logo;
+
+    public function __construct(){
+        $details = CompanyDetails::first();
+        $this->logo = $details->logo;
+    }
+
     public function index(){
-        return view ('owner.chat.chathome');
+        $logo = $this->logo;
+        return view ('owner.chat.chathome', compact('logo'));
     }
 
     public function get(){
-                
+
         $contacts =User::where('id', '!=', auth()->id())->get();
         // dd($contacts);
         // get unread message
@@ -26,9 +35,9 @@ class ChatController extends Controller
         ->where('has_read', false)
         ->groupBy('from')
         ->get();
-       
+
         // $unreadIds = Message::where('to_id', auth()->id())->where('has_read', false)->get();
-       
+
 
         $contacts = $contacts->map(function($contact) use ($unreadIds){
             $contactUnread = $unreadIds->where('sender_id', $contact->id)->first();
@@ -65,10 +74,10 @@ class ChatController extends Controller
             'from' => auth()->id(),
             'to' => $request->contact_id,
             'text' => $request->text
-            
+
         ]);
-        
-        
+
+
 
         broadcast(new NewMessage($message));
         return response()->json($message);

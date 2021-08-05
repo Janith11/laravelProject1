@@ -46,12 +46,14 @@
                 <div class="card-body">
                     <h5 style="color: #222944; font-weight: bold">Review new Student</h5>
                     <hr style="border: 0.5px solid #222944">
+
                     @foreach ($registration as $r)
-                    <form action="{{ route('acceptrequest',$r->id) }}" method="POST">
+                        <form action="{{ route('acceptrequest',$r->id) }}" method="POST">
 
                         @csrf
 
                         <div class="row">
+
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="fristname">Frist Name</label>
@@ -129,7 +131,7 @@
                             </div>
 
                         </div>
-
+                        
                      <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">

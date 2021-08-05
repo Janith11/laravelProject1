@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\Http\Controllers\Controller;
 use App\Rules\MatchOldPassword;
 use App\User;
@@ -15,7 +16,9 @@ class PasswordChangeController extends Controller
     }
 
     public function index(){
-        return view('owner.settings.changepassword');
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.settings.changepassword', 'logo');
     }
 
     public function store(Request $request){

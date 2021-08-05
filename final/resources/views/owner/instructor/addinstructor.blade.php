@@ -162,33 +162,33 @@
                         </div>
 
 
-                        <div class="form-group">  
-                            @foreach ($vehicalcategory as $vehicle) 
+                        <div class="form-group">
+                            @foreach ($vehicalcategory as $vehicle)
                             <div class="row">
                             <div class="col-md-4 mt-2" id="{{ $vehicle->category_code }}A">
                                 <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $vehicle->category_code }}" id="{{ $vehicle->category_code }}1">
                                 <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}1" class="col-form-label text-md-right">{{ $vehicle->name }}</label>
                             </div>
                         {{-- <div id="{{ $vehicle->category_code }}B"> --}}
-                            <div class="col-md-4 mt-2" style="display: none"> 
-                                <div class="btn-group" id="{{ $vehicle->category_code }}B">                       
+                            <div class="col-md-4 mt-2" style="display: none">
+                                <div class="btn-group" id="{{ $vehicle->category_code }}B">
                                     <input type="radio" class="btn-check " name="{{ $vehicle->category_code }}" value="Training" id="{{ $vehicle->id }}1" autocomplete="off" checked/>
                                     <label class="btn btn-outline-success mr-2" for="{{ $vehicle->id }}1">Training</label>
-                                  
+
                                     <input type="radio" class="btn-check" name="{{ $vehicle->category_code }}" value="Without Training" id="{{ $vehicle->id }}2" autocomplete="off" />
                                     <label class="btn btn-outline-danger" for="{{ $vehicle->id }}2">Without Training</label>
                                   </div>
                             </div>
                             @if( $vehicle->transmission == 'automanual')
                             <div class="col-md-4 mt-2" id="{{ $vehicle->category_code }}B">
-                                <div class="btn-group">                       
+                                <div class="btn-group">
                                     <input type="radio" class="btn-check" name="trans{{ $vehicle->category_code }}" value="Auto" id="{{ $vehicle->id }}3" autocomplete="off"/>
                                     <label class="btn btn-outline-success mr-2" for="{{ $vehicle->id }}3">Auto Transmission</label>
-                                  
+
                                     <input type="radio" class="btn-check" name="trans{{ $vehicle->category_code }}" value="Manual" id="{{ $vehicle->id }}4" autocomplete="off" />
                                     <label class="btn btn-outline-danger" for="{{ $vehicle->id }}4">Manual Transmission</label>
                                   </div>
-                            </div> 
+                            </div>
                         {{-- </div>  --}}
                              @endif
                                 @error('birthday')
@@ -196,9 +196,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>          
-                        @endforeach   
-                    </div> 
+                            </div>
+                        @endforeach
+                    </div>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">

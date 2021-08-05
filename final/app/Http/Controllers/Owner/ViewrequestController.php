@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\CompanyDetails;
 use App\User;
 use App\StudentCategory;
 use App\Student;
@@ -13,15 +14,19 @@ class ViewrequestController extends Controller
 {
     public function index(){
         $requests=User::where('role_id',4)->where('status',1)->get();
-        return view('owner.requests.viewrequest',compact('requests'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.requests.viewrequest',compact('requests', 'logo'));
     }
     public function get($id){
         $registration=User::where('id',$id)->get();
         $category=StudentCategory::where('user_id',$id)->get();
-        return view('owner.requests.reviewrequest',compact('registration','category'));
+        $details = CompanyDetails::first();
+        $logo = $details->logo;
+        return view('owner.requests.reviewrequest',compact('registration','category', 'logo'));
     }
     public function accept(Request $request, $id){
-        
+
         $this->validate($request,[
             'firstname' => 'required',
             'middlename' => 'required',
@@ -76,7 +81,7 @@ class ViewrequestController extends Controller
             ]);
              return redirect()->route('viewrequest')->with('successmsg', 'Student Registered Successfully !');
     }
-                
+
         public function decline(Request $request,$id){
             $user = User::find($id);
             $user->status = 0;
@@ -84,11 +89,13 @@ class ViewrequestController extends Controller
             return redirect()->route('viewrequest')->with('successmsg', 'Student Request is deleted Successfully !');
         }
         public function viewdeleterequests(){
+            $details = CompanyDetails::first();
+            $logo = $details->logo;
             $deleterequests =User::where([
-                ['role_id',4], 
+                ['role_id',4],
                 ['status',0],
                 ])->get();
-                return view('owner.requests.viewdeletedrequests',compact('deleterequests'));
+            return view('owner.requests.viewdeletedrequests',compact('deleterequests', 'logo'));
         }
         public function restorerequest(Request $request,$userid){
             $user = User::find($userid);
@@ -101,5 +108,5 @@ class ViewrequestController extends Controller
             User::find($id)->delete();
             return redirect()->route('viewdeleterequests')->with('successmsg', 'Student request is deleted Completely !');
         }
-       
+
 }

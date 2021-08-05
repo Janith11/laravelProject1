@@ -101,7 +101,12 @@
                                                     <div style="display: inline-block">
                                                         <div class="form-group">
                                                             <label style="color: #222944">CheckIn</label>
-                                                            <input type="time" class="form-control" name="checkin" id="display-checkin-{{ $attendance->id }}">
+                                                            @if($attendance->present_time != '00:00:00')
+                                                                <input type="time" class="form-control" name="checkin" id="display-checkin-{{ $attendance->id }}" value="{{ $attendance->present_time }}">
+                                                            @else
+                                                                <input type="time" class="form-control" name="checkin" id="display-checkin-{{ $attendance->id }}">
+                                                            @endif
+
                                                         </div>
                                                     </div>
                                                     <div style="display: inline-block">
@@ -137,9 +142,6 @@
         var checkin = document.getElementById('display-checkin-'+id).disabled = true;
         var checkout = document.getElementById('display-checkout-'+id).disabled = true;
     }
-</script>
-
-<script>
     $(document).ready(function(){
         $('aside ul .hrms').css('border-left', '5px solid #00bcd4');
     })

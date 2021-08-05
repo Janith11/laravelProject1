@@ -21,7 +21,7 @@ class CreateOwnerShedulesTable extends Migration
             $table->string('textColor')->default('#222944');
             $table->time('time');
             $table->string('lesson_type');
-            $table->string('instructor');
+            $table->string('instructor')->nullable();
             $table->string('shedule_status')->default(1);
             $table->timestamps();
         });
