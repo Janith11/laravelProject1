@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ExamTableSeeder extends Seeder
 {
@@ -86,8 +87,8 @@ class ExamTableSeeder extends Seeder
             'attempt'   => '1',
         ]);
 
-        
 
-        
+
+
     }
 }

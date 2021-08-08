@@ -195,7 +195,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/salary/calculatesalary/{id}', 'Owner\SalaryController@calculatesalary')->name('calculatesalary');
     Route::post('/salary/calculatesalary/save', 'Owner\SalaryController@savesalary')->name('savesalary');
     Route::post('/salary/addexpense', 'Owner\ExpenseController@makeexpense')->name('addexpense');
-    Route::get('/salary/history', 'Owner\SalaryController@history')->name('history');
+    Route::get('/salary/history', 'Owner\SalaryController@history')->name('payrollhistory');
 
     //RequestAlert
     Route::get('requestalert','Owner\RequestAlertController@index')->name('viewalert');
@@ -228,6 +228,14 @@ Route::middleware('studentprofile')->group(function(){
     Route::post('/studentshedule/getdate/requestslot', 'Student\ShedulingController@requestslot')->name('requestslot');
     Route::get('/studentshedule/completedshedules', 'Student\ShedulingController@completedshedules')->name('studentcompletedshedules');
     Route::get('/studentshedule/pendingrequests', 'Student\ShedulingController@pendingrequest')->name('studentpendingrequests');
+    Route::get('/stuedntshedule/expandsessions', 'Student\ShedulingController@expandrequest')->name('expandrequests');
+    Route::post('/studentshedule/requestmore', 'Student\ShedulingController@requestmore')->name('requestmore');
+    Route::get('/studentshedule/history', 'Student\ShedulingController@history')->name('history');
+    Route::delete('/studentshedule/delete/{id}', 'Student\ShedulingController@deleterequests')->name('deleterequests');
+
+    // comment
+    Route::get('/comments', 'Student\CommentController@index')->name('studentcomment');
+    Route::post('/comments/save', 'Student\CommentController@savecomment')->name('savecomment');
 
 });
 

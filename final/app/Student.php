@@ -35,12 +35,17 @@ class Student extends Model
     }
 
     // training categories
-    public function trainingvahiclecategorys(){
+    public function studentcategories(){
         return $this->hasMany(TrainingVehicleCategory::class, 'user_id', 'user_id');
     }
 
     //payment logs
     public function paymentlogs(){
         return $this->hasMany(PaymentLog::class,'user_id','user_id');
+    }
+
+    //comments
+    public function comments(){
+        return $this->hasMany(comment::class, 'user_id', 'user_id');
     }
 }

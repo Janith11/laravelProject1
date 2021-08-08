@@ -520,14 +520,8 @@ aside li.menu-label {
     }
 
     .btn {
-        background-color: #143F5C;
-        color: white;
-        font-size: 16px;
-        /* padding: 16px 32px; */
-    }
-
-    .btn:hover{
-        background-color: #215A9B
+        border-radius: 50px !important;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
     /* adding new style */
@@ -726,12 +720,11 @@ aside li.menu-label {
     animation: move_wave 15s linear infinite;
 }
 
-
-
     </style>
 </head>
-<body style="background-color: #1776D2">
-   <div>
+
+<body>
+    <div>
        <!-- slidebar -->
     <aside>
         <div class="slimscroll-menu example-1 scrollbar-deep-blue bordered-deep-purple thin" id='sidebar'>
@@ -765,12 +758,6 @@ aside li.menu-label {
                 </li>
 
                 <li class="nav-item  mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('studentchat') }}"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Chat</span>
-                    </a>
-                </li>
-
-                <li class="nav-item  mb-3" id="nav-item">
                     <a class="nav-link" href="{{ route('studentprofile') }}"><i><img src="images/dashboard.png" alt=""></i>
                         <span class="menu-title" id="item">Profile</span>
                     </a>
@@ -798,92 +785,6 @@ aside li.menu-label {
                         <span class="menu-title" id="item">Completed Session</span>
                     </a>
                 </li>
-
-                {{--  <li class="menu-label">Students</li>
-                <div class="dropdown-divider"></div>
-
-                <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('studentslist') }}"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Students List</span>
-                    </a>
-                </li>
-
-                <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('addstudent') }}"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Add Students</span>
-                    </a>
-                </li>
-
-                <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('payments') }}"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Payments</span>
-                    </a>
-                </li>
-
-                <li class="nav-item mb-2" id="nav-item">
-                    <a type="button" class="dropdown-btn"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Scheduling</span>
-                        <i class="fa fa-caret-down" style="padding-left: 10px"></i>
-                    </a>
-                    <div class="dropdown-container">
-                        <ul style="list-style-type:disc;">
-                            <li>
-                                <a href="{{ route('ownershedulelist') }}" class="dropdownitem" >Shedule List</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('owneraddshedule') }}" class="dropdownitem">Add Shedule</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href="{{ route('viewrequest') }}"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Request</span>
-                    </a>
-                </li>
-
-                <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=" {{ route('vehicles') }} "><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Vehicles</span>
-                    </a>
-                </li>
-
-                <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link" href=" {{ route('settings') }}"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Settings</span>
-                    </a>
-                </li>
-
-                <li class="menu-label">Payments</li>
-                <div class="dropdown-divider"></div>
-
-                <li class="menu-label">Pricing</li>
-                <div class="dropdown-divider"></div>
-
-                <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">View Price</span>
-                    </a>
-                </li>
-
-                <li class="nav-item mb-3" id="nav-item">
-                    <a class="nav-link"><i><img src="images/dashboard.png" alt=""></i>
-                        <span class="menu-title" id="item">Change Price</span>
-                    </a>
-                </li>
-
-                <li class="nav-item mb-3" id="nav-item">
-                    <a type="btn" class="dropdown-btn" >
-                        <span class="menu-title" id="item">Dropdown</span>
-                        <i class="fa fa-caret-down"></i>
-                    </a>
-                    <div class="dropdown-container">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </li> --}}
 
             </ul>
         </div>
@@ -1017,8 +918,9 @@ aside li.menu-label {
 
     <!-- main content -->
     <div class="main-content">
+        {{-- style="background-color: #F0F1F3" --}}
 
-        <div class="waveWrapper waveAnimation">
+        {{-- <div class="waveWrapper waveAnimation">
             <div class="waveWrapperInner bgTop">
               <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
             </div>
@@ -1028,11 +930,22 @@ aside li.menu-label {
             <div class="waveWrapperInner bgBottom">
               <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
             </div>
+        </div> --}}
+
+        @yield('content')
+
+        <div style="float: right; z-index: 10; ">
+            <a type="button" class="btn" style="background-color: #222944 ;padding: 20px; position: fixed; bottom: 20px; right: 5%;width: 50px; height: 50px;" id="chat-icon" href="{{ route('studentchat') }}">
+                <div style="padding-top: 5px; padding-left: 4px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16" style="left: 50%; margin-right: -50%; transform: translate(-50%, -50%)">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                    </svg>
+                </div>
+            </a>
         </div>
 
-        {{-- style="background-color: #1776D2" --}}
-        @yield('content')
     </div>
+
     <div>
         @yield('contenttwo')
     </div>
