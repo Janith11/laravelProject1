@@ -228,6 +228,13 @@
                 -o-transition: all 0.9s ease;
                 transition: all 0.9s ease;
             }
+            /* start rane */
+            .dropdown-menu{
+                left: 0 !important;
+                right: 0 !important;
+                left: -50px !important;
+            }
+            /* end rane */
         }
 
         @media (max-width: 992px) {
@@ -284,6 +291,13 @@
                 padding-right: 0px;
                 width: 100%;
             }
+            /* start rane */
+            .dropdown-menu{
+                left: 0 !important;
+                right: 0 !important;
+                left: -50px !important;
+            }
+            /* end rane */
         }
 
         @media (max-width: 768px) {
@@ -302,6 +316,13 @@
             .modal-dialog {
                 width: 100% !important;
             }
+            /* start rane */
+            .dropdown-menu{
+                left: 0 !important;
+                right: 0 !important;
+                left: -50px !important;
+            }
+            /* end rane */
         }
 
         @media (max-width: 510px) {
@@ -325,6 +346,7 @@
             .dropdown-menu{
                 left: 0 !important;
                 right: 0 !important;
+                left: -170px !important;
             }
             /* end rane */
 
@@ -566,6 +588,7 @@
 
         .card{
             border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
         .card-body{
@@ -712,10 +735,8 @@
         }
 
         .dropdown-menu{
-            /* box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%); */
+            box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
             position: absolute !important;
-            z-index: 9999 !important;
-            /* float: left !important; */
         }
 
     </style>
@@ -813,7 +834,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item mb-3 chat" id="nav-item">
+                    {{-- <li class="nav-item mb-3 chat" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">
                                 <img src="/uploadimages/other/dashboardicons/chat.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
@@ -824,7 +845,7 @@
                                 </a>
                             </div>
                         </div>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item mb-2 shedulings" id="nav-item">
                         <div class="dropdown-btn" style="padding-left: 10px">
@@ -1023,7 +1044,8 @@
                             </div>
                             <div style="display: inline-block">
                                 <li class="nav-item dropdown pull-left">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                                        {{-- data-toggle="dropdown --}}
                                         <div>
                                             <div style="display: inline-block;">
                                                 <h5 class="user-name" style="padding-right:10px; color: #222944">{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</h5>
@@ -1034,7 +1056,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-left pull-left" aria-labelledby="navbarDropdownMenuLink">
+                                    <div class="dropdown-menu dropdown-menu-left pull-left" aria-labelledby="navbarDropdownMenuLink" style="left: -50px" id="target">
                                         <a class="dropdown-item" href="#">
                                             <div>
                                                 <div style="display: inline-block">
@@ -1094,6 +1116,16 @@
             @yield('content')
         </div>
 
+        <div style="float: right; z-index: 10; ">
+            <a type="button" class="btn" style="background-color: #222944 ;padding: 20px; position: fixed; bottom: 20px; right: 5%;width: 50px; height: 50px;" id="chat-icon" href="{{ route('ownerchat') }}">
+                <div style="padding-top: 5px; padding-left: 4px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16" style="left: 50%; margin-right: -50%; transform: translate(-50%, -50%)">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+
    </div>
 
 </body>
@@ -1132,9 +1164,9 @@
         });
     });
 
-    $('#logout').click(function(){
-        $('#toggle').toggle();
-    });
+    // $('#logout').click(function(){
+    //     $('#toggle').toggle();
+    // });
 
     /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
     var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -1150,6 +1182,11 @@
             }
         });
     }
+
+    // script for display side dropdown
+    $('#navbarDropdownMenuLink').click(function(){
+        $('#target').toggle();
+    })
 </script>
 
 </html>

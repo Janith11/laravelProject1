@@ -54,7 +54,7 @@
     <div class="row-mb-2">
         <div class="row justify-content-end">
             <div id="card" style="padding-right: 15px">
-                <a href="{{ route('history') }}" class="btn btn-primary" type="button" style="color: white;">History</a>
+                <a href="{{ route('payrollhistory') }}" class="btn btn-primary" type="button" style="color: white;">History</a>
             </div>
         </div>
     </div>

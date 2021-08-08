@@ -3,22 +3,26 @@
 namespace App\Http\Controllers\Student;
 
 use App\AlertForStudent;
+use App\ExpandRequests;
 use App\Http\Controllers\Controller;
+use App\Instructor;
 use App\OwnerShedule;
+use App\RequestAlert;
+use App\RequestCategories;
 use App\SheduleAlert;
 use App\SheduledStudents;
 use App\Student;
+use App\StudentCategory;
 use App\TimeSlots;
+use App\VehicleCategory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-// active(upcomming) = 1
-// canceled = 0
-// complete = 2
-// incomplate = 3
-// request = 4
+// confirm = 1
+// pending = 0
+// cancel = 2
 
 class ShedulingController extends Controller
 {
@@ -37,7 +41,10 @@ class ShedulingController extends Controller
         $tot = $total_session->total_session;
         $progress = ( $comp / $tot) * (100);
 
-        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session'));
+        $requestdetails = ExpandRequests::with('requestcategories')->where('user_id', $user_id)->where('status', 0)->get();
+        $categorydetails = VehicleCategory::all();
+
+        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session', 'requestdetails', 'categorydetails'));
     }
 
     public function events($id){
@@ -161,15 +168,20 @@ class ShedulingController extends Controller
             'shedule_id' => $shedule->id,
             'student_id' => Auth::user()->id,
         ]);
-        $student_name = Auth::user()->f_name.' '.Auth::user()->l_name;
-        $shedulealert = SheduleAlert::create([
-            'shedule_id' => $shedule->id,
-            'message' => "You have a shedule request from $student_name",
-        ]);
-        $alertforowner = AlertForStudent::create([
-            'shedulealert_id' => $shedulealert->id,
-            'student_id' => 1,
-            'alert_status' => 0,
+        // $student_name = Auth::user()->f_name.' '.Auth::user()->l_name;
+        // $shedulealert = SheduleAlert::create([
+        //     'shedule_id' => $shedule->id,
+        //     'message' => "You have a shedule request from $student_name",
+        // ]);
+        // $alertforowner = AlertForStudent::create([
+        //     'shedulealert_id' => $shedulealert->id,
+        //     'student_id' => 1,
+        //     'alert_status' => 0,
+        // ]);
+        $shedule_request = RequestAlert::create([
+            'user_id' => Auth::user()->id,
+            'description' => 'shedule request',
+            'status' => 0
         ]);
         return redirect()->route('studentsheduling')->with('succesmsg', 'Your Session request successfully send !!');
     }
@@ -188,6 +200,80 @@ class ShedulingController extends Controller
             $query->where('student_id', $user_id);
         }])->where('shedule_status', 4)->get();
         return view('student.sheduling.pendingrequest', compact('shedules'));
+    }
+
+    public function expandrequest(){
+        $user_id = Auth::user()->id;
+        $training_categories = StudentCategory::where('user_id', $user_id)->get();
+        $category_names = VehicleCategory::all();
+        $values = [];
+        $unselect_category = [];
+        foreach ($training_categories as $category) {
+            foreach ($category_names as $name) {
+                if ($category->category == $name->category_code) {
+                    $array = [];
+                    $array['category_code'] = $category->category;
+                    $array['category_name'] = $name->name;
+                    $array['training_type'] = $category->tstatus;
+                    $array['transmission'] = $category->transmission;
+                    array_push($values, $array);
+                }else{
+                    $array = [];
+                    $array['category_code'] = $category->category;
+                    $array['category_name'] = $name->name;
+                    array_push($unselect_category, $array);
+                }
+            }
+        }
+        return view('student.sheduling.expandrequest', compact('values', 'unselect_category'));
+    }
+
+    public function requestmore(Request $request){
+
+        $requestcount = ExpandRequests::where('user_id', Auth::user()->id)->where('status', 0)->count();
+
+        if ($requestcount > 0) {
+            return back()->with('errormsg', 'Your previous request is already in a queue Please wait to confirm it by owner.');
+        }
+
+        $this->validate($request, [
+            'number' => 'required',
+        ]);
+
+        $categories = $request->categories;
+        if (empty($categories)) {
+            return back()->with('errormsg', 'Please Select Vahicle of you hope to training more !!');
+        }
+
+        $exrequest = ExpandRequests::create([
+            'user_id' => Auth::user()->id,
+            'number' => $request->number,
+            'status' => 0
+        ]);
+
+        foreach ($categories as $category) {
+            $cat = RequestCategories::create([
+                'request_id' => $exrequest->id,
+                'category_code' => $category,
+            ]);
+        }
+
+        return redirect()->route('studentsheduling')->with('succesmsg', 'Request Successfully send, Check on your pending request tab ');
+    }
+
+    public function deleterequests($id){
+        $expandrequest = ExpandRequests::find($id);
+        $expandrequest->delete();
+        return redirect()->route('studentsheduling')->with('succesmsg', 'Request Successfully Removed !!');
+    }
+
+    public function history(){
+        $user_id = Auth::user()->id;
+        $history = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+            $query->where('student_id', $user_id);
+        }])->orderBy('date')->get();
+        $instructors = Instructor::with('user')->get();
+        return view('student.sheduling.history', compact('history', 'instructors'));
     }
 
 }
