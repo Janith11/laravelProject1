@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRequestAlertsTable extends Migration
+class CreateRequestCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateRequestAlertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('request_alerts', function (Blueprint $table) {
+        Schema::create('request_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('description');
-            $table->string('status');
+            $table->unsignedBigInteger('request_id');
+            $table->string('category_code');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateRequestAlertsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('request_alerts');
+        Schema::dropIfExists('request_categories');
     }
 }

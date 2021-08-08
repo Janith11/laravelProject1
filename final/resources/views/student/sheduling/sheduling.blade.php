@@ -49,9 +49,11 @@
     </div>
 
     <div class="row justify-content-end">
-        <div id="card" style="padding-right: 30px">
-            <a class="btn btn-primary" type="button" style="color: white;" href="{{ route('studentpendingrequests') }}">Pending Request</a>
-        </div>
+        @if($total_session->total_session != $completed_session->completed_session)
+            <div id="card" style="padding-right: 30px">
+                <a class="btn btn-primary" type="button" style="color: white;" href="{{ route('studentpendingrequests') }}">Pending Request</a>
+            </div>
+        @endif
     </div>
 
     <div class="row-mb-2">
@@ -70,13 +72,35 @@
         @endif
     </div>
 
+    <div class="row-mb-2">
+        @if(count($errors) > 0)
+            <div class="alert alert-danger" role="alert">
+                <h5>Wooops!! some wrong with inputs</h5>
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
+
     <div class="row">
 
         <div class="col-sm-3">
             <div id="card">
                 <div class="card">
                     <div class="card-body" style="background-color: #1E1F30 !important">
-                        <h5 style="color: #85E801; font-weight: bold">Your Progress</h5>
+                        <div>
+                            <div style="display: inline-block">
+                                <h5 style="color: #85E801; font-weight: bold">Your Progress</h5>
+                            </div>
+                            <div style="display: inline-block" class="float-right">
+                                <a href="{{ route('history') }}">
+                                    <i class="fa fa-history" aria-hidden="true" style="color: #42B3C5"></i>
+                                </a>
+                            </div>
+                        </div>
                         <hr style="border-top: 1px solid #222944">
                         <div>
                             <div class="text-center">
@@ -98,21 +122,66 @@
 
         <div class="col-sm-9">
             @if($total_session->total_session == $completed_session->completed_session)
+                @if(count($requestdetails) > 0)
+                    <div id="card">
+                        <div class="card">
+                            <div class="card-body">
+                                @foreach($requestdetails as $details)
+                                    <div>
+                                        <div style="display: inline-block">
+                                            <h5 style="color: #41B883">You Already send Session Expand request </h5>
+                                            <h6 style="color: #303133">Number of requested Sessions : {{ $details->number }}</h6>
+                                            <h6 style="color: #303133">Choosed Categories</h6>
+                                            <ul>
+                                                @foreach($details->requestcategories as $category)
+                                                    @foreach($categorydetails as $detail)
+                                                        @if($category->category_code == $detail->category_code)
+                                                            <li>{{ $detail->name }}</li>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div style="display: inline-block">
+                                            <div class="float-left">
+                                                {{-- <img src="/uploadimages/other/paper_rocket.jpg" alt="Paper-rocket" style="width: 20%; height: auto"> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <form method="POST" action="{{ route('deleterequests', $details->id) }}" id="delete-form-{{ $details->id }}" style="display: none">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                        <button onclick="if(confirm('Are You Sure Want to Delete this?')){
+                                            event.preventDefault();
+                                            document.getElementById('delete-form-{{ $details->id }}').submit();
+                                        }else{
+                                            event.preventDefault();
+                                        }" href="" class="btn btn-danger" style="background-color: #FA1B39;">Cancel
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div id="card">
                     <div class="card">
                         <div class="card-body">
                             <div class="text-center">
-                                <img src="/images/candidate/trophy.gif" alt="candidate" class="img-fluid" style="width: 80%;height: auto">
+                                <img src="/uploadimages/other/car.gif" alt="candidate" class="img-fluid" style="width: auto;height: 100px">
                             </div>
                             <h3 class="mt-3 mb-2 text-center text-success">Congratulations!</h3>
 
                             <p class="text-center"> <span class="text-info">{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</span> ,you have been successfuly complete practicle and theory sessions.</p>
                             <p class="text-center"><b>Good Luck!</b></p>
                             <div id="card">
-                                <p class="text-center">If you want more training session please request</p>
-                                <div class="text-center">
-                                    <a class="btn btn-success" type="button" style="color: white">Request More Sessions</a>
+                                <div id="card" class="text-center">
+                                    <a type="button" class="btn btn-success" style="color: white" href="{{ route('studentcomment') }}">Leave a comment</a>
                                 </div>
+                                <p class="text-center">If you want more training session please <span id="request" style="text-decoration: underline; color: #42B3C5; cursor: pointer;"><a href="{{ route('expandrequests') }}">request</a></span></p>
+                                <div class="text-center" id="extrasessions" style="display: none">
                             </div>
                         </div>
                     </div>
@@ -249,7 +318,12 @@
                 if( deegres >= result ) clearInterval(acrInterval);
             }, fps);
         }
-    }
+    };
+
+    // script for request etra session
+    // $('#request').click(function(){
+    //     $('#extrasessions').toggle();
+    // });
 </script>
 
 <script>

@@ -135,7 +135,7 @@
     <div id="card">
         <div class="card">
             <div class="card-body">
-                <h5 style="color: #222944; font-weight: bold">Completed Session</h5>
+                <h5 style="color: #222944; font-weight: bold">Pending requests</h5>
                 <hr style="border-top: 1px solid #222944">
                 @if(count($shedules) == 0)
                     <div class="alert alert-info" role="alert">

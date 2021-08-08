@@ -28,7 +28,9 @@ class DatabaseSeeder extends Seeder
                     SalarySeeder::class,
                     VahicleCategorySeeder::class,
                     StudentCategorySeeder::class,
-                    PaymentLogSeeder::class
+                    PaymentLogSeeder::class,
+                    CommentSeeder::class,
+                    AttendancesSeeder::class,
                 ]);
     }
 }
