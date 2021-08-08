@@ -1,6 +1,100 @@
 @extends('layouts.ownerapp')
-
 @section('content')
+<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+<style>
+
+        @media (min-width: 576px) {
+            .card-columns {
+                column-count: 1;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .card-columns {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .card-columns {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .card-columns {
+                column-count: 2;
+            }
+        }
+
+        ul.ks-cboxtags {
+            list-style: none;
+            /* padding: 20px; */
+            padding: 0px;
+            margin-bottom: 0px;
+            margin-right: 0px;
+            margin-left: 0px;
+            display: inline;
+            }
+        ul.ks-cboxtags li{
+            display: inline;
+            }
+        ul.ks-cboxtags li label{
+            display: inline-block;
+            background-color: rgba(255, 255, 255, .9);
+            border: 2px solid rgba(139, 139, 139, .3);
+            color: #adadad;
+            border-radius: 25px;
+            white-space: nowrap;
+            margin: 3px 0px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: all .2s;
+            }
+        ul.ks-cboxtags li label {
+            padding: 8px 12px;
+            cursor: pointer;
+            
+        }
+        ul.ks-cboxtags li label::before {
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            font-size: 12px;
+            padding: 2px 6px 2px 2px;
+            content: "\f067";
+            transition: transform .3s ease-in-out;
+        }
+        ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+            content: "\f00c";
+            transform: rotate(-360deg);
+            transition: transform .3s ease-in-out;
+        }
+        ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+            border: 2px solid #1bdbf8;
+            background-color: #12bbd4;
+            color: #fff;
+            transition: all .2s;
+        }
+        ul.ks-cboxtags li input[type="checkbox"] {
+        display: absolute;
+            }
+        ul.ks-cboxtags li input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+            }
+        ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+        border: 2px solid #e9a1ff;
+            }
+</style>
 
 <div class="container">
 
@@ -53,7 +147,7 @@
                 <div class="card-columns">
 
                     @foreach ($timetable as $tbl)
-                    <div class="card border-secondary" style="width: 100%;">
+                    <div class="card border-primary" style="width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title" style="color: #222944; font-weight: bold">{{ $tbl->day_name }}</h5>
                             <hr style="border: 0.3px solid #222944">
@@ -63,13 +157,14 @@
                                         <h5>You haven't create time any slots for {{ $tbl->day_name }} </h5>
                                     </div>
                                 @else
-                                    <h6 style="padding-left: 10px">time slots</h6>
+                                    <h6 style="padding-left: 10px">Time Slots</h6>
                                     <div class="table-responsive" style="padding-left: 10px; padding-right: 10px">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover table-sm">
                                             <thead class="thead">
                                                 <tr>
                                                     <th scope="col">Time</th>
                                                     <th scope="col">Name</th>
+                                                    <th scope="col">Instructor</th>
                                                     <th scope="col"></th>
                                                 </tr>
                                             </thead>
@@ -80,7 +175,16 @@
                                                             {{ $timeslot->time_slot }}
                                                         </td>
                                                         <td>
-                                                            {{ $timeslot->slot_name }}
+                                                            <span class="bg-success p-1" style="color: white; border-radius: 3px;">{{ $timeslot->slot_name }}</span>
+                                                        </td>
+                                                        <td>
+                                                            @foreach ($instructordetails as $idtl)     
+                                                                    @if ($timeslot->id == $idtl->time_slot_id)
+                                                                    @foreach ($idtl->releventinstructor as $iname)
+                                                                        <span class=" p-1">{{ $iname->f_name }} {{ $iname->l_name.', '}}</span>
+                                                                    @endforeach
+                                                                    @endif
+                                                            @endforeach
                                                         </td>
                                                         <td>
                                                             <form method="POST" action="{{ route('deletetimeslot', $timeslot->id) }}" id="delete-form-{{ $timeslot->id }}" style="display: none">
@@ -106,15 +210,15 @@
                                 @endif
                             </div>
                             <div class="row justify-content-center">
-                                <button class="btn btn-primary" onclick="createpanel('{{ $tbl->day_name }}')" style="font-size: 20px; border-radius: 50%; background-color: #E9E65A">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#222944" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <button class="btn btn-primary" onclick="createpanel('{{ $tbl->day_name }}')" style="font-size: 20px; border-radius: 50%; background-color: #122e7c;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
                                     </svg>
                                 </button>
                             </div>
-                            <div class="row justify-content-center">
-                                <div id="{{ $tbl->day_name }}" style="display: none; padding-top: 10px">
-                                    <div class="card border-secondary" style="width: 100%;">
+                            <div class="row justify-content-center" >
+                                <div id="{{ $tbl->day_name }}" style="display: none; padding-top: 10px" class="w-100">
+                                    <div class="card border-success">
                                         <div class="card-body">
                                             <h6 class="card-subtitle mb-2" style="color: #222944">Add New Slot</h6>
                                             <form method="POST" action="{{ route('addtimeslot') }}">
@@ -124,13 +228,24 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="name">Slot Name</label>
-                                                    <input type="text" class="form-control" id="name" name="slot_name" >
+                                                    <input type="text" class="form-control" id="name" name="slot_name" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="monday">Start Time</label>
-                                                    <input type="time" class="form-control" id="time" name="slot_time">
+                                                    <input type="time" class="form-control" id="time" name="slot_time" required>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="monday">Instructor Selection</label><br>
+                                                    @foreach ($instructor as $i)                                               
+                                                        <ul class="ks-cboxtags">
+                                                            <li>
+                                                                <input type="checkbox" id="{{ $i->id }}{{ $tbl->id }}" name="instructor_id[]" value="{{ $i->user_id }}">
+                                                                <label for="{{ $i->id }}{{ $tbl->id }}">{{ $i->user->f_name }} {{ $i->user->l_name }}</label>
+                                                            </li>
+                                                        </ul>
+                                                    @endforeach
+                                                </div>
+                                                <div class="form-group text-center">
                                                     <button type="submit" class="btn btn-primary" style="color: white">Add Slot</button>
                                                 </div>
                                             </form>

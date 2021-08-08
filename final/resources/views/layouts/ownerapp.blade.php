@@ -734,7 +734,8 @@
 
                 <div class="side-branding text-center">
                     <a href="{{ url('/') }}">
-                        <img src="/uploadimages/company_logo/{{ $logo }}" class="img-responsive" style="height: 100px; width: auto; padding-right: 9px !important">
+                        {{-- commentd {{ $logo }} --}}
+                        <img src="/uploadimages/company_logo/" class="img-responsive" style="height: 100px; width: auto; padding-right: 9px !important">
                     </a>
                 </div>
 
@@ -804,6 +805,9 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('payments') }}" class="dropdownitem">Payments</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('completedstudents') }}" class="dropdownitem">Completed Students</a>
                                 </li>
                             </ul>
                         </div>
@@ -990,7 +994,8 @@
                         </div>
                         <div style="display: inline-block; padding-left: 10px">
                             <li class="header-logo">
-                                <a href="{{ url('/') }}" class="header-branding"><img src="/uploadimages/company_logo/{{ $logo }}" class="img-responsive" style="height: 50px; width: auto"> </a>
+                                {{-- commented  {{ $logo }} --}}
+                                <a href="{{ url('/') }}" class="header-branding"><img src="/uploadimages/company_logo/" class="img-responsive" style="height: 50px; width: auto"> </a>
                             </li>
                         </div>
                     </div>
@@ -1011,7 +1016,7 @@
                         <div>
                             <div style="display: inline-block;">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link "href=" {{ route('viewalert') }} ">
                                         <i class="fa fa-bell" aria-hidden="true"><span class="badge badge-pill badge-danger">78</span></i>
                                     </a>
                                 </li>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Student;
 use App\StudentCategory;
+use App\RequestAlert;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -167,7 +168,13 @@ class RegisterController extends Controller
             ]);
         }
             
+            
         }
+        RequestAlert::create([
+            'user_id'=>$user->id,
+            'description'=>1, // Description 1 for registration 2 for schedules
+            'status'=>0
+        ]);
        
         return $user;
     }

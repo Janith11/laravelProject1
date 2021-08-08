@@ -236,6 +236,10 @@ class StudentsController extends Controller
         return redirect()->route('categoryview',$request->userid)->with('successmsg', 'Student new Category is updated
          successfully !');
     }
+    public function completedstudent(){
+        return view('owner.students.viewcompletedstudent');
+    }
+
 
 }
 

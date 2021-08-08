@@ -15,7 +15,7 @@
     {{-- <div class="row"> --}}
         <div class="card ">
             {{-- <div class="card-header">{{ __('Login') }}</div> --}}
-             <div class="card-body">
+             <div class="card-body borderless">
                  <div class="row">
                     <div class="col p-5">
                         <form method="POST" action="{{ route('login') }}">

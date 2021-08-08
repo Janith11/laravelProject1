@@ -56,7 +56,7 @@ class User extends Authenticatable
     public function emplooyeeleaves(){
         return $this->hasMany(EmplooyeeLeave::class, 'user_id', 'id');
     }
-
+    
 }
 
 // pending = 0

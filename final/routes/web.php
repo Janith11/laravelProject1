@@ -77,6 +77,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/editstudent/{user_id}', 'Owner\StudentsController@editstudent')->name('editstudent');
     Route::post('/updatestudent/{user_id}', 'Owner\StudentsController@updatestudent')->name('updatestudent');
     Route::get('/editstudentcategory/{id}', 'Owner\StudentsController@viewcategory')->name('categoryview');
+    Route::get('/students/completedstudents', 'Owner\StudentsController@completedstudent')->name('completedstudents');
 
     //student category part update and add category in the studentcontroller
     Route::post('/updatecategory/test/{id}/{userid}', 'Owner\StudentsController@updatecategory')->name('updatestudentcategory');
@@ -199,6 +200,7 @@ Route::middleware('checkrequest')->group(function(){
 
     //RequestAlert
     Route::get('requestalert','Owner\RequestAlertController@index')->name('viewalert');
+    Route::get('requestalert/viewalerts/{userid}/{description}','Owner\RequestAlertController@redirect')->name('loadrequestalerts');
 
 });
 
