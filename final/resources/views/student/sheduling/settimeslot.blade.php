@@ -2,96 +2,6 @@
 
 @section('content')
 
-<style>
-
-    #card{
-        padding: 10px;
-    }
-
-    .card{
-        border-radius: 10px;
-        border: 0px !important;
-    }
-
-    .card-body{
-        border-radius: 10px;
-    }
-
-    @keyframes move_wave {
-        0% {
-            transform: translateX(0) translateZ(0) scaleY(1)
-        }
-        50% {
-            transform: translateX(-25%) translateZ(0) scaleY(0.55)
-        }
-        100% {
-            transform: translateX(-50%) translateZ(0) scaleY(1)
-        }
-    }
-
-    .waveWrapper {
-        overflow: hidden;
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        margin: auto;
-        z-index:-1
-    }
-
-    .waveWrapperInner {
-        position: absolute;
-        width: 100%;
-        overflow: hidden;
-        height: 100%;
-        bottom: -1px;
-        background-image: linear-gradient(to top, #86377b 20%, #27273c 80%);
-    }
-
-.bgTop {
-    z-index: 15;
-    opacity: 0.5;
-}
-.bgMiddle {
-    z-index: 10;
-    opacity: 0.75;
-}
-.bgBottom {
-    z-index: 5;
-}
-.wave {
-    position: absolute;
-    left: 0;
-    width: 200%;
-    height: 100%;
-    background-repeat: repeat no-repeat;
-    background-position: 0 bottom;
-    transform-origin: center bottom;
-}
-.waveTop {
-    background-size: 50% 100px;
-}
-.waveAnimation .waveTop {
-  animation: move-wave 3s;
-   -webkit-animation: move-wave 3s;
-   -webkit-animation-delay: 1s;
-   animation-delay: 1s;
-}
-.waveMiddle {
-    background-size: 50% 120px;
-}
-.waveAnimation .waveMiddle {
-    animation: move_wave 10s linear infinite;
-}
-.waveBottom {
-    background-size: 50% 100px;
-}
-.waveAnimation .waveBottom {
-    animation: move_wave 15s linear infinite;
-}
-</style>
-
 <div class="container">
 
     <div class="row mb-2">
@@ -131,47 +41,6 @@
             <div class="col-sm-4">
 
                 <div id="card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div>
-                                <div style="display: inline-block">
-                                    <h5 style="color: #222944; font-weight: bold">Choosed Date</h5>
-                                    <h5>{{ $select_date }}</h5>
-                                    <div class="form-group">
-                                        <input type="hidden" class="form-control" value="{{ $select_date }}" name="date" >
-                                    </div>
-                                </div>
-                                <div style="display: inline-block;" class="float-right">
-                                    <a href="{{ route('studentsheduling') }}" class="btn" type="button">
-                                        <i class="fa fa-calendar" aria-hidden="true" style="float: left"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 style="color: #222944; font-weight: bold">Session Type</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="sessiontype" id="practicle" value="practicle" checked>
-                                <label class="form-check-label" for="practicle">
-                                    Practicle
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="sessiontype" id="thoery" value="thoery">
-                                <label class="form-check-label" for="thoery">
-                                    Theory
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="card">
                     <div class="card" style="border-radius: 10px; border: 1px solid #FFD700 !important">
                         <div class="card-body" style="background-color: #080529 !important; border-radius: 10px; border: 1px solid #FFD700 !important">
                             <div>
@@ -196,6 +65,54 @@
             </div>
 
             <div class="col-sm-8">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div id="card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <div style="display: inline-block">
+                                            <h5 style="color: #222944; font-weight: bold">Choosed Date</h5>
+                                            <h5>{{ $select_date }}</h5>
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" value="{{ $select_date }}" name="date" >
+                                            </div>
+                                        </div>
+                                        <div style="display: inline-block;" class="float-right">
+                                            <a href="{{ route('studentsheduling') }}" class="btn" type="button">
+                                                <i class="fa fa-calendar" aria-hidden="true" style="float: left"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div id="card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 style="color: #222944; font-weight: bold">Session Type</h5>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sessiontype" id="practicle" value="practicle" checked>
+                                        <label class="form-check-label" for="practicle">
+                                            Practicle
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sessiontype" id="thoery" value="thoery">
+                                        <label class="form-check-label" for="thoery">
+                                            Theory
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="card">
                     <div class="card">
                         <div class="card-body">

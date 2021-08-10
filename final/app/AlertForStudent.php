@@ -10,4 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class AlertForStudent extends Model
 {
     protected $fillable = ['shedulealert_id','student_id', 'alert_status'];
+
+    public function shedulealert(){
+        return $this->belongsTo(SheduleAlert::class, 'shedulealert_id', 'id');
+    }
 }

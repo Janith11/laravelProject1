@@ -3,17 +3,6 @@
 @section('content')
 
 <style>
-    #card{
-        padding: 10px;
-    }
-    .card{
-        border-radius: 10px;
-    }
-    .card-body{
-        border-radius: 10px;
-    }
-
-    /* style for progress bar */
     span#procent {
         display: block;
         position: absolute;
@@ -21,7 +10,7 @@
         top: 50%;
         font-size: 50px;
         transform: translate(-50%, -50%);
-        color: #41B883;
+        color: #270C53;
     }
 
     span#procent::after {
@@ -50,7 +39,7 @@
 
     <div class="row justify-content-end">
         @if($total_session->total_session != $completed_session->completed_session)
-            <div id="card" style="padding-right: 30px">
+            <div id="card" style="padding-right: 15px">
                 <a class="btn btn-primary" type="button" style="color: white;" href="{{ route('studentpendingrequests') }}">Pending Request</a>
             </div>
         @endif
@@ -90,10 +79,10 @@
         <div class="col-sm-3">
             <div id="card">
                 <div class="card">
-                    <div class="card-body" style="background-color: #1E1F30 !important">
+                    <div class="card-body">
                         <div>
                             <div style="display: inline-block">
-                                <h5 style="color: #85E801; font-weight: bold">Your Progress</h5>
+                                <h5 style="color: #060333; font-weight: bold">Your Progress</h5>
                             </div>
                             <div style="display: inline-block" class="float-right">
                                 <a href="{{ route('history') }}">
@@ -188,9 +177,9 @@
                 </div>
             @else
                 <div id="card">
-                    <div class="card" style="border: 1px solid #222944">
+                    <div class="card">
                         <div class="card-body" style="border-left: 10px solid #FAD51B !important;">
-                            <h5 style="color: #222944; font-weight: bold">Today Shedules</h5>
+                            <h5 style="color: #222944; font-weight: bold">Today Shedule</h5>
                             <hr style="border-top: 1px solid #222944">
 
                             @if(count($today_sessions) == 0)
@@ -227,7 +216,7 @@
                     </div>
                 </div>
                 <div id="card">
-                    <div class="card" style="border: 1px solid #222944">
+                    <div class="card">
                         <div class="card-body">
                             <h5 style="color: #222944; font-weight: bold">Shedule Calender</h5>
                             <hr style="border-top: 1px solid #222944">
@@ -306,12 +295,12 @@
 
                 c.beginPath();
                 c.arc( posX, posY, 70, (Math.PI/180) * 270, (Math.PI/180) * (270 + 360) );
-                c.strokeStyle = '#30323F';
+                c.strokeStyle = '#84E992';
                 c.lineWidth = '10';
                 c.stroke();
 
                 c.beginPath();
-                c.strokeStyle = '#62C2FE';
+                c.strokeStyle = '#009933';
                 c.lineWidth = '10';
                 c.arc( posX, posY, 70, (Math.PI/180) * 270, (Math.PI/180) * (270 + deegres) );
                 c.stroke();

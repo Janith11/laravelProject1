@@ -239,6 +239,8 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/comments', 'Student\CommentController@index')->name('studentcomment');
     Route::post('/comments/save', 'Student\CommentController@savecomment')->name('savecomment');
 
+    Route::get('/alerts', 'Student\AlertController@index')->name('studentalerts');
+
 });
 
 

@@ -756,7 +756,7 @@
                 <div class="side-branding text-center">
                     <a href="{{ url('/') }}">
                         {{-- commentd {{ $logo }} --}}
-                        <img src="/uploadimages/company_logo/" class="img-responsive" style="height: 100px; width: auto; padding-right: 9px !important">
+                        <img src="/uploadimages/company_logo/{{ $logo }}" class="img-responsive" style="height: 100px; width: auto; padding-right: 9px !important">
                     </a>
                 </div>
 
@@ -1015,8 +1015,7 @@
                         </div>
                         <div style="display: inline-block; padding-left: 10px">
                             <li class="header-logo">
-                                {{-- commented  {{ $logo }} --}}
-                                <a href="{{ url('/') }}" class="header-branding"><img src="/uploadimages/company_logo/" class="img-responsive" style="height: 50px; width: auto"> </a>
+                                <a href="{{ url('/') }}" class="header-branding"><img src="/uploadimages/company_logo/{{ $logo }}" class="img-responsive" style="height: 50px; width: auto"> </a>
                             </li>
                         </div>
                     </div>
@@ -1109,7 +1108,7 @@
                 </ul>
             {{-- </div> --}}
         </nav>
-  <!--/.Navbar -->
+        <!--/.Navbar -->
 
         <!-- main content -->
         <div class="main-content">
@@ -1186,7 +1185,7 @@
     // script for display side dropdown
     $('#navbarDropdownMenuLink').click(function(){
         $('#target').toggle();
-    })
+    });
 </script>
 
 </html>

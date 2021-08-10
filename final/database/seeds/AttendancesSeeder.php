@@ -18,14 +18,19 @@ class AttendancesSeeder extends Seeder
             'attendance' => 1,
         ]);
         DB::table('attendances')->insert([
-            'shedule_id' => 3,
+            'shedule_id' => 2,
             'user_id' => 6,
             'attendance' => 1,
         ]);
         DB::table('attendances')->insert([
-            'shedule_id' => 4,
+            'shedule_id' => 3,
             'user_id' => 6,
             'attendance' => 0,
+        ]);
+        DB::table('attendances')->insert([
+            'shedule_id' => 4,
+            'user_id' => 6,
+            'attendance' => 1,
         ]);
     }
 }

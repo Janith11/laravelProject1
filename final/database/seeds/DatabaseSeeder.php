@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
                     PaymentLogSeeder::class,
                     CommentSeeder::class,
                     AttendancesSeeder::class,
+                    SheduleAlertSeeder::class,
+                    AlertForStudentSeeder::class
                 ]);
     }
 }

@@ -58,7 +58,7 @@
         ul.ks-cboxtags li label {
             padding: 8px 12px;
             cursor: pointer;
-            
+
         }
         ul.ks-cboxtags li label::before {
             display: inline-block;
@@ -75,7 +75,7 @@
         }
         ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
             content: "\f00c";
-            transform: rotate(-360deg);
+            /* transform: rotate(360deg); */
             transition: transform .3s ease-in-out;
         }
         ul.ks-cboxtags li input[type="checkbox"]:checked + label {
@@ -106,7 +106,7 @@
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> > Shedule List</a>
+        <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> / Shedule List</a>
     </div>
 
     <div class="row mb-2">
@@ -178,7 +178,7 @@
                                                             <span class="bg-success p-1" style="color: white; border-radius: 3px;">{{ $timeslot->slot_name }}</span>
                                                         </td>
                                                         <td>
-                                                            @foreach ($instructordetails as $idtl)     
+                                                            @foreach ($instructordetails as $idtl)
                                                                     @if ($timeslot->id == $idtl->time_slot_id)
                                                                     @foreach ($idtl->releventinstructor as $iname)
                                                                         <span class=" p-1">{{ $iname->f_name }} {{ $iname->l_name.', '}}</span>
@@ -236,7 +236,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="monday">Instructor Selection</label><br>
-                                                    @foreach ($instructor as $i)                                               
+                                                    @foreach ($instructor as $i)
                                                         <ul class="ks-cboxtags">
                                                             <li>
                                                                 <input type="checkbox" id="{{ $i->id }}{{ $tbl->id }}" name="instructor_id[]" value="{{ $i->user_id }}">

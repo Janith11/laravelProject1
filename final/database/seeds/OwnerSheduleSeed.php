@@ -29,5 +29,23 @@ class OwnerSheduleSeed extends Seeder
             'lesson_type' => 'practicle',
             'instructor' => '2',
         ]);
+
+        DB::table('owner_shedules')->insert([
+            'title' => 'test three',
+            'date' => '2021-07-10',
+            'color' => '#90EE90',
+            'time' => '10:00:00',
+            'lesson_type' => 'practicle',
+            'instructor' => '2',
+        ]);
+
+        DB::table('owner_shedules')->insert([
+            'title' => 'test four',
+            'date' => '2021-08-18',
+            'color' => '#90EE90',
+            'time' => '10:00:00',
+            'lesson_type' => 'practicle',
+            'instructor' => '2',
+        ]);
     }
 }
