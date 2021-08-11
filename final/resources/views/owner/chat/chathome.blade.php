@@ -6,7 +6,7 @@
  <script src="{{ asset('js/app.js') }}" defer></script>
 
 <div class="container">
-  <h5>chat</h5>
+  {{-- <h5>chat</h5> --}}
     <div id="app">
         <div class="card bg-light">
             {{-- <h5 class="card-header"></h5> --}}

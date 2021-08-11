@@ -6,6 +6,7 @@
     .card{
         box-shadow: 2px 1px 12px 1px;
         border-radius: 45px;
+        border: 0px;
         /* background: rgb(139,211,217); */
         background: linear-gradient(90deg, rgba(139,211,217,1) 0%, rgba(108,98,198,1) 47%, rgba(22,64,247,1) 100%);
     }

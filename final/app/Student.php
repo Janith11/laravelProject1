@@ -48,4 +48,8 @@ class Student extends Model
     public function comments(){
         return $this->hasMany(comment::class, 'user_id', 'user_id');
     }
+    //exam
+    public function practicalexam(){
+        return $this->hasMany(Exam::class,'user_id','user_id');
+    }
 }

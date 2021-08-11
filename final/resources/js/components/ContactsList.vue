@@ -4,10 +4,10 @@
             <li class=" d-flex justify-content-between align-items-center p-1  m-0" v-for="contact in sortedContacts" :key="contact.id" @click="selectContact(contact)" :class="{'selected': contact==selected}">
                 <div class="row">
                 <div class="avatar col float-left">
-                    <img class="rounded-circle border border-success" :src="'https://www.w3schools.com/howto/img_avatar.png'" :alt="contact.name">
+                    <img class="rounded-circle border border-success" :src="getImage()" :alt="contact.name">
                 </div>
                 <div class="contact col">
-                    <h5 class="name">{{contact.f_name}}</h5>
+                    <h5 class="name myname">{{contact.f_name}}</h5>
                     <p class="name studentid">ID: {{contact.id}}</p>
                 </div>
                 <div class="col align-middle mt-2 mybadge">
@@ -35,6 +35,9 @@ export default {
         };
     },
         methods: {
+            getImage(){
+                return "/uploadimages/students_profiles/default_profile.jpg";
+            },
             selectContact(contact){
                 this.selected = contact;
 
@@ -60,6 +63,9 @@ export default {
     img{
         max-height: 55px;
         width: auto;
+    }
+    .myname{
+        font-size: 0.8rem;
     }
     // .avatar{
     //     display: inline-block;
@@ -98,26 +104,27 @@ export default {
             }
         }
     
-    // .contact-lists{
-        // flex: 2;
-        // max-height: 100px;
-        // overflow: sco;
-        // border-right: 1px solid #979797;
-    // }
-    // ul{
-    //     list-style-type: none;
-    //     scroll-padding-left: 0;
+    .contact-lists{
+        flex: 2;
+        max-height: 90vh;
+        overflow: scroll;
+        border-right: 1px solid #979797;
+    }
+    ul{
+        list-style-type: none;
+        scroll-padding-left: 0;
         
         
-    //     li{
+        li{
             
-    //         display: flex;
-    //         padding: 2px;
-    //         border-bottom: 1px solid #0b156e6b;
-    //         height:80px;
-    //         position:relative;
-    //         cursor: pointer;
-         
+            display: flex;
+            padding: 2px;
+            border-bottom: 1px solid #0b156e6b;
+            height:80px;
+            position:relative;
+            cursor: pointer;
+        }
+    }
     
     //         &.selected{
     //             background: rgba(27, 34, 139, 0.157);

@@ -78,6 +78,9 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/updatestudent/{user_id}', 'Owner\StudentsController@updatestudent')->name('updatestudent');
     Route::get('/editstudentcategory/{id}', 'Owner\StudentsController@viewcategory')->name('categoryview');
     Route::get('/students/completedstudents', 'Owner\StudentsController@completedstudent')->name('completedstudents');
+    Route::post('/students/completedstudents/temporydelete/{id}', 'Owner\StudentsController@temporydelete')->name('temporystudentdelete');
+    Route::get('/students/completedstudents/recyclebin', 'Owner\StudentsController@viewrecycle')->name('viewstudentrecyclebin');
+    Route::post('/students/completedstudents/restorestudent/{id}', 'Owner\StudentsController@restorestudent')->name('restorestudent');
 
     //student category part update and add category in the studentcontroller
     Route::post('/updatecategory/test/{id}/{userid}', 'Owner\StudentsController@updatecategory')->name('updatestudentcategory');

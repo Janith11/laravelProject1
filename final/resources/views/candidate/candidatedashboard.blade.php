@@ -1,172 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Congratulations!!</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <style>
-        #bgcolour{
-            width: 100%;
-            height: 100vh;
-            /* color: #fff; */
-            background: linear-gradient(-45deg,#EE7752,#E73C7E,#23A6D5,#23D5AB);
-            background-size: 4000% 4000%;
-            position: relative;
-            animation: change 15s ease-in-out infinite;
-        }
-        @keyframes change{
-            0%{
-                background-position: 0 50%;
-            }50%{
-                background-position: 100% 50%;
-            }100%{
-                background-position: 0 50%;
-            }
-        }
-        .card {
-          background-color: rgba(245, 245, 245, 0.6);
-          box-shadow: 6 6px 8px 0 rgba(0,0,0,0.2);
-          transition: 0.3s;
-        }
+ @extends('layouts.candidate')  
+ @section('content')
+  <style>
+    #demo{
+      text-align: center;
+      font-size: 3rem;
+      margin-top: 0px;
+    }
+    body{
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-    </style>
-</head>
-<body id="bgcolour">
-
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Welcome</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div class="link">
-            <ul class="navbar-nav  ml-auto">
-              <li class="nav-item active ">
-                <a class="nav-link" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();" >
-                    {{ __('Logout') }}
-                </a>
-              </li>
-            </ul>
-            </div>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-              </form>
+  <body>
+    <div> 
+      @if (auth()->user()->status == '1')
+        {{-- countdown  --}}
+        <div class="mt-5">
+          <p class="mt-4 text-center" style="color: rgb(4, 121, 53); font-size: 1.5rem;">Time Remaining</p>
+          <div class="card mt-2 mb-4" style="background-color: #333333;color: white; border-radius: 1.9rem">
+            <p id="demo"></p>     
           </div>
-      </nav>
-
-        <div class="container">
-            <div class="card mt-5 rounded">
+          <div class="">
+            <h1 class="text-center mb-4" style="color: rgb(219, 10, 10)">Congratulation!</h1>
+            <div class="card shadow" style="border-radius: 2rem">
               <div class="card-body">
-                @if (auth()->user()->status == '1')
-                <table class="table table-borderless mt-5 ">
-                    <thead>
-                      <tr class="text-center">
-                        <th scope="col" id="days" class="display-3">00</th>
-                        <th scope="col" id="hours" class="display-3">24</th>
-                        <th scope="col" id="minutes" class="display-3">12</th>
-                        <th scope="col" id="seconds" class="display-3">36</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="text-center">
-                        <td scope="row">Days</td>
-                        <td>Hours</td>
-                        <td>Minutes</td>
-                        <td>Seconds</td>
-                      </tr>
-                   </tbody>
-                  </table>
-                  <h1 class="display-3">Congratulation</h1>
-                  <h5>Now your request has been sent to the administration.</h5>
-                  <h5>You have to wait maximum two working days.</h5>
-                  <h5>If your request has accepted by the administration, you can log in to the system.</h5>
-                  <h5>If your request hasn't accepted in within two working days, you can contact the administration by the  given contact numbes or email.</h5>
-                  <h5>Sorry for any inconvenience this may cause.</h5>
-                  @endif
-                  @if (auth()->user()->status == '0')
-                  <h1 class="display-3">Sorry, {{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</h1>
-                  <h1 class="display-5">Your request has beed declined by the administration.</h1>
-                  <h5>It may be,</h5>
-                  <p>You have not give the correct infotmations.</p>
-                  <p>You primary requiments to get the driving license is not completed.</p>
-                  <p>You can inform the administration by using email or contact number given in the coutact us page.</p>
-                  @endif
-                  {{-- <p>{{ Auth::user()->created_at }}</p> --}}
-                </div>
-            </div>
-
+                <p><i class="fas fa-check-circle fa-lg text-success"></i> Now your request has been sent to the administration.</p>
+                <p><i class="fas fa-check-circle fa-lg text-success"></i> You have to wait maximum two working days.</p>
+                <p><i class="fas fa-check-circle fa-lg text-success"></i> If your request has accepted by the administration, you can log in to the system.</p>
+                <p><i class="fas fa-check-circle fa-lg text-success"></i> If your request hasn't accepted in within two working days, you can contact us via the given contact us link.</p>
+                <p><i class="fas fa-check-circle fa-lg text-success"></i> Sorry for any inconvenience this may cause.</p>
+              </div>
+              <div class="card-footer text-muted text-center">
+                <a href="{{ route('contactus') }}" class="btn btn-primary btn-sm"><i class="far fa-address-card p-1 fa-lg"></i>Contact Us</a>
+              </div>
+            </div>  
+          </div>   
         </div>
+      @endif
 
-
-    @if (auth()->user()->status == '1')
-    <div class="modal" tabindex="-1" role="dialog" id="myModal">
-        <div class="modal-dialog " role="document">
-          <div class="modal-content ">
-            <div class="modal-header">
-              <h5 class="modal-title">Congratulation!</h5>
-              <button type="button" class="close btn-danger" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+      @if (auth()->user()->status == '0')
+        <div class="mt-5">
+          <div class="card shadow-lg p-1" style="border-radius: 3rem;">
+            <div class="card-body mt-1 mb-3">
+              <h3 class="text-info">Sorry, {{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</h3>
+              <h3 class="text-danger">Your request has beed declined by the administration.</h3>
+              <p>It may be,</p>
+              <p><i class="fas fa-check-circle fa-lg text-success"></i> You have not give the correct infotmations.</p>
+              <p><i class="fas fa-check-circle fa-lg text-success"></i> You primary requiments to get the driving license is not completed.</p>
+              <p><i class="fas fa-check-circle fa-lg text-success"></i> You can inform the administration by using the given contact us page.</p>
+              <p><i class="fas fa-check-circle fa-lg text-success"></i> Sorry for any inconvenience this may cause.</p>
             </div>
-            <div class="modal-body">
-              {{-- <p>Modal body text goes here.</p> --}}
-              <img src="/images/candidate/trophy.gif" alt="candidate" class="img-fluid">
-              <h3 class="mt-3 mb-2 text-center text-success">Congratulations!</h3>
-
-              <p class="text-center"> <span class="text-info">{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</span> ,you have been personally reviewd and selected by the administration.</p>
-              <p class="text-center"><b>Good Luck!</b></p>
-            </div>
-            <div class="modal-footer mx-auto">
-              <button type="button" class="btn btn-success" data-dismiss="modal">Continue</button>
+            <div class="card-footer text-muted text-center">
+              <a href="{{ route('contactus') }}" class="btn btn-primary btn-sm"><i class="far fa-address-card p-1 fa-lg"></i>Contact Us</a>
             </div>
           </div>
         </div>
+      @endif
+
+      @if (auth()->user()->status == '3')
+        <div class="mt-5">
+          <div class="card shadow-lg p-1" style="border-radius: 3rem;">
+            <div class="card-body mt-1 mb-3">
+              <h3 class="text-info">Sorry, {{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</h3>
+              <h3 class="text-danger">Your account has beed declined by the administration.</h3>
+              <p>It may be,</p>
+              <p><i class="fas fa-check-circle fa-lg text-success"></i><span class="text-success"> Congratulations!</span> You done your training programe successfully. <span class="text-muted">If it is you can ignore this and your account will be deleted completely as soon.</p>
+              <p class="text-muted"><i class="fas fa-check-circle fa-lg text-success"></i> The administration identify you did not allow the terms and conditions of the company.</span></p>
+              <p class="text-muted"><i class="fas fa-check-circle fa-lg text-success"></i> If you did not agree with the above statements you can contact us via below link.</p>
+              <p class="text-muted"><i class="fas fa-check-circle fa-lg text-success"></i> Sorry for any inconvenience this may cause.</p>
+            </div>
+            <div class="card-footer text-muted text-center">
+              <a href="{{ route('contactus') }}" class="btn btn-primary btn-sm"><i class="far fa-address-card p-1 fa-lg"></i>Contact Us</a>
+            </div>
+          </div>
+        </div>
+      @endif
     </div>
-    @endif
+  
+      @if (auth()->user()->status == '1')
+      <div class="modal mt-4" tabindex="-1" role="dialog" id="myModal">
+          <div class="modal-dialog " role="document">
+            <div class="modal-content ">
+              <div class="modal-header">
+                <h5 class="modal-title">Congratulation!</h5>
+                <button type="button" class="close btn-danger" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <img src="/images/candidate/trophy.gif" alt="candidate" class="img-fluid">
+                <h3 class="mt-3 mb-2 text-center text-success">Congratulations!</h3>
+                <p class="text-center"> <span class="text-info">{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</span> ,you have been personally reviewd and selected by the administration.</p>
+                <p class="text-center"><b>Good Luck!</b></p>
+              </div>
+              <div class="modal-footer mx-auto">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Continue</button>
+              </div>
+            </div>
+          </div>
+      </div>
+      @endif
     <script type="text/javascript">
         $(window).on('load', function() {
             $('#myModal').modal('show');
         });
-
     </script>
+   
     <script>
-      function countdown(){
-          var now = new Date();
-          var x="{{ Auth::user()->created_at }}";
-          var eventDate = new Date(x);
-          var currentTime =now.getTime();
-          var eventTime1 =eventDate.getTime();
-          var eventTime=eventTime1+24*60*60*1000;
-          var remainTime=eventTime-currentTime;
-          var s= Math.floor(remainTime/1000);
-          var m= Math.floor(s/60);
-          var h= Math.floor(m/60);
-          var d= Math.floor(h/24);
-
-          h%=24;
-          m%=60;
-          s%=60;
-
-          h =(h<10) ? "0"+ h:h;
-          m =(h<10) ? "0"+ m:m;
-          s =(h<10) ? "0"+ s:s;
-
-          document.getElementById("days").textContent =d;
-          document.getElementById("days").innerText =d;
-          document.getElementById("hours").textContent =h;
-          document.getElementById("minutes").textContent =m;
-          document.getElementById("seconds").textContent =s;
-          setTimeout(countdown,1000);
+        var x="{{ Auth::user()->created_at }}";
+        var eventDate = new Date(x);
+        var countDownDate1 =eventDate.getTime();
+        var countDownDate=countDownDate1+48*60*60*1000;
+        var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        document.getElementById("demo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "EXPIRED";
+          }
         }
-        countdown();
+      , 1000);
     </script>
-</body>
-</html>
+@endsection
