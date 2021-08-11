@@ -379,7 +379,7 @@
 
         #nav-item:hover{
             background-color: #ffffff10;
-            border-radius: 5px;
+            border-radius: 5px 0px 0px 5px;
         }
 
         #nav-item:hover #item{
@@ -813,7 +813,7 @@
 
         .notification_container{
             border: 1px solid #5F5F5F;
-            background-color: #F7FFFF;
+            background-color: #FFFFFF;
             border-radius: 5px;
             margin-bottom: 5px;
             padding: 5px;
@@ -821,6 +821,20 @@
 
         #alerts:hover{
             cursor: pointer;
+        }
+
+        .fa-paper-plane{
+            color: #080214;
+            font-size: 20px;
+            padding-top: 10px;
+            padding-left: 8px;
+        }
+
+        .notification_plane_div{
+            background-color: #E4E0E0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
 
     </style>
@@ -837,7 +851,7 @@
 
                 <div class="side-branding text-center">
                     <a href="{{ url('/') }}">
-                        <img src="/uploadimages/conpany_logo/" class="img-responsive" style="height: 100px; width: auto; padding-right: 9px !important">
+                        <img src="/uploadimages/company_logo/{{ $logo->logo }}" class="img-responsive" style="height: 100px; width: auto; padding-right: 9px !important">
                     </a>
                 </div>
 
@@ -864,7 +878,7 @@
                     <li class="nav-item  mb-3 examresults" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">
-                                <img src="/uploadimages/other/dashboardicons/instructor.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                                <img src="/uploadimages/other/dashboardicons/examresults.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
                             </div>
                             <div style="display: inline-block">
                                 <a class="nav-link" href="{{ route('studentresults') }}">
@@ -874,23 +888,10 @@
                         </div>
                     </li>
 
-                    <li class="nav-item  mb-3 profile" id="nav-item">
-                        <div style="padding-left: 10px">
-                            <div style="display: inline-block">
-                                <img src="/uploadimages/other/dashboardicons/instructor.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
-                            </div>
-                            <div style="display: inline-block">
-                                <a class="nav-link" href="{{ route('studentprofile') }}">
-                                    <span class="menu-title" id="item">Profile</span>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-
                     <li class="nav-item mb-2 shedule" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">
-                                <img src="/uploadimages/other/dashboardicons/instructor.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                                <img src="/uploadimages/other/dashboardicons/shedules.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
                             </div>
                             <div style="display: inline-block">
                                 <a class="nav-link" href="{{ route('studentsheduling') }}" >
@@ -903,11 +904,24 @@
                     <li class="nav-item  mb-3 completesessions" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">
-                                <img src="/uploadimages/other/dashboardicons/instructor.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                                <img src="/uploadimages/other/dashboardicons/complete.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
                             </div>
                             <div style="display: inline-block">
                                 <a class="nav-link" href="{{ route('studentcompletedshedules') }}">
                                     <span class="menu-title" id="item">Completed Session</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item  mb-3 profile" id="nav-item">
+                        <div style="padding-left: 10px" >
+                            <div style="display: inline-block">
+                                <img src="/uploadimages/other/dashboardicons/profile.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                            </div>
+                            <div style="display: inline-block">
+                                <a class="nav-link" href="{{ route('studentprofile') }}">
+                                    <span class="menu-title" id="item">Profile</span>
                                 </a>
                             </div>
                         </div>
@@ -936,7 +950,7 @@
                         <div style="display: inline-block; padding-left: 10px">
                             <li class="header-logo">
                                 {{-- {{ $logo }} --}}
-                                <a href="{{ url('/') }}" class="header-branding"><img src="/uploadimages/company_logo/" class="img-responsive" style="height: 50px; width: auto"> </a>
+                                <a href="{{ url('/') }}" class="header-branding"><img src="/uploadimages/company_logo/{{ $logo->logo }}" class="img-responsive" style="height: 50px; width: auto"> </a>
                             </li>
                         </div>
                     </div>
@@ -958,21 +972,35 @@
                             <div style="display: inline-block;">
                                 <li class="nav-item active">
                                     <a class="nav-link" id="alerts">
-                                        <i class="fa fa-bell" aria-hidden="true"><span class="badge badge-pill badge-danger">78</span></i>
+                                        <i class="fa fa-bell" aria-hidden="true"><span class="badge badge-pill badge-danger">{{ count($alerts) }}</span></i>
                                     </a>
                                     <div class="notification_dropdown">
                                         <div style="padding: 10px" class="notification">
-                                            <h5 style="color: #39A9EB; font-weight: bold">Notifications</h5>
+                                            <h5 style="color: #39A9EB; font-weight: bold"><a href="{{ route('studentalerts') }}" style="text-decoration: none !important">Notifications</a></h5>
                                             <hr style="border-top: 1px solid #00254F">
-                                            <div class="notification_container">
-                                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo maxime soluta deleniti perspiciatis minus, commodi, molestias magni distinctio tempore impedit beatae animi expedita natus! Deserunt reprehenderit dicta culpa maxime minima.
-                                            </div>
-                                            <div class="notification_container">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum blanditiis dolores molestiae deleniti quo similique qui modi, nulla optio tenetur nobis saepe non repudiandae, quas at. Tempore natus quia inventore?
-                                            </div>
-                                            <div class="notification_container">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste et veniam error reiciendis suscipit illo ullam fugiat, incidunt voluptate fugit, eligendi hic eaque ducimus magni eius corporis est, quas facere.
-                                            </div>
+                                            @foreach($alerts as $alert)
+                                                <div class="notification_container">
+                                                    <div style="display: flex">
+                                                        <div style="display: inline-block">
+                                                            <div class="notification_plane_div">
+                                                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div style="display: inline-block; padding-left: 5px; padding-top: 5px">
+                                                            {{ $alert->shedulealert->message }}
+                                                        </div>
+                                                    </div>
+                                                    <div style="text-align: right">
+                                                        <small>{{ $alert->created_at->diffForHumans() }}</small>
+                                                    </div>
+                                                    <hr style="margin-bottom: 5px !important;margin-top: 0px !important">
+                                                    <div style="width: 100%; text-align: right">
+                                                        <a href="{{ route('studentalerts') }}" style="text-decoration: none !important; background-color: rgb(28, 204, 248); padding: 5px; border-radius: 50px; margin-right: 5px; color: #080214">
+                                                            Details
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </li>

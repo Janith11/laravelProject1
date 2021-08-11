@@ -35,7 +35,7 @@
         @endif
     </div>
 
-    <form action="{{ route('requestslot') }}" method="POST">
+    <form action="{{ route('studentrequestslot') }}" method="POST">
         @csrf
         <div class="row">
             <div class="col-sm-4">
@@ -174,5 +174,11 @@
     </form>
 
 </div>
+
+    <script>
+        $(document).ready(function(){
+            $('aside ul .shedule').css('border-left', '5px solid #00bcd4');
+        })
+    </script>
 
 @endsection

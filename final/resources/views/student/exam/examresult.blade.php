@@ -11,14 +11,14 @@
         </a>
     </div>
     <div class="row-mb-2">
-        <div id="card" >   
+        <div id="card" >
           <div class="card-body">
             <div class="card mt-2">
                 <div class="card-body">
                     <h5 style="color: #222944; font-weight: bold"> Result sheet</h5>
-                    <hr style="border: 0.5px solid #222944">    
+                    <hr style="border: 0.5px solid #222944">
                         <div class="row">
-                            @foreach ($users as $s) 
+                            @foreach ($users as $s)
                            <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -37,10 +37,10 @@
                                     <p>{{ $s->user->contact_number }}</p>
                                 </div>
                             </div>
-                        </div>                  
+                        </div>
                         @endforeach
                 </div>
-            </div>                       
+            </div>
             @foreach ($examdetails as $examdetail)
             @foreach ($examdetail->exams as $exam)
             <div class="card">
@@ -60,7 +60,7 @@
                                     Exam Date
                                 </div>
                                 <div class="col">
-                                    date                                    
+                                    date
                                 </div>
                             </div>
                             <div class="row">
@@ -68,7 +68,7 @@
                                     Result
                                 </div>
                                 <div class="col">
-                                    {{ $exam->result }}                                     
+                                    {{ $exam->result }}
                                 </div>
                             </div>
                             <div class="row">
@@ -79,7 +79,7 @@
                                     {{ $exam->attempt }}
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     {{-- <hr style="border: 0.5px solid #222944"> --}}
@@ -87,8 +87,14 @@
             </div>
             @endforeach
             @endforeach
-          </div>    
-        </div> 
-    </div> 
+          </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('aside ul .examresults').css('border-left', '5px solid #00bcd4');
+        })
+    </script>
 @endsection
 

@@ -136,6 +136,7 @@ class ShedulingController extends Controller
         $slot_time = $request->timeslot;
         $special = $request->special_time;
         $date = $request->date;
+        $type = $request->sessiontype;
         if (($slot_time == '') && ($special == '')) {
             return back()->with('errormsg', 'Empty Input !!');
         }
@@ -149,35 +150,25 @@ class ShedulingController extends Controller
                 'color' => '#90EE90',
                 'textColor' => '#222944',
                 'time' => $slot_time,
-                'lesson_type' => $request->sessiontype,
-                'shedule_status' => '4',
+                'lesson_type' => $type,
+                'shedule_status' => 4,
             ]);
         }
         if ($special != '') {
             $shedule = OwnerShedule::create([
-                'title' => 'request shedule',
+                'title' => 'session request',
                 'date' => $date,
                 'color' => '#90EE90',
                 'textColor' => '#222944',
                 'time' => $special,
-                'lesson_type' => $request->sessiontype,
-                'shedule_status' => '4',
+                'lesson_type' => $type,
+                'shedule_status' => 4,
             ]);
         }
         $shedulestudent = SheduledStudents::create([
             'shedule_id' => $shedule->id,
             'student_id' => Auth::user()->id,
         ]);
-        // $student_name = Auth::user()->f_name.' '.Auth::user()->l_name;
-        // $shedulealert = SheduleAlert::create([
-        //     'shedule_id' => $shedule->id,
-        //     'message' => "You have a shedule request from $student_name",
-        // ]);
-        // $alertforowner = AlertForStudent::create([
-        //     'shedulealert_id' => $shedulealert->id,
-        //     'student_id' => 1,
-        //     'alert_status' => 0,
-        // ]);
         $shedule_request = RequestAlert::create([
             'user_id' => Auth::user()->id,
             'description' => 'shedule request',

@@ -227,7 +227,7 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/studentshedule', 'Student\ShedulingController@index')->name('studentsheduling');
     Route::get('/allstudentshedules/{id}', 'Student\ShedulingController@events')->name('studentallshedules');
     Route::get('/studentshedule/getdate/{date}', 'Student\ShedulingController@checkdate')->name('checkdate');
-    Route::post('/studentshedule/getdate/requestslot', 'Student\ShedulingController@requestslot')->name('requestslot');
+    Route::post('/studentshedule/getdate/requestslot', 'Student\ShedulingController@requestslot')->name('studentrequestslot');
     Route::get('/studentshedule/completedshedules', 'Student\ShedulingController@completedshedules')->name('studentcompletedshedules');
     Route::get('/studentshedule/pendingrequests', 'Student\ShedulingController@pendingrequest')->name('studentpendingrequests');
     Route::get('/stuedntshedule/expandsessions', 'Student\ShedulingController@expandrequest')->name('expandrequests');
@@ -239,7 +239,9 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/comments', 'Student\CommentController@index')->name('studentcomment');
     Route::post('/comments/save', 'Student\CommentController@savecomment')->name('savecomment');
 
+    // alerts
     Route::get('/alerts', 'Student\AlertController@index')->name('studentalerts');
+    Route::post('/alerts/read', 'Student\AlertController@read')->name('studentmarkasread');
 
 });
 

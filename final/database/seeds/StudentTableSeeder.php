@@ -52,6 +52,6 @@ class StudentTableSeeder extends Seeder
             'total_session'=>'30',
             'group_number' => '1',
         ]);
-        
+
     }
 }

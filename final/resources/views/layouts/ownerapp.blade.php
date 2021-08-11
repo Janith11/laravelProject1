@@ -756,7 +756,7 @@
                 <div class="side-branding text-center">
                     <a href="{{ url('/') }}">
                         {{-- commentd {{ $logo }} --}}
-                        <img src="/uploadimages/company_logo/{{ $logo }}" class="img-responsive" style="height: 100px; width: auto; padding-right: 9px !important">
+                        <img src="/uploadimages/company_logo/{{ $logo->logo }}" class="img-responsive" style="height: 100px; width: auto; padding-right: 9px !important">
                     </a>
                 </div>
 
@@ -983,7 +983,7 @@
                     <li class="nav-item mb-3 vehicle" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">
-                                <img src="/uploadimages/other/dashboardicons/vehicles.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                                <img src="/uploadimages/other/dashboardicons/notification.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
                             </div>
                             <div style="display: inline-block">
                                 <a class="nav-link" href=" {{ route('viewalert') }} ">
@@ -1015,7 +1015,7 @@
                         </div>
                         <div style="display: inline-block; padding-left: 10px">
                             <li class="header-logo">
-                                <a href="{{ url('/') }}" class="header-branding"><img src="/uploadimages/company_logo/{{ $logo }}" class="img-responsive" style="height: 50px; width: auto"> </a>
+                                <a href="{{ url('/') }}" class="header-branding"><img src="/uploadimages/company_logo/{{ $logo->logo }}" class="img-responsive" style="height: 50px; width: auto"> </a>
                             </li>
                         </div>
                     </div>

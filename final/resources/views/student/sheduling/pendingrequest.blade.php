@@ -209,6 +209,10 @@
         }
     }, 1000);
 
+    $(document).ready(function(){
+        $('aside ul .shedule').css('border-left', '5px solid #00bcd4');
+    })
+
 </script>
 
 @endsection

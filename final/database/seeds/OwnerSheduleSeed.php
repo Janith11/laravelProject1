@@ -19,6 +19,7 @@ class OwnerSheduleSeed extends Seeder
             'time' => '08:00:00',
             'lesson_type' => 'practicle',
             'instructor' => '2',
+            'shedule_status' => 1,
         ]);
 
         DB::table('owner_shedules')->insert([
@@ -28,6 +29,7 @@ class OwnerSheduleSeed extends Seeder
             'time' => '10:00:00',
             'lesson_type' => 'practicle',
             'instructor' => '2',
+            'shedule_status' => 1,
         ]);
 
         DB::table('owner_shedules')->insert([
@@ -37,6 +39,7 @@ class OwnerSheduleSeed extends Seeder
             'time' => '10:00:00',
             'lesson_type' => 'practicle',
             'instructor' => '2',
+            'shedule_status' => 1,
         ]);
 
         DB::table('owner_shedules')->insert([
@@ -46,6 +49,7 @@ class OwnerSheduleSeed extends Seeder
             'time' => '10:00:00',
             'lesson_type' => 'practicle',
             'instructor' => '2',
+            'shedule_status' => 1,
         ]);
     }
 }
