@@ -23,7 +23,7 @@ class StudentsController extends Controller
             $query->where('status', 0);
         })->count();
         $complete_students = Student::with('user')->whereHas('user', function($query){
-            $query->where('status', 2);
+            $query->where('status', 3);
         })->count();
 
         $details = CompanyDetails::first();
@@ -237,7 +237,30 @@ class StudentsController extends Controller
          successfully !');
     }
     public function completedstudent(){
-        return view('owner.students.viewcompletedstudent');
+        $students=Student::with('user')->get();
+        $exams=Student::with(['practicalexam' =>function($query){
+            $query->orderBy('date','DESC');
+        }])->get();
+        $categories=StudentCategory::all();
+        return view('owner.students.viewcompletedstudent',compact('students','exams','categories'));
+    }
+    public function temporydelete(Request $request,$id){
+        $user=User::where('id',$id)->first();
+        $user->role_id = 4;
+        $user->status = 3;
+        $user->save();
+        return redirect()->route('completedstudents')->with('successmsg', 'Student is deleted successfully!, Student account has been disabled!');
+    }
+    public function viewrecycle(){
+        $users=User::where('role_id',4)->where('status',3)->get();
+        return view('owner.students.viewdeletedstudents',compact('users'));
+    }
+    public function restorestudent(Request $request,$userid){
+        $user=User::where('id',$userid)->first();
+        $user->role_id = 3;
+        $user->status = 1;
+        $user->save();
+        return redirect()->route('viewstudentrecyclebin')->with('successmsg', 'Student is restored successfully!');
     }
 
 

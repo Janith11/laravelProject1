@@ -42,7 +42,11 @@
 
 <style lang="scss" scoped>
     .feed{
-        background: #F2F2F2;
+        // background: #8b2c2c;
+        background: #16222A;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #3A6073, #16222A);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #3A6073, #16222A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
         height: 100vh;
         max-height: 470px;
         overflow: scroll;
@@ -77,7 +81,12 @@
                         text-align: right;
 
                         .text{
-                            background: rgba(49, 250, 23, 0.534);
+                            // background: #165F55;
+                            background: #02AAB0;  /* fallback for old browsers */
+                            background: -webkit-linear-gradient(to right, #00CDAC, #02AAB0);  /* Chrome 10-25, Safari 5.1-6 */
+                            background: linear-gradient(to right, #00CDAC, #02AAB0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+                            color: white;
                         }                       
                     }
                  }
