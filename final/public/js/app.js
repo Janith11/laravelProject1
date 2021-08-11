@@ -2033,6 +2033,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    getImage: function getImage() {
+      return "/uploadimages/students_profiles/default_profile.jpg";
+    },
     selectContact: function selectContact(contact) {
       this.selected = contact;
       this.$emit('selected', contact);
@@ -7272,7 +7275,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "img[data-v-484f3208] {\n  max-height: 55px;\n  width: auto;\n}\nli[data-v-484f3208] {\n  background-color: whitesmoke;\n  border-radius: 10px;\n}\nli.selected[data-v-484f3208] {\n  background-color: #1775d246;\n  padding: 0px;\n  margin: 0px;\n}\n@media only screen and (max-width: 600px) {\nbody img[data-v-484f3208] {\n    display: none;\n}\nbody .contact .name[data-v-484f3208] {\n    font-size: 10px;\n    padding-right: 0px;\n    margin: 0px;\n}\nbody .contact .studentid[data-v-484f3208] {\n    display: none;\n}\nbody .mybadge[data-v-484f3208] {\n    margin: 0px;\n}\n}", ""]);
+exports.push([module.i, "img[data-v-484f3208] {\n  max-height: 55px;\n  width: auto;\n}\n.myname[data-v-484f3208] {\n  font-size: 0.8rem;\n}\nli[data-v-484f3208] {\n  background-color: whitesmoke;\n  border-radius: 10px;\n}\nli.selected[data-v-484f3208] {\n  background-color: #1775d246;\n  padding: 0px;\n  margin: 0px;\n}\n@media only screen and (max-width: 600px) {\nbody img[data-v-484f3208] {\n    display: none;\n}\nbody .contact .name[data-v-484f3208] {\n    font-size: 10px;\n    padding-right: 0px;\n    margin: 0px;\n}\nbody .contact .studentid[data-v-484f3208] {\n    display: none;\n}\nbody .mybadge[data-v-484f3208] {\n    margin: 0px;\n}\n}\n.contact-lists[data-v-484f3208] {\n  flex: 2;\n  max-height: 90vh;\n  overflow: scroll;\n  border-right: 1px solid #979797;\n}\nul[data-v-484f3208] {\n  list-style-type: none;\n  scroll-padding-left: 0;\n}\nul li[data-v-484f3208] {\n  display: flex;\n  padding: 2px;\n  border-bottom: 1px solid #0b156e6b;\n  height: 80px;\n  position: relative;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -7405,7 +7408,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".composer textarea[data-v-5a28bf2c] {\n  width: 96%;\n  margin: 10px;\n  resize: none;\n  border-radius: 3px;\n  border: 1px solid lightgray;\n  padding: 6px;\n}", ""]);
+exports.push([module.i, ".composer textarea[data-v-5a28bf2c] {\n  width: 96%;\n  margin: 10px;\n  resize: none;\n  border-radius: 3px;\n  border: 1px solid black;\n  background-color: #253C48;\n  color: white;\n  padding: 6px;\n}", ""]);
 
 // exports
 
@@ -7424,7 +7427,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".feed[data-v-4b6ab3f5] {\n  background: #F2F2F2;\n  height: 100vh;\n  max-height: 470px;\n  overflow: scroll;\n}\n.feed ul[data-v-4b6ab3f5] {\n  list-style-type: none;\n  padding: 5px;\n}\n.feed ul li.message[data-v-4b6ab3f5] {\n  margin: 10px 0;\n  width: 100%;\n}\n.feed ul li.message .text[data-v-4b6ab3f5] {\n  max-width: 400px;\n  border-radius: 10px;\n  padding: 12px;\n  display: inline-block;\n}\n.feed ul li.message.received[data-v-4b6ab3f5] {\n  text-align: left;\n}\n.feed ul li.message.received .text[data-v-4b6ab3f5] {\n  background: #1776D2;\n  color: beige;\n}\n.feed ul li.message.sent[data-v-4b6ab3f5] {\n  text-align: right;\n}\n.feed ul li.message.sent .text[data-v-4b6ab3f5] {\n  background: rgba(49, 250, 23, 0.534);\n}\n@media only screen and (max-width: 600px) {\n.feed[data-v-4b6ab3f5] {\n    max-height: 60vh;\n}\n}", ""]);
+exports.push([module.i, ".feed[data-v-4b6ab3f5] {\n  background: #16222A;\n  /* fallback for old browsers */\n  /* Chrome 10-25, Safari 5.1-6 */\n  background: linear-gradient(to right, #3A6073, #16222A);\n  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\n  height: 100vh;\n  max-height: 470px;\n  overflow: scroll;\n}\n.feed ul[data-v-4b6ab3f5] {\n  list-style-type: none;\n  padding: 5px;\n}\n.feed ul li.message[data-v-4b6ab3f5] {\n  margin: 10px 0;\n  width: 100%;\n}\n.feed ul li.message .text[data-v-4b6ab3f5] {\n  max-width: 400px;\n  border-radius: 10px;\n  padding: 12px;\n  display: inline-block;\n}\n.feed ul li.message.received[data-v-4b6ab3f5] {\n  text-align: left;\n}\n.feed ul li.message.received .text[data-v-4b6ab3f5] {\n  background: #1776D2;\n  color: beige;\n}\n.feed ul li.message.sent[data-v-4b6ab3f5] {\n  text-align: right;\n}\n.feed ul li.message.sent .text[data-v-4b6ab3f5] {\n  background: #02AAB0;\n  /* fallback for old browsers */\n  /* Chrome 10-25, Safari 5.1-6 */\n  background: linear-gradient(to right, #00CDAC, #02AAB0);\n  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\n  color: white;\n}\n@media only screen and (max-width: 600px) {\n.feed[data-v-4b6ab3f5] {\n    max-height: 60vh;\n}\n}", ""]);
 
 // exports
 
@@ -46018,15 +46021,12 @@ var render = function() {
                 _c("div", { staticClass: "avatar col float-left" }, [
                   _c("img", {
                     staticClass: "rounded-circle border border-success",
-                    attrs: {
-                      src: "https://www.w3schools.com/howto/img_avatar.png",
-                      alt: contact.name
-                    }
+                    attrs: { src: _vm.getImage(), alt: contact.name }
                   })
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "contact col" }, [
-                  _c("h5", { staticClass: "name" }, [
+                  _c("h5", { staticClass: "name myname" }, [
                     _vm._v(_vm._s(contact.f_name))
                   ]),
                   _vm._v(" "),

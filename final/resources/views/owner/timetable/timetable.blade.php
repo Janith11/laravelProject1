@@ -76,6 +76,7 @@
         ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
             content: "\f00c";
             /* transform: rotate(360deg); */
+            /* transform: rotate(-360deg); */
             transition: transform .3s ease-in-out;
         }
         ul.ks-cboxtags li input[type="checkbox"]:checked + label {
