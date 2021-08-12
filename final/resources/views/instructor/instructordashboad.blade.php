@@ -152,7 +152,13 @@
                     <div class="col-sm-6">
                         <div class="row">
                             <div class="col float-right">
-                                <img src="/uploadimages/other/car1.jpg" alt="Car" style="height: 170px">
+                                <div id="card">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <img src="/uploadimages/other/car1.jpg" alt="Car" style="height: 120px; margin-left: auto">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -357,51 +363,55 @@
 
     var data = [{{ $thismonth_attend }}, {{ $thismonth_leave }}];
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Attend', 'Leave'],
-        datasets: [{
-            // label: 'Work Days',
-            data: data,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        legend: {
-            display: false
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Attend', 'Leave'],
+            datasets: [{
+                // label: 'Work Days',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
             }]
-            // y: {
-            //     // beginAtZero: false
-            //     suggestedMin: 0,
-            //     // suggestedMax: 100
-            // }
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+                // y: {
+                //     // beginAtZero: false
+                //     suggestedMin: 0,
+                //     // suggestedMax: 100
+                // }
+            }
         }
-    }
-});
+    });
+
+    $(document).ready(function(){
+        $('aside ul .dashboard').css('border-left', '5px solid #00bcd4');
+    })
 
 </script>
 

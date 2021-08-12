@@ -25,7 +25,7 @@
     {{-- google fonts  --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
 
-      {{-- csrf token added janith --}}
+    {{-- csrf token added janith --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>

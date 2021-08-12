@@ -621,6 +621,7 @@
         .scrollbar-deep-purple {
             scrollbar-color: #512da8 #F5F5F5;
         }
+        
         .scrollbar-cyan::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
             background-color: #F5F5F5;
@@ -1115,7 +1116,7 @@
             @yield('content')
         </div>
 
-        <div style="float: right; z-index: 10; ">
+        <div style="float: right; z-index: 10 ">
             <a type="button" class="btn" style="background-color: #222944 ;padding: 20px; position: fixed; bottom: 20px; right: 5%;width: 50px; height: 50px;" id="chat-icon" href="{{ route('ownerchat') }}">
                 <div style="padding-top: 5px; padding-left: 4px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16" style="left: 50%; margin-right: -50%; transform: translate(-50%, -50%)">

@@ -3,11 +3,12 @@
 @section('content')
 
 <style>
-    img{
+    #img{
         width: 60px;
         height: auto;
         border-radius: 50px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding-left: 0px
     }
 </style>
 
@@ -57,7 +58,7 @@
                                 <td>
                                     <div class="row">
                                         <div style="display: inline-block; padding-left: 10px">
-                                            <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="profile image">
+                                            <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="profile image" id="img">
                                         </div>
                                         <div style="display: inline-block; padding-left: 10px; vertical-align: middle">
                                             <h6>{{$student->user->f_name }} {{$student->user->l_name}}</h6>
@@ -69,7 +70,7 @@
                                 <td>{{ $student->user_id}}</td>
                                 <td>
                                     <ul>
-                                        @foreach($student->trainingvahiclecategorys as $trainingcategory)
+                                        @foreach($student->studentcategories as $trainingcategory)
                                             <li>
                                                 {{ $trainingcategory->vehiclecategory->name }} / {{ $trainingcategory->vehiclecategory->category_code }}
                                             </li>
@@ -93,5 +94,11 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .students').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection

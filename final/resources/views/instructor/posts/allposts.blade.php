@@ -3,7 +3,7 @@
 @section('content')
 
 <style>
-    img{
+    #img{
         width: 60px;
         height: auto;
         border-radius: 50px;
@@ -75,7 +75,7 @@
                                 <div style="display: inline-flex">
                                     @if($post->user->role_id == 1)
                                         <div style="display: inline-block">
-                                            <img src="/uploadimages/owner_profile/{{ $post->user->profile_img }}" alt="profile image">
+                                            <img src="/uploadimages/owner_profile/{{ $post->user->profile_img }}" alt="profile image" id="img">
                                         </div>
                                         <div style="display: inline-block;padding-left: 10px">
                                             <h5>
@@ -85,7 +85,7 @@
                                         </div>
                                     @else
                                         <div style="display: inline-block">
-                                            <img src="/uploadimages/instructors_profiles/{{ $post->user->profile_img }}" alt="profile image">
+                                            <img src="/uploadimages/instructors_profiles/{{ $post->user->profile_img }}" alt="profile image" id="img">
                                         </div>
                                         <div style="display: inline-block;padding-left: 10px">
                                             <h5>
@@ -144,5 +144,11 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .posts').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection
