@@ -36,7 +36,7 @@ class Student extends Model
 
     // training categories
     public function studentcategories(){
-        return $this->hasMany(TrainingVehicleCategory::class, 'user_id', 'user_id');
+        return $this->hasMany(StudentCategory::class, 'user_id', 'user_id');
     }
 
     //payment logs

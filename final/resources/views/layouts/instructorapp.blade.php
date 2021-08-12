@@ -1015,7 +1015,7 @@
                                 </a>
                                 <div class="notification_dropdown">
                                     <div style="padding: 10px" class="notification">
-                                        <h5 style="color: #39A9EB; font-weight: bold"><a href="{{ route('studentalerts') }}" style="text-decoration: none !important">Notifications</a></h5>
+                                        <h5 style="color: #39A9EB; font-weight: bold"><a href="{{ route('instrcutoralerts') }}" style="text-decoration: none !important">Notifications</a></h5>
                                         <hr style="border-top: 1px solid #00254F">
                                         @foreach($alerts as $alert)
                                             <div class="notification_container">

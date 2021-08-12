@@ -11,6 +11,7 @@ use App\RequestAlert;
 use App\RequestCategories;
 use App\SheduleAlert;
 use App\SheduledStudents;
+use App\ShedulingType;
 use App\Student;
 use App\StudentCategory;
 use App\TimeSlots;
@@ -44,7 +45,11 @@ class ShedulingController extends Controller
         $requestdetails = ExpandRequests::with('requestcategories')->where('user_id', $user_id)->where('status', 0)->get();
         $categorydetails = VehicleCategory::all();
 
-        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session', 'requestdetails', 'categorydetails'));
+        //check sheduling type
+        $sheduling_type = ShedulingType::first();
+        $type = $sheduling_type->type;
+
+        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session', 'requestdetails', 'categorydetails', 'type'));
     }
 
     public function events($id){

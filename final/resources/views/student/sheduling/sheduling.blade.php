@@ -237,6 +237,8 @@
 
     var user_id = '@php echo Auth::user()->id; @endphp';
 
+    var shedulingtype = {{ $type }};
+
     var url = "{{ route('studentallshedules', ':id') }}";
     url = url.replace(":id",user_id);
 
@@ -251,9 +253,13 @@
             dateClick: function(info) {
                 date = info.dateStr;
                 $(document).ready(function(){
-                    var url = '{{ route("checkdate", ["date" => ":date"]) }}';
-                    url = url.replace(':date', date);
-                    document.location.href=url;
+                    if(shedulingtype != 1){
+                        var url = '{{ route("checkdate", ["date" => ":date"]) }}';
+                        url = url.replace(':date', date);
+                        document.location.href=url;
+                    }else{
+                        alert("This function blocked by owner");
+                    }
                 });
             },
             events: {

@@ -266,14 +266,16 @@ class EmplooyeeAttendanceController extends Controller
                 $row['title'] = 'Leave';
                 $row['color'] = '#EB0B56';
                 $row['textColor'] = 'white';
-            }else{
+            }elseif($attend->status == 0){
                 $row['title'] = 'Pending';
-                $row['color'] = '#C2E20A';
+                $row['color'] = '#F2F700';
+                $row['textColor'] = '#222944';
+            }else{
+                $row['title'] = 'Working';
+                $row['color'] = '#00C6F7';
                 $row['textColor'] = '#222944';
             }
             $row['date'] = $attend->date;
-            // return $attend;
-            // return $row;
             array_push($responce, $row);
         }
         // return $responce;
