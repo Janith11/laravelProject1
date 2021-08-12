@@ -308,6 +308,9 @@ Route::middleware('instructordashboard')->group(function(){
     //payroll
     Route::get('/instructorsalary', 'Instructor\SalaryController@index')->name('instructorsalary');
 
+    //alerts
+    Route::get('/instructoralert', 'Instructor\AlertController@index')->name('instrcutoralerts');
+    Route::post('/instructoralert/read', 'Instructor\AlertController@read')->name('markinstrcutoralerts');
 });
 
 //candidate middleware

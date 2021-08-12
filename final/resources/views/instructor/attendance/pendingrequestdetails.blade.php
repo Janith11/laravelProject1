@@ -164,19 +164,24 @@
                     countDown.innerHTML = "Expired Request";
                 }
             }
-        }, 1000);
+        }, 1000
+    );
 
-        $(document).ready(function(){
-            $('[data-toggle="popover"]').popover({
-                html: true,
-                trigger: 'focus',
-            });
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            trigger: 'focus',
         });
+    });
 
-        function cancel(id){
-            var element = document.getElementById('cacel'+id);
-            alert(element);
-        }
+    function cancel(id){
+        var element = document.getElementById('cacel'+id);
+        alert(element);
+    }
+
+    $(document).ready(function(){
+        $('aside ul .attendance').css('border-left', '5px solid #00bcd4');
+    })
 </script>
 
 @endsection

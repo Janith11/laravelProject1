@@ -63,6 +63,10 @@ class AttendanceController extends Controller
     }
 
     public function calendar(){
+        // 0 - day start
+        // 2 - checkin
+        // 1 - present (after checkout)
+        // 3 - not attend
         $attendance = EmployeeAttendances::where('user_id',Auth::user()->id)->get();
         $responce= [];
         foreach ($attendance as $attend) {
@@ -71,17 +75,22 @@ class AttendanceController extends Controller
                 $row['title'] = 'Attend';
                 $row['color'] = '#2BEC5B';
                 $row['textColor'] = '#222944';
-            }else{
+            }elseif($attend->status == 3){
                 $row['title'] = 'Leave';
                 $row['color'] = '#EB0B56';
                 $row['textColor'] = 'white';
+            }elseif($attend->status == 0){
+                $row['title'] = 'Pending';
+                $row['color'] = '#F2F700';
+                $row['textColor'] = '#222944';
+            }else{
+                $row['title'] = 'Working';
+                $row['color'] = '#00C6F7';
+                $row['textColor'] = '#222944';
             }
             $row['date'] = $attend->date;
-            // return $attend;
-            // return $row;
             array_push($responce, $row);
         }
-        // return $responce;
         return response()->json($responce);
     }
 }

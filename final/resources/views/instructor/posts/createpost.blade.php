@@ -127,6 +127,10 @@
         var form = document.getElementById('form');
         form.submit();
     }
+
+    $(document).ready(function(){
+        $('aside ul .posts').css('border-left', '5px solid #00bcd4');
+    })
 </script>
 
 @endsection

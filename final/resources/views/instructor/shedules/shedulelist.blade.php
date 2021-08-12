@@ -280,6 +280,10 @@
                 trigger: 'focus',
             });
         });
+
+    $(document).ready(function(){
+        $('aside ul .shedules').css('border-left', '5px solid #00bcd4');
+    })
 </script>
 
 @endsection

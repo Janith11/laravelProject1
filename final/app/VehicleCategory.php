@@ -14,9 +14,10 @@ class VehicleCategory extends Model
     }
 
     //training vehicle category
-    public function trainingvehiclecategorys(){
-        return $this->hasMany(TrainingVehicleCategory::class, 'category_id', 'id');
-    }
+    // public function studentcategories(){
+    //     return $this->hasMany(TrainingVehicleCategory::class, 'category_id', 'id');
+    // }
+    
     public function studentcategory(){
         return $this->hasMany(StudentCategory::class, 'category', 'category_code');
     }

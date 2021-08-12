@@ -31,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts.student', function($view){
             $view->with('alerts', \App\AlertForStudent::with('shedulealert')->where('student_id', Auth::user()->id)->where('alert_status', 0)->orderBy('created_at', 'DESC')->get());
         });
+
+        view()->composer('layouts.instructorapp', function($view){
+            $view->with('alerts', \App\AlertForStudent::with('shedulealert')->where('student_id', Auth::user()->id)->where('alert_status', 0)->orderBy('created_at', 'DESC')->get());
+        });
     }
 }

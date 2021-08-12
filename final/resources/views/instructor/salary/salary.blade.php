@@ -3,7 +3,7 @@
 @section('content')
 
 <style>
-    img{
+    #img{
         width: 60px;
         height: auto;
         border-radius: 50px;
@@ -86,5 +86,11 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('aside ul .salary').css('border-left', '5px solid #00bcd4');
+    })
+</script>
 
 @endsection
