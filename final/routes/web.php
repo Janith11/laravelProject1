@@ -203,11 +203,11 @@ Route::middleware('checkrequest')->group(function(){
 
     //RequestAlert
     Route::get('requestalert','Owner\RequestAlertController@index')->name('viewalert');
-    Route::get('requestalert/viewalerts/{userid}/{description}','Owner\RequestAlertController@redirect')->name('loadrequestalerts');
+    Route::get('requestalert/viewalerts/{userid}/{description}/{id}','Owner\RequestAlertController@redirect')->name('loadrequestalerts');
 
 });
 
-//Check and grouping all of the students
+//Check and grouping all of the students :: student dashboard
 Route::middleware('studentprofile')->group(function(){
 
     //examination results
@@ -246,6 +246,8 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/alerts', 'Student\AlertController@index')->name('studentalerts');
     Route::post('/alerts/read', 'Student\AlertController@read')->name('studentmarkasread');
 
+    //payments
+    Route::get('/student/payments', 'Student\PaymentController@index')->name('studenentpaymentlogsview');
 });
 
 

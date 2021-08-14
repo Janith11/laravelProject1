@@ -34,8 +34,12 @@
                 <table class="table borderless table-hover">
                     <tbody>
                         {{-- from request alert controller --}}
-                    @foreach ($notifications as $n)                        
-                      <tr onclick="window.location='{{ route('loadrequestalerts',[$n->user_id,$n->description]) }}'">
+                    @foreach ($notifications as $n)   
+                      @if($n->status == '0')                   
+                      <tr onclick="window.location='{{ route('loadrequestalerts',[$n->user_id,$n->description,$n->id]) }}'" >
+                      @else
+                      <tr class="text-muted" style="cursor:not-allowed; background-color: rgba(128, 128, 128, 0.246);">
+                      @endif
                             <th scope="row">
                                 @if ($n->description == '1')
                                     <span class="p-2 rounded-circle" style="background-color: #27A745; color:white"><i class="fas fa-address-book fa-lg "></i></span>
@@ -52,6 +56,7 @@
                             </td>
                             <td><p>{{ $n->created_at }}</p></td>                 
                       </tr>
+                    
                     @endforeach  
                     </tbody>
                   </table>
