@@ -1116,7 +1116,9 @@
         </div>
 
         <div style="float: right; z-index: 10; ">
+            <span class="badge badge-danger" style="z-index: 100;  position: fixed; bottom: 50px; right: 4.9%;font-size: 0.9rem;">{{ count($newmessages) }}</span>
             <a type="button" class="btn" style="background-color: #222944 ;padding: 20px; position: fixed; bottom: 20px; right: 5%;width: 50px; height: 50px;" id="chat-icon" href="{{ route('ownerchat') }}">
+                
                 <div style="padding-top: 5px; padding-left: 4px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16" style="left: 50%; margin-right: -50%; transform: translate(-50%, -50%)">
                         <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
