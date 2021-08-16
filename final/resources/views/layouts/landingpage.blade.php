@@ -1,208 +1,212 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
 
-        <title>Laravel</title>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        
+    <title>Learners Managment System</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
+    <!-- Favicons -->
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                /* color: #636b6f; */
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                /* height: 100vh; */
-                margin: 0;
-            }
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/icofont/icofont.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/animate.css/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/venobox/venobox.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/owl.carousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('assets/css/style.css')}} " rel="stylesheet">
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+</head>
 
-            .position-ref {
-                position: relative;
-            }
+<body>
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+    <!-- ======= Header ======= -->
+    <header id="header">
+        <div class="container">
 
-            .content {
-                text-align: center;
-            }
+            <div class="logo float-left">
+                {{-- <h1 class="text-light"><a href="index.html"><span>Mamba</span></a></h1> --}}
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <a href="{{'/'}}"><img src="/uploadimages/company_logo/{{ $logo->logo }}" alt="" class="img-fluid"></a>
+            </div>
 
-            .title {
-                font-size: 84px;
-            }
+            <nav class="nav-menu float-right d-none d-lg-block">
+                <ul>
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Galary</a></li>
+                    <li class="drop-down"><a href="">More</a>
+                        <ul>
+                            <li><a href="{{ route('rmvregulations') }}">RMV Regulations</a></li>
+                            <li><a href="{{ route('roadsigns') }}">Road Sings</a></li>
+                            <li><a href="{{ route('onlinepaper') }}">Past Papers</a></li>
+                            <li><a href="{{ route('prices') }}">Prices</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" style="padding-left: 1-px">
+                    @if (Route::has('login'))
+                    <button class="btn btn-sm btn-outline-success my-2 my-sm-0 login_btn" type="submit"><a class="nav-link" href="{{ route('login') }}" style="color: rgb(236, 232, 0) !important">Login</span></a></button>
+                    @endif
+                </form>
+            </nav><!-- .nav-menu -->
+        </div>
+    </header>
+    <!-- End Header -->
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        {{-- <div class="logo">
+            <a href="{{'/'}}">
+                <img src="/uploadimages/company_logo/{{ $logo->logo }}" alt="" style="width: 150px; height: auto;">
+            </a>
+        </div>
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
 
-       {{-- boostrap cdn  --}}
-       <!-- CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <!-- jQuery and JS bundle w/ Popper.js -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-        
-        
-
-        <style>
-
-            .nav-item:hover{
-                background-color: #354e50;
-                /* transform: scale(1.1); */
-                border-radius: 5px;
-            }
-
-            /* style for carosal button */
-            /* Carousel base class */
-            .carousel {
-                    margin-bottom: 4rem;
-                }
-                /* Since positioning the image, we need to help out the caption */
-                .carousel-caption {
-                    bottom: 3rem;
-                    z-index: 10;
-                    color: whitesmoke;
-                }
-
-                /* Declare heights because of positioning of img element */
-                .carousel-item {
-                    height: 32rem;
-                    background-color: #777;
-
-                }
-                .carousel-item > img {
-                    /* position:fixed; */
-                    top: 0;
-                    left: 0;
-                    min-width: 100%;
-                    height: 32rem;
-
-                }
-
-                /* RESPONSIVE CSS
-                -------------------------------------------------- */
-
-                @media (min-width: 768px) {
-                    /* Bump up size of carousel content */
-                        .carousel-caption p {
-                        margin-bottom: 0 px;
-                    
-                        /* font-size: 10px */
-                        /* line-height: 1.4; */
-                    }
-                    btn-lg{
-                        width: 100%;
-                    }    
-                }
-
-                @media only screen and (max-width: 320px) {
-                    #worktimes{
-                        width: 100%;
-                    }
-                }
-     /* end the style for caroal btn */
-
-        </style>
-
-    </head>
-    <body style="background-color: lightgray;">
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="{{'/'}}">Shan</a>            
+
+                <a class="navbar-brand" href="{{'/'}}" id="name" style="display: none">Shan</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="{{ '/' }}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                      <a class="nav-link" href="{{ route('contactus') }}">Contact us</a>
-                    </li>
-                    <li class="nav-item active">
-                      <a class="nav-link" href="{{ route('gallery') }}">Gallery</a>
-                    </li>
-                    <li class="nav-item active">
-                      <a class="nav-link" href="{{ route('roadsigns') }}">Road Signs</a>
-                    </li>
-                    <li class="nav-item active">
-                      <a class="nav-link " href="{{ url('services') }}">Services</a>
-                    </li>
-                    <li class="nav-item dropdown active">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        More
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('rmvregulations') }}">RMV Regulations</a>
-                        <a class="dropdown-item" href="{{ route('onlinepaper') }}">Online papers</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('prices') }}">Prices</a>
-                      </div>
-                    </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                    <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-                    @if (Route::has('login'))
-                    <button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit"> <a class="nav-link" href="{{ route('login') }}">Login</span></a></button>
-                      {{-- @auth
-                        {{ route('login') }}
-                      @endauth --}}
-                     @endif
-                  </form>
+
+                    <ul class="navbar-nav mr-auto" style="padding-right: 100px">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('contactus') }}">Contact us</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('gallery') }}">Gallery</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('roadsigns') }}">Road Signs</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link " href="{{ url('services') }}">Services</a>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                More
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('rmvregulations') }}">RMV Regulations</a>
+                                <a class="dropdown-item" href="{{ route('onlinepaper') }}">Online papers</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('prices') }}">Prices</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <form class="form-inline my-2 my-lg-0">
+                        @if (Route::has('login'))
+                        <button class="btn btn-sm btn-outline-success my-2 my-sm-0 login_btn" type="submit"> <a class="nav-link" href="{{ route('login') }}" style="color: rgb(236, 232, 0) !important">Login</span></a></button>
+                        @endif
+                    </form>
+
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
-        <!-- defaut coding part  -->
-        <!-- <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a> -->
+    @yield('content')
 
-                        <!-- @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif -->
-                    <!-- @endauth
+    <!-- ======= Footer ======= -->
+    <footer id="footer" style="background-color: #05022B !important">
+        <div class="footer-top" style="background-color: #05022B !important; border-top: 0px; border-bottom: 0px">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 footer-info">
+                        <h3>Mamba</h3>
+                        <p>
+                          A108 Adam Street <br>
+                          NY 535022, USA<br><br>
+                          <strong>Phone:</strong> +1 5589 55488 55<br>
+                          <strong>Email:</strong> info@example.com<br>
+                        </p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4>Our Newsletter</h4>
+                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                        <form action="" method="post">
+                          <input type="email" name="email"><input type="submit" value="Subscribe">
+                        </form>
+
+                    </div>
+
                 </div>
-            @endif -->
-      
-          @yield('content')
-    </body>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Mamba</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                Designed by <a href="">Group Six</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <!-- Vendor JS Files -->
+    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/jquery.easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('assets/vendor/jquery-sticky/jquery.sticky.js') }}"></script>
+    <script src="{{ asset('assets/vendor/venobox/venobox.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/waypoints/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/counterup/counterup.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+
+</body>
+
 </html>
