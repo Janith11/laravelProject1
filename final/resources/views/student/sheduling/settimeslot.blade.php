@@ -131,6 +131,7 @@
                                             <th></th>
                                             <th>Slot Name</th>
                                             <th>Time</th>
+                                            <th>Instructors</th>
                                             <th>Trainers</th>
                                         </thead>
                                         <tbody>
@@ -143,6 +144,20 @@
                                                     </td>
                                                     <td>{{ $time->slot_name }}</td>
                                                     <td>{{ $time->time_slot }}</td>
+                                                    <td>
+                                                        <ul style="list-style-type: none">
+                                                            @foreach ($time->instructor_working_time_slot as $instructor)
+                                                                @foreach ($instructors as $ins)
+                                                                    @if($instructor->instructor_uid == $ins->user_id)
+                                                                        <li>
+                                                                            <input type="radio" id="{{ $ins->id }}" name="{{$time->time_slot}}-instructor_id" value="{{ $ins->user_id }}" class="input">
+                                                                            <label class="name">{{ $ins->user->f_name }} {{ $ins->user->l_name }}</label>
+                                                                        </li>
+                                                                    @endif
+                                                                @endforeach   
+                                                            @endforeach
+                                                        </ul>
+                                                    </td>
                                                     <td>
                                                         @foreach($final_counts as $key => $count)
                                                             @if($key == $time->time_slot)

@@ -111,7 +111,7 @@ class ShedulingController extends Controller
                     $weekday_id = 7;
                 }
 
-                $time_table = TimeSlots::where('weekday_id', $weekday_id)->get();
+                $time_table = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $weekday_id)->get();
 
                 $timeslots = [];
                 foreach ($time_table as $table) {
@@ -127,9 +127,11 @@ class ShedulingController extends Controller
                             $final_counts[$slot] = $count->sheduledstudents_count;
                         }
                     }
-                }
+                };
+                
+                $instructors = Instructor::with('user')->get();
 
-                return view('student.sheduling.settimeslot', compact('time_table', 'select_date', 'final_counts'));
+                return view('student.sheduling.settimeslot', compact('time_table', 'select_date', 'final_counts', 'instructors'));
 
             }
 
@@ -142,11 +144,16 @@ class ShedulingController extends Controller
         $special = $request->special_time;
         $date = $request->date;
         $type = $request->sessiontype;
+        $val = $slot_time.'-instructor_id';
+        $instructor = $request->$val;
         if (($slot_time == '') && ($special == '')) {
             return back()->with('errormsg', 'Empty Input !!');
         }
         if (($slot_time != '') && ($special != '')) {
             return back()->with('errormsg', 'Cannot Inputh Both !!');
+        }
+        if($instructor == ''){
+            return back()->with('errormsg', 'Choose an Instructor !!');
         }
         if ($slot_time != '') {
             $shedule = OwnerShedule::create([
@@ -156,6 +163,7 @@ class ShedulingController extends Controller
                 'textColor' => '#222944',
                 'time' => $slot_time,
                 'lesson_type' => $type,
+                'instructor' => $instructor,
                 'shedule_status' => 4,
             ]);
         }
@@ -167,6 +175,7 @@ class ShedulingController extends Controller
                 'textColor' => '#222944',
                 'time' => $special,
                 'lesson_type' => $type,
+                'instructor' => $instructor,
                 'shedule_status' => 4,
             ]);
         }
@@ -176,7 +185,7 @@ class ShedulingController extends Controller
         ]);
         $shedule_request = RequestAlert::create([
             'user_id' => Auth::user()->id,
-            'description' => 'shedule request',
+            'description' => '2',
             'status' => 0
         ]);
         return redirect()->route('studentsheduling')->with('succesmsg', 'Your Session request successfully send !!');
