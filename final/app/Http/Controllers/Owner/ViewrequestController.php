@@ -7,6 +7,7 @@ use App\User;
 use App\StudentCategory;
 use App\Student;
 use App\Exam;
+use App\Message;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -79,6 +80,33 @@ class ViewrequestController extends Controller
                 'result'=>'none',
                 'attempt'=>1
             ]);
+            if($user->gender == 'male'){
+                Message::create([    
+                    'from'=>1,
+                    'to'=> $user->id,
+                    'has_read'=>0,
+                    'text'=>'Congratulations Sir on joining our driving school! We look forward to sharing to many successes!'
+                ]);
+            }else{
+                Message::create([    
+                    'from'=>1,
+                    'to'=> $user->id,
+                    'has_read'=>0,
+                    'text'=>'Congratulations Madam on joining our driving school! We look forward to sharing to many successes!'
+                ]);
+            }
+                Message::create([
+                    'from'=>1,
+                    'to'=> $user->id,
+                    'has_read'=>0,
+                    'text'=>'Welcome to the Driving School chat system. We are hoping to share your difficulties and other requirement with here. Our administration willing to help you. Do not be shy drop a message here.'
+                ]);
+                Message::create([
+                    'from'=>1,
+                    'to'=> $user->id,
+                    'has_read'=>0,
+                    'text'=>'You can schedule the time table with your free time. Good luck in your future career. Thank You!'
+                ]);
              return redirect()->route('viewrequest')->with('successmsg', 'Student Registered Successfully !');
     }
 

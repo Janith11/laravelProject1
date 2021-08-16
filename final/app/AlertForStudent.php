@@ -12,6 +12,7 @@ class AlertForStudent extends Model
     protected $fillable = ['shedulealert_id','student_id', 'alert_status'];
 
     public function shedulealert(){
-        return $this->belongsTo(SheduleAlert::class, 'shedulealert_id', 'id');
+        // return $this->belongsTo(SheduleAlert::class, 'shedulealert_id', 'id');
+        return $this->belongsTo(SheduleAlert::class, 'shedulealert_id', 'shedule_id');
     }
 }

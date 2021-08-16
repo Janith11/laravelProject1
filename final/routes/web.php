@@ -204,6 +204,7 @@ Route::middleware('checkrequest')->group(function(){
     //RequestAlert
     Route::get('requestalert','Owner\RequestAlertController@index')->name('viewalert');
     Route::get('requestalert/viewalerts/{userid}/{description}/{id}','Owner\RequestAlertController@redirect')->name('loadrequestalerts');
+    Route::get('requestalert/accepetrequest/{id}','Owner\RequestAlertController@acceptschedule')->name('studentschedulerequestaccepet');
 
 });
 
