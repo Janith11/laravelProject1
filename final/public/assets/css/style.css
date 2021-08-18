@@ -120,7 +120,7 @@ h6,
     transition: all 0.5s;
     transition: all 0.5s;
     padding: 10px 0;
-    background: #fff;
+    background: rgb(41, 39, 39);
     z-index: 997;
 }
 
@@ -174,7 +174,7 @@ h6,
 .nav-menu a {
     display: block;
     position: relative;
-    color: #5c768d;
+    color: #fdfdfd;
     padding: 12px 15px;
     transition: 0.3s;
     font-size: 14px;
@@ -197,8 +197,8 @@ h6,
     opacity: 0;
     visibility: hidden;
     padding: 10px 0;
-    background: #fff;
-    box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+    background: rgb(51, 48, 48);
+    box-shadow: 0px 0px 30px rgba(246, 246, 246, 0.25);
     transition: ease all 0.3s;
 }
 
@@ -218,7 +218,7 @@ h6,
     font-size: 14px;
     font-weight: 500;
     text-transform: none;
-    color: #103453;
+    color: #fdfdfd;
 }
 
 .nav-menu .drop-down ul a:hover,
@@ -394,7 +394,7 @@ h6,
 
 #hero .carousel-item::before {
     content: '';
-    background-color: rgba(13, 30, 45, 0.6);
+    background-color: rgba(13, 30, 45, 0.308);
     position: absolute;
     height: 100%;
     width: 100%;
@@ -504,11 +504,11 @@ h6,
     -webkit-animation-delay: 0.8s;
     animation-delay: 0.8s;
     border: 0;
-    background: #428bca;
+    background: #c30d0d;
 }
 
 #hero .btn-get-started:hover {
-    background: #1c5c93;
+    background: hsl(0, 100%, 59%);
 }
 
 @media (max-width: 768px) {

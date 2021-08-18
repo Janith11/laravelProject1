@@ -44,7 +44,7 @@
 
             <nav class="nav-menu float-right d-none d-lg-block">
                 <ul>
-                    <li class="active"><a href="index.html">Home</a></li>
+                    <li class="active"><a href="{{'/'}}">Home</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#team">Galary</a></li>
@@ -60,7 +60,7 @@
                 </ul>
                 <form class="form-inline my-2 my-lg-0" style="padding-left: 1-px">
                     @if (Route::has('login'))
-                    <button class="btn btn-sm btn-outline-success my-2 my-sm-0 login_btn" type="submit"><a class="nav-link" href="{{ route('login') }}" style="color: rgb(236, 232, 0) !important">Login</span></a></button>
+                    <button class="btn btn-sm btn-outline-success my-2 my-sm-0 login_btn" type="submit"><a class="nav-link" href="{{ route('login') }}" style="color: rgb(38, 192, 11) !important">Login</span></a></button>
                     @endif
                 </form>
             </nav><!-- .nav-menu -->
