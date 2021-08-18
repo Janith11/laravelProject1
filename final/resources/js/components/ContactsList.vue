@@ -4,11 +4,15 @@
             <li class=" d-flex justify-content-between align-items-center p-1  m-0" v-for="contact in sortedContacts" :key="contact.id" @click="selectContact(contact)" :class="{'selected': contact==selected}">
                 <div class="row">
                 <div class="avatar col float-left">
-                    <img class="rounded-circle border border-success" :src="getImage()" :alt="contact.name">
+                    <img class="rounded-circle border border-success" v-bind:src="'/uploadimages/students_profiles/'+contact.profile_img" alt="">
                 </div>
                 <div class="contact col">
-                    <h5 class="name myname">{{contact.f_name}}</h5>
-                    <p class="name studentid">ID: {{contact.id}}</p>
+                    <h5 class="name myname mb-0">{{contact.f_name}} {{contact.l_name}}</h5>
+                    <p v-if="contact.role_id == 3" class="mt-0 myrole_id">(Student)</p>
+                    <p v-if="contact.role_id == 1" class="mt-0 myrole_id">(Owner)</p>
+                    <p v-if="contact.role_id == 2" class="mt-0 myrole_id">(Instructor)</p>
+                    <!-- <p class="name studentid">ID: {{contact.id}}</p> -->
+                    <!-- <p class="name studentid">ID: {{contact.profile_img}}</p> -->
                 </div>
                 <div class="col align-middle mt-2 mybadge">
                  <span class="badge badge-success float-right" v-if="contact.unread" >{{contact.unread}}</span>
@@ -35,9 +39,6 @@ export default {
         };
     },
         methods: {
-            getImage(){
-                return "/uploadimages/students_profiles/default_profile.jpg";
-            },
             selectContact(contact){
                 this.selected = contact;
 
@@ -66,6 +67,9 @@ export default {
     }
     .myname{
         font-size: 0.8rem;
+    }
+    .myrole_id{
+        font-size: 0.6rem;
     }
     // .avatar{
     //     display: inline-block;

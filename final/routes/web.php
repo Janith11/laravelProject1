@@ -207,10 +207,11 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/requestdetails/{date}/{id}/{user_id}', 'Owner\RequestAlertController@requestdetails')->name('shedulerequestdetails');
     Route::post('/requestdetails/accept', 'Owner\RequestAlertController@accept')->name('acceptshedulerequest');
     Route::post('/requestdetails/ignore', 'Owner\RequestAlertController@ignore')->name('ignoreshedulerequest');
+    // Route::get('requestalert/accepetrequest/{id}','Owner\RequestAlertController@acceptschedule')->name('studentschedulerequestaccepet');
 
 });
 
-//Check and grouping all of the students
+//Check and grouping all of the students :: student dashboard
 Route::middleware('studentprofile')->group(function(){
 
     //examination results
@@ -249,6 +250,8 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/alerts', 'Student\AlertController@index')->name('studentalerts');
     Route::post('/alerts/read', 'Student\AlertController@read')->name('studentmarkasread');
 
+    //payments
+    Route::get('/student/payments', 'Student\PaymentController@index')->name('studenentpaymentlogsview');
 });
 
 

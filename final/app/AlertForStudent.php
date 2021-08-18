@@ -13,5 +13,6 @@ class AlertForStudent extends Model
 
     public function shedulealert(){
         return $this->belongsTo(SheduleAlert::class, 'shedulealert_id', 'id');
+        // return $this->belongsTo(SheduleAlert::class, 'shedulealert_id', 'shedule_id');
     }
 }

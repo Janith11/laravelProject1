@@ -10,12 +10,15 @@ use App\StudentCategory;
 use App\Student;
 use App\Http\Controllers\Controller;
 use App\Instructor;
-use App\OwnerShedule;
 use Illuminate\Http\Request;
 use App\RequestAlert;
-use App\SheduleAlert;
+use App\OwnerShedule;
 use App\SheduledStudents;
+use App\SheduleAlert;
 use App\SheduleRequest;
+
+//0 received
+//1 viewed ->clicked the alert
 
 class RequestAlertController extends Controller
 {
@@ -26,15 +29,21 @@ class RequestAlertController extends Controller
         $students = Student::with('user')->get();
         return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students'));
     }
-    public function redirect($userid,$description){
+    public function redirect($userid,$description,$id){
         if($description == '1'){
             $registration=User::where('id',$userid)->get();
             $category=StudentCategory::where('user_id',$userid)->get();
             $details = CompanyDetails::first();
             $logo = $details->logo;
+            $reqalerts=RequestAlert::find($id);
+            $reqalerts->status=1;
+            $reqalerts->save();
+
             return view('owner.requests.reviewrequest',compact('registration','category', 'logo'));
         }else{
-            return "Under Construction from RequestAlertController redirect method";
+            $requestdetails=OwnerShedule::with('sheduledstudents')->where('shedule_status',4)->get();
+            $userdetails=User::all();
+            return view('owner.sheduling.schedulerequests',compact('requestdetails','userdetails'));
         }
     }
 
@@ -141,5 +150,6 @@ class RequestAlertController extends Controller
         ]);
 
         return redirect()->route('viewalert')->with('successmsg', 'Canceled request Successfully !!');
+
     }
 }

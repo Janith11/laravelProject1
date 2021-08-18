@@ -2020,6 +2020,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     contacts: {
@@ -2033,9 +2037,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    getImage: function getImage() {
-      return "/uploadimages/students_profiles/default_profile.jpg";
-    },
     selectContact: function selectContact(contact) {
       this.selected = contact;
       this.$emit('selected', contact);
@@ -7275,7 +7276,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "img[data-v-484f3208] {\n  max-height: 55px;\n  width: auto;\n}\n.myname[data-v-484f3208] {\n  font-size: 0.8rem;\n}\nli[data-v-484f3208] {\n  background-color: whitesmoke;\n  border-radius: 10px;\n}\nli.selected[data-v-484f3208] {\n  background-color: #1775d246;\n  padding: 0px;\n  margin: 0px;\n}\n@media only screen and (max-width: 600px) {\nbody img[data-v-484f3208] {\n    display: none;\n}\nbody .contact .name[data-v-484f3208] {\n    font-size: 10px;\n    padding-right: 0px;\n    margin: 0px;\n}\nbody .contact .studentid[data-v-484f3208] {\n    display: none;\n}\nbody .mybadge[data-v-484f3208] {\n    margin: 0px;\n}\n}\n.contact-lists[data-v-484f3208] {\n  flex: 2;\n  max-height: 90vh;\n  overflow: scroll;\n  border-right: 1px solid #979797;\n}\nul[data-v-484f3208] {\n  list-style-type: none;\n  scroll-padding-left: 0;\n}\nul li[data-v-484f3208] {\n  display: flex;\n  padding: 2px;\n  border-bottom: 1px solid #0b156e6b;\n  height: 80px;\n  position: relative;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, "img[data-v-484f3208] {\n  max-height: 55px;\n  width: auto;\n}\n.myname[data-v-484f3208] {\n  font-size: 0.8rem;\n}\n.myrole_id[data-v-484f3208] {\n  font-size: 0.6rem;\n}\nli[data-v-484f3208] {\n  background-color: whitesmoke;\n  border-radius: 10px;\n}\nli.selected[data-v-484f3208] {\n  background-color: #1775d246;\n  padding: 0px;\n  margin: 0px;\n}\n@media only screen and (max-width: 600px) {\nbody img[data-v-484f3208] {\n    display: none;\n}\nbody .contact .name[data-v-484f3208] {\n    font-size: 10px;\n    padding-right: 0px;\n    margin: 0px;\n}\nbody .contact .studentid[data-v-484f3208] {\n    display: none;\n}\nbody .mybadge[data-v-484f3208] {\n    margin: 0px;\n}\n}\n.contact-lists[data-v-484f3208] {\n  flex: 2;\n  max-height: 90vh;\n  overflow: scroll;\n  border-right: 1px solid #979797;\n}\nul[data-v-484f3208] {\n  list-style-type: none;\n  scroll-padding-left: 0;\n}\nul li[data-v-484f3208] {\n  display: flex;\n  padding: 2px;\n  border-bottom: 1px solid #0b156e6b;\n  height: 80px;\n  position: relative;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -46021,18 +46022,39 @@ var render = function() {
                 _c("div", { staticClass: "avatar col float-left" }, [
                   _c("img", {
                     staticClass: "rounded-circle border border-success",
-                    attrs: { src: _vm.getImage(), alt: contact.name }
+                    attrs: {
+                      src:
+                        "/uploadimages/students_profiles/" +
+                        contact.profile_img,
+                      alt: ""
+                    }
                   })
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "contact col" }, [
-                  _c("h5", { staticClass: "name myname" }, [
-                    _vm._v(_vm._s(contact.f_name))
+                  _c("h5", { staticClass: "name myname mb-0" }, [
+                    _vm._v(
+                      _vm._s(contact.f_name) + " " + _vm._s(contact.l_name)
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("p", { staticClass: "name studentid" }, [
-                    _vm._v("ID: " + _vm._s(contact.id))
-                  ])
+                  contact.role_id == 3
+                    ? _c("p", { staticClass: "mt-0 myrole_id" }, [
+                        _vm._v("(Student)")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  contact.role_id == 1
+                    ? _c("p", { staticClass: "mt-0 myrole_id" }, [
+                        _vm._v("(Owner)")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  contact.role_id == 2
+                    ? _c("p", { staticClass: "mt-0 myrole_id" }, [
+                        _vm._v("(Instructor)")
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col align-middle mt-2 mybadge" }, [
