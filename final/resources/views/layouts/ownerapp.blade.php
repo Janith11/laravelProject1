@@ -621,7 +621,7 @@
         .scrollbar-deep-purple {
             scrollbar-color: #512da8 #F5F5F5;
         }
-        
+
         .scrollbar-cyan::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
             background-color: #F5F5F5;
@@ -1038,7 +1038,7 @@
                             <div style="display: inline-block;">
                                 <li class="nav-item active">
                                     <a class="nav-link "href=" {{ route('viewalert') }} ">
-                                        <i class="fa fa-bell" aria-hidden="true"><span class="badge badge-pill badge-danger">78</span></i>
+                                        <i class="fa fa-bell" aria-hidden="true"><span class="badge badge-pill badge-danger">{{ $shedulealerts + $requestalerts }}</span></i>
                                     </a>
                                 </li>
                             </div>

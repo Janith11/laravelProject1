@@ -101,12 +101,12 @@
                                 @foreach($history as $detail)
                                     <tr>
                                         <td>{{$count}}</td>
-                                        <td>{{$detail->date}}</td>
-                                        <td>{{$detail->time}}</td>
-                                        <td>{{$detail->lesson_type}}</td>
+                                        <td>{{$detail->ownershedule->date}}</td>
+                                        <td>{{$detail->ownershedule->time}}</td>
+                                        <td>{{$detail->ownershedule->lesson_type}}</td>
                                         <td>
                                             @foreach($instructors as $instructor)
-                                                @if($instructor->user_id == $detail->instructor)
+                                                @if($instructor->user_id == $detail->ownershedule->instructor)
                                                 <div>
                                                     <div style="display: inline-block">
                                                         <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor profile" style="width: 30px; height: auto; border-radius: 50%">
@@ -119,13 +119,13 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            @if($detail->shedule_status == 0)
+                                            @if($detail->ownershedule->shedule_status == 0)
                                                 cancel
-                                            @elseif($detail->shedule_status == 1)
+                                            @elseif($detail->ownershedule->shedule_status == 1)
                                                 upcomming
-                                            @elseif($detail->shedule_status == 2)
+                                            @elseif($detail->ownershedule->shedule_status == 2)
                                                 complete
-                                            @elseif($detail->shedule_status == 3)
+                                            @elseif($detail->ownershedule->shedule_status == 3)
                                                 incomplete
                                             @else
                                                 pending

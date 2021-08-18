@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\AlertForStudent;
+use App\Attendance;
 use App\CompanyDetails;
 use App\User;
 use App\StudentCategory;
 use App\Student;
 use App\Http\Controllers\Controller;
+use App\Instructor;
+use App\OwnerShedule;
 use Illuminate\Http\Request;
 use App\RequestAlert;
+use App\SheduleAlert;
+use App\SheduledStudents;
+use App\SheduleRequest;
 
 class RequestAlertController extends Controller
 {
     public function index(){
-        $notifications=RequestAlert::all();
-        return view('owner.Alert.viewalert',compact('notifications'));
+        $notifications = RequestAlert::all();
+        //get shedule request details
+        $shedulerequests = SheduleRequest::where('status', 0)->with('ownershedules')->get();
+        $students = Student::with('user')->get();
+        return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students'));
     }
     public function redirect($userid,$description){
         if($description == '1'){
@@ -26,5 +36,110 @@ class RequestAlertController extends Controller
         }else{
             return "Under Construction from RequestAlertController redirect method";
         }
+    }
+
+    public function requestdetails($date, $id, $user_id){
+        $result = SheduleRequest::where('id', $id)->with('ownershedules')->get();
+        $othershedules = OwnerShedule::where('date', $date)->withcount('sheduledstudents')->get();
+        $instructors = Instructor::with('user')->get();
+        $student = Student::where('user_id', $user_id)->with('user')->get();
+        return view('owner.Alert.shedulerequestdetails', compact('result', 'othershedules', 'instructors', 'student', 'id'));
+    }
+
+    public function accept(Request $request){
+
+        $requestid = $request->request_id;
+        $student_id = $request->student_id;
+        $instructor_id = $request->instructor_id;
+        $shedule_id = $request->shedule_id;
+        $date = $request->date;
+        $time = $request->time;
+
+        // set request alert as read by owner
+        $shedulerequest = SheduleRequest::find($requestid);
+        $shedulerequest->status = 1;
+        $shedulerequest->shedule_status = 1;
+        $shedulerequest->save();
+
+        // insert sheduled students records
+        $sheduledstudent = SheduledStudents::create([
+            'shedule_id' => $shedule_id,
+            'student_id' => $student_id
+        ]);
+
+        // make alert for student
+        $studentmessage = "Your Shedule request Accepted !, Date : $date, Time : $time";
+        $studentalert = SheduleAlert::create([
+            'shedule_id' => $shedule_id,
+            'message' => $studentmessage,
+        ]);
+
+        // send alert for student
+        $alertforstudent = AlertForStudent::create([
+            'shedulealert_id' => $studentalert->id,
+            'student_id' => $student_id,
+            'alert_status' => 0
+        ]);
+
+        // make alert for instructor
+        $instructormessage = "You have to instruct a new session on $date at $time";
+        $instrutoralert = SheduleAlert::create([
+            'shedule_id' => $shedule_id,
+            'message' => $instructormessage,
+        ]);
+
+        // send alert for instructor
+        $alertforinstructor = AlertForStudent::create([
+            'shedulealert_id' => $instrutoralert->id,
+            'student_id' => $instructor_id,
+            'alert_status' => 0
+        ]);
+
+        // student attendance
+        $studentattendace = Attendance::create([
+            'shedule_id' => $shedule_id,
+            'user_id' => $student_id,
+            'attendance' => 0
+        ]);
+
+        return redirect()->route('viewalert')->with('successmsg', 'Accept request Successfully !!');
+
+    }
+
+    public function ignore(Request $request){
+
+        $requestid = $request->request_id;
+        $student_id = $request->student_id;
+        $shedule_id = $request->shedule_id;
+        $date = $request->date;
+        $time = $request->time;
+        $reson = $request->reson;
+
+        // reson validation
+        if((strlen($reson) < 25 ) || (preg_match('/[^A-Za-z0-9]/', $reson))){
+            return back()->with('errormsg', 'Your reson must contains letters and numbers, reson must be greter than 25 characters !!');
+        }
+
+        // set request alert as read by owner
+        $shedulerequest = SheduleRequest::find($requestid);
+        $shedulerequest->status = 1;
+        $shedulerequest->shedule_status = 2;
+        $shedulerequest->save();
+
+        // make slert for student
+        $studentmessage = "Your Shedule request canceled !, Date : $date, Time : $time, Reson : $reson";
+        $studentalert = SheduleAlert::create([
+            'shedule_id' => $shedule_id,
+            'message' => $studentmessage,
+        ]);
+
+        // send alert for student
+        $alertforstudent = AlertForStudent::create([
+            'shedulealert_id' => $studentalert->id,
+            'student_id' => $student_id,
+            'alert_status' => 0
+        ]);
+
+        return redirect()->route('viewalert')->with('successmsg', 'Canceled request Successfully !!');
     }
 }

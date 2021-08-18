@@ -9,11 +9,23 @@
         }
         .borderless td, .borderless th {
             border: none;
-        }  
+        }
         tr{
             cursor: pointer;
-        } 
-        
+        }
+
+        #img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding-left: 0px
+        }
+
+        td{
+            vertical-align: middle !important;
+        }
+
     </style>
 
     <div class="container">
@@ -28,13 +40,21 @@
             {{-- <a style="padding-top: 6px; padding-left: 10px" href="{{ route('attendanceslist') }}"> / Attendances list</a> --}}
             <a style="padding-top: 6px; padding-left: 10px"> / Notification Lists</a>
         </div>
-        
+
+        <div class="row-mb-2">
+            @if(session('successmsg'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('successmsg') }}
+                </div>
+            @endif
+        </div>
+
         <div class="card mt-4">
             <div class="card-body">
                 <table class="table borderless table-hover">
                     <tbody>
                         {{-- from request alert controller --}}
-                    @foreach ($notifications as $n)                        
+                    @foreach ($notifications as $n)
                       <tr onclick="window.location='{{ route('loadrequestalerts',[$n->user_id,$n->description]) }}'">
                             <th scope="row">
                                 @if ($n->description == '1')
@@ -50,13 +70,62 @@
                                     <h5>Student has been schedule for a new lessson. Accept the request!</h5>
                                 @endif
                             </td>
-                            <td><p>{{ $n->created_at }}</p></td>                 
+                            <td><p>{{ $n->created_at }}</p></td>
                       </tr>
-                    @endforeach  
+                    @endforeach
                     </tbody>
                   </table>
             </div>
         </div>
+
+        <div class="row-mb-2">
+            <div id="card">
+                <div class="card">
+                    <div class="card-body">
+                        @if(count($shedulerequests) == 0)
+                            <div class="alert alert-info" role="alert">
+                                <h5>No any Shedule Requests</h5>
+                            </div>
+                        @else
+                            <h5 style="color: #222944; font-weight: bold">@php
+                                echo count($shedulerequests)
+                            @endphp Shedule Requests</h5>
+                            <hr style="border-top: 1px solid #222944">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        @foreach ($shedulerequests as $request)
+                                            <tr>
+                                                <td>
+                                                    @foreach ($students as $student)
+                                                        @if($student->user_id == $request->user_id)
+                                                        <div>
+                                                            <div style="display: inline-block">
+                                                                <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="" id="img">
+                                                            </div>
+                                                            <div style="display: inline-block; padding-left: 10px; color: #222944">
+                                                                {{ $student->user->f_name }} {{ $student->user->l_name }}
+                                                            </div>
+                                                        </div>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>{{ $request->ownershedules->lesson_type }}</td>
+                                                <td>{{ $request->ownershedules->date }}</td>
+                                                <td>{{ $request->ownershedules->time }}</td>
+                                                <td><a href="{{ route('shedulerequestdetails', [$request->ownershedules->date, $request->id, $request->user_id ]) }}" class="btn btn-success" type="button">Details</a></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: #040124"></div>
 
     </div>
 @endsection

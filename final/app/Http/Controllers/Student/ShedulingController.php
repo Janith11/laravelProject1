@@ -11,6 +11,7 @@ use App\RequestAlert;
 use App\RequestCategories;
 use App\SheduleAlert;
 use App\SheduledStudents;
+use App\SheduleRequest;
 use App\ShedulingType;
 use App\Student;
 use App\StudentCategory;
@@ -21,16 +22,26 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-// confirm = 1
-// pending = 0
-// cancel = 2
+// pending = 0, #0FD8F3, #040124
+// confirm = 1, #35FF35, #040124
+// complete = 2, #03011F, #FFFFFF
+// cancel = 3, #FF2957, #FFFFFF
+// incomplete = 4, #FF891A, #040124
+
+// shedule_status
+// pending = 0, #0FD8F3, #040124
+// accept = 1, #35FF35, #040124
+// cancel = 2, #FF2957, #FFFFFF
 
 class ShedulingController extends Controller
 {
 
     public function index(){
+
         $today = Carbon::now()->today();
         $user_id = Auth::user()->id;
+
+        // check sheduling method
         $today_sessions = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
             $query->where('student_id', $user_id);
         }])->where('date', $today)->whereIn('shedule_status', [1, 2])->get();
@@ -54,15 +65,52 @@ class ShedulingController extends Controller
 
     public function events($id){
 
-        $attendance = SheduledStudents::with('ownershedule')->where('student_id',$id)->get();
+        $setone = SheduledStudents::with('ownershedule')->where('student_id', $id)->get();
+        $settwo = SheduleRequest::with('ownershedules')->where('user_id', $id)->get();
         $responses = [];
-        foreach ($attendance as $attend) {
+        foreach($setone as $one){
             $row = [];
-            $row['title'] = $attend->ownershedule->title;
-            $row['color'] = $attend->ownershedule->color;
-            $row['textColor'] = $attend->ownershedule->textColor;
-            $row['date'] = $attend->ownershedule->date;
-            array_push($responses, $row);
+            if ($one->ownershedule->shedule_status == 1) {
+                $row['title'] = $one->ownershedule->title;
+                $row['color'] = '#35FF35';
+                $row['textColor'] = '#040124';
+                $row['date'] = $one->ownershedule->date;
+                array_push($responses, $row);
+            }elseif ($one->ownershedule->shedule_status == 2) {
+                $row['title'] = $one->ownershedule->title;
+                $row['color'] = '#03011F';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $one->ownershedule->date;
+                array_push($responses, $row);
+            }elseif ($one->ownershedule->shedule_status == 3) {
+                $row['title'] = $one->ownershedule->title;
+                $row['color'] = '#FF2957';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $one->ownershedule->date;
+                array_push($responses, $row);
+            }else{
+                $row['title'] = $one->ownershedule->title;
+                $row['color'] = '#FF891A';
+                $row['textColor'] = '#040124';
+                $row['date'] = $one->ownershedule->date;
+                array_push($responses, $row);
+            }
+        }
+        foreach ($settwo as $two) {
+            $row = [];
+            if ($two->shedule_status == 0) {
+                $row['title'] = $two->ownershedules->title;
+                $row['color'] = '#0FD8F3';
+                $row['textColor'] = '#040124';
+                $row['date'] = $two->ownershedules->date;
+                array_push($responses, $row);
+            }elseif ($two->shedule_status == 2) {
+                $row['title'] = $two->ownershedules->title;
+                $row['color'] = '#FF2957';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $two->ownershedules->date;
+                array_push($responses, $row);
+            }
         }
         return response()->json($responses);
     }
@@ -82,10 +130,10 @@ class ShedulingController extends Controller
                 return back()->with('errormsg', 'You have already completed your total sessions !!');
             }else{
 
-                $select_dateshedules = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
-                    $query->where('student_id', $user_id);
-                }])->where('date', $date)->count();
-
+                $select_dateshedules = SheduledStudents::where('student_id', $user_id)->whereHas('ownershedule', function($query) use($date){
+                    $query->where('date', $date);
+                })->count();
+                // return $select_dateshedules;
                 if ($select_dateshedules > 0) {
                     return back()->with('errormsg', 'You Already have session on this day !!');
                 }
@@ -128,7 +176,7 @@ class ShedulingController extends Controller
                         }
                     }
                 };
-                
+
                 $instructors = Instructor::with('user')->get();
 
                 return view('student.sheduling.settimeslot', compact('time_table', 'select_date', 'final_counts', 'instructors'));
@@ -156,41 +204,62 @@ class ShedulingController extends Controller
             return back()->with('errormsg', 'Choose an Instructor !!');
         }
         if ($slot_time != '') {
-            $shedule = OwnerShedule::create([
-                'title' => 'session request',
-                'date' => $date,
-                'color' => '#90EE90',
-                'textColor' => '#222944',
-                'time' => $slot_time,
-                'lesson_type' => $type,
-                'instructor' => $instructor,
-                'shedule_status' => 4,
-            ]);
+            $check = OwnerShedule::where('date', $date)->where('time', $slot_time)->where('instrcutor', $instructor)->first();
+            if(empty($check)){
+                $shedule = OwnerShedule::create([
+                    'title' => 'session request',
+                    'date' => $date,
+                    'color' => '#90EE90',
+                    'textColor' => '#222944',
+                    'time' => $slot_time,
+                    'lesson_type' => $type,
+                    'instructor' => $instructor,
+                    'shedule_status' => 1,
+                ]);
+            }
         }
         if ($special != '') {
-            $shedule = OwnerShedule::create([
-                'title' => 'session request',
-                'date' => $date,
-                'color' => '#90EE90',
-                'textColor' => '#222944',
-                'time' => $special,
-                'lesson_type' => $type,
-                'instructor' => $instructor,
-                'shedule_status' => 4,
+            $check = OwnerShedule::where('date', $date)->where('time', $special)->first();
+            if (empty($check)) {
+                $shedule = OwnerShedule::create([
+                    'title' => 'session request',
+                    'date' => $date,
+                    'color' => '#90EE90',
+                    'textColor' => '#222944',
+                    'time' => $special,
+                    'lesson_type' => $type,
+                    'instructor' => $instructor,
+                    'shedule_status' => 1,
+                ]);
+            }
+        }
+        if(empty($check)){
+            // $shedulestudent = SheduledStudents::create([
+            //     'shedule_id' => $shedule->id,
+            //     'student_id' => Auth::user()->id,
+            // ]);
+            $shedulerequest = SheduleRequest::create([
+                'shedule_id' => $shedule->id,
+                'user_id' => Auth::user()->id,
+                'status' => 0,
+                'shedule_status' => 0
+            ]);
+        }else{
+            // $sheduledstudent = SheduledStudents::create([
+            //     'shedule_id' => $check->id,
+            //     'student_id' => Auth::user()->id,
+            // ]);
+            $shedulerequest = SheduleRequest::create([
+                'shedule_id' => $check->id,
+                'user_id' => Auth::user()->id,
+                'status' => 0,
+                'shedule_status' => 0
             ]);
         }
-        $shedulestudent = SheduledStudents::create([
-            'shedule_id' => $shedule->id,
-            'student_id' => Auth::user()->id,
-        ]);
-        $shedule_request = RequestAlert::create([
-            'user_id' => Auth::user()->id,
-            'description' => '2',
-            'status' => 0
-        ]);
         return redirect()->route('studentsheduling')->with('succesmsg', 'Your Session request successfully send !!');
     }
 
+    //===========================================================
     public function completedshedules(){
         $user_id = Auth::user()->id;
         $shedules = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
@@ -206,6 +275,7 @@ class ShedulingController extends Controller
         }])->where('shedule_status', 4)->get();
         return view('student.sheduling.pendingrequest', compact('shedules'));
     }
+    //===========================================================
 
     public function expandrequest(){
         $user_id = Auth::user()->id;
@@ -274,9 +344,7 @@ class ShedulingController extends Controller
 
     public function history(){
         $user_id = Auth::user()->id;
-        $history = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
-            $query->where('student_id', $user_id);
-        }])->orderBy('date')->get();
+        $history = SheduledStudents::where('student_id', $user_id)->with('ownershedule')->get();
         $instructors = Instructor::with('user')->get();
         return view('student.sheduling.history', compact('history', 'instructors'));
     }

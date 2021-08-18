@@ -220,6 +220,38 @@
                         <div class="card-body">
                             <h5 style="color: #222944; font-weight: bold">Shedule Calender</h5>
                             <hr style="border-top: 1px solid #222944">
+                            <div class="text-center">
+                                <div style="display: inline-block">
+                                    <div style="background-color: #0FD8F3; width: 15px; height: 15px; border-radius: 50%"></div>
+                                </div>
+                                <div style="display: inline-block; padding-right: 10px">
+                                    <h6>Pending</h6>
+                                </div>
+                                <div style="display: inline-block">
+                                    <div style="background-color: #35FF35; width: 15px; height: 15px; border-radius: 50%"></div>
+                                </div>
+                                <div style="display: inline-block; padding-right: 10px">
+                                    <h6>Active</h6>
+                                </div>
+                                <div style="display: inline-block">
+                                    <div style="background-color: #03011F; width: 15px; height: 15px; border-radius: 50%"></div>
+                                </div>
+                                <div style="display: inline-block; padding-right: 10px">
+                                    <h6>Complete</h6>
+                                </div>
+                                <div style="display: inline-block">
+                                    <div style="background-color: #FF2957; width: 15px; height: 15px; border-radius: 50%"></div>
+                                </div>
+                                <div style="display: inline-block; padding-right: 10px">
+                                    <h6>Cancel</h6>
+                                </div>
+                                <div style="display: inline-block">
+                                    <div style="background-color: #FF891A; width: 15px; height: 15px; border-radius: 50%"></div>
+                                </div>
+                                <div style="display: inline-block; padding-right: 10px">
+                                    <h6>Incomplete</h6>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <div id='calendar'></div>
                             </div>

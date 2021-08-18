@@ -204,6 +204,9 @@ Route::middleware('checkrequest')->group(function(){
     //RequestAlert
     Route::get('requestalert','Owner\RequestAlertController@index')->name('viewalert');
     Route::get('requestalert/viewalerts/{userid}/{description}','Owner\RequestAlertController@redirect')->name('loadrequestalerts');
+    Route::get('/requestdetails/{date}/{id}/{user_id}', 'Owner\RequestAlertController@requestdetails')->name('shedulerequestdetails');
+    Route::post('/requestdetails/accept', 'Owner\RequestAlertController@accept')->name('acceptshedulerequest');
+    Route::post('/requestdetails/ignore', 'Owner\RequestAlertController@ignore')->name('ignoreshedulerequest');
 
 });
 

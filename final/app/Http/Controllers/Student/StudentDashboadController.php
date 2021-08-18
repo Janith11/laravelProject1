@@ -24,13 +24,13 @@ class StudentDashboadController extends Controller
         $studentcategory=StudentCategory::where('user_id',Auth::user()->id)->get();
         $posts = Posts::with('user')->orderBy('updated_at', 'desc')->get();
 
-        $todayshedules = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $todayshedules = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->where('date', $today)->get();
+        })->where('date', $today)->get();
 
-        $session_count = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $session_count =OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->count();
+        })->count();
 
         // calculate progess
         $completed_session = Student::select('completed_session')->where('user_id', $user_id)->first();
@@ -39,11 +39,16 @@ class StudentDashboadController extends Controller
         $tot = $total_session->total_session;
         $progress = ( $comp / $tot) * (100);
 
-        $attendances = OwnerShedule::with(['attendance', 'sheduledstudents' => function($query) use($user_id){
+        $attendances = OwnerShedule::with('attendance')->whereHas('sheduledstudents' , function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->get();
-
-        $firstattend = $attendances[0]->date;
+        })->get();
+        if (count($attendances) != 0) {
+            $firstattend = $attendances[0]->date;
+        }else{
+            $start = Student::where('user_id', $user_id)->select('created_at')->first();
+            $firstattend = $start->created_at;
+            // $firstattend =
+        }
 
         $fristmonth = date('M', strtotime($firstattend));
         $f_firstday = date('Y-m-01', strtotime($fristmonth));
@@ -63,16 +68,16 @@ class StudentDashboadController extends Controller
 
 //================================= FRIST MONTH =======================================
         // first month present attendance
-        $fristmonthpresent = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $fristmonthpresent = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->whereBetween('date', [$f_firstday, $f_lastday])->withcount(['attendance' => function($query){
+        })->whereBetween('date', [$f_firstday, $f_lastday])->withcount(['attendance' => function($query){
             $query->where('attendance', 1);
         }])->get();
 
         // first month absent attendance
-        $fristmonthabsent = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $fristmonthabsent = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->whereBetween('date', [$f_firstday, $f_lastday])->withcount(['attendance' => function($query){
+        })->whereBetween('date', [$f_firstday, $f_lastday])->withcount(['attendance' => function($query){
             $query->where('attendance', 0);
         }])->get();
 
@@ -94,16 +99,16 @@ class StudentDashboadController extends Controller
 
 //============================== SECOND MONTH ===================================
         // second month present attendance
-        $secondmonthpresent = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $secondmonthpresent = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->whereBetween('date', [$s_firstday, $s_lastday])->withcount(['attendance' => function($query){
+        })->whereBetween('date', [$s_firstday, $s_lastday])->withcount(['attendance' => function($query){
             $query->where('attendance', 1);
         }])->get();
 
         // second month absent attendance
-        $secondmonthabsent = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $secondmonthabsent = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->whereBetween('date', [$s_firstday, $s_lastday])->withcount(['attendance' => function($query){
+        })->whereBetween('date', [$s_firstday, $s_lastday])->withcount(['attendance' => function($query){
             $query->where('attendance', 0);
         }])->get();
 
@@ -125,16 +130,16 @@ class StudentDashboadController extends Controller
 
 //================================ THIRD MONTH ====================================
         // third month present attendance
-        $thirdmonthpresent = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $thirdmonthpresent = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->whereBetween('date', [$t_firstday, $t_lastday])->withcount(['attendance' => function($query){
+        })->whereBetween('date', [$t_firstday, $t_lastday])->withcount(['attendance' => function($query){
             $query->where('attendance', 1);
         }])->get();
 
         // third month absent attendance
-        $thirdmonthabsent = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $thirdmonthabsent = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->whereBetween('date', [$t_firstday, $t_lastday])->withcount(['attendance' => function($query){
+        })->whereBetween('date', [$t_firstday, $t_lastday])->withcount(['attendance' => function($query){
             $query->where('attendance', 0);
         }])->get();
 
@@ -156,16 +161,16 @@ class StudentDashboadController extends Controller
 
 //================================ FOURTH MONTH ====================================
         // third month present attendance
-        $fourthmonthpresent = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $fourthmonthpresent = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->whereBetween('date', [$fo_firstday, $fo_lastday])->withcount(['attendance' => function($query){
+        })->whereBetween('date', [$fo_firstday, $fo_lastday])->withcount(['attendance' => function($query){
             $query->where('attendance', 1);
         }])->get();
 
         // third month absent attendance
-        $fourthmonthabsent = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $fourthmonthabsent = OwnerShedule::whereHas('sheduledstudents' , function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->whereBetween('date', [$fo_firstday, $fo_lastday])->withcount(['attendance' => function($query){
+        })->whereBetween('date', [$fo_firstday, $fo_lastday])->withcount(['attendance' => function($query){
             $query->where('attendance', 0);
         }])->get();
 

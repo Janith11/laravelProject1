@@ -21,15 +21,27 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+// active(upcomming) = 1
+// complete = 2, #03011F, #FFFFFF
+// canceled = 3, #FF2957, #FFFFFF
+// incomplate = 4, #FF891A, #040124
+
+// student
+// pending = 0, #0FD8F3, #040124
+// confirm = 1, #35FF35, #040124
+// complete = 2, #03011F, #FFFFFF
+// cancel = 3, #FF2957, #FFFFFF
+// incomplete = 4, #FF891A, #040124
+
+// shedule_status
+// pending = 0, #0FD8F3, #040124
+// accept = 1, #35FF35, #040124
+// cancel = 2, #FF2957, #FFFFFF
+
 class ShedulingController extends Controller
 {
 
     public function index(){
-        // active(upcomming) = 1
-        // canceled = 0
-        // complete = 2
-        // incomplate = 3
-        // request = 4
 
         $prevhour = date('H') - 1;
         $currenthour = date('H');
@@ -41,17 +53,17 @@ class ShedulingController extends Controller
         $current = Carbon::today();
         $endDate = Carbon::today()->addDays(7);
 
-        $check = OwnerShedule::select('id')->where('date', '<', $current)->where('shedule_status', '=', 1)->get();
-
-        if(count($check) > 0){
-            foreach ($check as $key => $value) {
-                $result = OwnerShedule::find($value->id);
-                $result->shedule_status = 3;
-                $result->color = "#E47C06";
-                $result->textColor = "#FFFFFF";
-                $result->save();
-            }
-        }
+        // $check = OwnerShedule::select('id')->where('date', '<', $current)->where('shedule_status', '=', 1)->get();
+        // return $check;
+        // if(count($check) > 0){
+        //     foreach ($check as $key => $value) {
+        //         $result = OwnerShedule::find($value->id);
+        //         $result->shedule_status = 3;
+        //         $result->color = "#E47C06";
+        //         $result->textColor = "#FFFFFF";
+        //         $result->save();
+        //     }
+        // }
 
         $shedules = OwnerShedule::where('shedule_status', '=', 1)->with('SheduledStudents')->get();
 
@@ -77,28 +89,23 @@ class ShedulingController extends Controller
         $complateshedules_year = OwnerShedule::whereBetween('date', [$date_year, $current])->where('shedule_status', '=', 2)->get();
 
         // cancel shedules for statistics
-        $canceledshedules_month = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 0)->get();
-        $canceledshedules_lastmonth = OwnerShedule::whereBetween('date', [$date_last_month, $date_month])->where('shedule_status', '=', 0)->get();
-        $canceledshedules_sixmonth = OwnerShedule::whereBetween('date', [$date_six_month, $current])->where('shedule_status', '=', 0)->get();
-        $canceledshedules_year = OwnerShedule::whereBetween('date', [$date_year, $current])->where('shedule_status', '=', 0)->get();
+        $canceledshedules_month = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 3)->get();
+        $canceledshedules_lastmonth = OwnerShedule::whereBetween('date', [$date_last_month, $date_month])->where('shedule_status', '=', 3)->get();
+        $canceledshedules_sixmonth = OwnerShedule::whereBetween('date', [$date_six_month, $current])->where('shedule_status', '=', 3)->get();
+        $canceledshedules_year = OwnerShedule::whereBetween('date', [$date_year, $current])->where('shedule_status', '=', 3)->get();
 
         // uncomplete shedules for statistics
-        $uncompleteshedules_month = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 3)->get();
-        $uncompleteshedules_lastmonth = OwnerShedule::whereBetween('date', [$date_last_month, $date_month])->where('date', '>=', $date_month)->where('shedule_status', '=', 3)->get();
-        $uncompleteshedules_sixmonth = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 3)->get();
-        $uncompleteshedules_year = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 3)->get();
+        $uncompleteshedules_month = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 4)->get();
+        $uncompleteshedules_lastmonth = OwnerShedule::whereBetween('date', [$date_last_month, $date_month])->where('date', '>=', $date_month)->where('shedule_status', '=', 4)->get();
+        $uncompleteshedules_sixmonth = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 4)->get();
+        $uncompleteshedules_year = OwnerShedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 4)->get();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.sheduling.shedulelist', compact('shedules','totalshedules', 'today_shedules', 'totalshedules_month', 'totalshedules_lastmonth', 'next_shedules','totalshedules_sixmonth', 'totalshedules_year','complateshedules_month','complateshedules_lastmonth', 'complateshedules_sixmonth', 'complateshedules_year', 'canceledshedules_month','canceledshedules_lastmonth', 'canceledshedules_sixmonth','canceledshedules_year', 'uncompleteshedules_month', 'uncompleteshedules_lastmonth', 'uncompleteshedules_sixmonth', 'uncompleteshedules_year', 'logo'));
+        return view('owner.sheduling.shedulelist', compact('shedules','totalshedules', 'today_shedules', 'totalshedules_month', 'totalshedules_lastmonth', 'next_shedules','totalshedules_sixmonth', 'totalshedules_year','complateshedules_month','complateshedules_lastmonth', 'complateshedules_sixmonth', 'complateshedules_year', 'canceledshedules_month','canceledshedules_lastmonth', 'canceledshedules_sixmonth','canceledshedules_year', 'uncompleteshedules_month', 'uncompleteshedules_lastmonth', 'uncompleteshedules_sixmonth', 'uncompleteshedules_year'));
         // return $today_shedules;
     }
 
     public function addshedule(){
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.sheduling.addshedule', compact('logo'));
+        return view('owner.sheduling.addshedule');
     }
 
     public function allevents(){
@@ -200,7 +207,6 @@ class ShedulingController extends Controller
                         $attendances = Attendance::create($user_attendance);
                     }
 
-                    // return $shedule_alert->id;
                     return redirect()->route('ownershedulelist')->with('successmsg', 'Shedule Created Seccessfuly !!');
                 }
             }
@@ -326,25 +332,18 @@ class ShedulingController extends Controller
             $query->where('shedulealert_id', $alert_id);
         }])->whereIn('user_id', $student)->get();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.sheduling.viewsheduledetails', compact('result', 'instructor_details', 'students_details', 'total_alert', 'read_alert', 'logo'));
+        return view('owner.sheduling.viewsheduledetails', compact('result', 'instructor_details', 'students_details', 'total_alert', 'read_alert'));
     }
 
     public function allshedules(){
         $shedules = OwnerShedule::all();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.sheduling.allshedules', compact('shedules', 'logo'));
+        return view('owner.sheduling.allshedules', compact('shedules'));
     }
 
     //cancel shedule
     public function cancel($id){
         $shedule = OwnerShedule::where('id', $id)->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.sheduling.cancelshedule', compact('shedule', 'logo'));
+        return view('owner.sheduling.cancelshedule', compact('shedule'));
     }
 
     public function updateascancel(Request $request){
@@ -355,9 +354,9 @@ class ShedulingController extends Controller
         $id = $request->id;
 
         $cancel = OwnerShedule::find($id);
-        $cancel->color = '#520505';
-        $cancel->textColor = '#FFFEFE';
-        $cancel->shedule_status = 0;
+        $cancel->color = '#FF2957';
+        $cancel->textColor = '#FFFFFF';
+        $cancel->shedule_status = 3;
         $cancel->save();
 
         $update_alert = SheduleAlert::where('shedule_id', $id)->get();
@@ -404,9 +403,7 @@ class ShedulingController extends Controller
     public function todayshedules(){
         $current = Carbon::today();
         $today_shedules = OwnerShedule::where('date', $current)->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.sheduling.todayshedules', compact('today_shedules', 'logo'));
+        return view('owner.sheduling.todayshedules', compact('today_shedules'));
     }
 
 
@@ -414,7 +411,7 @@ class ShedulingController extends Controller
     public function markascomplete($id){
 
         $shedule = OwnerShedule::where('id', $id)->with('SheduledStudents')->get();
-        $reports = Attendance::where('sheule_id', $id)->where('attendance', 3)->get();
+        $reports = Attendance::where('shedule_id', $id)->where('attendance', 3)->get();
 
         //get instructor details
         $instructors = [];
@@ -436,10 +433,7 @@ class ShedulingController extends Controller
         $student = collect($students);
         $students_details = Student::with('user')->whereIn('user_id', $student)->get();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.sheduling.markascomplete', compact('students_details', 'instructor_details', 'shedule', 'reports', 'logo'));
+        return view('owner.sheduling.markascomplete', compact('students_details', 'instructor_details', 'shedule', 'reports'));
     }
 
     public function saveascomplete(Request $request){
@@ -482,13 +476,29 @@ class ShedulingController extends Controller
 
                 // update shedule as complete in owner shedule table
                 $owner_shedule = OwnerShedule::find($shedule_id);
-                $owner_shedule->color = "#1BEC49";
-                $owner_shedule->textColor = "#FFFEFE";
+                $owner_shedule->color = "#03011F";
+                $owner_shedule->textColor = "#FFFFFF";
                 $owner_shedule->shedule_status = 2;
                 $owner_shedule->save();
 
+                // update student total attendance
+                $student_ids = collect($students);
+                $studentdata = Student::whereIn('user_id', $student_ids)->get();
+                $studenttableids = [];
+                foreach ($studentdata as $data) {
+                    $studenttableids[] = $data->id;
+                }
+                foreach ($studenttableids as $id) {
+                    $std = Student::find($id);
+                    $prev = $std->completed_session;
+                    $prev += 1;
+                    $std->completed_session = $prev;
+                    $std->save();
+                }
                 return redirect()->route('todayshedules')->with('successmsg', 'Update shedule as Complete');
+
             }
+
         }
 
     }

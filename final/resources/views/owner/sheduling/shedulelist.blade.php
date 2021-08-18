@@ -16,6 +16,45 @@
         border: 1px solid rgba(0,0,0,.125);
     }
 
+    #modelbtn{
+        text-decoration: none !important;
+        margin-top: 10px !important;
+    }
+
+    #modelitem{
+        padding: 10px;
+        text-align: center;
+    }
+
+    /* scrollbar style */
+    .nextsevendays {
+        height: 250px;
+        overflow-y: scroll;
+    }
+
+        /* width */
+    .nextsevendays::-webkit-scrollbar {
+        width: 10px;
+    }
+
+        /* Track */
+    .nextsevendays::-webkit-scrollbar-track {
+        background: #BBE1EC;
+        border-radius: 10px;
+    }
+
+        /* Handle */
+    .nextsevendays::-webkit-scrollbar-thumb {
+        background: rgb(5, 17, 51);
+        border-radius: 10px;
+    }
+
+        /* Handle on hover */
+    .nextsevendays::-webkit-scrollbar-thumb:hover {
+        background: rgb(5, 17, 51);
+        border-radius: 10px;
+    }
+
 </style>
 
 <div class="container">
@@ -65,9 +104,9 @@
             <div class="col-sm-3">
                 <div id="card">
                     <div class="card">
-                        <div class="card-body" style="background-color: #151B33 !important">
-                            <h3 id="total" style="color: white">{{ count($totalshedules_lastmonth) }}</h3>
-                            <small style="color: white">total</small>
+                        <div class="card-body" style="border-left:10px solid #35FF35">
+                            <h3 id="total" style="color: rgb(4, 1, 46)">{{ count($totalshedules_lastmonth) }}</h3>
+                            <small style="color: rgb(4, 1, 46)">total</small>
                         </div>
                     </div>
                 </div>
@@ -75,9 +114,9 @@
             <div class="col-sm-3">
                 <div id="card">
                     <div class="card">
-                        <div class="card-body" style="background-color: #1BEC49 !important">
-                            <h3 id="complete" style="color: #222944">{{ count($complateshedules_lastmonth) }}</h3>
-                            <small style="color: #222944">complete</small>
+                        <div class="card-body" style="border-left: 10px solid #03011F">
+                            <h3 id="complete" style="color: rgb(4, 1, 46)">{{ count($complateshedules_lastmonth) }}</h3>
+                            <small style="color: rgb(4, 1, 46)">complete</small>
                         </div>
                     </div>
                 </div>
@@ -85,9 +124,9 @@
             <div class="col-sm-3">
                 <div id="card">
                     <div class="card">
-                        <div class="card-body" style="background-color: #520505 !important">
-                            <h3 id="cancel" style="color: white">{{ count($canceledshedules_lastmonth) }}</h3>
-                            <small style="color: white">cancel</small>
+                        <div class="card-body" style="border-left: 10px solid #FF2957">
+                            <h3 id="cancel" style="color: rgb(4, 1, 46)">{{ count($canceledshedules_lastmonth) }}</h3>
+                            <small style="color: rgb(4, 1, 46)">cancel</small>
                         </div>
                     </div>
                 </div>
@@ -95,9 +134,9 @@
             <div class="col-sm-3">
                 <div id="card">
                     <div class="card">
-                        <div class="card-body" style="background-color: #E47C06 !important">
-                            <h3 id="uncomplete" style="color: white">{{ count($uncompleteshedules_lastmonth) }}</h3>
-                            <small style="color: white">incomplete</small>
+                        <div class="card-body" style="border-left: 10px solid #FF891A">
+                            <h3 id="uncomplete" style="color: rgb(4, 1, 46)">{{ count($uncompleteshedules_lastmonth) }}</h3>
+                            <small style="color: rgb(4, 1, 46)">incomplete</small>
                         </div>
                     </div>
                 </div>
@@ -189,36 +228,38 @@
                                         </div>
                                     </div>
                                     <hr style="border: 0.5px solid #222944">
-                                    @if (count($next_shedules) == 0)
-                                        <h5>Yoou Dont have any Shedule in nexrt seven days</h5>
-                                    @else
-                                        @foreach ($next_shedules as $next_shedule)
-                                            <div id="card">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-sm-3">
-                                                                {{ $next_shedule->title }}
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                {{ $next_shedule->date }}
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                {{ $next_shedule->time }}
-                                                            </div>
-                                                            <div class="col-sm-3 text-right">
-                                                                <a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus"  data-placement="left"  data-content='<ul class="list-group"><li  class="list-group-item list-group-item-action"><a href="{{ route('viewdetails', $next_shedule->id) }}" class="btn" type="button">details</a></li><li class="list-group-item list-group-item-action"><a class="btn" type="button" href="{{ route('cancel', $next_shedule->id) }}">cancel</a></li><li class="list-group-item list-group-item-action"><a class="btn" type="button">postpond</a></li></ul>'>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#222944" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                                                    </svg>
-                                                                </a>
+                                    <div class="nextsevendays">
+                                        @if (count($next_shedules) == 0)
+                                            <h5>You Dont have any Shedule in nexrt seven days</h5>
+                                        @else
+                                            @foreach ($next_shedules as $next_shedule)
+                                                <div id="card">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    {{ $next_shedule->title }}
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    {{ $next_shedule->date }}
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    {{ $next_shedule->time }}
+                                                                </div>
+                                                                <div class="col-sm-3 text-right">
+                                                                    <a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus"  data-placement="left"  data-content='<ul class="list-group"><li  class="list-group-item list-group-item-action" id="modelitem"><a href="{{ route('viewdetails', $next_shedule->id) }}" type="button" id="modelbtn">details</a></li><li class="list-group-item list-group-item-action" id="modelitem"><a type="button" href="{{ route('cancel', $next_shedule->id) }}" id="modelbtn">cancel</a></li><li class="list-group-item list-group-item-action" id="modelitem"><a type="button" id="modelbtn">postpond</a></li></ul>'>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#222944" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                                                        </svg>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
-                                    @endif
+                                            @endforeach
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -257,10 +298,10 @@
         var xValues = ["Total", "Complete", "Cancel", "Incomplete"];
         var yValues = [{{ count($totalshedules_month) }}, {{ count($complateshedules_month) }}, {{ count($canceledshedules_month) }}, {{ count($uncompleteshedules_month) }}];
         var barColors = [
-            "#201D52",
-            "#1BEC49",
-            "#520505",
-            "#E47C06",
+            "#35FF35",
+            "#03011F",
+            "#FF2957",
+            "#FF891A",
         ];
 
         new Chart("myChart", {

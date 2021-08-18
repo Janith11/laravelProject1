@@ -7,6 +7,7 @@ use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
 use App\Http\Controllers\Controller;
 use App\Instructor;
+use App\OwnerShedule;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -81,8 +82,19 @@ class OwnerDashboadController extends Controller
         }
         //end
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.ownerdashboad', compact('count', 'logo'));
+        //check incomplete shedules
+        $current = Carbon::now()->today();
+        $check = OwnerShedule::select('id')->where('date', '<', $current)->where('shedule_status', '=', 1)->get();
+        if(count($check) > 0){
+            foreach ($check as $key => $value) {
+                $result = OwnerShedule::find($value->id);
+                $result->shedule_status = 4;
+                $result->color = "#FF891A";
+                $result->textColor = "#040124";
+                $result->save();
+            }
+        }
+
+        return view('owner.ownerdashboad', compact('count'));
     }
 }
