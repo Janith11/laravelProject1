@@ -7,12 +7,11 @@
             background-attachment: fixed;
             background-size: cover;
             background-position: center; */
-            background: rgb(82,171,158);
-            background: linear-gradient(90deg, rgba(82,171,158,1) 0%, rgba(235,138,221,1) 35%, rgba(22,155,247,1) 100%);
+            /* background: rgb(82,171,158);
+            background: linear-gradient(90deg, rgba(82,171,158,1) 0%, rgba(235,138,221,1) 35%, rgba(22,155,247,1) 100%); */
             
         }
-
-
+        
                 /* .content {
             position: relative;
             width: 90%;
@@ -20,15 +19,18 @@
             margin: auto;
             overflow: hidden
         } */
+        .card{
+          padding: 30px;
+        }
         .content{
-            border-radius: 20px;
+            /* border-radius: 20px; */
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
         .content .content-overlay {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 20px;
+            background: rgba(15, 1, 141, 0.507);
+            /* border-radius: 20px; */
             position: absolute;
-            height: 99%;
+            /* height: 99%; */
             width: 100%;
             left: 0;
             top: 0;
@@ -99,21 +101,27 @@
             <!-- <img src="images/services.png" class="img-fluid" alt="Responsive image" style="width: 100%; height: auto;"> -->
               <div class="container mt-5">
 
-                <h1 class="text-center">Road Signs</h1>
+                <h1 class="text-center mb-5">Road Signs</h1>
                  
             <div class="card-deck mt-3 mb-3">
 
                 <div class="card content">
-                    <a href="">
+                    <a href="{{ route('dangerwarning') }}">
                         <div class="content-overlay"></div>
                         <img class="card-img-top content-image" src="/images/roadsigns/2.png" alt="Card image cap">
                         <div class="card-body content-details fadeIn-bottom">
-                          <h5 class="card-title content-title text-light">Motor Bike Training</h5>
-                          <p class="card-text content-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <h3 class="card-title content-title text-light">Danger Warning Signs</h3>                       
                         </div>
-                        <!-- <div class="card-footer">
-                          <small class="text-muted">Last updated 3 mins ago</small>
-                        </div> -->
+                    </a>
+                </div>
+                  
+                <div class="card content">
+                    <a href="{{ route('prohibitorysigns') }}">
+                        <div class="content-overlay"></div>
+                        <img class="card-img-top content-image" src="/images/roadsigns/Prohibitorysigns/1.png" alt="Card image cap">
+                        <div class="card-body content-details fadeIn-bottom">
+                          <h3 class="card-title content-title text-light">Prohibitory Signs</h3>
+                        </div>
                     </a>
                 </div>
                   
@@ -122,26 +130,8 @@
                         <div class="content-overlay"></div>
                         <img class="card-img-top content-image" src="/images/roadsigns/2.png" alt="Card image cap">
                         <div class="card-body content-details fadeIn-bottom">
-                          <h5 class="card-title content-title text-light">Motor Bike Training</h5>
-                          <p class="card-text content-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <h3 class="card-title content-title text-light">Mandatory Signs</h3>
                         </div>
-                        <!-- <div class="card-footer">
-                          <small class="text-muted">Last updated 3 mins ago</small>
-                        </div> -->
-                    </a>
-                </div>
-                  
-                <div class="card content">
-                    <a href="">
-                        <div class="content-overlay"></div>
-                        <img class="card-img-top content-image" src="/images/roadsigns/2.png" alt="Card image cap">
-                        <div class="card-body content-details fadeIn-bottom">
-                          <h5 class="card-title content-title text-light">Motor Bike Training</h5>
-                          <p class="card-text content-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        </div>
-                        <!-- <div class="card-footer">
-                          <small class="text-muted">Last updated 3 mins ago</small>
-                        </div> -->
                     </a>
                 </div>
             </div>    
@@ -149,16 +139,12 @@
             <div class="card-deck mt-3 mb-3">
 
                 <div class="card content">
-                    <a href="">
+                    <a href="{{route('prioritysigns') }}">
                         <div class="content-overlay"></div>
-                        <img class="card-img-top content-image" src="/images/roadsigns/2.png" alt="Card image cap">
+                        <img class="card-img-top content-image" src="/images/roadsigns/Prioritysigns/2.png" alt="Card image cap">
                         <div class="card-body content-details fadeIn-bottom">
-                          <h5 class="card-title content-title text-light">Motor Bike Training</h5>
-                          <p class="card-text content-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <h3 class="card-title content-title text-light">Priority Signs</h3>
                         </div>
-                        <!-- <div class="card-footer">
-                          <small class="text-muted">Last updated 3 mins ago</small>
-                        </div> -->
                     </a>
                 </div>
                   
@@ -167,12 +153,8 @@
                         <div class="content-overlay"></div>
                         <img class="card-img-top content-image" src="/images/roadsigns/2.png" alt="Card image cap">
                         <div class="card-body content-details fadeIn-bottom">
-                          <h5 class="card-title content-title text-light">Motor Bike Training</h5>
-                          <p class="card-text content-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <h3 class="card-title content-title text-light">Informative Signs</h3>
                         </div>
-                        <!-- <div class="card-footer">
-                          <small class="text-muted">Last updated 3 mins ago</small>
-                        </div> -->
                     </a>
                 </div>
                   
@@ -181,12 +163,8 @@
                         <div class="content-overlay"></div>
                         <img class="card-img-top content-image" src="/images/roadsigns/2.png" alt="Card image cap">
                         <div class="card-body content-details fadeIn-bottom">
-                          <h5 class="card-title content-title text-light">Motor Bike Training</h5>
-                          <p class="card-text content-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <h3 class="card-title content-title text-light">Route Number Signs</h3>
                         </div>
-                        <!-- <div class="card-footer">
-                          <small class="text-muted">Last updated 3 mins ago</small>
-                        </div> -->
                     </a>
                 </div>
             </div>   
@@ -198,12 +176,8 @@
                         <div class="content-overlay"></div>
                         <img class="card-img-top content-image" src="/images/roadsigns/2.png" alt="Card image cap">
                         <div class="card-body content-details fadeIn-bottom">
-                          <h5 class="card-title content-title text-light">Motor Bike Training</h5>
-                          <p class="card-text content-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <h3 class="card-title content-title text-light">Restrictive Signs</h3>
                         </div>
-                        <!-- <div class="card-footer">
-                          <small class="text-muted">Last updated 3 mins ago</small>
-                        </div> -->
                     </a>
                 </div>
                   

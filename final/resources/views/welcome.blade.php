@@ -1,4 +1,6 @@
 @extends('layouts.landingpage')
+{{-- fontawesome cdn   --}}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 <style>
     .img_div{
@@ -38,8 +40,8 @@
                     <div class="carousel-item active" style="background-image: url('/images/landingpage/carosal1.png');">
                         <div class="carousel-container">
                         <div class="carousel-content container">
-                            <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Mamba</span> Learners</h2>
-                            <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                            <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Shan</span> Learners</h2>
+                            <p class="animate__animated animate__fadeInUp">Are you hoping to be a good driver? This is the the place you are searching...</p>
                             <a href="{{ route('login') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Let's Drive</a>
                         </div>
                         </div>
@@ -49,8 +51,8 @@
                     <div class="carousel-item" style="background-image: url('/images/landingpage/carosal2.png');">
                         <div class="carousel-container">
                             <div class="carousel-content container">
-                                <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-                                <p class="animate__animated animate__fadeInUp">Learn good instructoers with your future drivind skills.</p>
+                                <h2 class="animate__animated animate__fadeInDown">Are you busy with works?</h2>
+                                <p class="animate__animated animate__fadeInUp">Don't worry... This is the best driving school which can schedule with your free time</p>
                                 <a href="{{ route('login') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Let's Drive</a>
                             </div>
                         </div>
@@ -60,7 +62,7 @@
                     <div class="carousel-item" style="background-image: url('/images/landingpage/carosal3.png');">
                         <div class="carousel-container">
                             <div class="carousel-content container">
-                                <h2 class="animate__animated animate__fadeInDown">Want to be a good driver</h2>
+                                <h2 class="animate__animated animate__fadeInDown">Want to be a good driver?</h2>
                                 <p class="animate__animated animate__fadeInUp">With our trusted instructors and good service compnay.let's come with us to join unreliable driving school experience</p>
                                 <a href="{{ route('login') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Let's Drive</a>
                             </div>
@@ -91,26 +93,26 @@
         <div class="row no-gutters">
           <div class="col-lg-6 video-box">
             <img src="assets/img/about.jpg" class="img-fluid" alt="">
-            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+            {{-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a> --}}
           </div>
 
           <div class="col-lg-6 d-flex flex-column justify-content-center about-content">
 
             <div class="section-title">
-              <h2>About Us</h2>
-              <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.</p>
+              <h2>Who we are</h2>
+              <p>Since we opened ou driving school, we have been helpingstudent and adult drivers build the skilsand confidence they need to be safe on the road. We do this through personalized instruction, working hand-in-hand with the students in order to understand their needs allowing us to provide them the most efficient learning.</p>
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+              <div class="icon"><i class="fas fa-taxi"></i></div>
+              <h4 class="title"><a href="">Best Learners School</a></h4>
+              <p class="description">This is the most popular and good maintain school in this area. We have well trained instructors and management. Don't worry about your future.</p>
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><i class="bx bx-gift"></i></div>
-              <h4 class="title"><a href="">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+              <div class="icon"><i class="fas fa-calendar-week"></i></div>
+              <h4 class="title"><a href="">Online Schedule</a></h4>
+              <p class="description">You won't waiting to schudule a time table with complex methods. This is the first ever system you can schedule your lessons via online. In this COVID-19 pandemic you don't need to come to the office. All function on your finger tips.</p>
             </div>
 
           </div>
@@ -122,10 +124,10 @@
     <!-- ======= About Lists Section ======= -->
     <section class="about-lists">
       <div class="container">
-
-        <div class="row no-gutters">
-
-          <div class="col-lg-4 col-md-6 content-item" data-aos="fade-up">
+        <h2 class="text-center mb-3">Gallery</h2>
+        {{-- <div class="row no-gutters"> --}}
+          
+          {{-- <div class="col-lg-4 col-md-6 content-item" data-aos="fade-up" >
             <span>01</span>
             <h4>Lorem Ipsum</h4>
             <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat</p>
@@ -159,12 +161,66 @@
             <span>06</span>
             <h4>Facilis Impedit</h4>
             <p>Quis eum numquam veniam ea voluptatibus voluptas. Excepturi aut nostrum repudiandae voluptatibus corporis sequi</p>
+          </div> --}}
+          {{-- <div class="col-md-4" data-aos="fade-up">
+            <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Y2FyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="gallery">
           </div>
-
+          
+        </div> --}}
+        <div class="card-group">
+          <div class="card">
+            <img class="card-img-top hover-shadow" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+            
+          </div>
         </div>
 
+       <div class="row">
+        <div class="col-md-4">
+           <div class="card">
+             <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+           </div>
+        </div>
+        <div class="col-md-4">
+         <div class="card">
+           <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+         </div>
+       </div>
+       <div class="col-md-4">
+         <div class="card">
+         <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+         </div>
+       </div>
       </div>
-    </section><!-- End About Lists Section -->
+
+      <div class="row">
+        <div class="col-md-4">
+           <div class="card">
+             <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+           </div>
+        </div>
+        <div class="col-md-4">
+         <div class="card">
+           <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+         </div>
+       </div>
+       <div class="col-md-4">
+         <div class="card">
+         <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+         </div>
+       </div>
+      </div>
+
+      </div>
+    </section>
+    <!-- End About Lists Section -->
 
     <!-- ======= Counts Section ======= -->
     <section class="counts section-bg">
