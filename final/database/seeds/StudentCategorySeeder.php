@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class StudentCategorySeeder extends Seeder
 {
@@ -24,7 +25,7 @@ class StudentCategorySeeder extends Seeder
             'transmission' => '3',
         ]);
         DB::table('student_categories')->insert([
-            'user_id' => '7',
+            'user_id' => '8',
             'category' => 'A',
             'tstatus' => 'Training',
             'transmission' => 'Auto',

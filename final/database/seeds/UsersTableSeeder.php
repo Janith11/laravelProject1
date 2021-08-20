@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
+    {
         // id 1 owner
         DB::table('users')->insert([
             'role_id' => '1',
@@ -30,6 +30,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'kaluthara',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-20 14:18:56'
         ]);
         // id 2 instructor 1
         DB::table('users')->insert([
@@ -48,6 +49,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'monaragala',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-22 14:18:56'
         ]);
          // id 3 instructor 2
          DB::table('users')->insert([
@@ -66,6 +68,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Piliyandala',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-22 14:18:56'
         ]);
         // id 4 instructor 3
         DB::table('users')->insert([
@@ -84,6 +87,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Colombo 10',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-22 14:18:56'
         ]);
         // id 5 instructor 4
         DB::table('users')->insert([
@@ -102,6 +106,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Aluthgama',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-22 14:18:56'
         ]);
         // id 6 student 1
         DB::table('users')->insert([
@@ -120,9 +125,10 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Mathugama',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-23 14:18:56'
         ]);
-        
-       
+
+
         // id 7 student 2
         DB::table('users')->insert([
             'role_id' => '3',
@@ -140,6 +146,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'wadduwa',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-23 14:18:56'
         ]);
         // id 8 student 3
         DB::table('users')->insert([
@@ -158,6 +165,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Waskaduwa',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-25 14:18:56'
         ]);
         // id 9 student 4
         DB::table('users')->insert([
@@ -176,6 +184,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Wadduwa',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-27 14:18:56'
         ]);
         // id 10 student 5
         DB::table('users')->insert([
@@ -194,6 +203,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Kalawewa',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-06-28 14:18:56'
         ]);
         // id 11 candidate 1
         DB::table('users')->insert([
@@ -212,6 +222,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Piliyandala',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-07-01 14:18:56'
         ]);
         // id 12 candidate 2
         DB::table('users')->insert([
@@ -230,6 +241,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Moratuwa',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-07-05 14:18:56'
         ]);
         // id 13 candidate 3
         DB::table('users')->insert([
@@ -248,6 +260,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Bandaragama',
             'profile_img' => 'default_profile.jpg',
             'status' => '1',
+            'created_at' => '2021-07-05 14:18:56'
         ]);
         // id 14 candidate 4
         DB::table('users')->insert([
@@ -266,6 +279,7 @@ class UsersTableSeeder extends Seeder
             'address_linetwo' => 'Moronthuduwa',
             'profile_img' => 'default_profile.jpg',
             'status' => '0',
+            'created_at' => '2021-07-10 14:18:56'
         ]);
     }
 }

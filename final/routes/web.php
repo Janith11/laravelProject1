@@ -107,7 +107,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/addshedule/saveshedule', 'Owner\ShedulingController@saveshedule')->name('saveshedule');
     Route::get('/allevents', 'Owner\ShedulingController@allevents')->name('allevents');
     Route::get('/shedulelist/postpond', 'owner\ShedulingController@postpond')->name('postpond');
-    Route::get('/shedulelist/cancel/{id}', 'owner\ShedulingController@cancel')->name('cancel');
+    Route::get('/shedulelist/cancel/{id}', 'owner\ShedulingController@cancel')->name('cancelshedule');
     Route::post('/shedulelist/cancel', 'owner\ShedulingController@updateascancel')->name('updateascancel');
     Route::get('shedulelist/todayshedules', 'owner\ShedulingController@todayshedules')->name('todayshedules');
     Route::get('shedulelist/allshedules', 'owner\ShedulingController@allshedules')->name('allshedules');
@@ -241,6 +241,7 @@ Route::middleware('studentprofile')->group(function(){
     Route::post('/studentshedule/requestmore', 'Student\ShedulingController@requestmore')->name('requestmore');
     Route::get('/studentshedule/history', 'Student\ShedulingController@history')->name('history');
     Route::delete('/studentshedule/delete/{id}', 'Student\ShedulingController@deleterequests')->name('deleterequests');
+    Route::get('/studentshedule/rejected', 'Student\ShedulingController@rejected')->name('rejectedshedules');
 
     // comment
     Route::get('/comments', 'Student\CommentController@index')->name('studentcomment');
@@ -252,9 +253,8 @@ Route::middleware('studentprofile')->group(function(){
 
     //payments
     Route::get('/student/payments', 'Student\PaymentController@index')->name('studenentpaymentlogsview');
+
 });
-
-
 
 
 //instructor dashboad
@@ -318,6 +318,7 @@ Route::middleware('instructordashboard')->group(function(){
     Route::get('/instructoralert', 'Instructor\AlertController@index')->name('instrcutoralerts');
     Route::post('/instructoralert/read', 'Instructor\AlertController@read')->name('markinstrcutoralerts');
 });
+
 
 //candidate middleware
 Route::group(['as' => 'candidate.', 'prefix' => 'candidate', 'namespace' => 'candidate', 'middleware' => ['auth', 'candidate']],

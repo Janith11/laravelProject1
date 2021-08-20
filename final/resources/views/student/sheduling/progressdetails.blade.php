@@ -67,10 +67,21 @@
                             <th>Session ID</th>
                         </thead>
                         <tbody>
+                            @php
+                                $count = 1;
+                            @endphp
                             @foreach($shedules as $shedule)
+                                <tr>
+                                    <td class='text-center'>
+                                        <div style='background-color:rgb(25, 12, 59); color:white; padding:5x; border-radius: 5px'>{{$count}}</div>
+                                    </td>
+                                    <td>{{$shedule->date}}</td>
+                                    <td>{{$shedule->time}}</td>
+                                    <td>{{$shedule->lesson_type}}</td>
+                                    <td>Complete <small> ({{$shedule->title}})</small></td>
+                                    <td>{{$shedule->id}}</td>
+                                </tr>
                                 @php
-                                    $count = 1;
-                                    echo "<tr><td class='text-center'><div style='background-color:rgb(25, 12, 59); color:white; padding:5x; border-radius: 5px'>$count</div></td><td>$shedule->date</td><td>$shedule->time</td><td>$shedule->lesson_type</td><td>Complete <small> ($shedule->title)</small></td><td>$shedule->id</td></tr>";
                                     $count += 1;
                                 @endphp
                             @endforeach

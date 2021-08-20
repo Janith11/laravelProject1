@@ -33,7 +33,9 @@ class DatabaseSeeder extends Seeder
                     AttendancesSeeder::class,
                     SheduleAlertSeeder::class,
                     AlertForStudentSeeder::class,
-                    PostSeeder::class
+                    PostSeeder::class,
+                    TimeSlotSeeder::class,
+                    InstructorforTimeSlot::class
                 ]);
     }
 }

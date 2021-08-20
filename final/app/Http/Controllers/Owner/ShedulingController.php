@@ -12,6 +12,8 @@ use App\CompanyDetails;
 use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
 use App\SheduledStudents;
+use App\SheduleRequest;
+use App\ShedulingType;
 use App\Student;
 use App\TimeTable;
 use App\WeekDay;
@@ -105,10 +107,59 @@ class ShedulingController extends Controller
     }
 
     public function addshedule(){
-        return view('owner.sheduling.addshedule');
+        $shedulingtype = ShedulingType::select('type')->first();
+        $type = $shedulingtype->type;
+        return view('owner.sheduling.addshedule', compact('type'));
     }
 
     public function allevents(){
+        // $setone = OwnerShedule::all();
+        // $settwo = SheduleRequest::with('ownershedules')->get();
+        // $responses = [];
+        // foreach($setone as $one){
+        //     $row = [];
+        //     if ($one->shedule_status == 1) {
+        //         $row['title'] = $one->title;
+        //         $row['color'] = '#35FF35';
+        //         $row['textColor'] = '#040124';
+        //         $row['date'] = $one->date;
+        //         array_push($responses, $row);
+        //     }elseif ($one->shedule_status == 2) {
+        //         $row['title'] = $one->title;
+        //         $row['color'] = '#03011F';
+        //         $row['textColor'] = '#FFFFFF';
+        //         $row['date'] = $one->date;
+        //         array_push($responses, $row);
+        //     }elseif ($one->shedule_status == 3) {
+        //         $row['title'] = $one->title;
+        //         $row['color'] = '#FF2957';
+        //         $row['textColor'] = '#FFFFFF';
+        //         $row['date'] = $one->date;
+        //         array_push($responses, $row);
+        //     }else{
+        //         $row['title'] = $one->title;
+        //         $row['color'] = '#FF891A';
+        //         $row['textColor'] = '#040124';
+        //         $row['date'] = $one->date;
+        //         array_push($responses, $row);
+        //     }
+        // }
+        // foreach ($settwo as $two) {
+        //     $row = [];
+        //     if ($two->shedule_status == 0) {
+        //         $row['title'] = $two->ownershedules->title;
+        //         $row['color'] = '#0FD8F3';
+        //         $row['textColor'] = '#040124';
+        //         $row['date'] = $two->ownershedules->date;
+        //         array_push($responses, $row);
+        //     }elseif ($two->shedule_status == 2) {
+        //         $row['title'] = $two->ownershedules->title;
+        //         $row['color'] = '#FF2957';
+        //         $row['textColor'] = '#FFFFFF';
+        //         $row['date'] = $two->ownershedules->date;
+        //         array_push($responses, $row);
+        //     }
+        // }
         $shedules = OwnerShedule::all();
         return response()->json($shedules);
     }
@@ -299,40 +350,51 @@ class ShedulingController extends Controller
     public function viewdetails($id){
         $result = OwnerShedule::where('id',$id)->with('SheduledStudents')->get();
 
-        // get read/unread details
-        $allalert = SheduleAlert::where('shedule_id', $id)->get();
-        $alert_ids = [];
-        foreach ($allalert as $alert) {
-            $alert_ids[] = $alert->id;
-        }
-        $alert_for_std = AlertForStudent::where('shedulealert_id', $alert_ids[0])->get();
-        $total_alert = count($alert_for_std);
-        $read_alert = AlertForStudent::where('shedulealert_id', $alert_ids[0])->where('alert_status', 1)->count();
-        $alert_id = $alert_ids[0];
-
-        //get instructor details
-        $instructors = [];
-        foreach($result as $res){
-            $instructors[] = $res->instructor;
-        }
-        $instructor = collect($instructors);
-        $instructor_details = Instructor::with(['user' => function($query){
-            $query->where('status', 1);
-        }])->whereIn('user_id', $instructor)->get();
-
-        // get students details
-        $students = [];
-        foreach($result as $res){
-            foreach ($res->sheduledstudents as $student) {
-                $students[] = $student->student_id;
+        $check = OwnerShedule::whereHas('shedulerequests', function($query) use($id){
+            $query->where('shedule_id', $id);
+        })->count();
+        // return $check;
+        if($check > 0){
+            $shedule = SheduleRequest::with('ownershedules')->where('shedule_id', $id)->get();
+            $instructors = Instructor::with('user')->get();
+            $students = Student::with('user')->get();
+            return view('owner.sheduling.viewrequestsheduledetails', compact('shedule', 'instructors', 'students'));
+        }else{
+            // get read/unread details
+            $allalert = SheduleAlert::where('shedule_id', $id)->get();
+            $alert_ids = [];
+            foreach ($allalert as $alert) {
+                $alert_ids[] = $alert->id;
             }
-        }
-        $student = collect($students);
-        $students_details = Student::with(['user', 'alertforstudents' => function($query) use($alert_id){
-            $query->where('shedulealert_id', $alert_id);
-        }])->whereIn('user_id', $student)->get();
+            $alert_for_std = AlertForStudent::where('shedulealert_id', $alert_ids[0])->get();
+            $total_alert = count($alert_for_std);
+            $read_alert = AlertForStudent::where('shedulealert_id', $alert_ids[0])->where('alert_status', 1)->count();
+            $alert_id = $alert_ids[0];
 
-        return view('owner.sheduling.viewsheduledetails', compact('result', 'instructor_details', 'students_details', 'total_alert', 'read_alert'));
+            //get instructor details
+            $instructors = [];
+            foreach ($result as $res) {
+                $instructors[] = $res->instructor;
+            }
+            $instructor = collect($instructors);
+            $instructor_details = Instructor::with(['user' => function ($query) {
+                $query->where('status', 1);
+            }])->whereIn('user_id', $instructor)->get();
+
+            // get students details
+            $students = [];
+            foreach ($result as $res) {
+                foreach ($res->sheduledstudents as $student) {
+                    $students[] = $student->student_id;
+                }
+            }
+            $student = collect($students);
+            $students_details = Student::with(['user', 'alertforstudents' => function ($query) use ($alert_id) {
+                $query->where('shedulealert_id', $alert_id);
+            }])->whereIn('user_id', $student)->get();
+
+            return view('owner.sheduling.viewsheduledetails', compact('result', 'instructor_details', 'students_details', 'total_alert', 'read_alert'));
+        }
     }
 
     public function allshedules(){

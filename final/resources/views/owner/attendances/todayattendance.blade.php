@@ -6,7 +6,7 @@
 
     <!--==================== CSS ==========-->
     {{-- @push('head') --}}
-    <link rel="stylesheet" href="{{ asset('/digital_clock/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('/clock/css/styles.css') }}">
     {{-- @endpush --}}
 
 <style>
@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                             </section>
-                            <script src="{{ asset('/digital_clock/js/main.js') }}"></script>
+                            <script src="{{ asset('/clock/js/main.js') }}"></script>
                         </div>
                     </div>
                 </div>

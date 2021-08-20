@@ -77,12 +77,8 @@
                             </td>
                             <td><p>{{ $n->created_at }}</p></td>
                       </tr>
-<<<<<<< HEAD
-                    @endforeach
-=======
 
                     @endforeach
->>>>>>> a1a0f1747a49a121cd34a23d619e9e3df267c9e2
                     </tbody>
                   </table>
             </div>

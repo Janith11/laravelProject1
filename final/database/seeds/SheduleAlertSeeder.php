@@ -25,12 +25,17 @@ class SheduleAlertSeeder extends Seeder
 
         DB::table('shedule_alerts')->insert([
             'shedule_id' => 3,
-            'message' => "You Have To Participate for 'test three' Shedule on 2021/07/10 at 10:00 am. ",
+            'message' => "You Have To Participate for 'test three' Shedule on 2021/06/30 at 11:00 am. ",
         ]);
 
         DB::table('shedule_alerts')->insert([
             'shedule_id' => 4,
-            'message' => "You Have To Participate for 'test four' Shedule on 2021/08/18 at 10:00 am. ",
+            'message' => "You Have To Participate for 'test four' Shedule on 2021/07/01 at 02:00 am. ",
+        ]);
+
+        DB::table('shedule_alerts')->insert([
+            'shedule_id' => 5,
+            'message' => "You Have To Participate for 'test four' Shedule on 2021/07/03 at 08:00 am. ",
         ]);
     }
 }

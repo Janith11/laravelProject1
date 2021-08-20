@@ -386,7 +386,7 @@
         // script for attendance graph
         var labels = @json($months);
         var present = @json($presents);
-        var absent = @json($absent);
+        var absent = @json($absents);
 
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -399,7 +399,6 @@
                     data: present,
                     backgroundColor: [
                         'rgba(41, 241, 195, 0.2)',
-
                     ],
                     borderColor: [
                         'rgba(42, 187, 155, 1)',

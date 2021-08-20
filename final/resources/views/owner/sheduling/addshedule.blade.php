@@ -81,6 +81,7 @@
     <script>
 
         var date = 0;
+        var type = {{ $type }};
 
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -91,9 +92,14 @@
                 dateClick: function(info) {
                     date = info.dateStr;
                     $(document).ready(function(){
-                        var url = '{{ route("checkinput", ["date" => ":date"]) }}';
-                        url = url.replace(':date', date);
-                        document.location.href=url;
+                        if(type == 1) {
+                            var url = '{{ route("checkinput", ["date" => ":date"]) }}';
+                            url = url.replace(':date', date);
+                            document.location.href=url;
+                        } else {
+                            alert('If you want to shedule by userself, you have to change your settings !!');
+                        }
+
                     });
                 },
                 events: "{{ route('allevents') }}",
