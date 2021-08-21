@@ -154,8 +154,39 @@ class ShedulingController extends Controller
 
     public function calendarevents(){
         $instructor_id = Auth::user()->id;
-        $shedules = OwnerShedule::where('instructor', $instructor_id)->get();
-        return response()->json($shedules);
+        $setone = OwnerShedule::whereHas('sheduledstudents')->where('instructor', $instructor_id)->get();
+        // return $settwo;
+        $responses = [];
+        foreach($setone as $one){
+            $row = [];
+            if ($one->shedule_status == 1) {
+                $row['title'] = $one->title;
+                $row['color'] = '#35FF35';
+                $row['textColor'] = '#040124';
+                $row['date'] = $one->date;
+                array_push($responses, $row);
+            }elseif ($one->shedule_status == 2) {
+                $row['title'] = $one->title;
+                $row['color'] = '#03011F';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $one->date;
+                array_push($responses, $row);
+            }elseif ($one->shedule_status == 3) {
+                $row['title'] = $one->title;
+                $row['color'] = '#FF2957';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $one->date;
+                array_push($responses, $row);
+            }else{
+                $row['title'] = $one->title;
+                $row['color'] = '#FF891A';
+                $row['textColor'] = '#040124';
+                $row['date'] = $one->date;
+                array_push($responses, $row);
+            }
+        }
+        // $shedules = OwnerShedule::where('instructor', $instructor_id)->get();
+        return response()->json($responses);
     }
 
 }

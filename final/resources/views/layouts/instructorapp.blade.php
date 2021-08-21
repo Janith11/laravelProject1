@@ -1034,7 +1034,7 @@
                                                 </div>
                                                 <hr style="margin-bottom: 5px !important;margin-top: 0px !important">
                                                 <div style="width: 100%; text-align: right">
-                                                    <a href="{{ route('studentalerts') }}" style="text-decoration: none !important; background-color: rgb(28, 204, 248); padding: 5px; border-radius: 50px; margin-right: 5px; color: #080214">
+                                                    <a href="{{ route('instrcutoralerts') }}" style="text-decoration: none !important; background-color: rgb(28, 204, 248); padding: 5px; border-radius: 50px; margin-right: 5px; color: #080214">
                                                         Details
                                                     </a>
                                                 </div>
