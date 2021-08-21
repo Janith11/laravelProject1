@@ -113,55 +113,55 @@ class ShedulingController extends Controller
     }
 
     public function allevents(){
-        // $setone = OwnerShedule::all();
-        // $settwo = SheduleRequest::with('ownershedules')->get();
-        // $responses = [];
-        // foreach($setone as $one){
-        //     $row = [];
-        //     if ($one->shedule_status == 1) {
-        //         $row['title'] = $one->title;
-        //         $row['color'] = '#35FF35';
-        //         $row['textColor'] = '#040124';
-        //         $row['date'] = $one->date;
-        //         array_push($responses, $row);
-        //     }elseif ($one->shedule_status == 2) {
-        //         $row['title'] = $one->title;
-        //         $row['color'] = '#03011F';
-        //         $row['textColor'] = '#FFFFFF';
-        //         $row['date'] = $one->date;
-        //         array_push($responses, $row);
-        //     }elseif ($one->shedule_status == 3) {
-        //         $row['title'] = $one->title;
-        //         $row['color'] = '#FF2957';
-        //         $row['textColor'] = '#FFFFFF';
-        //         $row['date'] = $one->date;
-        //         array_push($responses, $row);
-        //     }else{
-        //         $row['title'] = $one->title;
-        //         $row['color'] = '#FF891A';
-        //         $row['textColor'] = '#040124';
-        //         $row['date'] = $one->date;
-        //         array_push($responses, $row);
-        //     }
-        // }
-        // foreach ($settwo as $two) {
-        //     $row = [];
-        //     if ($two->shedule_status == 0) {
-        //         $row['title'] = $two->ownershedules->title;
-        //         $row['color'] = '#0FD8F3';
-        //         $row['textColor'] = '#040124';
-        //         $row['date'] = $two->ownershedules->date;
-        //         array_push($responses, $row);
-        //     }elseif ($two->shedule_status == 2) {
-        //         $row['title'] = $two->ownershedules->title;
-        //         $row['color'] = '#FF2957';
-        //         $row['textColor'] = '#FFFFFF';
-        //         $row['date'] = $two->ownershedules->date;
-        //         array_push($responses, $row);
-        //     }
-        // }
-        $shedules = OwnerShedule::all();
-        return response()->json($shedules);
+        $setone = OwnerShedule::whereHas('sheduledstudents')->get();
+        $settwo = SheduleRequest::with('ownershedules')->whereIn('shedule_status', [0, 2])->get();
+        // return $settwo;
+        $responses = [];
+        foreach($setone as $one){
+            $row = [];
+            if ($one->shedule_status == 1) {
+                $row['title'] = $one->title;
+                $row['color'] = '#35FF35';
+                $row['textColor'] = '#040124';
+                $row['date'] = $one->date;
+                array_push($responses, $row);
+            }elseif ($one->shedule_status == 2) {
+                $row['title'] = $one->title;
+                $row['color'] = '#03011F';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $one->date;
+                array_push($responses, $row);
+            }elseif ($one->shedule_status == 3) {
+                $row['title'] = $one->title;
+                $row['color'] = '#FF2957';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $one->date;
+                array_push($responses, $row);
+            }else{
+                $row['title'] = $one->title;
+                $row['color'] = '#FF891A';
+                $row['textColor'] = '#040124';
+                $row['date'] = $one->date;
+                array_push($responses, $row);
+            }
+        }
+        foreach ($settwo as $two) {
+            $row = [];
+            if ($two->shedule_status == 0) {
+                $row['title'] = $two->ownershedules->title;
+                $row['color'] = '#0FD8F3';
+                $row['textColor'] = '#040124';
+                $row['date'] = $two->ownershedules->date;
+                array_push($responses, $row);
+            }elseif ($two->shedule_status == 2) {
+                $row['title'] = $two->ownershedules->title;
+                $row['color'] = '#FF2957';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $two->ownershedules->date;
+                array_push($responses, $row);
+            }
+        }
+        return response()->json($responses);
     }
 
     public function checkinput($date){
@@ -398,7 +398,7 @@ class ShedulingController extends Controller
     }
 
     public function allshedules(){
-        $shedules = OwnerShedule::all();
+        $shedules = OwnerShedule::orderBy('date', 'DESC')->get();
         return view('owner.sheduling.allshedules', compact('shedules'));
     }
 

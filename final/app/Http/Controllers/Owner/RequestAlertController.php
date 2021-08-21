@@ -126,10 +126,10 @@ class RequestAlertController extends Controller
         $reson = $request->reson;
 
         // reson validation
-        if((strlen($reson) < 25 ) || (preg_match('/[^A-Za-z0-9]/', $reson))){
-            return back()->with('errormsg', 'Your reson must contains letters and numbers, reson must be greter than 25 characters !!');
+        $length = strlen($reson);
+        if(($length < 25 ) || (preg_match('/^[a-zA-Z0-9]+$/', $reson))){
+            return back()->with('errormsg', "Your reson must contains letters and numbers, reson must be greter than 25 characters !! $length");
         }
-
         // set request alert as read by owner
         $shedulerequest = SheduleRequest::find($requestid);
         $shedulerequest->status = 1;
