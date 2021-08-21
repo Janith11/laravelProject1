@@ -8,6 +8,9 @@ use App\EmployeeAttendances;
 use App\Http\Controllers\Controller;
 use App\Instructor;
 use App\OwnerShedule;
+use App\PaymentLog;
+use App\RequestAlert;
+use App\SheduleRequest;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -17,7 +20,7 @@ class OwnerDashboadController extends Controller
 {
     public function index(){
         // $student_count = User::where('role')->get();
-        $count=User::where('role_id',3)->count();
+        $totalstudent=User::where('role_id',3)->count();
 
         // insert today attendance records
         // start
@@ -95,6 +98,71 @@ class OwnerDashboadController extends Controller
             }
         }
 
-        return view('owner.ownerdashboad', compact('count'));
+        // get total requests
+        $shedule_requests = SheduleRequest::where('status', 0)->count();
+        $request_alerts = RequestAlert::where('status', 0)->count();
+        $totalrequests = $shedule_requests + $request_alerts;
+
+        // get total nstructors
+        $totalinstructors = Instructor::whereHas('user', function($query){
+            $query->where('status', 1);
+        })->count();
+
+        //today total shedules
+        $today = Carbon::now()->today();
+        $totalshedules = OwnerShedule::where('date', $today)->count();
+
+        // make data to new student graph
+        $currentmonth = date('M', strtotime($today));
+        $getmonths = [];
+        for ($i=0; $i < 6; $i++) {
+            $month = date('M', strtotime("-$i month", strtotime($currentmonth)));
+            $getmonths[] = $month;
+        }
+        $getstudents = [];
+        foreach ($getmonths as $month) {
+            $firstday = date('Y-m-01', strtotime($month));
+            $lastday = date('Y-m-t', strtotime($month));
+            $std_count = User::where('role_id', 3)->whereBetween('created_at', [$firstday, $lastday])->count();
+            $getstudents[] = $std_count;
+        }
+        $students = array_reverse($getstudents);
+        $months = array_reverse($getmonths);
+
+        // get data for income graph
+        $monymonths = [];
+        for ($i=0; $i < 11; $i++) {
+            $month = date('M', strtotime("-$i month", strtotime($currentmonth)));
+            $monymonths[] = $month;
+        }
+        $getincome = [];
+        foreach ($monymonths as $month) {
+            $firstday = date('Y-m-01', strtotime($month));
+            $lastday = date('Y-m-t', strtotime($month));
+            $income = PaymentLog::select('amount')->where('type', 'debit')->whereBetween('created_at', [$firstday, $lastday])->get();
+            $val = 0;
+            foreach ($income as $value) {
+                $val += $value->amount;
+            }
+            $getincome[] = $val;
+        }
+        $monymonths = array_reverse($monymonths);
+        $income = array_reverse($getincome);
+
+        // get data for expences
+        $getexpences = [];
+        foreach ($monymonths as $month) {
+            $firstday = date('Y-m-01', strtotime($month));
+            $lastday = date('Y-m-t', strtotime($month));
+            $expence = PaymentLog::select('amount')->where('type', 'credit')->whereBetween('created_at', [$firstday, $lastday])->get();
+            $val = 0;
+            foreach ($expence as $value) {
+                $val += $value->amount;
+            }
+            $getexpences[] = $val;
+        }
+        $expences = array_reverse($getexpences);
+
+        return view('owner.ownerdashboad', compact('totalstudent', 'totalrequests', 'totalinstructors', 'totalshedules','students', 'months', 'monymonths', 'income', 'expences'));
     }
 }

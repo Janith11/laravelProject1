@@ -42,9 +42,9 @@ class ShedulingController extends Controller
         $user_id = Auth::user()->id;
 
         // check sheduling method
-        $today_sessions = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $today_sessions = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->where('date', $today)->whereIn('shedule_status', [1, 2])->get();
+        })->where('date', $today)->whereIn('shedule_status', [1, 2])->get();
 
         // calculate grogess
         $completed_session = Student::select('completed_session')->where('user_id', $user_id)->first();
@@ -204,12 +204,12 @@ class ShedulingController extends Controller
             return back()->with('errormsg', 'Choose an Instructor !!');
         }
         if ($slot_time != '') {
-            $check = OwnerShedule::where('date', $date)->where('time', $slot_time)->where('instrcutor', $instructor)->first();
+            $check = OwnerShedule::where('date', $date)->where('time', $slot_time)->where('instructor', $instructor)->first();
             if(empty($check)){
                 $shedule = OwnerShedule::create([
                     'title' => 'session request',
                     'date' => $date,
-                    'color' => '#90EE90',
+                    'color' => '#35FF35',
                     'textColor' => '#222944',
                     'time' => $slot_time,
                     'lesson_type' => $type,
@@ -224,7 +224,7 @@ class ShedulingController extends Controller
                 $shedule = OwnerShedule::create([
                     'title' => 'session request',
                     'date' => $date,
-                    'color' => '#90EE90',
+                    'color' => '#35FF35',
                     'textColor' => '#222944',
                     'time' => $special,
                     'lesson_type' => $type,
@@ -259,23 +259,19 @@ class ShedulingController extends Controller
         return redirect()->route('studentsheduling')->with('succesmsg', 'Your Session request successfully send !!');
     }
 
-    //===========================================================
     public function completedshedules(){
         $user_id = Auth::user()->id;
-        $shedules = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
+        $shedules = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
-        }])->where('shedule_status', 2)->get();
+        })->where('shedule_status', 2)->get();
         return view('student.sheduling.progressdetails', compact('shedules'));
     }
 
     public function pendingrequest(){
         $user_id = Auth::user()->id;
-        $shedules = OwnerShedule::with(['sheduledstudents' => function($query) use($user_id){
-            $query->where('student_id', $user_id);
-        }])->where('shedule_status', 4)->get();
+        $shedules = SheduleRequest::with('ownershedules')->where('status', 0)->where('user_id', $user_id)->get();
         return view('student.sheduling.pendingrequest', compact('shedules'));
     }
-    //===========================================================
 
     public function expandrequest(){
         $user_id = Auth::user()->id;
@@ -347,6 +343,14 @@ class ShedulingController extends Controller
         $history = SheduledStudents::where('student_id', $user_id)->with('ownershedule')->get();
         $instructors = Instructor::with('user')->get();
         return view('student.sheduling.history', compact('history', 'instructors'));
+    }
+
+    public function rejected(){
+        $user_id = Auth::user()->id;
+        $rejectedlists = SheduleRequest::with('ownershedules')->where('user_id', $user_id)->where('shedule_status', 2)->get();
+        $instructors = Instructor::with('user')->get();
+        // return $instructors;
+        return view('student.sheduling.rejected', compact('rejectedlists', 'instructors'));
     }
 
 }

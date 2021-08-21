@@ -26,4 +26,7 @@ class OwnerShedule extends Model
         return $this->belongsTo(Instructor::class, 'user_id', 'instructor');
     }
 
+    public function shedulerequests(){
+        return $this->hasMany(SheduleRequest::class, 'shedule_id', 'id');
+    }
 }

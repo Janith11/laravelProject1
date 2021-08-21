@@ -7,6 +7,7 @@ use App\EmployeeAttendances;
 use App\Expense;
 use App\Http\Controllers\Controller;
 use App\Instructor;
+use App\PaymentLog;
 use App\Salary;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
@@ -90,6 +91,13 @@ class SalaryController extends Controller
             $update_record->date = $endofmonth;
             $update_record->amount = $salary;
             $update_record->save();
+
+            $log = PaymentLog::create([
+                'user_id' => $user_id,
+                'type' => 'credit',
+                'description' => 'Instructor Salary',
+                'amount' => $salary,
+            ]);
 
             return redirect()->route('salary')->with('successmsg', 'Salary added Successfully !!');
         }else{

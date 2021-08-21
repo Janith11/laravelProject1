@@ -19,6 +19,7 @@ use App\SheduleRequest;
 
 //0 received
 //1 viewed ->clicked the alert
+// 2 ignore
 
 class RequestAlertController extends Controller
 {

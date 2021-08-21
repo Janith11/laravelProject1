@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Owner;
 
 use App\Expense;
 use App\Http\Controllers\Controller;
+use App\PaymentLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,12 @@ class ExpenseController extends Controller
                 'date' => $date,
                 'reson' => $reson,
                 'amount' => $amount
+            ]);
+            $log = PaymentLog::create([
+                'user_id' => 1,
+                'type' => 'credit',
+                'description' => 'Instructor Salary',
+                'amount' => $amount,
             ]);
             return redirect()->route('salary')->with('successmsg', 'Expence aded Succesfully !!');
         }else{

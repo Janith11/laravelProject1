@@ -29,8 +29,8 @@ class StudentProfileController extends Controller
             'email' => 'required|email',
             'mobile_number' => 'required|digits:10|alpha_num',
             'address_no' => 'required',
-            'address_line_one' => 'required|alpha',
-            'address_line_two' => 'required|alpha',
+            'address_line_one' => 'required',
+            'address_line_two' => 'required',
         ]);
 
         $student_id = Auth::user()->id;
