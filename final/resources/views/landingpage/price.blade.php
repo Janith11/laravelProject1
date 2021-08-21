@@ -9,7 +9,6 @@
               <th scope="col">#</th>
               <th scope="col">Lessons</th>
               <th scope="col">Prices(Rs)</th>
-              <!-- <th scope="col">Handle</th> -->
             </tr>
           </thead>
           <tbody>
@@ -17,67 +16,56 @@
               <th scope="row">1</th>
               <td>Prime Mover</td>
               <td>28,000</td>
-              <!-- <td>@mdo</td> -->
             </tr>
             <tr>
               <th scope="row">2</th>
               <td>Heavy vehical</td>
               <td>15,000</td>
-              <!-- <td>@fat</td> -->
             </tr>
             <tr>
               <th scope="row">3</th>
               <td>Car/Van (Manual)</td>
               <td>13,000</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">4</th>
               <td>Car (Auto)</td>
               <td>14,500</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">5</th>
               <td>Three wheel</td>
               <td>7,500</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">6</th>
               <td>Motorcycle</td>
               <td>6,500</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">6</th>
               <td>Heavy Vehical + Motorcycle</td>
               <td>17,500</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">7</th>
               <td>Car + Three wheel + Motorcycle</td>
               <td>20,000</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">8</th>
               <td>Car + Motorcycle</td>
               <td>15,000</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">9</th>
               <td>Car + Three Wheel</td>
               <td>16,500</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">10</th>
               <td>Three Weel + Motorcycle</td>
               <td>10,500</td>
-              <!-- <td>@twitter</td> -->
             </tr>
           </tbody>
         </table>
@@ -89,7 +77,6 @@
               <th scope="col">#</th>
               <th scope="col">Practrical Lessons</th>
               <th scope="col">Prices(Rs)</th>
-              <!-- <th scope="col">Handle</th> -->
             </tr>
           </thead>
           <tbody>
@@ -97,7 +84,6 @@
               <th scope="row">1</th>
               <td>Heavy vehical (Half an hour)</td>
               <td>800</td>
-              <!-- <td>@mdo</td> -->
             </tr>
             <tr>
               <th scope="row">2</th>
@@ -109,19 +95,16 @@
               <th scope="row">3</th>
               <td>Car-Auto (Half an hour)</td>
               <td>850</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">4</th>
               <td>Three wheel (Half an hour)</td>
               <td>500</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             <tr>
               <th scope="row">5</th>
               <td>Motorcycle (Half an hour)</td>
               <td>450</td>
-              <!-- <td>@twitter</td> -->
             </tr>
             
           </tbody>

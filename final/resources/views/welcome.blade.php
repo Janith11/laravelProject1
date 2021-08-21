@@ -23,11 +23,92 @@
     .content:hover{
         transform: scale(1.05);
     }
+    @media (max-width: 992px){
+      .openhour{
+        font-size: 11px;
+        padding: 2px;
+        margin: 0px;
+      }
+      .openhourh5{
+        font-size: 22px;
+      }
+    }
+    @media (max-width: 768px){
+      .openhour{
+        font-size: 9px;
+        padding: 2px;
+        margin: 0px;
+      }
+      .openhourh5{
+        font-size: 15px;
+      }
+    }
+    @media (max-width: 600px){
+      .openhour{
+        font-size: 8px;
+        padding: 2px;
+        margin: 0px;
+      }
+      .openhourh5{
+        font-size: 14px;
+      }
+    }
+    @media (max-width: 510px){
+      .openhour{
+        font-size: 7px;
+        padding: 2px;
+        margin: 0px;
+      }
+      .openhourh5{
+        font-size: 12px;
+      }
+    }
+    @media (max-width: 434px){
+      .openhour{
+        font-size: 6px;
+        padding: 1px;
+        margin: 0px;
+      }
+      .openhourh5{
+        font-size: 10px;
+      }
+    }
 </style>
 
 @section('content')
 
+  
+
     <!-- ======= Hero Section ======= -->
+    <div style="">
+      <div class="row-mb-2">
+        
+        @if(session('successmsg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5>
+                    {{ session('successmsg') }}
+                </h5>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+      </div>
+  
+      <div class="row mb-2">
+        @if (count($errors) > 0)
+          @foreach ($errors as $error)
+            <div class="alert alert-danger" role="alert">
+                {{ $error }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endforeach
+        @endif
+    </div>
+
+
     <section id="hero">
         <div class="hero-container">
             <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
@@ -276,87 +357,96 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
                     <div class="card">
+                      <img class="card-img-top" src="https://dps.mn.gov/blog/PublishingImages/advanced-rider-course-715.jpg" alt="Card image cap">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-computer"></i></div>
                             <h4 class="title"><a href="">Motor Bike Training</a></h4>
-                            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                            <p class="description">You can choose Auto or Manual transmission. This category has only Manual transmission. All instructors are professionally qualified and well experienced trainers with fluent in English and Sinhala languages.</p>
                         </div>
                     </div>
                     
                 </div>
                 <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
                     <div class="card">
+                      <img class="card-img-top" src="http://www.dailynews.lk/sites/default/files/news/2018/04/19/z_pviii-Abans.jpg" alt="Card image cap">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-chart-bar-graph"></i></div>
-                            <h4 class="title"><a href="">Three wheel Training</a></h4>
-                            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                            <h4 class="title"><a href="">Threewheel Training</a></h4>
+                            <p class="description">This category has only Manual transmission. All instructors are professionally qualified and well experienced trainers with fluent in English and Sinhala languages.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
                     <div class="card">
+                      <img class="card-img-top" src="https://www.rospa.com/getmedia/9934013b-7316-4664-a0d2-e76eef0c92e7/online-driver-safety-shop-large_1.jpg?width=790&height=640&ext=.jpg" alt="Card image cap">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-earth"></i></div>
-                            <h4 class="title"><a href="">Manual Car/Van Training</a></h4>
-                            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                            <h4 class="title"><a href="">Dual Purpose vehicle Training</a></h4>
+                            <p class="description">This category has Car, Van and SUV as well as Auto and Manual Transmission.  All instructors are professionally qualified and well experienced trainers with fluent in English and Sinhala languages.All our vehicles are new and fully air conditioned.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
                     <div class="card">
+                      <img class="card-img-top" src="https://www.datocms-assets.com/992/1507164309-istock-517377953.jpg" alt="Card image cap">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-image"></i></div>
-                            <h4 class="title"><a href="">Auto Car Training</a></h4>
-                            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                            <h4 class="title"><a href="">Heavy vehicle Training</a></h4>
+                            <p class="description">This category has only Manual transmission. All instructors are professionally qualified and well experienced trainers with fluent in English and Sinhala languages.You have minimun two year experience with light weight vehicle.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
                     <div class="card">
+                      <img class="card-img-top" src="https://financesonline.com/uploads/2017/06/app.jpg" alt="Card image cap">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-settings"></i></div>
-                            <h4 class="title"><a href="">Prime Mover Training</a></h4>
-                            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+                            <h4 class="title"><a href="">Online scheduling lessons</a></h4>
+                            <p class="description">You can schedule your lessons via online relevent time table or you can request a new time table for you.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
                     <div class="card">
+                      <img class="card-img-top" src="https://www.scuoleditaliano.it/wp-content/uploads/2018/05/individuali.jpg" alt="Card image cap">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-tasks-alt"></i></div>
-                            <h4 class="title"><a href="">Heavy Vehical Training</a></h4>
+                            <h4 class="title"><a href="">Individual theory/practrical lesson</a></h4>
                             <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
                     <div class="card">
+                      <img class="card-img-top" src="https://techengage.com/wp-content/uploads/2019/04/best-messaging-apps.jpg" alt="Card image cap">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-tasks-alt"></i></div>
-                            <h4 class="title"><a href="">Home Visit Training</a></h4>
-                            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                            <h4 class="title"><a href="">Messaging</a></h4>
+                            <p class="description">You can directly message with the admistration and discuss your requirements very easily.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
                     <div class="card">
+                      <img class="card-img-top" src="https://media.istockphoto.com/photos/hand-arranging-wood-block-stacking-as-step-stair-on-paper-pink-picture-id1169974807?k=6&m=1169974807&s=612x612&w=0&h=cZUtqtxFYfv6xbQteqR7rtts57kIMU7yuKJqZlrSGZ0=" alt="Card image cap">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-tasks-alt"></i></div>
-                            <h4 class="title"><a href="">Online Scheduling</a></h4>
-                            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                            <h4 class="title"><a href="">Progress tracking</a></h4>
+                            <p class="description">You can see get idea about your progress displayed on your dashboard.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
                     <div class="card">
+                      <img class="card-img-top" src="https://st.depositphotos.com/1092019/3271/i/950/depositphotos_32714967-stock-photo-keyboard-with-customize-orange-button.jpg" alt="Card image cap">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-tasks-alt"></i></div>
-                            <h4 class="title"><a href="">Theory Lesson Individual Classes</a></h4>
-                            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                            <h4 class="title"><a href="">Customizable profile</a></h4>
+                            <p class="description">You can customize your profile, lessons, details, add more training category etc.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
+                {{-- <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
                     <div class="card">
                         <div class="card-body">
                             <div class="icon"><i class="icofont-tasks-alt"></i></div>
@@ -382,7 +472,7 @@
                             <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
         </div>
@@ -553,23 +643,26 @@
 
         <div class="row">
 
+          @foreach ($instructors as $instructor)        
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up">
             <div class="member">
-              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="/uploadimages/instructors_profiles/{{ $instructor->profile_img }}" class="img-fluid" alt=""></div>
               <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Executive Officer</span>
-                <div class="social">
+                {{-- <h4>Walter White</h4> --}}
+                <h4>{{ $instructor->f_name }} {{ $instructor->l_name }}</h4>
+                <span>Senior Instructor</span>
+                {{-- <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>
                   <a href=""><i class="icofont-facebook"></i></a>
                   <a href=""><i class="icofont-instagram"></i></a>
                   <a href=""><i class="icofont-linkedin"></i></a>
-                </div>
+                </div> --}}
               </div>
             </div>
           </div>
+          @endforeach
 
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          {{-- <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="member">
               <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
@@ -615,7 +708,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> --}}
 
         </div>
 
@@ -681,7 +774,69 @@
     <!-- End Frequently Asked Questions Section -->
 
     <!-- ======= Contact Us Section ======= -->
-    <section id="contact" class="contact">
+{{-- <div class="container">
+  <div class="row">
+    <div class="col-md-12 mb-4">
+      <div class="card card-image" style="background-image: url('/images/landingpage/openinghours.png');">
+          <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+              <div>
+                  <h6 class="purple-text"><i class="fas fa-plane"></i><strong> Travel</strong></h6>
+                  <h3 class="card-title py-3 font-weight-bold"><strong>This is the card title</strong></h3>
+                  <p class="pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
+                      optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos.
+                      Odit sed qui, dolorum!</p>
+                  <a class="btn btn-secondary btn-rounded"><i class="far fa-clone left"></i> View project</a>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>    --}}
+<div class="container">
+  <div class="row mb-2" style="justify-content: center;padding-top: 20px;">
+            
+    <div class="card" style="width: 100%; height: 95%;" >
+                
+        <img class="image-fluid" src="/images/landingpage/openinghours.png" alt="Card image cap">
+
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px 20px 20px 20px; border-radius: 10px; width: 50%; background: rgba(255, 255, 255, .8);" id="worktimes">
+          {{-- <div class="mt-0" style="z-index:2000 "> --}}
+            <h5 class="card-title text-center openhourh5" style="color: #34314C; font-weight: bold;">Office Hours</h5>
+            @foreach ($openhours as $openhour)
+              @if ($openhour->weekday_id == 1)
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Monday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+              @endif
+              @if ($openhour->weekday_id == 2)
+                <p class="d-flex justify-content-center openhour" style="color: #34314C;">Tuesday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+              @endif
+              @if ($openhour->weekday_id == 3)
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Wednesday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+              @endif
+              @if ($openhour->weekday_id == 4)
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Thursday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+              @endif
+              @if ($openhour->weekday_id == 5)
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Friday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+              @endif
+              @if ($openhour->weekday_id == 6)
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Saturday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+              @endif
+              @if ($openhour->weekday_id == 7)
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Sunday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+              @endif
+            @endforeach
+            
+            
+            <small class="openhour"><span class="text-danger">*</span> Closed on public holidays and every Monday</small>
+          {{-- </div> --}}
+        </div>
+    </div>
+
+</div>
+</div>
+
+
+    <section id="contact" class="contact" style="background-color: #adcbff3f;">
       <div class="container">
 
         <div class="section-title">
@@ -691,32 +846,32 @@
         <div class="row">
 
           <div class="col-lg-6 d-flex align-items-stretch" data-aos="fade-up">
-            <div class="info-box">
-              <i class="bx bx-map"></i>
-              <h3>Our Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
+            <div class="info-box rounded" style="box-shadow:0px 2px 21px -1px rgba(36, 62, 180, 0.329); background-color: rgb(255, 255, 255)">
+              <i class="bx bx-map" style="background-color: white"></i>
+              <h3>Address</h3>
+              <p>{{ $companydetails->company_name}}<br/>{{ $companydetails->address_no }}, {{ $companydetails->address_lineone }}, {{ $companydetails->address_linetwo }}</p>
             </div>
           </div>
 
           <div class="col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="info-box">
-              <i class="bx bx-envelope"></i>
+            <div class="info-box rounded" style="box-shadow:0px 2px 21px -1px rgba(36, 62, 180, 0.329); background-color: rgb(255, 255, 255)">
+              <i class="bx bx-envelope" style="background-color: white"></i>
               <h3>Email Us</h3>
-              <p>info@example.com<br>contact@example.com</p>
+              <p>{{ $companydetails->email }}</p>
             </div>
           </div>
 
           <div class="col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="info-box ">
-              <i class="bx bx-phone-call"></i>
+            <div class="info-box rounded" style="box-shadow:0px 2px 21px -1px rgba(36, 62, 180, 0.329); background-color: rgb(255, 255, 255)">
+              <i class="bx bx-phone-call" style="background-color: white"></i>
               <h3>Call Us</h3>
-              <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+              <p>{{ $companydetails->contact_number }}</p>
             </div>
           </div>
 
-          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="300">
+          {{-- <div class="col-lg-12" data-aos="fade-up" data-aos-delay="300" style="box-shadow:0px 2px 21px -1px rgba(36, 62, 180, 0.329); background-color: rgba(87, 54, 231, 0.192)">
             <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="form-row">
+              <div class="form-row form-group">
                 <div class="col-lg-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                   <div class="validate"></div>
@@ -741,9 +896,52 @@
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
+          </div> --}}
+          <div class="card"  style="box-shadow:0px 2px 21px -1px rgba(36, 62, 180, 0.329); width: 100%">
+            <div class="card-body">
+              <h3 class="mb-4 mt-2 text-center">Drop a Message</h3>
+              <form action="{{ route('contactusmessage') }}" method="POST">
+                @csrf
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="">Name</label>
+                      <input type="text" class="form-control" name="username" placeholder="Enter your name..." required>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="">Email address</label>
+                      <input type="email" class="form-control" name="email" placeholder="Enter email..." required>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="">Contact Number</label>
+                      <input type="text" class="form-control" name="contactnumber" placeholder="0771234567" pattern="[0-9]{10}" required required>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="">Home town</label>
+                      <input type="text" class="form-control" name="hometown" placeholder="Enter your home twon..." required>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="">Message</label>
+                      <textarea class="form-control" name="message" rows="3" placeholder="Enter your message..." required></textarea>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+              </form>   
+            </div>
           </div>
-
-        </div>
 
       </div>
     </section>

@@ -13,13 +13,13 @@ class CompanyDetailsSeeder extends Seeder
     public function run()
     {
         DB::table('company_details')->insert([
-            'company_name' => 'test_name',
+            'company_name' => 'SHAN LEARNERS',
             'contact_number' => '0712345678',
-            'email' => 'test@gmail.com',
+            'email' => 'shanlearnersfirst.com',
             'logo' => 'logo.jpg',
-            'address_no' => '1',
-            'address_lineone' => 'line one',
-            'address_linetwo' => 'line two'
+            'address_no' => 'No 212',
+            'address_lineone' => 'Kesbewa Road',
+            'address_linetwo' => 'Piliyandala'
         ]);
     }
 }

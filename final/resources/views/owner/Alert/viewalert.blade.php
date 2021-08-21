@@ -25,6 +25,14 @@
         td{
             vertical-align: middle !important;
         }
+        .my-custom-scrollbar {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+        .table-wrapper-scroll-y {
+            display: block;
+        }
 
     </style>
 
@@ -77,14 +85,9 @@
                             </td>
                             <td><p>{{ $n->created_at }}</p></td>
                       </tr>
-<<<<<<< HEAD
                     @endforeach
-=======
-
-                    @endforeach
->>>>>>> a1a0f1747a49a121cd34a23d619e9e3df267c9e2
                     </tbody>
-                  </table>
+                </table>
             </div>
         </div>
 
@@ -135,6 +138,53 @@
             </div>
         </div>
 
+        
+        <div class="card mt-2 mb-4">
+            <div class="card-header"><h5>Contact us messages</h5></div>
+            <div class="card-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table borderless table-hover table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="col">Id</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Concat No</th>
+                              <th scope="col">Town</th>
+                              <th scope="col">Message</th>
+                            </tr>
+                          </thead>
+                        <tbody>
+                            @foreach ($contactus as $detail)
+                                {{-- @if ($n->description == 3)                     --}}
+                                <tr>
+                                    <td scope="row">
+                                        {{ $detail->id }}
+                                    </td>
+                                    <td>
+                                    {{ $detail->name }}
+                                    </td>
+                                    <td>
+                                        {{ $detail->contactno }}
+                                    </td>
+                                    <td>
+                                        {{ $detail->hometown }}
+                                    </td>
+                                    <td>
+                                        {{ $detail->message }}
+                                    </td>
+                                    <td>
+                                        {{ $detail->created_at }}
+                                    </td>
+                                </tr>
+                                {{-- @endif --}}
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>        
+            </div>
+        </div>
+        
         <div style="background-color: #040124"></div>
 
     </div>
