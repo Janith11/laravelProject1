@@ -16,6 +16,7 @@ use App\OwnerShedule;
 use App\SheduledStudents;
 use App\SheduleAlert;
 use App\SheduleRequest;
+use App\ContactUs;
 
 //0 received
 //1 viewed ->clicked the alert
@@ -28,7 +29,8 @@ class RequestAlertController extends Controller
         //get shedule request details
         $shedulerequests = SheduleRequest::where('status', 0)->with('ownershedules')->get();
         $students = Student::with('user')->get();
-        return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students'));
+        $contactus=ContactUs::orderBy('created_at','DESC')->get();
+        return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students','contactus'));
     }
     public function redirect($userid,$description,$id){
         if($description == '1'){

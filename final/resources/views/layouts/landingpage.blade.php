@@ -129,14 +129,16 @@
             <div class="container">
                 <div class="row">
 
-                    <div class="col-lg-3 col-md-6 footer-info">
-                        <h3>Mamba</h3>
-                        <p>
-                          A108 Adam Street <br>
-                          NY 535022, USA<br><br>
-                          <strong>Phone:</strong> +1 5589 55488 55<br>
-                          <strong>Email:</strong> info@example.com<br>
-                        </p>
+                    <div class="col-lg-4 col-md-6 footer-info">
+                        @foreach ($companydetailfooter as $cdetail)  
+                        test                      
+                            {{-- <h3>{{ $cdetail->company_name }}</h3>
+                            <p>{{ $cdetail->address_no }}, {{ $cdetail->address_lineone }}</p>
+                            <p>{{ $cdetail->address_linetwo }}, Sri Lanka</p>
+                            <p><Strong>Phone:</Strong> {{ $cdetail->contact_number }}</p>
+                            <p><Strong>Phone:</Strong> {{ $cdetail->email }}</p> --}}
+                            @break
+                        @endforeach    
                         <div class="social-links mt-3">
                             <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                             <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -146,7 +148,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2 col-md-6 footer-links">
+                    <div class="col-lg-4 col-md-6 footer-links">
                         <h4>Useful Links</h4>
                         <ul>
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
@@ -157,38 +159,38 @@
                         </ul>
                     </div>
 
-                    <div class="col-lg-3 col-md-6 footer-links">
+                    <div class="col-lg-4 col-md-6 footer-links">
                         <h4>Our Services</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">All Vehicle category training</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Online lesson schedule</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Consulting</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Quick responses</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Trusted Instructors</a></li>
                         </ul>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                    {{-- <div class="col-lg-4 col-md-6 footer-newsletter">
                         <h4>Our Newsletter</h4>
                         <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
                         <form action="" method="post">
                           <input type="email" name="email"><input type="submit" value="Subscribe">
                         </form>
 
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
         </div>
 
-        <div class="container">
+        {{-- <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong><span>Mamba</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
+                &copy; Copyright <strong><span>Learners Management System</span></strong>. All Rights Reserved
+            </div> --}}
+            {{-- <div class="credits">
                 Designed by <a href="">Group Six</a>
-            </div>
-        </div>
+            </div> --}}
+        {{-- </div> --}}
     </footer><!-- End Footer -->
 
     <!-- Vendor JS Files -->

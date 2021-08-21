@@ -22,21 +22,44 @@ use function Ramsey\Uuid\v1;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('firstpage');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contactus', 'landingpage\ContactusController@index')->name('contactus');
 Route::get('/gallery', 'landingpage\GalleryControllere@index')->name('gallery');
+
+//road signs
 Route::get('/roadsigns', 'landingpage\RoadsignsController@index')->name('roadsigns');
 Route::get('/roadsigns/DangerWarning', 'landingpage\RoadsignsController@dangerwarningsign')->name('dangerwarning');
 Route::get('/roadsigns/Prohibitory-Signs', 'landingpage\RoadsignsController@prohibitorysigns')->name('prohibitorysigns');
+Route::get('/roadsigns/Mandatory-Signs', 'landingpage\RoadsignsController@mandatorysigns')->name('mandatorysigns');
 Route::get('/roadsigns/Priority-Signs', 'landingpage\RoadsignsController@prioritysigns')->name('prioritysigns');
+Route::get('/roadsigns/Informative-Signs', 'landingpage\RoadsignsController@informativesigns')->name('informativesigns');
+Route::get('/roadsigns/routenumbersign', 'landingpage\RoadsignsController@routenumbersign')->name('routenumbersign');
+Route::get('/roadsigns/Traffic-Light-Signals', 'landingpage\RoadsignsController@trafficlightsignals')->name('trafficlightsignals');
+
 Route::get('/prices', 'landingpage\PricesController@index')->name('prices');
 Route::get('/rmvregulations', 'landingpage\RMVregulationsController@index')->name('rmvregulations');
+
+//online paper
 Route::get('/onlinepaper', 'landingpage\OnlinepaperController@index')->name('onlinepaper');
+Route::get('/onlinepaper/paper01', 'landingpage\OnlinepaperController@paper1')->name('onlinepaperone');
+Route::get('/onlinepaper/paper02', 'landingpage\OnlinepaperController@paper2')->name('onlinepapertwo');
+Route::get('/onlinepaper/paper03', 'landingpage\OnlinepaperController@paper3')->name('onlinepaperthree');
+Route::get('/onlinepaper/paper04', 'landingpage\OnlinepaperController@paper4')->name('onlinepaperfour');
+Route::get('/onlinepaper/paper05', 'landingpage\OnlinepaperController@paper5')->name('onlinepaperfive');
+Route::get('/onlinepaper/paper06', 'landingpage\OnlinepaperController@paper6')->name('onlinepapersix');
+Route::get('/onlinepaper/paper07', 'landingpage\OnlinepaperController@paper7')->name('onlinepaperseven');
+Route::get('/onlinepaper/paper08', 'landingpage\OnlinepaperController@paper8')->name('onlinepapereight');
+Route::get('/onlinepaper/paper09', 'landingpage\OnlinepaperController@paper9')->name('onlinepapernine');
+Route::get('/onlinepaper/paper10', 'landingpage\OnlinepaperController@paper10')->name('onlinepaperten');
+
 Route::get('/services','landingpage\ServicesCotroller@index')->name('services');
+
+//contactus landing page 
+Route::post('/contactus/messages','landingpage\ContactusController@insert')->name('contactusmessage');
 
 // create route group for owner
 Route::group(['as' => 'owner.', 'prefix' => 'owner', 'namespace' => 'Owner', 'middleware' => ['auth', 'owner']],

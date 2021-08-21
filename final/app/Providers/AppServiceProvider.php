@@ -48,5 +48,20 @@ class AppServiceProvider extends ServiceProvider
             $view->with('requestalerts', \App\RequestAlert::where('status', 0)->count());
         });
 
+        view()->composer('welcome', function($view){
+            $view->with('companydetails', \App\CompanyDetails::first());
+        });
+
+        view()->composer('welcome', function($view){
+            $view->with('instructors', \App\User::where('role_id',2)->get());
+        });
+
+        view()->composer('welcome', function($view){
+            $view->with('openhours', \App\OpenHour::all());
+        });
+
+        view()->composer('layouts.landingpage', function($view){
+            $view->with('companydetailfooter', \App\CompanyDetails::first());
+        });
     }
 }
