@@ -18,21 +18,40 @@
         line-height: 1.2;
         color: inherit;
     }
+    .dropdown-toggle::after {
+        display: none !important;
+        margin-left: .255em;
+        vertical-align: .255em;
+        content: "";
+        border-top: .3em solid;
+        border-right: .3em solid transparent;
+        border-bottom: 0;
+        border-left: .3em solid transparent;
+    }
 </style>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 
 <div class="container">
 
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Requests</h5>
-        <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
-        <a href="{{ route('owner.ownerdashboad') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
-                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
-            </svg>
-        </a>
-        <a style="padding-top: 6px; padding-left: 10px"> / Review requests</a>
+        <div>
+            <div style="display: inline-block">
+                <h5 style="color: #222944; font-weight: bold; border-right: 2px solid #222944 !important;">Requests&nbsp;&nbsp;</h5>
+            </div>
+            <div style="display: inline-block">
+                <a href="{{ route('owner.ownerdashboad') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
+                        <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                    </svg>
+                </a>
+            </div>
+            <div style="display: inline-block">
+                <a style="padding-top: 6px; padding-left: 10px; text-decoration: none !important" href="{{ route('viewrequest') }}"> / Students requests</a>
+                <a style="padding-top: 6px; padding-left: 10px"> / Review requests</a>
+            </div>
+        </div>
     </div>
 
 
@@ -131,7 +150,7 @@
                             </div>
 
                         </div>
-                        
+
                      <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">

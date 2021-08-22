@@ -16,7 +16,7 @@ class CreateCompanyDetailsTable extends Migration
         Schema::create('company_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('company_name');
-            $table->integer('contact_number');
+            $table->string('contact_number');
             $table->string('email');
             $table->string('logo')->default('logo.jpg');
             $table->string('address_no');

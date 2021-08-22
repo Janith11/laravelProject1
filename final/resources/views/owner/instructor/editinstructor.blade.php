@@ -1,37 +1,7 @@
 @extends('layouts.ownerapp')
 
 @section('content')
-<div class="container">
     <!-- start first row  -->
-    <div class="row mb-2">
-        <div class="col">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Instructor</h5>
-        <div class="" style="border-right: 2px solid #222944; padding-left: 10px"></div>
-        <a href="{{ route('owner.ownerdashboad') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
-                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
-            </svg>
-        </a>
-        <a  href="{{ route('instructors') }}"> / Update Instructor</a>
-        </div>
-    </div>
-    @foreach ($Instructor as $instructor)
-      <div class="row d-flex justify-content-end">
-        <div class="mr-2 mb-2" id="register_form_item">
-            <a class="btn btn-success btn-block" href="{{ route('instructorcategorypage',$instructor->user->id) }}">View Category</a>
-        </div>
-    </div>
-    @endforeach
-        @if(session('successmsg'))
-            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-                <h5>
-                    {{ session('successmsg') }}
-                </h5>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
 
 <div class="container">
 
@@ -46,6 +16,25 @@
         <a style="padding-top: 6px; padding-left: 10px" href="{{ route('instructors') }}"> / Instructors list</a>
         <a style="padding-top: 6px; padding-left: 10px"> / Edit Instructor</a>
     </div>
+
+    @foreach ($Instructor as $instructor)
+      <div class="row d-flex justify-content-end">
+        <div class="mr-2 mb-2" id="register_form_item">
+            <a class="btn btn-success btn-block" href="{{ route('instructorcategorypage',$instructor->user->id) }}">View Category</a>
+        </div>
+    </div>
+    @endforeach
+
+    @if(session('successmsg'))
+        <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+            <h5>
+                {{ session('successmsg') }}
+            </h5>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
     @if(session('successmsg'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
