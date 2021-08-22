@@ -29,6 +29,22 @@ class SettingController extends Controller
 
     public function savedetails(Request $request){
 
+        $this->validate($request, [
+            'c_name' => 'required',
+            'c_contact_number' => 'required|min:10',
+            'c_email' => 'required',
+            'address_no' => 'required',
+            'address_lineone' => 'required',
+            'address_linetwo' => 'required',
+        ]);
+
+        // $contact_number = $request->cc_contact_number;
+        // $result = preg_match('/[0-9]/', $contact_number);
+        // return $result;
+        // if ($result == 0) {
+        //     return back()->with('error', 'Contact number must be Number !!');
+        // }
+
         $company_details = CompanyDetails::first();
 
         $company_details->company_name = $request->c_name;

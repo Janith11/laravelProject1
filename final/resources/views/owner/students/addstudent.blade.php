@@ -7,6 +7,16 @@
         color: #222944;
         font-weight: bold
     }
+    .dropdown-toggle::after {
+        display: none !important;
+        margin-left: .255em;
+        vertical-align: .255em;
+        content: "";
+        border-top: .3em solid;
+        border-right: .3em solid transparent;
+        border-bottom: 0;
+        border-left: .3em solid transparent;
+    }
 </style>
 
 <div class="container">
@@ -14,16 +24,21 @@
     <!-- start first row  -->
     <div class="row mb-2">
         <div class="col-12">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Students</h5>
-        <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
-        <a href="{{ route('owner.ownerdashboad') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
-                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
-            </svg>
-        </a>
-        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentslist') }}"> / Students List</a>
-        <a style="padding-top: 6px; padding-left: 10px" > / Add Students</a>
-     </div>
+            <div style="display: inline-block;">
+                <h5 style="color: #222944; font-weight: bold; border-right: 2px solid #222944 !important;">Students&nbsp;&nbsp;</h5>
+            </div>
+            <div style="display: inline-block;">
+                <a href="{{ route('owner.ownerdashboad') }}" style="text-decoration: none !important;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
+                        <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                    </svg>
+                </a>
+            </div>
+            <div style="display: inline-block">
+                <a style="padding-top: 6px; padding-left: 10px; text-decoration: none !important" href="{{ route('studentslist') }}"> / Students List</a>
+                <a style="padding-top: 6px; padding-left: 10px" > / Add Students</a>
+            </div>
+        </div>
     </div>
 
     <div class="row-mb-2">
@@ -183,33 +198,33 @@
                         </div>
 
 
-                        <div class="form-group">  
-                            @foreach ($vehicalcategory as $vehicle) 
+                        <div class="form-group">
+                            @foreach ($vehicalcategory as $vehicle)
                             <div class="row">
                             <div class="col-md-4 mt-2" id="{{ $vehicle->category_code }}A">
                                 <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $vehicle->category_code }}" id="{{ $vehicle->category_code }}1">
                                 <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}1" class="col-form-label text-md-right">{{ $vehicle->name }}</label>
                             </div>
                         {{-- <div id="{{ $vehicle->category_code }}B"> --}}
-                            <div class="col-md-4 mt-2" > 
-                                <div class="btn-group" id="{{ $vehicle->category_code }}B">                       
+                            <div class="col-md-4 mt-2" >
+                                <div class="btn-group" id="{{ $vehicle->category_code }}B">
                                     <input type="radio" class="btn-check " name="{{ $vehicle->category_code }}" value="Training" id="{{ $vehicle->id }}1" autocomplete="off" />
                                     <label class="btn btn-outline-success mr-2" for="{{ $vehicle->id }}1">Training</label>
-                                  
+
                                     <input type="radio" class="btn-check" name="{{ $vehicle->category_code }}" value="Without Training" id="{{ $vehicle->id }}2" autocomplete="off" />
                                     <label class="btn btn-outline-danger" for="{{ $vehicle->id }}2">Without Training</label>
                                   </div>
                             </div>
                             @if( $vehicle->transmission == 'automanual')
                             <div class="col-md-4 mt-2" id="{{ $vehicle->category_code }}B">
-                                <div class="btn-group">                       
+                                <div class="btn-group">
                                     <input type="radio" class="btn-check" name="trans{{ $vehicle->category_code }}" value="Auto" id="{{ $vehicle->id }}3" autocomplete="off"/>
                                     <label class="btn btn-outline-success mr-2" for="{{ $vehicle->id }}3">Auto Transmission</label>
-                                  
+
                                     <input type="radio" class="btn-check" name="trans{{ $vehicle->category_code }}" value="Manual" id="{{ $vehicle->id }}4" autocomplete="off" />
                                     <label class="btn btn-outline-danger" for="{{ $vehicle->id }}4">Manual Transmission</label>
                                   </div>
-                            </div> 
+                            </div>
                         {{-- </div>  --}}
                              @endif
                                 @error('birthday')
@@ -217,9 +232,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>          
-                        @endforeach   
-                    </div> 
+                            </div>
+                        @endforeach
+                    </div>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">

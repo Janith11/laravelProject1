@@ -30,6 +30,7 @@ class RequestAlertController extends Controller
         $students = Student::with('user')->get();
         return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students'));
     }
+    
     public function redirect($userid,$description,$id){
         if($description == '1'){
             $registration=User::where('id',$userid)->get();

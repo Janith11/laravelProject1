@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\DB;
 class paymentsController extends Controller
 {
     public function index(){
-        $studentslist = PaymentLog::with('user')->with('student')->orderBy('updated_at', 'desc')->get();
+        $studentslist = PaymentLog::with('user')->whereHas('student')->orderBy('updated_at', 'desc')->get();
+        // return $studentslist;
+        // add wherehas function
         return view('owner.payment.viewpayments',compact('studentslist'));
     }
 

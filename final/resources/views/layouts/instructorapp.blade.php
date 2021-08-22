@@ -1054,7 +1054,7 @@
                                             <span class="caret"></span>
                                         </div>
                                         <div style="display: inline-block; float:right;">
-                                            <img src="/uploadimages/owner_profile/{{ Auth::user()->profile_img }}" alt="Profile Image" class="rounded-circle border border-dark" style="width: 30px; height: auto;" >
+                                            <img src="/uploadimages/instructors_profiles/{{ Auth::user()->profile_img }}" alt="Profile Image" class="rounded-circle border border-dark" style="width: 30px; height: auto;" >
                                         </div>
                                     </div>
                                 </a>
