@@ -13,16 +13,9 @@ use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
-    public $logo;
-
-    public function __construct(){
-        $details = CompanyDetails::first();
-        $this->logo = $details->logo;
-    }
 
     public function index(){
-        $logo = $this->logo;
-        return view ('owner.chat.chathome', compact('logo'));
+        return view ('owner.chat.chathome');
     }
 
     public function get(){

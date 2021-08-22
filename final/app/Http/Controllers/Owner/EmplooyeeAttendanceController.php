@@ -97,10 +97,7 @@ class EmplooyeeAttendanceController extends Controller
 
         $unmarked_attendances = EmployeeAttendances::where('date', '<', $today)->where('status', 0)->count();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        // return $leaves;
-        return view('owner.attendances.attendancelist', compact('employees', 'attendances', 'leaves', 'leave_count', 'unmarked_attendances', 'logo'));
+        return view('owner.attendances.attendancelist', compact('employees', 'attendances', 'leaves', 'leave_count', 'unmarked_attendances'));
     }
 
     public function todayattendance(){
@@ -178,10 +175,7 @@ class EmplooyeeAttendanceController extends Controller
         $not_attend = EmployeeAttendances::where('date', $today)->where('status', 0)->count();
         $todayleaves = EmployeeAttendances::where('date', $today)->where('status', 3)->count();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.attendances.todayattendance', compact('instructors', 'still_working', 'not_attend', 'todayleaves', 'logo'));
+        return view('owner.attendances.todayattendance', compact('instructors', 'still_working', 'not_attend', 'todayleaves'));
     }
 
     public function savecheckin(Request $request){
@@ -247,10 +241,7 @@ class EmplooyeeAttendanceController extends Controller
         $pending_leaves = EmplooyeeLeave::where('user_id', $user_id)->where('status', 0)->count();
         $total_leaves = EmployeeAttendances::where('user_id', $user_id)->where('status', 3)->count();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.attendances.attendancedetails', compact('users', 'pending_leaves', 'total_leaves', 'logo'));
+        return view('owner.attendances.attendancedetails', compact('users', 'pending_leaves', 'total_leaves'));
     }
 
     public function instructorattendancedetails($id){
@@ -289,10 +280,7 @@ class EmplooyeeAttendanceController extends Controller
             $query->where('status', 1);
         }])->get();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.attendances.unmarkedattendance', compact('unmarked_attendances_list', 'instructors', 'logo'));
+        return view('owner.attendances.unmarkedattendance', compact('unmarked_attendances_list', 'instructors'));
     }
 
     public function saveunmarkedattend(Request $request){

@@ -35,10 +35,7 @@ class LeaveController extends Controller
             $users_lives[$user] = $count;
         }
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.leave.leaverequest', compact('pending_requests', 'users_lives', 'logo'));
+        return view('owner.leave.leaverequest', compact('pending_requests', 'users_lives'));
     }
 
     public function acceptrequest(Request $request){
@@ -61,9 +58,7 @@ class LeaveController extends Controller
 
     public function levaedetails($id){
         $details = EmplooyeeLeave::where('user_id', $id)->orderBy('start_date')->get()->reverse();
-        $detail = CompanyDetails::first();
-        $logo = $detail->logo;
-        return view('owner.leave.leavedetails', compact('details', 'logo'));
+        return view('owner.leave.leavedetails', compact('details'));
     }
 
 }

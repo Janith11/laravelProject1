@@ -13,19 +13,13 @@ class ExamController extends Controller
 {
     public function index(){
         $students = Student::with('exams')->get();
-
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.exam.examlist', compact('students', 'logo'));
+        return view('owner.exam.examlist', compact('students'));
     }
 
     public function edit($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
         $examdetails = Student::where('user_id','=',$user_id)->with('exams')->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view ('owner.exam.editexamlist', compact('student','examdetails', 'logo'));
+        return view ('owner.exam.editexamlist', compact('student','examdetails'));
     }
 
     public function saveexamlist(Request $request, $id){
@@ -49,9 +43,7 @@ class ExamController extends Controller
     public function addresults($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
         $examdetails = Student::where('user_id','=',$user_id)->with('exams')->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view ('owner.exam.addexamlist', compact('student','examdetails', 'logo'));
+        return view ('owner.exam.addexamlist', compact('student','examdetails'));
     }
 
     public function saveresults(Request $request){
