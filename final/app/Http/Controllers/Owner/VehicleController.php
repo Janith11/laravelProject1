@@ -40,13 +40,9 @@ class VehicleController extends Controller
 
             $imagename = date('YmHis') . '.' . $files->getClientOriginalExtension();
 
+            // move to folder
             $destinationPath = public_path('/uploadimages/vehicles/');
-            $img = Image::make($files->path());
-            $img->resize(200, 200, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath.'/'.$imagename);
-            // another method fore delete and save
-            // $img->fit(200)->save($destinationPath.'/'.$imagename);
+            $files->move($destinationPath, $imagename);
 
             // save in database
             $vehicle = new Vehicle;
@@ -57,21 +53,6 @@ class VehicleController extends Controller
             return redirect()->route('vehicles')->with('successmsg', 'Vehicle added successfuly !');
         }
         return back()->with('error', 'Cannot upload !!');
-    }
-
-    public function uploadCropImage(Request $request)
-    {
-        $image = $request->image;
-
-
-        // list($type, $image) = explode(';', $image);
-        // list(, $image)      = explode(',', $image);
-        // $image = base64_decode($image);
-        // $image_name= time().'.png';
-        // $path = public_path('upload/'.$image_name);
-
-        // file_put_contents($path, $image);
-        // return response()->json(['status'=>true]);
     }
 
     public function editvehicle($id){
@@ -93,11 +74,9 @@ class VehicleController extends Controller
 
             $imagename = date('YmHis') . '.' . $files->getClientOriginalExtension();
 
+            // move to folder
             $destinationPath = public_path('/uploadimages/vehicles/');
-            $img = Image::make($files->path());
-            $img->resize(200, 200, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath.'/'.$imagename);
+            $files->move($destinationPath, $imagename);
 
             // save in database
             $vehicle = Vehicle::find($id);
