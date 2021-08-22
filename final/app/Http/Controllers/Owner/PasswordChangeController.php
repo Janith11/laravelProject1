@@ -16,9 +16,7 @@ class PasswordChangeController extends Controller
     }
 
     public function index(){
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.settings.changepassword', 'logo');
+        return view('owner.settings.changepassword');
     }
 
     public function store(Request $request){

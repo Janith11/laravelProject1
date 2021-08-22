@@ -18,13 +18,11 @@ class TimeTableController extends Controller
         $instructor=Instructor::with('user')->get();
         $timetable = WeekDay::with('timeslots')->get();
         $instructordetails=InstructorWorkingTimeSlot::with('releventinstructor')->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.timetable.timetable', compact('timetable', 'logo','instructor','instructordetails'));
+        return view('owner.timetable.timetable', compact('timetable','instructor','instructordetails'));
     }
 
     public function inserttimeslot(Request $request){
-       
+
         $this->validate($request, [
             'slot_time' => 'required',
             'instructor_id'=>'required'

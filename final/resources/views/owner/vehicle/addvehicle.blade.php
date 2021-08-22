@@ -105,11 +105,12 @@
         output.onload = function() {
             URL.revokeObjectURL(output.src) // free memory
         }
-    }
+    };
 
     $(document).ready(function(){
         $('aside ul .vehicle').css('border-left', '5px solid #00bcd4');
-    })
+    });
+
 </script>
 
 @endsection

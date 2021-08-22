@@ -13,20 +13,11 @@ class VehicleController extends Controller
     public function index(){
         $vehicles = Vehicle::all();
         $vehicle_count = Vehicle::count();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        if($vehicle_count > 0){
-            return view('owner.vehicle.vehicles', compact('vehicles', 'vehicle_count', 'logo'));
-        }else{
-            return view('owner.vehicle.vehicles', ['vehicle_count' => 0, 'emptymsg' => 'hellow', 'logo' => 'logo']);
-        }
-
+        return view('owner.vehicle.vehicles', compact('vehicles'));
     }
 
     public function addvehicle(){
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.vehicle.addvehicle', compact('logo'));
+        return view('owner.vehicle.addvehicle');
     }
 
     public function insertvehicle(Request $request){
@@ -57,9 +48,7 @@ class VehicleController extends Controller
 
     public function editvehicle($id){
         $editvehicle = Vehicle::find($id);
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.vehicle.editvehicle', compact('editvehicle', 'logo'));
+        return view('owner.vehicle.editvehicle', compact('editvehicle'));
     }
 
     public function updatevehicle(Request $request, $id){
@@ -101,12 +90,10 @@ class VehicleController extends Controller
         ]);
 
         $name = $request->searchvehicle;
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
 
         $searchvehicle = Vehicle::where('name','=', $name)->get();
         if( count($searchvehicle) > 0){
-            return view('owner.vehicle.searchvehicleresult', compact('searchvehicle', 'logo'));
+            return view('owner.vehicle.searchvehicleresult', compact('searchvehicle'));
         }else{
             return back()->with('searcherror', 'No Match Items !!');
         }

@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="row justify-content-between">
                         <div class="float-left" style="padding-left: 10px">
-                            <h5 style="color: #222944">Total Vehicle : {{ $vehicle_count }}</h5>
+                            <h5 style="color: #222944">Total Vehicle : {{ count($vehicles) }}</h5>
                         </div>
                         <div class="float-right">
                             <div style="display: inline-block">
@@ -62,17 +62,6 @@
             </div>
         @endif
 
-        @if(session('emptymsg'))
-            <div class="alert alert-alert-info alert-dismissible fade show" role="alert">
-                <h5>
-                    {{ session('emptymsg') }}
-                </h5>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-
         @if(session('successmsg'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <h5>
@@ -85,32 +74,36 @@
         @endif
 
         <div class="row justify-content-center">
-            @if($vehicle_count > 0)
-            @foreach($vehicles as $vehicle)
-            <div class="col col-lg-4">
-                <div class="card" style=" border-radius: 10px; margin-top: 10px;">
-                    <figure id="figure">
-                        <img class="card-img-top" src="/uploadimages/vehicles/{{ $vehicle->image }}" style="border-radius: 10px 10px 0px 0px;" id="vehicle_image">
-                    </figure>
-                    <div class="card-body">
-                        <h5 class="card-title" style="color: #222944; font-weight: bold;">{{ $vehicle->name }}</h5>
-                        <p class="card-text" style="color: #222944;">{{ $vehicle->description }}</p>
-                        <a href="{{ route('editvehicle', $vehicle->id) }}" class="btn btn-primary" style="background-color: #222944;">Edit</a>
-                        <form method="POST" action="{{ route('deletevehicles', $vehicle->id) }}" id="delete-form-{{ $vehicle->id }}" style="display: none">
-                            @csrf
-                            @method('delete')
-                        </form>
-                        <button onclick="if(confirm('Are You Sure Want to Delete this?')){
-                            event.preventDefault();
-                            document.getElementById('delete-form-{{ $vehicle->id }}').submit();
-                        }else{
-                            event.preventDefault();
-                        }" href="" class="btn btn-primary" style="background-color: #FA1B39;">Delete
-                        </button>
+            @if(count($vehicles) == 0)
+                <div class="alert alert-info" role="alert" style="width: 100%">
+                    <h5>No vehicles added !!</h5>
+                </div>
+            @else
+                @foreach($vehicles as $vehicle)
+                <div class="col col-lg-4">
+                    <div class="card" style=" border-radius: 10px; margin-top: 10px;">
+                        <figure id="figure">
+                            <img class="card-img-top" src="/uploadimages/vehicles/{{ $vehicle->image }}" style="border-radius: 10px 10px 0px 0px;" id="vehicle_image">
+                        </figure>
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: #222944; font-weight: bold;">{{ $vehicle->name }}</h5>
+                            <p class="card-text" style="color: #222944;">{{ $vehicle->description }}</p>
+                            <a href="{{ route('editvehicle', $vehicle->id) }}" class="btn btn-primary" style="background-color: #222944;">Edit</a>
+                            <form method="POST" action="{{ route('deletevehicles', $vehicle->id) }}" id="delete-form-{{ $vehicle->id }}" style="display: none">
+                                @csrf
+                                @method('delete')
+                            </form>
+                            <button onclick="if(confirm('Are You Sure Want to Delete this?')){
+                                event.preventDefault();
+                                document.getElementById('delete-form-{{ $vehicle->id }}').submit();
+                            }else{
+                                event.preventDefault();
+                            }" href="" class="btn btn-primary" style="background-color: #FA1B39;">Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            @endforeach
+                @endforeach
             @endif
         </div>
 

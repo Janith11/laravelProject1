@@ -322,9 +322,6 @@ class ShedulingController extends Controller
             })->get();
         }
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
         if ($request->has('slotdivider')) {
             $custome_slot_name = $request->customeslotname;
             $custome_time_slot = $request->custometime;
@@ -332,7 +329,7 @@ class ShedulingController extends Controller
                 return back()->with('errormessage', 'If you choose custome slot you have to enter time slot !!');
             }else{
                 $time = $request->custometime;
-                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students', 'logo'));
+                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
                 // return $students;
             }
         }else{
@@ -341,7 +338,7 @@ class ShedulingController extends Controller
                 return back()->with('errormessage', 'Please choose time slot or define custome one !!');
             }else{
                 $time = $slot[0];
-                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students', 'logo'));
+                return view('owner.sheduling.createshedule', compact('time', 'date', 'instructors', 'students'));
                 // return $students;
             }
         }

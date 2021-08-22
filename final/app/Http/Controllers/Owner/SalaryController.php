@@ -46,10 +46,7 @@ class SalaryController extends Controller
             }
         }
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.salary.salary', compact('instructors', 'attendance_count', 'expense', 'logo'));
+        return view('owner.salary.salary', compact('instructors', 'attendance_count', 'expense'));
     }
 
     public function calculatesalary($id){
@@ -62,10 +59,7 @@ class SalaryController extends Controller
         }])->where('user_id', $id)->get();
         $attendance = EmployeeAttendances::whereBetween('date', [$startofmonth, $endofmonth])->where('user_id', $id)->where('status', 1)->count();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.salary.calculatesalary', compact('instructors', 'attendance', 'logo'));
+        return view('owner.salary.calculatesalary', compact('instructors', 'attendance'));
     }
 
     public function savesalary(Request $request){
@@ -115,9 +109,6 @@ class SalaryController extends Controller
 
         $expenses = Expense::all()->reverse();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.salary.history', compact('salarys', 'instructors', 'expenses', 'logo'));
+        return view('owner.salary.history', compact('salarys', 'instructors', 'expenses'));
     }
 }
