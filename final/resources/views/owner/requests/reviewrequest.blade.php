@@ -161,27 +161,27 @@
 
                                 <div class="col-sm-4">
                                     <div class="col-md-4 mt-2" id="{{ $c->category_code }}A">
-                                        <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $c->category }}" id="{{ $c->category }}1" checked required>
+                                        <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $c->category }}" id="{{ $c->category }}1" checked required disabled>
                                         <label class="btn btn-outline-dark btn-block" for="{{ $c->category }}1" class="col-form-label text-md-right">{{ $c->category }}</label>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-4">
                                     <div class="btn-group " id="{{ $c->category }}B">
-                                        <input type="radio" class="btn-check " name="{{ $c->category }}" value="Training" id="{{ $c->id }}1" {{ $c->tstatus == 'Training' ? 'checked' : '' }} />
+                                        <input type="radio" class="btn-check " name="{{ $c->category }}" value="Training" id="{{ $c->id }}1" {{ $c->tstatus == 'Training' ? 'checked' : '' }} / disabled>
                                         <label class="btn btn-outline-success m-1" for="{{ $c->id }}1">Training</label>
 
-                                        <input type="radio" class="btn-check" name="{{ $c->category }}" value="Without Training" id="{{ $c->id }}2" {{ $c->tstatus == 'Without Training' ? 'checked' : '' }}/>
+                                        <input type="radio" class="btn-check" name="{{ $c->category }}" value="Without Training" id="{{ $c->id }}2" {{ $c->tstatus == 'Without Training' ? 'checked' : '' }}/ disabled>
                                         <label class="btn btn-outline-danger m-1" for="{{ $c->id }}2">Without Training</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     @if( $c->transmission != '3')
                                     <div class="btn-group">
-                                        <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Auto" id="{{ $c->id }}3" {{ $c->transmission == 'Auto' ? 'checked' : '' }}/>
+                                        <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Auto" id="{{ $c->id }}3" {{ $c->transmission == 'Auto' ? 'checked' : '' }}/ disabled>
                                         <label class="btn btn-outline-success m-1" for="{{ $c->id }}3">Auto Transmission</label>
 
-                                        <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Manual" id="{{ $c->id }}4" {{ $c->transmission == 'Manual' ? 'checked' : '' }}/>
+                                        <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Manual" id="{{ $c->id }}4" {{ $c->transmission == 'Manual' ? 'checked' : '' }}/ disabled>
                                         <label class="btn btn-outline-danger m-1" for="{{ $c->id }}4">Manual Transmission</label>
                                     </div>
                                     @endif

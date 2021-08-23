@@ -121,7 +121,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
+                            {{-- <div class="col-sm-4">
                                 <h5 style="color: #222944">Session Days</h5>
                                 <div class="form-group">
                                     <label>Theory Sessions</label>
@@ -131,7 +131,7 @@
                                     <label>Practicle Sessions</label>
                                     <input type="number" class="form-control" name="practicle_session">
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row justify-content-center">
                             <button type="submit" class="btn btn-success">Add Category</button>
@@ -153,16 +153,16 @@
                                 <h5><span id="heading">Category Name : </span>{{ $category->name}}</h5>
                                 <h5><span id="heading">Main Category : </span>{{ $category->transmission}}</h5>
                                 <h5>
-                                    <span id="heading">Session Days</span>
+                                    {{-- <span id="heading">Session Days</span> --}}
                                     <table class="table table-bordered">
-                                        <tbody>
+                                        {{-- <tbody>
                                             @foreach($category->sessionhours as $hours)
                                                 <tr>
                                                     <td>{{ $hours->session_type }}</td>
                                                     <td>{{ $hours->total_days }}</td>
                                                 </tr>
                                             @endforeach
-                                        </tbody>
+                                        </tbody> --}}
                                     </table>
                                 </h5>
                                 <div class="row justify-content-end">

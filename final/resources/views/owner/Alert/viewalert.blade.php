@@ -72,15 +72,15 @@
                             <th scope="row">
                                 @if ($n->description == '1')
                                     <span class="p-2 rounded-circle" style="background-color: #27A745; color:white"><i class="fas fa-address-book fa-lg "></i></span>
-                                @elseif ($n->description == '2')
-                                    <span class="p-2 rounded-circle" style="background-color: #6732C3; color:white"><i class="fas fa-clipboard-list fa-lg "></i></span>
+                                {{-- @elseif ($n->description == '2')
+                                    <span class="p-2 rounded-circle" style="background-color: #6732C3; color:white"><i class="fas fa-clipboard-list fa-lg "></i></span> --}}
                                 @endif
                             </th>
                             <td>
                                 @if ($n->description == '1')
                                     <h5>New Student Registered! Waiting for your review</h5>
-                                @elseif ($n->description == '2')
-                                    <h5>Student has been schedule for a new lessson. Accept the request!</h5>
+                                {{-- @elseif ($n->description == '2')
+                                    <h5>Student has been schedule for a new lessson. Accept the request!</h5> --}}
                                 @endif
                             </td>
                             <td><p>{{ $n->created_at }}</p></td>

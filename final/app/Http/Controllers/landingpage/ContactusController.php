@@ -5,6 +5,7 @@ namespace App\Http\Controllers\landingpage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\ContactUs;
+use App\RequestAlert;
 use Illuminate\Support\Facades\DB;
 
 class ContactusController extends Controller
@@ -28,6 +29,11 @@ class ContactusController extends Controller
             'hometown' => $request->hometown,
             'message' => $request->message
         ]);
-        return redirect()->route('firstpage')->with('successmsg', 'one student added successfuly !');
+        // RequestAlert::create([
+        //     'user_id'=> 0,
+        //     'description'=>4,
+        //     'status'=>1,
+        // ]);
+        return redirect()->route('firstpage')->with('successmsg', 'Your request has been sent to the administration successfuly !');
     }
 }

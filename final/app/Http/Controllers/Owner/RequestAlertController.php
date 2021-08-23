@@ -43,11 +43,12 @@ class RequestAlertController extends Controller
             $reqalerts->save();
 
             return view('owner.requests.reviewrequest',compact('registration','category', 'logo'));
-        }else{
-            $requestdetails=OwnerShedule::with('sheduledstudents')->where('shedule_status',4)->get();
-            $userdetails=User::all();
-            return view('owner.sheduling.schedulerequests',compact('requestdetails','userdetails'));
         }
+        // }else{
+        //     $requestdetails=OwnerShedule::with('sheduledstudents')->where('shedule_status',4)->get();
+        //     $userdetails=User::all();
+        //     return view('owner.sheduling.schedulerequests',compact('requestdetails','userdetails'));
+        // }
     }
 
     public function requestdetails($date, $id, $user_id){

@@ -17,7 +17,8 @@
         <div class="row mb-2">
             <div class="ml-auto" style="margin-right: 20px;">
                 <a href="{{ route('addinstructor') }}" type="button" class="btn btn-sm btn-primary"><i class="fas fa-user-plus"></i> Add Instructor</a>
-                <button type="button" class="btn btn-sm btn-success toggle-search"><i class="fas fa-filter"></i> Filter</button>
+                {{-- <button type="button" class="btn btn-sm btn-warning toggle-search"><i class="fas fa-trash-alt"></i> Removed Instructors</button> --}}
+                <a href="{{ route('viewremovedinstructors') }}" class="btn btn-sm btn-warning">Removed Instructors</a>
             </div>
         </div>
             <!-- end of the first row  -->
@@ -54,30 +55,40 @@
                     <div class="col-sm-4 mb-2">
                         <div class="card rounded">
                             <div class="gradient text-center p-2">
-                                <img class="rounded-circle border border-success" style="max-width: 200px" src="/uploadimages/students_profiles/{{ $instructor->user->profile_img }}" alt="profile image">
+                                <img class="rounded-circle border border-success" style="max-width: 200px" src="/uploadimages/students_profiles/{{ $instructor->profile_img }}" alt="profile image">
                             </div>
                             <div class="card-body shadow">
                                 <table class="table table-sm">
                                     <tbody>
                                       <tr>
                                         <td scope="row"><h5 class="card-title">Name</h5></td>
-                                        <td><h5>{{ $instructor->user->f_name }} {{ $instructor->user->l_name }}</h5></td>
+                                        <td><h5>{{ $instructor->f_name }} {{ $instructor->l_name }}</h5></td>
                                       </tr>
                                       <tr>
                                         <td ><h5 class="card-title">ID</h5></td>
-                                        <td><h5>{{ $instructor->user->id }}</h5></td>
+                                        <td><h5>{{ $instructor->id }}</h5></td>
                                       </tr>
                                       <tr>
                                         <td ><h5 class="card-title">Email</h5></td>
-                                        <td><h5>{{ $instructor->user->email }}</h5></td>
+                                        <td><h5>{{ $instructor->email }}</h5></td>
                                       </tr>
                                       <tr>
                                         <td ><h5 class="card-title">Contact</h5></td>
-                                        <td><h5>{{ $instructor->user->contact_number }}</h5></td>
+                                        <td><h5>{{ $instructor->contact_number }}</h5></td>
                                       </tr>
                                       <tr>
-                                        <td ><a href="{{ route('editinstructor', $instructor->user_id) }}" class="btn btn-warning">Edit</a></td>
-                                        <td><a href="#" class="btn btn-danger">Remove</a></td>
+                                        <td ><a href="{{ route('editinstructor', $instructor->id) }}" class="btn btn-warning">Edit</a></td>
+                                            <form method="POST" action="{{ route('removeinstructor',$instructor->id) }}" id="delete-form-{{ $instructor->id }}" style="display: none">
+                                              @csrf
+                                            </form>
+                                            <td><button onclick="if(confirm('Are You Sure Want to Delete this?')){
+                                                event.preventDefault();
+                                                document.getElementById('delete-form-{{ $instructor->id }}').submit();
+                                            }else{
+                                                event.preventDefault();
+                                            }" href="" class="btn btn-danger" >Remove
+                                            </button>
+                                        </td>
                                       </tr>
                                     </tbody>
                                   </table>

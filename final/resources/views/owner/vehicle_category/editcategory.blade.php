@@ -35,58 +35,55 @@
                     <h5 style="color: #222944; font-weight: bold">Edit Category</h5>
                     <hr style="border: 0.5px solid #222944">
                     @foreach($results as $result)
-                        <form action="{{ route('updatecategory') }}" method="POST">
+                        <form action="{{ route('updatecategory',$result->id) }}" method="POST">
                             @csrf
-                            <input type="hidden" value="{{ $result->id }}" name="id">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <h5  style="color: #222944">Category Code</h5>
-                                        <input type="text" class="form-control" name="category_code" value="{{ $result->category_code }}">
-                                        <small>use standed category code</small>
-                                    </div>
-                                    <h5 style="color: #222944;">This category save as</h5>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="base_type" value="light_vehicle" checked>
-                                        <label class="form-check-label">
-                                            Light Vehicles
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="base_type"  value="heavy_vehicle">
-                                        <label class="form-check-label">
-                                            Heavy Vehicles
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <h5 style="color: #222944">Category Name</h5>
-                                        <input type="text" class="form-control" name="category_name" value="{{ $result->name }}">
-                                        <small>give short name</small>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <h5 style="color: #222944">Session Days</h5>
-                                    @foreach($result->sessionhours as $session_day)
-                                        @if ($session_day->session_type == 'theory')
-                                            <div class="form-group">
-                                                <label>Theory Sessions</label>
-                                                <input type="number" class="form-control" name="theory_session" value="{{ $session_day->total_days }}">
-                                            </div>
-                                        @endif
-                                        @if($session_day->session_type == 'practicle')
-                                            <div class="form-group">
-                                                <label>Practicle Sessions</label>
-                                                <input type="number" class="form-control" name="practicle_session" value="{{ $session_day->total_days }}">
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <button type="submit" class="btn btn-success">Save Changes</button>
-                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Category Code</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Transmissiom</th>
+                                    <th scope="col">Submit</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                  <form action="">
+                                    <th scope="row">
+                                        <div class="form-group">
+                                            <select  class="form-control" name="category_code">
+                                                <option value= "A" {{ 'A' == $result->category_code ? 'selected' : ''}} >A</option>
+                                                <option value= "B1" {{ 'B1' == $result->category_code ? 'selected' : ''}}>B1</option>
+                                                <option value= "C1" {{ 'C1' == $result->category_code ? 'selected' : ''}}" >C1</option>
+                                                <option value= "C" {{ 'C' == $result->category_code ? 'selected' : ''}}" >C</option>
+                                            </select>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <div class="form-group">
+                                            <select  class="form-control" name="name">
+                                                <option value= "bike" {{ 'bike' == $result->name ? 'selected' : ''}} >Bike</option>
+                                                <option value= "threeweel" {{ 'threeweel' == $result->name ? 'selected' : ''}}>Three Weel</option>
+                                                <option value= "dualpurposes" {{ 'dualpurposes' == $result->name ? 'selected' : ''}}" >Car, Van, Dual Purposes</option>
+                                                <option value= "heavyvehical" {{ 'heavyvehical' == $result->name ? 'selected' : ''}}" >Heavy Vehicle</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <select  class="form-control" name="transmission">
+                                                <option value= "automanual" {{ 'A' == $result->transmission ? 'selected' : ''}} >Auto and Manual</option>
+                                                <option value= "manual" {{ 'B1' == $result->transmission ? 'selected' : ''}}>Manual Only</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="submit" class="btn btn-success" value="Update">
+                                    </td>
+                                  </form>
+                                  </tr>
+                                </tbody>
+                              </table>
                         </form>
                     @endforeach
                 </div>

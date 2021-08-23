@@ -33,7 +33,7 @@
         <h5 class="card-header">Exam Results</h5>
         <div id="card">
         <div class="card-body" >
-            <table class="table">
+            <table class="table table-sm table-hover">
                 {{-- <caption>List of users</caption> --}}
                 <thead>
                   <tr>
@@ -55,7 +55,7 @@
                     <td>{{ $exam->result}}</td>
                     <td>{{ $exam->attempt}}</td>
                     <td><a href="{{ route('editexamlist', $student->user_id) }}"><i class="fas fa-pencil-alt"></i></a></td>
-                    <td><a href=""><i class="fas fa-angle-double-right"></i></a></td>
+                    <td><a href="{{ route('viewstudent', $student->user_id) }}"><i class="fas fa-angle-double-right"></i></a></td>
                   </tr>
                   @endforeach
                   @endforeach

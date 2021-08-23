@@ -27,7 +27,7 @@ class ChatController extends Controller
 
     public function get(){
 
-        $contacts =User::where('id', '!=', auth()->id())->get();
+        $contacts =User::where('id', '!=', auth()->id())->where('role_id','!=',4)->get();
         // dd($contacts);
         // get unread message
         $unreadIds = Message::select(\DB::raw('`from` as sender_id, count(`from`) as messages_count'))

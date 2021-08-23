@@ -15,7 +15,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 class IntructorsController extends Controller
 {
     public function index(){
-        $instructors = Instructor::with('user')->get();
+        $instructors = User::where('role_id',2)->where('status',1)->get();
         $details = CompanyDetails::first();
         $logo = $details->logo;
         return view('owner.instructor.instructors', compact('instructors', 'logo'));
@@ -184,6 +184,27 @@ class IntructorsController extends Controller
     public function deleteecategory($id,$userid){
         StudentCategory::find($id)->delete();
         return redirect()->route('instructorcategorypage',$userid)->with('successmsg', 'Instructor Category is deleted successfully !');
+    }
+
+    public function removeinstructor(Request $request, $id){
+        $user=User::find($id);
+        $user->role_id =4;
+        $user->status=4; 
+        $user->save();
+
+        return redirect()->route('instructors')->with('successmsg', 'Instructor is Removed successfully !');
+    }
+    public function viewremovedinstructors(){
+        $instructors=User::where('role_id',4)->where('status',4)->get();
+        return view('owner.instructor.viewremovedinstructors',compact('instructors'));
+    }
+    public function restoreinstructor(Request $request,$id){
+        $user=User::find($id);
+        $user->role_id =2;
+        $user->status=1; 
+        $user->save();
+
+        return redirect()->route('instructors')->with('successmsg', 'Instructor is Restorted successfully !');
     }
 
 }

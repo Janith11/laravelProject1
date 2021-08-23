@@ -94,6 +94,9 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/updateinstructor/categoryview/newcategory','Owner\IntructorsController@addnewcategory')->name('addnewinstructorcategory');
     Route::post('/updateinstructor/categoryview/updatecategory/{id}/{userid}','Owner\IntructorsController@updatecategory')->name('updateinstructorcategory');
     Route::delete('/updateinstructor/categoryview/deletecategory/{id}/{userid}', 'Owner\IntructorsController@deleteecategory')->name('deleteinstructorvehiclecategory');
+    Route::post('/instructors/removeinstructor/{id}', 'Owner\IntructorsController@removeinstructor')->name('removeinstructor');
+    Route::get('instructors/Deleted','Owner\IntructorsController@viewremovedinstructors')->name('viewremovedinstructors');
+    Route::post('instructors/Restore/{id}','Owner\IntructorsController@restoreinstructor')->name('restoreinstructor');
 
     // students
     Route::get('/studentslist', 'Owner\StudentsController@index')->name('studentslist');
@@ -159,7 +162,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/vehicle_category_list/add_category', 'Owner\VehicleCategoryController@add')->name('addvehiclecategory');
     Route::post('/vehicle_category_list/save_category', 'Owner\VehicleCategoryController@savecategory')->name('savecategory');
     Route::get('/vehicle_category_list/edit_category/{id}','Owner\VehicleCategoryController@editcategory')->name('editcategory');
-    Route::post('/vehicle_category_list/update_category', 'Owner\VehicleCategoryController@update_category')->name('updatecategory');
+    Route::post('/vehicle_category_list/update_category/{id}', 'Owner\VehicleCategoryController@update_category')->name('updatecategory');
     Route::delete('/vehicle_category_list/delete_category/{id}', 'Owner\VehicleCategoryController@delete_category')->name('deletecategory');
 
     // post
@@ -229,7 +232,7 @@ Route::middleware('checkrequest')->group(function(){
 
     //RequestAlert
     Route::get('requestalert','Owner\RequestAlertController@index')->name('viewalert');
-    Route::get('requestalert/viewalerts/{userid}/{description}','Owner\RequestAlertController@redirect')->name('loadrequestalerts');
+    Route::get('requestalert/viewalerts/{userid}/{description}/{id}','Owner\RequestAlertController@redirect')->name('loadrequestalerts');
     Route::get('/requestdetails/{date}/{id}/{user_id}', 'Owner\RequestAlertController@requestdetails')->name('shedulerequestdetails');
     Route::post('/requestdetails/accept', 'Owner\RequestAlertController@accept')->name('acceptshedulerequest');
     Route::post('/requestdetails/ignore', 'Owner\RequestAlertController@ignore')->name('ignoreshedulerequest');
