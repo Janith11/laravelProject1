@@ -38,10 +38,11 @@
             <div class="card">
                 <div class="card-body">
                     <h5 style="color: #081135; font-weight: bold">Request Details</h5>
-                    <hr style="border-top: 1px solid #081135">
+
                     <div class="table-responsive">
                         @foreach ($shedule as $value)
                             <div style="padding: 10px">
+                                <hr style="border-top: 1px solid #081135">
                                 @foreach ($students as $student)
                                     @if($student->user_id == $value->user_id)
                                         <div style="display: flex">

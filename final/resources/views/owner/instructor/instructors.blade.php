@@ -54,7 +54,7 @@
                     <div class="col-sm-4 mb-2">
                         <div class="card rounded">
                             <div class="gradient text-center p-2">
-                                <img class="rounded-circle border border-success" style="max-width: 200px" src="/uploadimages/students_profiles/{{ $instructor->user->profile_img }}" alt="profile image">
+                                <img class="rounded-circle border border-success" style="max-width: 200px" src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="profile image">
                             </div>
                             <div class="card-body shadow">
                                 <table class="table table-sm">
