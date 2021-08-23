@@ -1,12 +1,22 @@
 @extends('layouts.ownerapp')
 
-@section('content')
+<style>
+    .uploadimage{
+        width: 400px;
+        height: auto;
+        border-radius: 10px;
+        /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    }
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    .imgdiv{
+        padding: 10px;
+        width: 420px;
+        background-color: #FFFFFF;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+
+@section('content')
 
     <div class="container">
 
@@ -18,8 +28,8 @@
                     <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
                 </svg>
             </a>
-            <a href="{{ route('vehicles') }}" style="padding-top: 3px; padding-left: 10px"> / Vehicle List</a>
-            <a style="padding-top: 3px; padding-left: 10px"> / Add Vehicle</a>
+            <a href="{{ route('vehicles') }}" style="padding-top: 6px; padding-left: 10px"> / Vehicle List</a>
+            <a style="padding-top: 6px; padding-left: 10px"> / Add Vehicle</a>
         </div>
 
         @if(session('error'))
@@ -48,13 +58,13 @@
                     <hr style="border-top: 1px solid #222944">
                     <div class="row">
 
-                        <div class="col">
+                        <div class="col-sm-6">
                             <form method="POST" action="{{ route('addvehicle') }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
                                     <label class="form-label" for="imageFile">Choose Image</label>
-                                    <input type="file" class="form-control" id="image" name="image">
+                                    <input type="file" class="form-control" id="image" name="image" onchange="uploadfile(event)">
                                 </div>
 
                                 <div class="form-group">
@@ -71,20 +81,15 @@
                             </form>
                         </div>
 
-                        <div class="col-6">
-                            <div class="col" id="one" style="text-align: center; vertical-align: middle;">
-                                <div class="col">
-                                    <div id="upload-demo"></div>
+                        <div class="col-sm-6">
+                            <div id="card">
+                                <h5 style="color: #050E33">Uploaded Image</h5>
+                                <div class="imgdiv">
+                                    <img id="uploadimage" class="uploadimage"/>
                                 </div>
-                                <div class="col">
-                                    <button class="btn btn-success upload-image">Crop & Save</button>
-                                </div>
-                            </div>
-
-                            <div class="col" id="two" style="display: none; text-align: center; vertical-align: middle; justify-content: center; margin: auto;">
-                                <div id="preview-crop-image" style="background:#E9E8E8;width:300px;padding:10px 10px; height:300px; border-radius: 10px;"></div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -92,66 +97,20 @@
 
     </div>
 
-
-
-    <script type="text/javascript">
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var resize = $('#upload-demo').croppie({
-            enableExif: true,
-            enableOrientation: true,
-            viewport: { // Default { width: 100, height: 100, type: 'square' }
-                width: 200,
-                height: 200,
-                type: 'square' //square
-            },
-            boundary: {
-                width: 300,
-                height: 300
-            }
-        });
-
-        $('#image').on('change', function () {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                resize.croppie('bind',{
-                    url: e.target.result
-                }).then(function(){
-                    console.log('jQuery bind complete');
-                });
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
-
-        $('.upload-image').on('click', function (ev) {
-            resize.croppie('result', {
-                type: 'canvas',
-                size: 'viewport'
-            }).then(function (img) {
-                $.ajax({
-                    type: "POST",
-                    data: {"image":img},
-                    success: function (data) {
-                        html = '<img src="' + img + '" />';
-                        $("#preview-crop-image").html(html);
-                        document. getElementById("two"). style. display = "block";
-                        document. getElementById("one"). style. display = "none";
-                    }
-                });
-            });
-        });
-
-    </script>
-
 <script>
+
+    function uploadfile(event){
+        var output = document.getElementById('uploadimage');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+
     $(document).ready(function(){
         $('aside ul .vehicle').css('border-left', '5px solid #00bcd4');
-    })
+    });
+
 </script>
 
 @endsection

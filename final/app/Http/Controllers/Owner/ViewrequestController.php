@@ -15,16 +15,12 @@ class ViewrequestController extends Controller
 {
     public function index(){
         $requests=User::where('role_id',4)->where('status',1)->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.requests.viewrequest',compact('requests', 'logo'));
+        return view('owner.requests.viewrequest',compact('requests'));
     }
     public function get($id){
         $registration=User::where('id',$id)->get();
         $category=StudentCategory::where('user_id',$id)->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.requests.reviewrequest',compact('registration','category', 'logo'));
+        return view('owner.requests.reviewrequest',compact('registration','category'));
     }
     public function accept(Request $request, $id){
 
@@ -81,14 +77,14 @@ class ViewrequestController extends Controller
                 'attempt'=>1
             ]);
             if($user->gender == 'male'){
-                Message::create([    
+                Message::create([
                     'from'=>1,
                     'to'=> $user->id,
                     'has_read'=>0,
                     'text'=>'Congratulations Sir on joining our driving school! We look forward to sharing to many successes!'
                 ]);
             }else{
-                Message::create([    
+                Message::create([
                     'from'=>1,
                     'to'=> $user->id,
                     'has_read'=>0,
@@ -117,13 +113,11 @@ class ViewrequestController extends Controller
             return redirect()->route('viewrequest')->with('successmsg', 'Student Request is deleted Successfully !');
         }
         public function viewdeleterequests(){
-            $details = CompanyDetails::first();
-            $logo = $details->logo;
             $deleterequests =User::where([
                 ['role_id',4],
                 ['status',0],
                 ])->get();
-            return view('owner.requests.viewdeletedrequests',compact('deleterequests', 'logo'));
+            return view('owner.requests.viewdeletedrequests',compact('deleterequests'));
         }
         public function restorerequest(Request $request,$userid){
             $user = User::find($userid);

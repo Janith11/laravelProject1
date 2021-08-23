@@ -13,17 +13,15 @@ use Illuminate\Support\Facades\DB;
 class paymentsController extends Controller
 {
     public function index(){
-        $studentslist = PaymentLog::with('user')->with('student')->orderBy('updated_at', 'desc')->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.payment.viewpayments',compact('studentslist', 'logo'));
+        $studentslist = PaymentLog::with('user')->whereHas('student')->orderBy('updated_at', 'desc')->get();
+        // return $studentslist;
+        // add wherehas function
+        return view('owner.payment.viewpayments',compact('studentslist'));
     }
 
     public function studentpayments($userid){
         $studentdetails=Student::where('user_id',$userid)->with('user')->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.payment.viewpaymentpage', compact('studentdetails','logo'));
+        return view('owner.payment.viewpaymentpage', compact('studentdetails'));
 
     }
 

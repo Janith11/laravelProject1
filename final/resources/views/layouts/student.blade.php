@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shan</title>
+
+    <!-- Favicons -->
+    <link href="{{ asset('assets/img/newfavicon.png') }}" rel="icon">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -917,7 +921,7 @@
                     <li class="nav-item  mb-3 payments" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">
-                                <img src="/uploadimages/other/dashboardicons/complete.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                                <img src="/uploadimages/other/dashboardicons/wallet.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
                             </div>
                             <div style="display: inline-block">
                                 <a class="nav-link" href="{{ route('studenentpaymentlogsview') }}">

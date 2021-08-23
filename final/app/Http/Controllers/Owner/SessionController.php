@@ -9,15 +9,11 @@ use Illuminate\Http\Request;
 class SessionController extends Controller
 {
     public function theory(){
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.session.theorysession', compact('logo'));
+        return view('owner.session.theorysession');
     }
 
     public function practicle(){
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.session.practiclesession', compact('logo'));
+        return view('owner.session.practiclesession');
     }
 
     public function update_practicle_sessions(Request $request){

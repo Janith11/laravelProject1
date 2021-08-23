@@ -179,8 +179,7 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     @foreach($instructors as $instructor)
-                                        <tr id="details">
-
+                                        <tr id="details-{{ $instructor->user_id }}">
                                             <td>
                                                 <div>
                                                     <div style="display: inline-block">
@@ -195,7 +194,7 @@
                                             </td>
 
                                             <td style="vertical-align: middle">
-                                                <h5 style="color: #222944" id="time"></h5>
+                                                <h5 style="color: #222944" id="time-{{ $instructor->user_id }}"></h5>
                                             </td>
 
                                             <td style="padding-left: 10px; vertical-align: middle">
@@ -203,36 +202,36 @@
                                                     @foreach($instructor->employeeatendancess as $attend)
                                                         @if ($attend->status == 0)
                                                             <div style="display: inline-block">
-                                                                <button class="btn btn-success"  style="background-color: #F7D000; border: none; color: #222944;" id="checkin">CheckIn</button>
+                                                                <button class="btn btn-success"  style="background-color: #F7D000; border: none; color: #222944;" id="checkin" onclick="checkin('input_checkin-{{ $instructor->user_id }}')">CheckIn</button>
                                                             </div>
                                                             <div style="display: inline-block">
-                                                                <button class="btn btn-danger" type="button" style="background-color: #222944; color: white; border: none" id="absent">Absent</button>
+                                                                <button class="btn btn-danger" type="button" style="background-color: #222944; color: white; border: none" id="absent" onclick="absent('saveabsent-{{ $instructor->user_id }}')">Absent</button>
                                                             </div>
                                                         @elseif ($attend->status == 2)
                                                             <div style="display: inline-block">
-                                                                <button class="btn btn-danger" id="checkout">CheckOut</button>
+                                                                <button class="btn btn-danger" id="checkout" onclick="checkout('input_checkout-{{ $instructor->user_id }}')">CheckOut</button>
                                                             </div>
                                                             <script>
-                                                                var element = document.getElementById('details');
+                                                                var element = document.getElementById('details-'+{{ $instructor->user_id }});
                                                                 element.style.borderLeft = '5px solid #3EB750';
-                                                                document.getElementById('time').innerText = "{{ $attend->present_time }}";
+                                                                document.getElementById('time-'+{{ $instructor->user_id }}).innerText = "{{ $attend->present_time }}";
                                                             </script>
                                                         @elseif ($attend->status == 1)
                                                             <h5 style="color: #222944">Attend</h5>
                                                             <script>
-                                                                var element = document.getElementById('details');
+                                                                var element = document.getElementById('details-'+{{ $instructor->user_id }});
                                                                 element.style.borderLeft = '5px solid #222944';
                                                                 var start = "{{ $attend->present_time }}";
                                                                 var end = "{{ $attend->leave_time }}";
                                                                 var timestart = new Date("01/01/2021 "+start).getTime();
                                                                 var timeend = new Date("01/01/2021 "+end).getTime();
                                                                 var diff = (timeend - timestart)/ 60 /60 / 1000;
-                                                                document.getElementById('time').innerText = diff+" hours worked";
+                                                                document.getElementById('time-'+{{ $instructor->user_id }}).innerText = diff+" hours worked";
                                                             </script>
                                                         @else
                                                             <h5 style="color: #E22A38">Leave</h5>
                                                             <script>
-                                                                var element = document.getElementById('details');
+                                                                var element = document.getElementById('details-'+{{ $instructor->user_id }});
                                                                 element.style.borderLeft = '5px solid #E22A38';
                                                             </script>
                                                         @endif
@@ -243,7 +242,7 @@
                                             </td>
                                         </tr>
 
-                                        <tr id="input_checkin" style="display: none">
+                                        <tr id="input_checkin-{{ $instructor->user_id }}" style="display: none">
 
                                             <td>
                                                 <h5 style="color: #222944">Set Checkin Time</h5>
@@ -272,7 +271,7 @@
 
                                         </tr>
 
-                                        <tr id="input_checkout" style="display: none">
+                                        <tr id="input_checkout-{{ $instructor->user_id }}" style="display: none">
 
                                             <td>
                                                 <h5 style="color: #222944">Set Checkout Time</h5>
@@ -302,7 +301,7 @@
 
                                         <tr style="display: none">
                                             <td>
-                                                <form action="{{ route('saveabsent') }}" method="POST" id="saveabsent">
+                                                <form action="{{ route('saveabsent') }}" method="POST" id="saveabsent-{{ $instructor->user_id }}">
                                                     @csrf
                                                     @foreach($instructor->employeeatendancess as $attend)
                                                         <input type="text" style="display: none" value="{{ $attend->id }}" name="id">
@@ -327,22 +326,17 @@
 </div>
 
 <script>
-    $(document).ready(function(){
-        $('#input_checkout').hide();
-        $('#input_checkin').hide();
-    });
+    function checkin(id){
+        $('#'+id).toggle();
+    }
 
-    $('#checkin').click(function(){
-        $('#input_checkin').toggle();
-    });
+    function checkout(id){
+        $('#'+id).toggle();
+    }
 
-    $('#checkout').click(function(){
-        $('#input_checkout').toggle();
-    });
-
-    $('#absent').click(function(){
-        $('#saveabsent').submit();
-    });
+    function absent(id){
+        $('#'+id).submit();
+    }
 
 </script>
 

@@ -110,7 +110,7 @@
             </svg>
         </a>
         <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentsheduling') }}"> / Shedule List</a>
-        <a style="padding-top: 6px; padding-left: 10px; color:white"> / Pending Request</a>
+        <a style="padding-top: 6px; padding-left: 10px;"> / Pending Request</a>
     </div>
 
     <div class="row-mb-2">

@@ -27,27 +27,20 @@ class StudentsController extends Controller
             $query->where('status', 3);
         })->count();
 
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-
-        return view('owner.students.studentslist', compact('students', 'requst_students', 'complete_students', 'logo'));
+        return view('owner.students.studentslist', compact('students', 'requst_students', 'complete_students'));
     }
 
     //return add student page (form)
     public function addstudent(){
         $vehicalcategory=VehicleCategory::all();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.students.addstudent', compact('vehicalcategory', 'logo'));
+        return view('owner.students.addstudent', compact('vehicalcategory'));
     }
 
     // >> button result page
     public function viewstudent($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
         $examdetails = Student::where('user_id','=',$user_id)->with('exams')->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.students.viewstudent',compact('student','examdetails', 'logo'));
+        return view('owner.students.viewstudent',compact('student','examdetails'));
 
     }
 
@@ -65,7 +58,7 @@ class StudentsController extends Controller
             'addressnumber' => 'required',
             'addressstreatname' => 'required',
             'addresscity' => 'required',
-            'birthday' => 'required|date', 
+            'birthday' => 'required|date',
             'vehicle_category'=>'required',
             'totalsession'=>'required'
             ]);
@@ -145,14 +138,14 @@ class StudentsController extends Controller
 
         }
         if($user->gender == 'male'){
-            Message::create([    
+            Message::create([
                 'from'=>1,
                 'to'=> $user->id,
                 'has_read'=>0,
                 'text'=>'Congratulations Sir on joining our driving school! We look forward to sharing to many successes!'
             ]);
         }else{
-            Message::create([    
+            Message::create([
                 'from'=>1,
                 'to'=> $user->id,
                 'has_read'=>0,
@@ -179,9 +172,7 @@ class StudentsController extends Controller
 
     public function editstudent($user_id){
         $student = Student::where('user_id', '=',$user_id)->with('user')->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.students.editstudent',compact('student', 'logo'));
+        return view('owner.students.editstudent',compact('student'));
     }
 
     public function updatestudent(Request $request, $user_id){
@@ -221,9 +212,7 @@ class StudentsController extends Controller
         $category=StudentCategory::where('user_id',$user_id)->get();
         $havecategory=StudentCategory::where('user_id',$user_id)->select('category')->get();
         $notcategory=VehicleCategory::whereNotIn('category_code',$havecategory)->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.students.editcategory',compact('category','notcategory', 'logo'));
+        return view('owner.students.editcategory',compact('category','notcategory'));
     }
 
     public function updatecategory(Request $request,$id,$userid){

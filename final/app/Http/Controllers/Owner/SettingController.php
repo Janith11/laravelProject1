@@ -24,12 +24,26 @@ class SettingController extends Controller
         $shedulingtype = ShedulingType::first();
         $type =  $shedulingtype->type;
         $owners = User::where('id', 1)->get();
-        $detail = CompanyDetails::first();
-        $logo = $detail->logo;
-        return view('owner.settings.settings', compact('details', 'open_hours', 'type', 'owners', 'logo'));
+        return view('owner.settings.settings', compact('details', 'open_hours', 'type', 'owners'));
     }
 
     public function savedetails(Request $request){
+
+        $this->validate($request, [
+            'c_name' => 'required',
+            'c_contact_number' => 'required|min:10',
+            'c_email' => 'required',
+            'address_no' => 'required',
+            'address_lineone' => 'required',
+            'address_linetwo' => 'required',
+        ]);
+
+        // $contact_number = $request->cc_contact_number;
+        // $result = preg_match('/[0-9]/', $contact_number);
+        // return $result;
+        // if ($result == 0) {
+        //     return back()->with('error', 'Contact number must be Number !!');
+        // }
 
         $company_details = CompanyDetails::first();
 
@@ -181,9 +195,7 @@ class SettingController extends Controller
     }
 
     public function password(){
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.settings.changepassword', compact('logo'));
+        return view('owner.settings.changepassword');
     }
 
     public function store(Request $request){

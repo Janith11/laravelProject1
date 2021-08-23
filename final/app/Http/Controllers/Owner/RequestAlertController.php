@@ -32,6 +32,7 @@ class RequestAlertController extends Controller
         $contactus=ContactUs::orderBy('created_at','DESC')->get();
         return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students','contactus'));
     }
+    
     public function redirect($userid,$description,$id){
         if($description == '1'){
             $registration=User::where('id',$userid)->get();

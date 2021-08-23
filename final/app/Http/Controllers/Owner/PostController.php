@@ -13,15 +13,11 @@ class PostController extends Controller
 {
     public function index(){
         $posts = Posts::with('user')->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.post.allpost', compact('posts', 'logo'));
+        return view('owner.post.allpost', compact('posts'));
     }
 
     public function makeposts(){
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.post.createpost', compact('logo'));
+        return view('owner.post.createpost');
     }
 
     public function savepost(Request $request){
@@ -53,9 +49,7 @@ class PostController extends Controller
         foreach ($posts as $post) {
             $message = $post->message;
         }
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.post.editpost', compact('posts', 'message', 'logo'));
+        return view('owner.post.editpost', compact('posts', 'message'));
     }
 
     public function updatepost(Request $request){

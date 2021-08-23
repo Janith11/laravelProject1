@@ -13,15 +13,11 @@ class VehicleCategoryController extends Controller
 {
     public function index(){
         $categories = VehicleCategory::with('sessionhours')->get();
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.vehicle_category.categorylist', compact('categories', 'logo'));
+        return view('owner.vehicle_category.categorylist', compact('categories'));
     }
 
     public function add(){
-        $details = CompanyDetails::first();
-        $logo = $details->logo;
-        return view('owner.vehicle_category.addcategory', compact('logo'));
+        return view('owner.vehicle_category.addcategory');
     }
 
     public function savecategory(Request $request){
