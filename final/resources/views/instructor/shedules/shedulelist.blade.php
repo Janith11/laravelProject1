@@ -72,12 +72,12 @@
 
     <div class="row-mb-2">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div id="card">
-                    <div class="card">
+                    <div class="card" style="border-left:10px solid #17C1EC">
                         <div class="card-body">
-                            <div class="row justify-content-between">
-                                <div style="display: inline-block; padding-left: 15px">
+                            <div>
+                                <div style="display: inline-block;">
                                     <h3>
                                         {{ $lastmonth_shedules }}
                                     </h3>
@@ -85,8 +85,8 @@
                                         <small style="color: #222944;">Last 30 days</small>
                                     </div>
                                 </div>
-                                <div style="display: inline-block; padding-right: 15px">
-                                    <a href="{{ route('lastthirydays') }}">
+                                <div style="display: inline-block; padding-top: 10px" class="float-right">
+                                    <a href="{{ route('lastthirydays') }}" style="text-decoration: none;" class="btn">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                         </svg>
@@ -97,12 +97,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div id="card">
-                    <div class="card">
+                    <div class="card" style="border-left: 10px solid #17EC45">
                         <div class="card-body">
-                            <div class="row justify-content-between">
-                                <div style="display: inline-block; padding-left: 15px">
+                            <div>
+                                <div style="display: inline-block;">
                                     <h3>
                                         {{ $lastsixmonth_shedules }}
                                     </h3>
@@ -110,8 +110,8 @@
                                         <small style="color: #222944;">Last six month</small>
                                     </div>
                                 </div>
-                                <div style="display: inline-block; padding-right: 15px">
-                                    <a href="{{ route('lastsixmonth') }}">
+                                <div style="display: inline-block; padding-top: 10px" class="float-right">
+                                    <a href="{{ route('lastsixmonth') }}"  class="btn">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                         </svg>
@@ -122,12 +122,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div id="card">
-                    <div class="card">
+                    <div class="card" style="border-left: 10px solid #EC7E17">
                         <div class="card-body">
-                            <div class="row justify-content-between">
-                                <div style="display: inline-block; padding-left: 15px">
+                            <div>
+                                <div style="display: inline-block;">
                                     <h3>
                                         {{ $lastyear_shedules }}
                                     </h3>
@@ -135,8 +135,33 @@
                                         <small style="color: #222944;">Last year</small>
                                     </div>
                                 </div>
-                                <div style="display: inline-block; padding-right: 15px;">
-                                    <a href="{{ route('lastyear') }}">
+                                <div style="display: inline-block; padding-top: 10px" class="float-right">
+                                    <a href="{{ route('lastyear') }}" class="btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div id="card">
+                    <div class="card" style="border-left: 10px solid #F5F23A">
+                        <div class="card-body">
+                            <div>
+                                <div style="display: inline-block;">
+                                    <h3>
+                                        {{ $allshedules }}
+                                    </h3>
+                                    <div>
+                                        <small style="color: #222944;">All</small>
+                                    </div>
+                                </div>
+                                <div style="display: inline-block; padding-top: 10px" class="float-right">
+                                    <a href="{{ route('instructorallshedules') }}" class="btn">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                                         </svg>
@@ -153,7 +178,7 @@
     <div class="row-mb-2">
         <div class="row">
 
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                 <div id="card">
                     <div class="card">
                         <div class="card-body">
@@ -166,65 +191,45 @@
                                 </div>
                             </div>
                             <hr style="color: #222944; border-top: 1px solid #222944">
-                            <div class="table-responsive">
-                                <table style="width: 100%" id="todayshedules" class="table">
-                                    <thead class="thead-dark" style="display: none">
-                                        <tr>
-                                            <th>Shedule Name</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Time Left</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($today_shedules as $today_shedule)
+                            @if(count($today_shedules) == 0)
+                                <div class="alert alert-info" role="alert">
+                                    <h5>You Don't have shedules on today !!</h5>
+                                </div>
+                            @else
+                                <div class="table-responsive">
+                                    <table style="width: 100%" id="todayshedules" class="table">
+                                        <thead class="thead-dark" style="display: none">
                                             <tr>
-                                                <td>{{ $today_shedule->title }}</td>
-                                                <td>{{ $today_shedule->date }}</td>
-                                                <td>{{ $today_shedule->time }}</td>
-                                                <td style="display: none">
-                                                    {{ $today_shedule->date }} {{ $today_shedule->time }}
-                                                </td>
-                                                <td id="countdown"></td>
-                                                <td>
-                                                    <a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus"  data-placement="left"  data-content='<ul class="list-group"><li class="list-group-item list-group-item-action"><a href="{{ route('instructortodayshedulesdetails', $today_shedule->id ) }}" class="btn" type="button">details</a></li><li class="list-group-item list-group-item-action"><a class="btn" type="button" href="{{ route('reportattendance', $today_shedule->id ) }}">report attendance</a></li></ul>'>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#222944" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                                        </svg>
-                                                    </a>
-                                                </td>
+                                                <th>Shedule Name</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Time Left</th>
+                                                <th></th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div id="card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row justify-content-between">
-                                <div style="display: inline-block; padding-left: 15px">
-                                    <h3>
-                                        {{ $allshedules }}
-                                    </h3>
-                                    <div>
-                                        <small style="color: #222944;">All</small>
-                                    </div>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($today_shedules as $today_shedule)
+                                                <tr>
+                                                    <td>{{ $today_shedule->title }}</td>
+                                                    <td>{{ $today_shedule->date }}</td>
+                                                    <td>{{ $today_shedule->time }}</td>
+                                                    <td style="display: none">
+                                                        {{ $today_shedule->date }} {{ $today_shedule->time }}
+                                                    </td>
+                                                    <td id="countdown"></td>
+                                                    <td>
+                                                        <a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus"  data-placement="left"  data-content='<ul class="list-group"><li class="list-group-item list-group-item-action"><a href="{{ route('instructortodayshedulesdetails', $today_shedule->id ) }}" class="btn" type="button">details</a></li><li class="list-group-item list-group-item-action"><a class="btn" type="button" href="{{ route('reportattendance', $today_shedule->id ) }}">report attendance</a></li></ul>'>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#222944" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                                            </svg>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div style="display: inline-block; padding-right: 15px;">
-                                    <a href="{{ route('instructorallshedules') }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
