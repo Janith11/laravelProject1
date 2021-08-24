@@ -66,60 +66,6 @@
             </nav><!-- .nav-menu -->
         </div>
     </header>
-    <!-- End Header -->
-
-        {{-- <div class="logo">
-            <a href="{{'/'}}">
-                <img src="/uploadimages/company_logo/{{ $logo->logo }}" alt="" style="width: 150px; height: auto;">
-            </a>
-        </div>
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
-
-            <div class="container">
-
-                <a class="navbar-brand" href="{{'/'}}" id="name" style="display: none">Shan</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                    <ul class="navbar-nav mr-auto" style="padding-right: 100px">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('contactus') }}">Contact us</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('gallery') }}">Gallery</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('roadsigns') }}">Road Signs</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link " href="{{ url('services') }}">Services</a>
-                        </li>
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                More
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('rmvregulations') }}">RMV Regulations</a>
-                                <a class="dropdown-item" href="{{ route('onlinepaper') }}">Online papers</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('prices') }}">Prices</a>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <form class="form-inline my-2 my-lg-0">
-                        @if (Route::has('login'))
-                        <button class="btn btn-sm btn-outline-success my-2 my-sm-0 login_btn" type="submit"> <a class="nav-link" href="{{ route('login') }}" style="color: rgb(236, 232, 0) !important">Login</span></a></button>
-                        @endif
-                    </form>
-
-                </div>
-            </div>
-        </nav> --}}
 
     @yield('content')
 
@@ -130,15 +76,13 @@
                 <div class="row">
 
                     <div class="col-lg-4 col-md-6 footer-info">
-                        @foreach ($companydetailfooter as $cdetail)  
-                        test                      
-                            {{-- <h3>{{ $cdetail->company_name }}</h3>
+                        @foreach ($companydetailfooter as $cdetail)
+                            <h3>{{ $cdetail->company_name }}</h3>
                             <p>{{ $cdetail->address_no }}, {{ $cdetail->address_lineone }}</p>
                             <p>{{ $cdetail->address_linetwo }}, Sri Lanka</p>
                             <p><Strong>Phone:</Strong> {{ $cdetail->contact_number }}</p>
-                            <p><Strong>Phone:</Strong> {{ $cdetail->email }}</p> --}}
-                            @break
-                        @endforeach    
+                            <p><Strong>Email:</Strong> {{ $cdetail->email }}</p>
+                        @endforeach
                         <div class="social-links mt-3">
                             <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                             <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>

@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         view()->composer('layouts.landingpage', function($view){
-            $view->with('companydetailfooter', \App\CompanyDetails::first());
+            $view->with('companydetailfooter', \App\CompanyDetails::first()->get());
         });
     }
 }
