@@ -30,10 +30,10 @@
             <h1 class="text-center mb-4" style="color: rgb(219, 10, 10)">Congratulation!</h1>
             <div class="card shadow" style="border-radius: 2rem">
               <div class="card-body">
-                <p><i class="fas fa-check-circle fa-lg text-success"></i> Now your request has been sent to the administration.</p>
+                <p><i class="fas fa-check-circle fa-lg text-success"></i> Your request has been sent to the administration.</p>
                 <p><i class="fas fa-check-circle fa-lg text-success"></i> You have to wait maximum two working days.</p>
-                <p><i class="fas fa-check-circle fa-lg text-success"></i> If your request has accepted by the administration, you can log in to the system.</p>
-                <p><i class="fas fa-check-circle fa-lg text-success"></i> If your request hasn't accepted in within two working days, you can contact us via the given contact us link.</p>
+                <p><i class="fas fa-check-circle fa-lg text-success"></i> When your request is accepted you will be able to login your account.</p>
+                <p><i class="fas fa-check-circle fa-lg text-success"></i> If your request has not accepted, Please contact us.</p>
                 <p><i class="fas fa-check-circle fa-lg text-success"></i> Sorry for any inconvenience this may cause.</p>
               </div>
               <div class="card-footer text-muted text-center">

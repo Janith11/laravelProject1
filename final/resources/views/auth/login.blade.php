@@ -10,6 +10,18 @@
         /* background: rgb(139,211,217); */
         background: linear-gradient(90deg, rgba(139,211,217,1) 0%, rgba(108,98,198,1) 47%, rgba(22,64,247,1) 100%);
     }
+    .myshadow{
+        box-shadow: 1px 1px 20px 1px rgba(0, 0, 255, 0.452);
+    }
+    .myregistration:hover{
+        color: white !important;
+        transition: 0.5s !important;
+        
+    }
+    .myregistercol:hover{
+        background-color: #6789DE;
+        box-shadow: 1px 1px 20px 1px rgba(0, 0, 255, 0.452);
+    }
 </style>
 
 <div class="container">
@@ -21,7 +33,15 @@
                     <div class="col p-5">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-                            <h1 style="color: #2d42b9">Login</h1>
+                            <div class="row">
+                                <div class="col bg-primary myshadow text-center">
+                                    <a href="{{ route('login') }}" class="" style="text-decoration: none"><h1 style="color: #ffffff;">Login</h1></a>
+                                </div>
+                                <div class="col myregistercol text-center">
+                                    <a href="{{ route('register') }}" style="text-decoration: none" ><h1 style="color: #2d42b9" class="myregistration">Register</h1></a>
+                                </div>
+                            </div>
+                            
                             <div class="form-group row ">
                                     <label for="email" class=" col-form-label text-md-right">{{ __('E-Mail Address') }}</label>                        
                                     <input id="email" type="email" class=" form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>

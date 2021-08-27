@@ -40,6 +40,14 @@ class AppServiceProvider extends ServiceProvider
             $view->with('newmessages', \App\Message::where('to',Auth::user()->id)->where('has_read',0)->get());
         });
 
+        view()->composer('layouts.instructorapp', function($view){
+            $view->with('newmessages', \App\Message::where('to',Auth::user()->id)->where('has_read',0)->get());
+        });
+
+        view()->composer('layouts.student', function($view){
+            $view->with('newmessages', \App\Message::where('to',Auth::user()->id)->where('has_read',0)->get());
+        });
+
         view()->composer('layouts.ownerapp', function($view){
             $view->with('shedulealerts', \App\SheduleRequest::where('status', 0)->count());
         });

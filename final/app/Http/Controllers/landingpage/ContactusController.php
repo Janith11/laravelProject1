@@ -11,16 +11,17 @@ use Illuminate\Support\Facades\DB;
 class ContactusController extends Controller
 {
     public function index(){
+        // $myscroll = true;
         return view('landingpage.contactus');
     }
     public function insert(Request $request){
-        $this->validate($request,[
-            'username' => 'required',
-            'email' => 'required',
-            'contactnumber' => 'required|integer',
-            'hometown' => 'required',
-            'message' => 'required',
-        ]);
+        // $this->validate($request,[
+        //     'username' => 'required',
+        //     'email' => 'required',
+        //     'contactnumber' => 'required|integer',
+        //     'hometown' => 'required',
+        //     'message' => 'required',
+        // ]);
 
         ContactUs::create([
             'name' => $request->username,

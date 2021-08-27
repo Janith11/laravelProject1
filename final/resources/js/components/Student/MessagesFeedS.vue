@@ -3,7 +3,8 @@
         <ul v-if="contact">
             <li v-for="message in messages" :class="`message${message.to == contact.id ? ' sent' : ' received'}`" :key="message.id">
                 <div class="text">
-                    {{ message.text }}
+                    {{ message.text }} <br>
+                    <small>{{message.created_at}}</small>
                 </div>
             </li>
         </ul>
@@ -41,7 +42,11 @@
 
 <style lang="scss" scoped>
     .feed{
-        background: rgb(228, 228, 228);
+        // background: #8b2c2c;
+        background: #16222A;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #3A6073, #16222A);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #3A6073, #16222A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
         height: 100vh;
         max-height: 470px;
         overflow: scroll;
@@ -67,7 +72,8 @@
                         text-align: left;
 
                         .text{
-                            background: silver;
+                            background:#1776D2;
+                            color: beige;
                         }                       
                     }
 
@@ -75,14 +81,23 @@
                         text-align: right;
 
                         .text{
-                            background: rgba(49, 250, 23, 0.534);
+                            // background: #165F55;
+                            background: #02AAB0;  /* fallback for old browsers */
+                            background: -webkit-linear-gradient(to right, #00CDAC, #02AAB0);  /* Chrome 10-25, Safari 5.1-6 */
+                            background: linear-gradient(to right, #00CDAC, #02AAB0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+                            color: white;
                         }                       
                     }
                  }
             }
         }
-
-           
-
     }
+
+    @media only screen and (max-width: 600px) {
+        .feed{
+            max-height: 60vh;
+        }
+  }
+
 </style>
