@@ -10,7 +10,53 @@
             </svg>
         </a>
     </div>
-    <div class="row-mb-2">
+   
+    <div class="card">
+        <div class="card-body">
+            <h5 style="color: #222944; font-weight: bold"> Exam Results</h5>
+            <hr style="border: 0.5px solid #222944">
+            <div class="mt-5">
+                <div class="row">
+                    @foreach ($examdetails as $examdetail)
+                        @foreach ($examdetail->exams as $exam)
+                            <div class="col-md-6 bg-light">
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Exam Type</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Result</th>
+                                        <th scope="col">Attempt</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        @if ($exam->type == 'theory')
+                                            <th scope="row">Theory</th>    
+                                        @elseif ($exam->type == 'practical')
+                                            <th scope="row">Practical</th>    
+                                        @else
+                                            <th scope="row">Error</th>    
+                                        @endif
+                                            <td>{{ $exam->date }}</td>
+                                        @if ($exam->result == 'pass')
+                                            <td class="bg-success text-center px-1"><span class="text-light"><i class="far fa-check-circle fa-lg"></i></span> Pass</td>    
+                                        @else
+                                            <td class="bg-danger text-center px-1"><span class="text-light"><i class="far fa-times-circle fa-lg"></i></span> Pass</td>    
+                                        @endif
+                                            <td class="text-center">{{ $exam->attempt }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
+                        @endforeach
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="row-mb-2">
         <div id="card" >
           <div class="card-body">
             <div class="card mt-2">
@@ -83,13 +129,13 @@
                         </div>
                     </div>
                     {{-- <hr style="border: 0.5px solid #222944"> --}}
-                </div>
+                {{-- </div>
             </div>
             @endforeach
             @endforeach
           </div>
-        </div>
-    </div>
+        </div> --}}
+</div>
 
     <script>
         $(document).ready(function(){

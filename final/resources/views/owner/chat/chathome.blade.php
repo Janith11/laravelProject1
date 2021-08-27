@@ -6,16 +6,14 @@
  <script src="{{ asset('js/app.js') }}" defer></script>
 
 <div class="container">
-  {{-- <h5>chat</h5> --}}
-    <div id="app">
-        <div class="card bg-light">
-            {{-- <h5 class="card-header"></h5> --}}
-            <div class="card-body bg-dark">
-              <p class="card-text"></p>
-              <chat-app   :user="{{ Auth::user() }}"><chat-app/>
-            </div>
-          </div>
+  <div id="app">
+    <div class="card bg-light">
+      <div class="card-body bg-dark">
+        <p class="card-text"></p>
+        <chat-app   :user="{{ Auth::user() }}"><chat-app/>
+      </div>
     </div>
+  </div>
 </div>
 
 <script>

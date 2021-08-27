@@ -161,7 +161,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="addressno" class="col-form-label text-md-right">{{ __('Addressno') }}</label>
+                                <label for="addressno" class="col-form-label text-md-right">{{ __('Address No') }}</label>
                                 <input id="addressno" type="text" class="form-control @error('addressno') is-invalid @enderror" name="addressno" value="{{ old('addressno') }}"  autocomplete="addressno" autofocus>
 
                                 @error('addressno')
@@ -171,7 +171,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label for="addresslineone" class=" col-form-label text-md-right">{{ __('Addresslineone') }}</label>
+                                <label for="addresslineone" class=" col-form-label text-md-right">{{ __('City') }}</label>
                                 <input id="addresslineone" type="text" class="form-control @error('addresslineone') is-invalid @enderror" name="addresslineone" value="{{ old('addresslineone') }}"  autocomplete="addresslineone" autofocus>
                                 @error('addresslineone')
                                     <span class="invalid-feedback" role="alert">
@@ -180,7 +180,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label for="addresslinetwo" class=" col-form-label text-md-right">{{ __('Addresslinetwo') }}</label>
+                                <label for="addresslinetwo" class=" col-form-label text-md-right">{{ __('Street') }}</label>
                                 <input id="addresslinetwo" type="text" class="form-control @error('addresslinetwo') is-invalid @enderror" name="addresslinetwo" value="{{ old('addresslinetwo') }}"  autocomplete="addresslinetwo" autofocus>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">

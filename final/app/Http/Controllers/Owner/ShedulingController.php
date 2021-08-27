@@ -186,12 +186,15 @@ class ShedulingController extends Controller
 
     // save shedule
     public function saveshedule(Request $request){
+        // return $request;
 
         $this->validate($request, [
             'shedulename' => 'required',
         ]);
 
         $select_instructor = $request->instructor;
+        $count = count($select_instructor);
+        return $count;
         $select_students = $request->students;
 
         if(empty($select_instructor)){
