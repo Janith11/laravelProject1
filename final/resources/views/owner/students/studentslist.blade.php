@@ -25,7 +25,7 @@
 </style>
 
 <div class="container">
-
+    
     <div class="row mb-2">
         <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Students</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>

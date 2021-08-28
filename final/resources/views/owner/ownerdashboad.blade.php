@@ -127,7 +127,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="text-center">
-                                <h6 style="color: #030A25">New Students (Last six Month)</h6>
+                                <h6 style="color: #030A25">New Students <span class="text-muted">(Last six Month)</span></h6>
                             </div>
                             <div style="height: 172px">
                                 <canvas id="studentschart"></canvas>
@@ -145,44 +145,44 @@
                             </div>
                             <div id="card" class="text-center">
                                 <div style="display: inline-block" class="quickaccess">
-                                    <a href="{{ route('calendar') }}">
+                                    <a href="{{ route('calendar') }}" data-toggle="tooltip" data-placement="bottom" title="Schedule Lists">
                                         <img src="/uploadimages/other/ownerdashboard/medical-report.png" alt="Add Shedule" style="width: 50px; height: auto">
                                     </a>
                                 </div>
                                 <div style="display: inline-block" class="quickaccess">
-                                    <a href="{{ route('calendar') }}">
+                                    <a href="{{ route('calendar') }}" data-toggle="tooltip" data-placement="bottom" title="Calender">
                                         <img src="/uploadimages/other/ownerdashboard/calendar.png" alt="Add Shedule" style="width: 50px; height: auto">
                                     </a>
                                 </div>
                                 <div style="display: inline-block" class="quickaccess">
-                                    <a href="{{ route('payments') }}">
+                                    <a href="{{ route('payments') }}" data-toggle="tooltip" data-placement="bottom" title="Payment History">
                                         <img src="/uploadimages/other/ownerdashboard/credit-card.png" alt="Add Shedule" style="width: 50px; height: auto">
                                     </a>
                                 </div>
                                 <div style="display: inline-block" class="quickaccess">
-                                    <a href="{{ route('todayattendance') }}">
+                                    <a href="{{ route('todayattendance') }}" data-toggle="tooltip" data-placement="bottom" title="Attendance">
                                         <img src="/uploadimages/other/ownerdashboard/approve.png" alt="Add Shedule" style="width: 50px; height: auto">
                                     </a>
                                 </div>
                             </div>
                             <div id="card" class="text-center">
                                 <div style="display: inline-block" class="quickaccess">
-                                    <a href="{{ route('addinstructor') }}">
+                                    <a href="{{ route('addinstructor') }}" data-toggle="tooltip" data-placement="bottom" title="Add a Instructor">
                                         <img src="/uploadimages/other/ownerdashboard/lecturer.png" alt="Add Shedule" style="width: 50px; height: auto">
                                     </a>
                                 </div>
                                 <div style="display: inline-block" class="quickaccess">
-                                    <a href="{{ route('addstudent') }}">
+                                    <a href="{{ route('addstudent') }}" data-toggle="tooltip" data-placement="bottom" title="Add a Student">
                                         <img src="/uploadimages/other/ownerdashboard/student.png" alt="Add Shedule" style="width: 50px; height: auto">
                                     </a>
                                 </div>
                                 <div style="display: inline-block" class="quickaccess">
-                                    <a href="{{ route('createpost') }}">
+                                    <a href="{{ route('createpost') }}" data-toggle="tooltip" data-placement="bottom" title="New Post">
                                         <img src="/uploadimages/other/ownerdashboard/poster.png" alt="Add Shedule" style="width: 50px; height: auto">
                                     </a>
                                 </div>
                                 <div style="display: inline-block" class="quickaccess">
-                                    <a href="{{ route('timetable') }}">
+                                    <a href="{{ route('timetable') }}" data-toggle="tooltip" data-placement="bottom" title="Daily Time Table">
                                         <img src="/uploadimages/other/ownerdashboard/timetable.png" alt="Add Shedule" style="width: 50px; height: auto">
                                     </a>
                                 </div>
@@ -202,14 +202,14 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <h6 class="card-title"><span class="text-success"><i class="fas fa-circle"></i></span> debit<span class="text-warning">&nbsp;&nbsp;<i class="fas fa-circle"></i></span>credit</h6>
+                        <h6 class="card-title"><span class="text-success"><i class="fas fa-circle"></i></span> Debit<span class="text-warning">&nbsp;&nbsp;<i class="fas fa-circle"></i></span>Credit</h6>
                     </div>
                     <div style="width: 100%">
                         <canvas id="myChart2" style="width:100%;max-width:1000px; height: 300px;"></canvas>
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    last year
+                    Last Year
                 </div>
             </div>
         </div>

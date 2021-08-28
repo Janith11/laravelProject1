@@ -25,7 +25,7 @@
                                 </div>
                                 <div style="display: inline-block">
                                     <h3 class="mb-0">Rs.{{ $student->total_fee}}</h3>
-                                    <small class="ml-1">Total Payment</small>
+                                    <small class="ml-1">Total Fee</small>
                                 </div>
                             </div>
                         </div>
@@ -93,12 +93,12 @@
 
     <div class="card mt-3">
         <div class="card-body">
-            <table class="table table-striped table-sm table-hover">
-                <thead class="thead-light">
+            <table class="table table-striped table-sm table-hover table-responsive w-100 d-block d-md-table">
+                <thead class="thead-dark">
                   <tr>
                     <th scope="col">Date</th>
                     <th scope="col">Type</th>
-                    <th scope="col">Transition Description</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Amount</th>
                     {{-- amount means the paid price now  --}}
                     <th scope="col">Total Paid</th>

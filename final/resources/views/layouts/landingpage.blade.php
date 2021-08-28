@@ -60,8 +60,11 @@
                 </ul>
                 <form class="form-inline my-2 my-lg-0" style="padding-left: 1-px">
                     @if (Route::has('login'))
-                    <button class="btn btn-sm btn-outline-success my-2 my-sm-0 login_btn" type="submit"><a class="nav-link" href="{{ route('login') }}" style="color: rgb(38, 192, 11) !important">Login</span></a></button>
+                    <button style="display: inline" class="btn btn-sm btn-outline-success my-2 my-sm-0 login_btn" type="submit"><a class="nav-link" href="{{ route('login') }}" style="color: rgb(38, 192, 11) !important">Login</span></a></button>
                     @endif
+                    {{-- @if (Route::has('register'))
+                        <button style="display: inline" class="btn btn-sm btn-outline-success my-2 my-sm-0 login_btn" type="submit"><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></button>  
+                     @endif --}}
                 </form>
             </nav><!-- .nav-menu -->
         </div>

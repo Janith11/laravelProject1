@@ -1,6 +1,6 @@
 <template>
     <div class="conversation">
-        <h1>{{ contact ? contact.f_name+" "+contact.l_name : 'Select a Contact' }}</h1>
+        <h3 style="color: white ;border-radius: 8px;" class="bg-primary p-2 ">{{ contact ? contact.f_name+" "+contact.l_name : 'Select a Contact' }}</h3>
         <MessagesFeedI :contact="contact" :messages="messages"/>
         <MessageComposerI @send="sendMessage"/>
     </div>
@@ -47,17 +47,23 @@
 </script>
 
 <style lang="scss" scoped>
-    .conversation{
-        flex: 5;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between ;
 
-        h1{
-            font-size: 20px;
-            padding: 10px;
-            margin: 0;
-            border-bottom: 1px dashed lightgray;
+    @media only screen and (max-width: 600px) {
+        h3{
+            font-size: 15px;;
         }
     }
+    // .conversation{
+    //     flex: 5;
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: space-between ;
+
+    //     h1{
+    //         font-size: 20px;
+    //         padding: 10px;
+    //         margin: 0;
+    //         border-bottom: 1px dashed lightgray;
+    //     }
+    // }
 </style>

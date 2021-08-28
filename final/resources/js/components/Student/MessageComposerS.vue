@@ -1,6 +1,6 @@
 <template>
-    <div class="composer">
-        <textarea v-model="message" @keydown.enter="send" placeholder="Message..."></textarea>
+    <div class="composer form-group">
+        <textarea class="form-control" v-model="message" @keydown.enter="send" placeholder="Message..."></textarea>
     </div>
 </template>
 
@@ -33,7 +33,9 @@
     margin: 10px;
     resize: none;
     border-radius: 3px;
-    border: 1px solid lightgray;
+    border: 1px solid rgb(0, 0, 0);
+    background-color: #253C48;
+    color: white;
     padding: 6px;
 }
 </style>
