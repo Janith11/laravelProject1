@@ -58,7 +58,7 @@ Route::get('/onlinepaper/paper10', 'landingpage\OnlinepaperController@paper10')-
 
 Route::get('/services','landingpage\ServicesCotroller@index')->name('services');
 
-//contactus landing page 
+//contactus landing page
 Route::post('/contactus/messages','landingpage\ContactusController@insert')->name('contactusmessage');
 
 // create route group for owner
@@ -130,10 +130,20 @@ Route::middleware('checkrequest')->group(function(){
     // sheduling part
     Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');
     Route::get('/shedulelist/viewdetails/{id}', 'owner\ShedulingController@viewdetails')->name('viewdetails');
-    Route::get('/shedulelist/calendar', 'owner\ShedulingController@addshedule')->name('calendar');
-    Route::get('/addshedule/calendar/{date}', 'owner\ShedulingController@checkinput')->name('checkinput');
-    Route::post('/addshedule/settime','owner\ShedulingController@setsheduletime')->name('setsheduletime');
-    Route::post('/addshedule/saveshedule', 'Owner\ShedulingController@saveshedule')->name('saveshedule');
+    Route::get('/shedulelist/calendar', 'owner\ShedulingController@addschedule')->name('calendar');
+
+    // my start
+    Route::get('/addshedule/calendar/{date}', 'Owner\ShedulingController@checkinputdate')->name('checkinputdate');
+    Route::post('/addshedule/calender/check', 'Owner\ShedulingController@checkinputtimeslot')->name('checkinputtimeslot');
+    Route::post('/addshedule/calender/save', 'Owner\ShedulingController@createschedule')->name('savecreateshedule');
+    Route::get('/addshedule/calender/updateschedule/{id}/{date}', 'Owner\ShedulingController@reupdateshedule')->name('updateexistschedule');
+    Route::post('/addshedule/calender/saveupdateschedule', 'Owner\ShedulingController@saveupdateschedule')->name('saveupdateschedule');
+    // my end
+
+    // Route::get('/addshedule/calendar/{date}', 'Owner\ShedulingController@checkinput')->name('checkinput');
+    // Route::post('/addshedule/settime','owner\ShedulingController@setsheduletime')->name('setsheduletime');
+    // Route::post('/addshedule/ownersaveshedule', 'Owner\ShedulingController@ownersaveshedule')->name('savesheduleowner1234');
+
     Route::get('/allevents', 'Owner\ShedulingController@allevents')->name('allevents');
     Route::get('/shedulelist/postpond', 'owner\ShedulingController@postpond')->name('postpond');
     Route::get('/shedulelist/cancel/{id}', 'owner\ShedulingController@cancel')->name('cancelshedule');
@@ -204,7 +214,7 @@ Route::middleware('checkrequest')->group(function(){
 
     //employee leaves
     Route::get('/leaverequest', 'Owner\LeaveController@leaverequest')->name('leaverequest');
-    Route::post('/leaverequest/accept', 'Owner\LeaveController@acceptrequest')->name('acceptrequest');
+    Route::post('/leaverequest/accept', 'Owner\LeaveController@acceptrequest')->name('acceptleaverequest');
     Route::post('/leaverequest/ignore', 'Owner\LeaveController@ignorerequest')->name('ignorerequest');
     Route::get('/leavedetails/{id}', 'Owner\LeaveController@levaedetails')->name('leavedetails');
 

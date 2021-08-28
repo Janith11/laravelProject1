@@ -11,10 +11,12 @@ use App\Attendance;
 use App\CompanyDetails;
 use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
+use App\Http\Requests\CreateScheduleRequest;
 use App\SheduledStudents;
 use App\SheduleRequest;
 use App\ShedulingType;
 use App\Student;
+use App\TimeSlots;
 use App\TimeTable;
 use App\WeekDay;
 use Carbon\Carbon;
@@ -43,6 +45,20 @@ use Illuminate\Support\Facades\DB;
 class ShedulingController extends Controller
 {
 
+    // public $date;
+    // public $time;
+    // public $choosedins;
+    // public $instructors;
+    // public $students;
+
+    // public function setdate($date){
+    //     $this->date = $date;
+    // }
+
+    // public function getdate(){
+    //     return $this->date;
+    // }
+
     public function index(){
 
         $prevhour = date('H') - 1;
@@ -54,18 +70,6 @@ class ShedulingController extends Controller
         $date_year = Carbon::now()->subDays(365);
         $current = Carbon::today();
         $endDate = Carbon::today()->addDays(7);
-
-        // $check = OwnerShedule::select('id')->where('date', '<', $current)->where('shedule_status', '=', 1)->get();
-        // return $check;
-        // if(count($check) > 0){
-        //     foreach ($check as $key => $value) {
-        //         $result = OwnerShedule::find($value->id);
-        //         $result->shedule_status = 3;
-        //         $result->color = "#E47C06";
-        //         $result->textColor = "#FFFFFF";
-        //         $result->save();
-        //     }
-        // }
 
         $shedules = OwnerShedule::where('shedule_status', '=', 1)->with('SheduledStudents')->get();
 
@@ -106,7 +110,7 @@ class ShedulingController extends Controller
         // return $today_shedules;
     }
 
-    public function addshedule(){
+    public function addschedule(){
         $shedulingtype = ShedulingType::select('type')->first();
         $type = $shedulingtype->type;
         return view('owner.sheduling.addshedule', compact('type'));
@@ -184,84 +188,316 @@ class ShedulingController extends Controller
         }
     }
 
-    // save shedule
-    public function saveshedule(Request $request){
+    // ====================================== ADD NEW PART ===========================
+    public function checkinputdate($date){
 
+        $today = Carbon::now()->today();
+        $start = strtotime($today);
+        $end = strtotime($date);
+        $daydiff = ($end - $start)/60/60/24;
+        $selectdayname = date('l', strtotime($date));
+
+        // chack day difference with selected date
+        if($daydiff <= 0){
+            return back()->with('errormsg', 'Cannot add Shedule for previous Day !!');
+        }
+
+        // absent instructors id list
+        $absent_ids = [];
+        // check single day leaves
+        $single_leave_days = EmplooyeeLeave::where('start_date', $date)->where('status', 1)->get();
+        if(count($single_leave_days) > 0){
+            foreach ($single_leave_days as $leave) {
+                $absent_ids[] = $leave->user_id;
+            }
+        }
+        // check more leave days
+        $more_leave_days = EmplooyeeLeave::where('start_date', '<', $date)->where('end_date', '>=', $date)->where('status', 1)->get();
+        if (count($more_leave_days) > 0) {
+            foreach ($more_leave_days as $leave) {
+                $absent_ids[] = $leave->user_id;
+            }
+        }
+
+        $leaves = collect($absent_ids);
+        $presentinstructors = Instructor::with(['user' => function($query){
+            $query->where('status', 1);
+        }, 'ownershedules' => function($query) use($date){
+            $query->where('date', $date);
+        }])->whereNotIn('user_id', $leaves)->get();
+
+        if(count($presentinstructors) == 0){
+            return back()->with('errormsg', 'All Instructors are Leave on today !!');
+        }
+
+        // check student availability
+        $students_id = OwnerShedule::with('sheduledstudents')->where('date', $date)->get();
+        $studentwithshedule = [];
+        foreach ($students_id as $key => $value) {
+            foreach ($value->sheduledstudents as $id) {
+                $studentwithshedule[] = $id->student_id;
+            }
+        }
+        $havesheduled = collect($studentwithshedule);
+        if (count($studentwithshedule) > 0) {
+            $filterstudents = Student::with(['user', 'attendances'])->whereNotIn('user_id', $havesheduled)->whereHas('user', function($query){
+                $query->where('status', 1);
+            })->get();
+            if (count($filterstudents) == 0) {
+                return back()->with('errormsg', 'Cannot add new shedule on this day becouse of all student have session on this day !!');
+            }else{
+                $presentstudents = $filterstudents;
+            }
+        }else{
+            $presentstudents = Student::with(['user','attendances'])->whereHas('user', function($query){
+                $query->where('status', 1);
+            })->get();
+        }
+
+        // get weekday id
+        $timeslot = WeekDay::where('day_name', $selectdayname)->select('id')->first();
+        $dayid = $timeslot->id;
+
+        //get defined timeslots with instructors
+        $timeslots = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $dayid)->get();
+
+        // get selected date shedules with students count
+        $shedules = OwnerShedule::where('date', $date)->withcount('SheduledStudents')->whereHas('SheduledStudents')->get();
+        $instructors = Instructor::with(['user', 'ownershedules' => function($query) use($date){
+            $query->where('date', $date);
+        }])->get();
+        return view('owner.sheduling.processsheduletime', compact('date', 'timeslots', 'shedules', 'selectdayname', 'instructors', 'absent_ids'));
+    }
+
+    public function checkinputtimeslot(Request $request){
+        $date = $request->date;
+        if ($request->has('slotdivider')) {
+            $custometime = $request->custometime;
+            $customeinstructor = $request->customeinstructor;
+            if($custometime == ''){
+                return back()->with('errormessage', 'If you want Custome time slot, Please Enter a time !!');
+            }
+            if(empty($customeinstructor)){
+                return back()->with('errormessage', 'If you want Custome time slot, Please choose an instructor !!');
+            }
+            $time = $custometime;
+            $instructor = $customeinstructor[0];
+        }else{
+            $deffslot = $request->slottime;
+            if(empty($deffslot)){
+                return back()->with('errormessage', 'You have to choose available or custome time slot !!');
+            }
+            $value = $deffslot[0].'-select';
+            $deffinstructor = $request->$value;
+            if(empty($deffinstructor)){
+                return back()->with('errormessage', 'Please choose relevent Instructor !!');
+            }
+            $time = $deffslot[0];
+            $instructor = $deffinstructor[0];
+        }
+
+        // instructors details
+        $instructors = Instructor::with('user')->get();
+
+        // get free students
+        $havesessions = OwnerShedule::with('sheduledstudents')->whereHas('sheduledstudents')->where('date', $date)->get();
+        $havesessionids = [];
+        foreach($havesessions as $session){
+            foreach ($session->sheduledstudents as $student) {
+                $havesessionids[] = $student->student_id;
+            }
+        }
+        $filterids = collect($havesessionids);
+        $students = Student::with('user')->whereNotIn('user_id', $filterids)->get();
+        // return $students;
+        return view('owner.sheduling.precesscreateshedule', compact('date', 'time', 'instructor', 'instructors', 'students'));
+    }
+
+    public function createschedule(CreateScheduleRequest $request){
+        $date = $request->date;
+        $time = $request->time;
+        $instructor = $request->instructor;
+        $session_name = $request->session_name;
+        $session_type = $request->session_type;
+        $students = $request->students;
+
+        $schedule = OwnerShedule::create([
+            'title' => $session_name,
+            'date' => $date,
+            'color' => '#040124',
+            'textColor' => '#35FF35',
+            'time' => $time,
+            'lesson_type' => $session_type,
+            'instructor' => $instructor,
+            'shedule_status' => 1,
+        ]);
+
+        foreach ($students as $student) {
+            SheduledStudents::create([
+                'shedule_id' => $schedule->id,
+                'student_id' => $student
+            ]);
+        }
+
+        // alert for students
+        $studentmessage = "You Have to Participate to a new $session_type Session on $date at $time.";
+        $studentalert = SheduleAlert::create([
+            'shedule_id' => $schedule->id,
+            'message' => $studentmessage
+        ]);
+        foreach ($students as $student) {
+            AlertForStudent::create([
+                'shedulealert_id' => $studentalert->id,
+                'student_id' => $student,
+                'alert_status' => 0
+            ]);
+        }
+
+        //alert for instructor
+        $instructormessage = "You Have to Instruct to a new $session_type Session on $date at $time.";
+        $instructoralert = SheduleAlert::create([
+            'shedule_id' => $schedule->id,
+            'message' => $instructormessage
+        ]);
+        foreach ($students as $student) {
+            AlertForStudent::create([
+                'shedulealert_id' => $instructoralert->id,
+                'student_id' => $student,
+                'alert_status' => 0
+            ]);
+        }
+
+        return redirect('/');
+    }
+
+    public function reupdateshedule($id, $date){
+        $instructors = Instructor::with('user')->get();
+        $shedules = OwnerShedule::where('id', $id)->withCount('sheduledstudents')->get();
+
+        // get free sudents
+        $havesessions = OwnerShedule::with('sheduledstudents')->whereHas('sheduledstudents')->where('date', $date)->get();
+        $havesessionids = [];
+        foreach($havesessions as $session){
+            foreach ($session->sheduledstudents as $student) {
+                $havesessionids[] = $student->student_id;
+            }
+        }
+        $filterids = collect($havesessionids);
+        $students = Student::with('user')->whereNotIn('user_id', $filterids)->get();
+
+        return view('owner.sheduling.processupdateschedule', compact('shedules', 'instructors', 'students'));
+    }
+
+    public function saveupdateschedule(Request $request){
+
+        $this->validate($request, [
+            'students' => 'required'
+        ]);
+
+        $schedule_id = $request->id;
+        $students = $request->students;
+
+        // insert extra students
+        $alert_id = SheduleAlert::where('shedule_id', $schedule_id)->select('id')->first();
+        foreach($students as $student){
+            SheduledStudents::create([
+                'shedule_id' => $schedule_id,
+                'student_id' => $student
+            ]);
+            AlertForStudent::create([
+                'shedulealert_id' => $alert_id->id,
+                'student_id' => $student,
+                'alert_status' => 0
+            ]);
+        }
+
+        return redirect()->route('calendar')->with('successmsg', 'Shedule Updated Successfully !!');
+    }
+    // ====================================== END SECTION ============================
+
+    // save shedule
+    public function ownersaveshedule(Request $request){
+        // return $request;
+        // return $request; schedule/ scheduling/ early/ any cloase
         $this->validate($request, [
             'shedulename' => 'required',
         ]);
+        // $addshedule
+        // return $request;
+        // $shedulename = $request->shedulename;
+        // if(empty($shedulename) == 0){
+        //     return back();
+        // }
+        // $select_instructor[] = $request->instructor;
+        // $select_students[] = $request->students;
+        // return $select_instructor;
+        // if(count($select_instructor) == 0){
+        //     return back()->with('instructorerror', 'You have to select an Instructor !!');
+        // }
 
-        $select_instructor = $request->instructor;
-        $select_students = $request->students;
+        // if(count($select_instructor) > 1){
+        //     return back()->with('instructorerror', 'Cannot choose more than one Instructor !!');
+        // }
 
-        if(empty($select_instructor)){
-            return back()->with('instructorerror', 'You have to select an Instructor !!');
-        }else{
-            if(count($select_instructor) > 1){
-                return back()->with('instructorerror', 'Cannot choose more than one Instructor !!');
-            }else{
-                if(empty($select_students)){
-                    return back()->with('studenterror', 'You have to select an Students !!');
-                }else{
+        // if(count($select_students) == 0){
+        //     return back()->with('studenterror', 'You have to select an Students !!');
+        // }
 
-                    $shedules_details = [
-                        'title' => $request->shedulename,
-                        'date' => $request->date,
-                        'time' => $request->time,
-                        'lesson_type' => $request->lessontype,
-                        'instructor' => $select_instructor[0],
-                    ];
+        // $shedules_details = [
+        //     'title' => $request->shedulename,
+        //     'date' => $request->date,
+        //     'time' => $request->time,
+        //     'lesson_type' => $request->lessontype,
+        //     'instructor' => $select_instructor[0],
+        // ];
 
-                    // insert shedule details
-                    $shedule = OwnerShedule::create($shedules_details);
+        // // insert shedule details
+        // $shedule = OwnerShedule::create($shedules_details);
 
-                    foreach($select_students as $student){
-                        $students_details = [
-                            'shedule_id' => $shedule->id,
-                            'student_id' => $student
-                        ];
-                        //insert student details
-                        $students = SheduledStudents::create($students_details);
-                    }
+        // foreach($select_students as $student){
+        //     $students_details = [
+        //         'shedule_id' => $shedule->id,
+        //         'student_id' => $student
+        //     ];
+        //     //insert student details
+        //     $students = SheduledStudents::create($students_details);
+        // }
 
-                    $message = [
-                        'shedule_id' => $shedule->id,
-                        'message'=>"Dear Student, You have to participate your next $request->lessontype session on $request->date at $request->time."
-                    ];
+        // $message = [
+        //     'shedule_id' => $shedule->id,
+        //     'message'=>"Dear Student, You have to participate your next $request->lessontype session on $request->date at $request->time."
+        // ];
 
-                    //insert alert details
-                    $shedule_alert = SheduleAlert::create($message);
+        // //insert alert details
+        // $shedule_alert = SheduleAlert::create($message);
 
-                    foreach($select_students as $student){
-                        $student_alert = [
-                            'shedulealert_id' => $shedule_alert->id,
-                            'student_id' => $student
-                        ];
-                        //insert shedule alert of each students
-                        $alert = AlertForStudent::create($student_alert);
-                    }
+        // foreach($select_students as $student){
+        //     $student_alert = [
+        //         'shedulealert_id' => $shedule_alert->id,
+        //         'student_id' => $student
+        //     ];
+        //     //insert shedule alert of each students
+        //     $alert = AlertForStudent::create($student_alert);
+        // }
 
-                    // insert attendance details
-                    $user_list = [];
-                    $user_list[0] = $select_instructor[0];
-                    foreach ($select_students as $student) {
-                        $user_list[] = $student;
-                    }
-                    foreach ($user_list as $user) {
-                        $user_attendance = [
-                            'shedule_id' => $shedule->id,
-                            'user_id' => $user,
-                            'date' => $request->date,
-                            'attendance' => 0,
-                        ];
-                        // insert attendance details
-                        $attendances = Attendance::create($user_attendance);
-                    }
+        // // insert attendance details
+        // $user_list = [];
+        // $user_list[0] = $select_instructor[0];
+        // foreach ($select_students as $student) {
+        //     $user_list[] = $student;
+        // }
+        // foreach ($user_list as $user) {
+        //     $user_attendance = [
+        //         'shedule_id' => $shedule->id,
+        //         'user_id' => $user,
+        //         'date' => $request->date,
+        //         'attendance' => 0,
+        //     ];
+        //     // insert attendance details
+        //     $attendances = Attendance::create($user_attendance);
+        // }
 
-                    return redirect()->route('ownershedulelist')->with('successmsg', 'Shedule Created Seccessfuly !!');
-                }
-            }
-        }
+        // return redirect()->route('ownershedulelist')->with('successmsg', 'Shedule Created Seccessfuly !!');
     }
 
     // validate time slot

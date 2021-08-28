@@ -26,6 +26,17 @@
     </div>
 
     <div class="row mb-2">
+        @if(session('successmsg'))
+            <div class="alert alert-success" role="alert" style="width: 100%">
+                {{ session('successmsg') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
+
+    <div class="row mb-2">
         @if(session('errormessage'))
             <div class="alert alert-danger" role="alert" style="width: 100%">
                 {{ session('errormessage') }}
@@ -93,7 +104,7 @@
                     date = info.dateStr;
                     $(document).ready(function(){
                         if(type == 1) {
-                            var url = '{{ route("checkinput", ["date" => ":date"]) }}';
+                            var url = '{{ route("checkinputdate", ["date" => ":date"]) }}';
                             url = url.replace(':date', date);
                             document.location.href=url;
                         } else {

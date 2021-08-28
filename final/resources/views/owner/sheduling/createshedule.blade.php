@@ -70,7 +70,7 @@
         @endif
     </div>
 
-    <form action="{{ route('saveshedule') }}" method="POST">
+    <form action="{{ route('savesheduleowner1234') }}" method="POST">
         @csrf
 
     <div class="row mb-2">
@@ -147,7 +147,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="shedulename" name="shedulename" >
+                            <input type="text" class="form-control" id="shedulename" name="shedulename">
                         </div>
                     </div>
                 </div>

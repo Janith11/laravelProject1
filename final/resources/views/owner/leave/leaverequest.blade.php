@@ -103,7 +103,7 @@
                                         <button class="btn btn-success" id="btn_accept">Accept</button>
                                     </td>
                                     <td style="display: none">
-                                        <form action="{{ route('acceptrequest') }}" method="POST" id="accept">
+                                        <form action="{{ route('acceptleaverequest') }}" method="POST" id="accept">
                                             @csrf
                                             <input type="text" name="request_id" value="{{ $request->id }}">
                                         </form>

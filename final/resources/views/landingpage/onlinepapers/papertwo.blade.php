@@ -29,7 +29,7 @@
     </div>
 
     <div class="card w-100 border border-primary ">
-        
+
         {{-- display one  --}}
         <div class="card-body firstdiv">
             <div class="div text-center mt-5 mb-5 pt-3 pb-3 start_btn">
@@ -67,7 +67,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    
+
                     <div class="col-md-5 col-sm-5 col-xs-4 text-center p-4 paper_img">
                         {{-- <img src="/images/onlinepaper/1.jpg" alt="" style="max-width: 200px;"> --}}
                     </div>
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="col-2 p-1">
                                     <div class="myicon text-success"><i class="far fa-check-circle fa-lg"></i></div>
-                                </div>                
+                                </div>
                             </div>
                         </div> --}}
                         {{-- option 02  --}}
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="col-2 p-1">
                                     <div class="myicon text-danger"><i class="far fa-times-circle fa-lg"></i></div>
-                                </div>                
+                                </div>
                             </div>
                         </div> --}}
                         {{-- option 03  --}}
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="col-2 p-1">
                                     <div class="myicon text-success"><i class="far fa-check-circle fa-lg"></i></div>
-                                </div>                
+                                </div>
                             </div>
                         </div> --}}
                         {{-- option 04  --}}
@@ -114,7 +114,7 @@
                                 </div>
                                 <div class="col-2 p-1">
                                     <div class="myicon text-success"><i class="far fa-check-circle fa-lg"></i></div>
-                                </div>                
+                                </div>
                             </div>
                         </div> --}}
                     </div>
@@ -128,7 +128,7 @@
                         <button class="btn btn-primary next_btn">Next Question <i class="fas fa-arrow-alt-circle-right"></i></button>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -137,7 +137,7 @@
             <div class="card-body alert-success border border-primary">
                 <div class="row">
                     <div class="col text-center mt-2 p-5">
-                        <i class="fas fa-trophy fa-5x text-warning"></i>   
+                        <i class="fas fa-trophy fa-5x text-warning"></i>
                     </div>
                 </div>
                 <div class="row">
@@ -145,14 +145,14 @@
                         <h4 class="text-success">Congratulations! You just complete the Quiz!</h4>
                         <h4>Sorry, You have only 2 out of 10</h4>
                     </div>
-                </div> 
+                </div>
                 <div class="row">
                     <div class="col text-right pr-5">
                         <button class="btn btn-danger">Exit</button>
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>
 
     </div>
 
@@ -167,8 +167,8 @@
     const exit_btn = document.querySelector(".buttons .quit");
     const restart_btn = document.querySelector(".buttons .restart");
     const next_btn = document.querySelector(".next_btn");
-        
-    // question array 
+
+    // question array
     let questions = [
         {
             numb: 1,
@@ -208,7 +208,7 @@
         }
 
     ];
-    
+
     start_btn.onclick = () =>{
         firstdiv.style.display = "none";
         info_box.style.display = "block";
@@ -240,9 +240,9 @@
             console.log("Questions over");
         }
     }
-   
 
-    
+
+
     function showQuestions(index){
         const que_text = document.querySelector(".que_text");
         const option_list = document.querySelector(".option_list");
@@ -264,18 +264,21 @@
             option[i].setAttribute("onclick", "optionSelected(this)");
         }
     }
+
     function optionSelected(answer){
-        let userAns = answer.textContent;
-        let correctAns = questions[que_count].answer;
+        var userAns = answer.textContent;
+        var correctAns = questions[que_count].answer;
         console.log(correctAns);
         console.log(userAns);
         if(correctAns==userAns){
+            // alert('wrong');
             console.log("Answer is corect");
         }else{
+            // alert('correct');
             console.log("Answer is wrong");
         }
 
-        
+
     }
 
     function queCounter(index){
@@ -285,7 +288,7 @@
         total_que.innerHTML = totalQuestionTag;
     }
 
-    
-    
+
+
 </script>
 @endsection
