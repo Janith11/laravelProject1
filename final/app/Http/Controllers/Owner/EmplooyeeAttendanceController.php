@@ -93,10 +93,10 @@ class EmplooyeeAttendanceController extends Controller
 
         $leaves = EmployeeAttendances::whereBetween('date', [$firstday, $lastday])->where('status', 3)->select('user_id', DB::raw('count(*) as count'))->groupBy('user_id')->get();
 
-        $leave_count = EmplooyeeLeave::where('start_date', $today)->where('status', 0)->count();
+        $leave_count = EmplooyeeLeave::where('status', 0)->count();
 
         $unmarked_attendances = EmployeeAttendances::where('date', '<', $today)->where('status', 0)->count();
-
+        
         return view('owner.attendances.attendancelist', compact('employees', 'attendances', 'leaves', 'leave_count', 'unmarked_attendances'));
     }
 
