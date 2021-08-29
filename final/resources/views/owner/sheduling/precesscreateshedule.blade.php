@@ -296,14 +296,17 @@
 
                 $.ajax({
                     type: 'post',
-                    url: '/addshedule/calender123/save',
+                    url: '/addshedule/calender/save',
                     data: $('form').serialize(),
                     success: function () {
+                        alert('form submited ');
                         window.location.href = "{{ route('calendar') }}";
+
                     },
                     error: function (error) {
                         document.getElementById('alert').style.display = 'block';
-                        // alert('error; ' + eval(error));
+
+                        alert('error; ' + eval(error));
                     }
                 });
 
