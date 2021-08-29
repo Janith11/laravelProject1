@@ -140,10 +140,6 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/addshedule/calender/saveupdateschedule', 'Owner\ShedulingController@saveupdateschedule')->name('saveupdateschedule');
     // my end
 
-    // Route::get('/addshedule/calendar/{date}', 'Owner\ShedulingController@checkinput')->name('checkinput');
-    // Route::post('/addshedule/settime','owner\ShedulingController@setsheduletime')->name('setsheduletime');
-    // Route::post('/addshedule/ownersaveshedule', 'Owner\ShedulingController@ownersaveshedule')->name('savesheduleowner1234');
-
     Route::get('/allevents', 'Owner\ShedulingController@allevents')->name('allevents');
     Route::get('/shedulelist/postpond', 'owner\ShedulingController@postpond')->name('postpond');
     Route::get('/shedulelist/cancel/{id}', 'owner\ShedulingController@cancel')->name('cancelshedule');
