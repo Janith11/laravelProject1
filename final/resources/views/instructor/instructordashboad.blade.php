@@ -342,14 +342,6 @@
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         selectable: true,
-        // dateClick: function(info) {
-        //     date = info.dateStr;
-        //     $(document).ready(function(){
-        //         var url = '{{ route("checkinput", ["date" => ":date"]) }}';
-        //         url = url.replace(':date', date);
-        //         document.location.href=url;
-        //     });
-        // },
         events: shedules,
     });
     calendar.render();
