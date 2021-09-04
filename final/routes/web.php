@@ -153,6 +153,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/timetable', 'Owner\TimeTableController@index')->name('timetable');
     Route::post('/timetable/addtimeslot', 'Owner\TimeTableController@inserttimeslot')->name('addtimeslot');
     Route::delete('/timetable/deleteslot/{id}', 'Owner\TimeTableController@deletetimeslot')->name('deletetimeslot');
+    Route::get('/timetable/loadinstructor/{ins}/{trans}', 'Owner\TimeTableController@loadinstructors')->name('timetableloadinstructors');
 
     // vehicle part
     Route::get('/vehicles', 'Owner\VehicleController@index')->name('vehicles');
@@ -185,6 +186,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/editresults/save/{id}','Owner\ExamController@saveexamlist')->name('saveexamlist');
     Route::get('/addresults/{id}','Owner\ExamController@addresults')->name('addnewexamresult');
     Route::post('/addresults','Owner\ExamController@saveresults')->name('saveresults');
+    Route::post('/exam/Set_Exam_Date','Owner\ExamController@setexamdate')->name('setexamdate');
 
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');

@@ -21,7 +21,7 @@
         <a style="padding-top: 6px; padding-left: 10px"> / Students Details</a>
     </div>
 
-      <div class="tab mt-4 mb-0">
+      <div class="tab mt-4 mb-2">
         <button class="btn btn-lg tablinks btn-secondary" onclick="openCity(event, 'profile')" id="defaultOpen">Profile</button>
         <button class="btn btn-lg tablinks btn-secondary" onclick="openCity(event, 'Invoices')">Invoices</button>
         {{-- <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button> --}}
@@ -33,7 +33,7 @@
           <div class="card-deck">
               <div class="card">
 
-                <img class="card-img-top img-fluid rounded-circle w-50 mb-3 shadow mx-auto d-block m-3" src="https://avatarfiles.alphacoders.com/979/thumb-97920.png" alt="Card image cap">
+                <img class="rounded-circle border border-success mx-auto mt-4" style="max-width: 200px" src="/uploadimages/students_profiles/{{ $s->user->profile_img }}" alt="profile image">
                 <div class="card-body">
                   <h4 class="card-title text-center">{{$s->user->f_name}} {{$s->user->l_name}}</h4>
                   <div class="table-responsive">
@@ -89,14 +89,14 @@
                           <td>{{$s->total_fee- $s->paid_amount}}</td>
                         </tr>
                         <tr>
-                          <td scope="row"><a class="btn btn-primary" href="{{ route('studentpayments',$s->user->id) }}">Pay Here</a></td>
+                          <td scope="row"><a class="btn btn-primary mt-1" href="{{ route('studentpayments',$s->user->id) }}">Mark Payment</a></td>
                           </tr>
                         </tbody>
                     </table>
 
                     <h4 class="card-title">Classes</h4>
 
-                    <table class="table mt-5">
+                    <table class="table mt-3 table-sm">
                         <tbody>
                           <tr>
                             <td scope="row">scheduled</td>
@@ -121,22 +121,17 @@
                 </div>
               </div>
               @endforeach
-
-
-
               <div class="card mt-4 mb-2">
-
 
                 <div class="card-body">
                     <h4 class="card-title">Exam Results</h4>
                     @foreach ($examdetails as $examdetail)
                     @foreach ($examdetail->exams as $exam)
 
-
                     <div class="card col-md-6">
                       <div class="card-body">
                       <div class="table-responsive">
-                      <table class="table mt-5">
+                      <table class="table mt-5 table-sm">
                       <tbody>
                           <tr>
                             <td scope="row">Type</td>

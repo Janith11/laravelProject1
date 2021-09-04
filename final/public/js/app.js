@@ -2022,6 +2022,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     contacts: {
@@ -2215,6 +2216,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -46042,15 +46044,29 @@ var render = function() {
             [
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "avatar col float-left" }, [
-                  _c("img", {
-                    staticClass: "rounded-circle border border-success",
-                    attrs: {
-                      src:
-                        "/uploadimages/students_profiles/" +
-                        contact.profile_img,
-                      alt: ""
-                    }
-                  })
+                  contact.role_id == 3
+                    ? _c("img", {
+                        staticClass: "rounded-circle border border-success",
+                        attrs: {
+                          src:
+                            "/uploadimages/students_profiles/" +
+                            contact.profile_img,
+                          alt: ""
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  contact.role_id == 2
+                    ? _c("img", {
+                        staticClass: "rounded-circle border border-success",
+                        attrs: {
+                          src:
+                            "/uploadimages/instructors_profiles/" +
+                            contact.profile_img,
+                          alt: ""
+                        }
+                      })
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "contact col" }, [
@@ -46246,8 +46262,16 @@ var render = function() {
                   _c("img", {
                     staticClass: "rounded-circle border border-success",
                     attrs: {
+                      src: "/uploadimages/owner_profile/" + contact.profile_img,
+                      alt: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("img", {
+                    staticClass: "rounded-circle border border-success",
+                    attrs: {
                       src:
-                        "/uploadimages/students_profiles/" +
+                        "/uploadimages/instructors_profile/" +
                         contact.profile_img,
                       alt: ""
                     }
@@ -46651,9 +46675,7 @@ var render = function() {
                   _c("img", {
                     staticClass: "rounded-circle border border-success",
                     attrs: {
-                      src:
-                        "/uploadimages/students_profiles/" +
-                        contact.profile_img,
+                      src: "/uploadimages/owner_profile/" + contact.profile_img,
                       alt: ""
                     }
                   })
