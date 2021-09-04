@@ -195,6 +195,45 @@
     </div>
 
     <div class="row-mb-2">
+        <div class="row row-cols-1">
+            <div class="col col-sm-4" id="card">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 style="color: #030A25; font-weight: bold; text-align: center">Vehicles & Instructors</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-sm-8" id="card">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 style="color: #030A25; font-weight: bold; text-align: center">Category Overview</h5>
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                <canvas id="manualchart" style="height: 100%; padding-top: 20px"></canvas>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="text-center">
+                                    <div style="display: inline-block; background-color: #78FF66; width: 10px; height: 10px; border-radius: 50%"></div>
+                                    <div style="display: inline-block; padding-right: 10px">
+                                        <h6>Auto</h6>
+                                    </div>
+                                    <div style="display: inline-block; background-color: #550243; width: 10px; height: 10px; border-radius: 50%; padding-left: 10px"></div>
+                                    <div style="display: inline-block;">
+                                        <h6>Manual</h6>
+                                    </div>
+                                </div>
+                                <div>
+                                    <canvas id="automanualchart" style="height: 100%; padding-top: 20px"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-mb-2">
         <div id="card">
             <div class="card">
                 <div class="card-header text-center">
@@ -259,6 +298,48 @@
                 borderColor: "rgba(128,0,128, 1)",
                 backgroundColor: 'rgba(128,0,128, 0.2)',
             }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            }
+        }
+    });
+
+    // manual bar chart
+    var manuallabels = @json($manuallabels);
+    var manualvalues = @json($manualcount);
+
+    new Chart("manualchart", {
+        type: "bar",
+        data: {
+            labels: manuallabels,
+            datasets: [{
+                data: manualvalues,
+                backgroundColor: ['#003049' ,'#F77F00'],
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            }
+        }
+    });
+
+    // auto manual bar chart
+    var automanuallabels = @json($automanuallabels);
+    var automanualvalues = @json($automanualcount);
+
+    new Chart("automanualchart", {
+        type: "bar",
+        data: {
+            labels: automanuallabels,
+            datasets: automanualvalues,
         },
         options: {
             responsive: true,

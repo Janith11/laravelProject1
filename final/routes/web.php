@@ -258,7 +258,7 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/conversationS/{id}', 'Student\ChatController@getMessagesFor');
     Route::post('/conversationS/send', 'Student\ChatController@send');
 
-    //instructor profile
+    //students profile
     Route::get('/studentprofile', 'Student\StudentProfileController@index')->name('studentprofile');
     Route::post('/studentprofile/update', 'Student\StudentProfileController@updateprofile')->name('updatestudentprofile');
     Route::post('/studentprofile/updateprofileimage', 'Student\StudentProfileController@updateprofilepicture')->name('studentupdateprofilepicture');
@@ -288,6 +288,10 @@ Route::middleware('studentprofile')->group(function(){
 
     //payments
     Route::get('/student/payments', 'Student\PaymentController@index')->name('studenentpaymentlogsview');
+
+    // instructors
+    Route::get('/instructorsdetails', 'Student\InstructorController@index')->name('studentinstructorsdetails');
+    Route::get('/instructordetails/{id}', 'Student\InstructorController@insprofile')->name('studentinstructordetails');
 
 });
 

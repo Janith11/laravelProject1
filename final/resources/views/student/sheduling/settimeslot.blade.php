@@ -2,18 +2,133 @@
 
 @section('content')
 
+<style>
+    .sessionclick{
+        display: none;
+    }
+    .session{
+        cursor: pointer;
+    }
+    .sessionclick:checked + .session .icon{
+        background-color: #080529;
+        color: #12C74E
+    }
+    .slotclick{
+        display: none;
+    }
+    .slot{
+        cursor: pointer;
+    }
+    .slotclick:checked + .slot .icon{
+        background-color: #080529;
+        color: #15F1E6
+    }
+
+    /* instructor profile */
+    .insprofile{
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .name{
+        padding: 5px 5px 5px 5px;
+        width: 100%;
+        border: 2px solid #EB9413;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .icondiv{
+        border: 1px solid #FFD700;
+        padding: 0px 5px 0px 5px;
+        border-radius: 5px;
+        margin-top: 4px;
+        margin-right: 4px;
+    }
+    .icondiv i{
+        color: #15F1E615;
+    }
+    .nameclick{
+        display: none;
+    }
+    .nameclick:checked + .name{
+        background-color: #F5C276;
+        color: rgb(87, 43, 2);
+    }
+    .nameclick:checked + .name .icondiv{
+        background-color: #080529;
+    }
+    .nameclick:checked + .name .icondiv i{
+        color: #EB9413;
+        transform: rotate(360deg);
+        transition: 1s;
+    }
+
+    /* table row hover */
+    .scheduletr:hover{
+        background-color: #FFF1B1
+    }
+
+    .viewprofile{
+        text-decoration: none;
+        background-color: #090233;
+        color: white !important;
+        padding: 5px 10px 5px 10px;
+        border-radius: 50px;
+    }
+    .viewprofile:hover{
+        text-decoration: none !important;
+    }
+
+    /* time slot buttons */
+    .slotbtn{
+        border: 1px solid #080529;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 5px 5px 0px 0px;
+        color: #080529;
+    }
+    .slotbtn:focus{
+        outline: 0;
+    }
+    .slotbtnclick{
+        border-bottom: 1px solid white;
+        background-color: white;
+    }
+    .slotbtnnotclick{
+        background-color: rgb(177, 177, 177);
+        border: 1px solid #080529;
+    }
+
+    /* specila requests */
+    .specialinslabel{
+        border: 1px solid #020142;
+        border-radius: 5px;
+        padding: 5px;
+        background-color: #FFE551;
+        cursor: pointer;
+    }
+    .specialinsclick{
+        display: none;
+    }
+    .specialinsclick:checked + .specialinslabel{
+        background-color: #EB9413;
+    }
+</style>
+
 <div class="container">
 
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Sheduling</h5>
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Scheduling</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
-        <a href="{{ route('instructor.instructordashboad') }}">
+        <a href="{{ route('student.studentdashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentsheduling') }}"> / Shedule List</a>
-        <a style="padding-top: 6px; padding-left: 10px; color:white"> / Select Time</a>
+        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentsheduling') }}"> / Schedule List</a>
+        <a style="padding-top: 6px; padding-left: 10px;"> / Select Time</a>
     </div>
 
     <div class="row-mb-2">
@@ -37,161 +152,362 @@
 
     <form action="{{ route('studentrequestslot') }}" method="POST">
         @csrf
-        <div class="row">
-            <div class="col-sm-4">
+    </form>
 
-                <div id="card">
-                    <div class="card" style="border-radius: 10px; border: 1px solid #FFD700 !important">
-                        <div class="card-body" style="background-color: #080529 !important; border-radius: 10px; border: 1px solid #FFD700 !important">
-                            <div>
-                                <div style="display: inline-block; padding-right: 10px;;l">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#F13955" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zM8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z"/>
-                                    </svg>
-                                </div>
-                                <div style="display: inline-block; vertical-align: middle">
-                                    <h5 style="color: #FFD700; font-weight: bold; vertical-align: middle">Request a Special Time</h5>
+    <div class="row-mb-2">
+        <div class="row row-cols-1">
+            <div class="col-sm-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div>
+                            <div style="display: inline-block">
+                                <h5 style="color: #222944; font-weight: bold">Choosed Date</h5>
+                                <h5>{{ $select_date }}</h5>
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" value="{{ $select_date }}" name="date" >
                                 </div>
                             </div>
-                            <div class="form-group" id="card">
-                                <input type="time" class="form-control" name="special_time">
-                            </div>
-                            <div id="card" class="text-center">
-                                <button class="btn" type="submit" style="border-radius: 50px; background-color: #FFD700; color: #080529">Request</button>
+                            <div style="display: inline-block;" class="float-right">
+                                <a href="{{ route('studentsheduling') }}" class="btn" type="button">
+                                    <i class="fa fa-calendar" aria-hidden="true" style="float: left"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-8">
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div id="card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div>
-                                        <div style="display: inline-block">
-                                            <h5 style="color: #222944; font-weight: bold">Choosed Date</h5>
-                                            <h5>{{ $select_date }}</h5>
-                                            <div class="form-group">
-                                                <input type="hidden" class="form-control" value="{{ $select_date }}" name="date" >
-                                            </div>
-                                        </div>
-                                        <div style="display: inline-block;" class="float-right">
-                                            <a href="{{ route('studentsheduling') }}" class="btn" type="button">
-                                                <i class="fa fa-calendar" aria-hidden="true" style="float: left"></i>
-                                            </a>
-                                        </div>
+            <div class="col-sm-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 style="color: #222944; font-weight: bold">Choose Session Type</h5>
+                        <div class="form-check">
+                            @if($tresult == 'fail')
+                                <input class="form-check-input sessionclick" type="radio" name="sessiontype" id="practicle" value="practicle" disabled>
+                                <label class="form-check-label session" for="practicle">
+                                    <div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div id="card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 style="color: #222944; font-weight: bold">Session Type</h5>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="sessiontype" id="practicle" value="practicle" checked>
-                                        <label class="form-check-label" for="practicle">
-                                            Practicle
-                                        </label>
+                                    <div style="display: inline-block">
+                                        <h6>Practicle (You canot appy untill pass theory examination)</h6>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="sessiontype" id="thoery" value="thoery">
-                                        <label class="form-check-label" for="thoery">
-                                            Theory
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 style="color: #222944; font-weight: bold">@php
-                                echo date('l', strtotime($select_date));
-                            @endphp Time Table</h5>
-                            <hr style="border-top: 1px solid #222944">
-                            @if(count($time_table) == 0)
-                                <div class="alert alert-info" role="alert">
-                                    No any defined time slots on this day
-                                </div>
+                                </label>
                             @else
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class="thead-dark">
-                                            <th></th>
-                                            <th>Slot Name</th>
-                                            <th>Time</th>
-                                            <th>Instructors</th>
-                                            <th>Trainers</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($time_table as $time)
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="timeslot" value="{{ $time->time_slot }}">
-                                                        </div>
-                                                    </td>
-                                                    <td>{{ $time->slot_name }}</td>
-                                                    <td>{{ $time->time_slot }}</td>
-                                                    <td>
-                                                        <ul style="list-style-type: none">
-                                                            @foreach ($time->instructor_working_time_slot as $instructor)
-                                                                @foreach ($instructors as $ins)
-                                                                    @if($instructor->instructor_uid == $ins->user_id)
-                                                                        <li>
-                                                                            <input type="radio" id="{{ $ins->id }}" name="{{$time->time_slot}}-instructor_id" value="{{ $ins->user_id }}" class="input">
-                                                                            <label class="name">{{ $ins->user->f_name }} {{ $ins->user->l_name }}</label>
-                                                                        </li>
-                                                                    @endif
-                                                                @endforeach   
-                                                            @endforeach
-                                                        </ul>
-                                                    </td>
-                                                    <td>
-                                                        @foreach($final_counts as $key => $count)
-                                                            @if($key == $time->time_slot)
-                                                                <div>
-                                                                    <h5 style="background-color: #12C74E; color: white; padding: 5px; display: inline; border-radius: 5px">
-                                                                        {{ $count }}
-                                                                    </h5>
-                                                                </div>
-                                                            @endif
-                                                        @endforeach
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div id="card">
-                                    <div class="text-center">
-                                        <button class="btn btn-success" type="submit">Request</button>
+                                <input class="form-check-input sessionclick" type="radio" name="sessiontype" id="practicle" value="practicle" checked>
+                                <label class="form-check-label session" for="practicle">
+                                    <div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
                                     </div>
-                                </div>
+                                    <div style="display: inline-block">
+                                        <h6>Practicle</h6>
+                                    </div>
+                                </label>
                             @endif
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input sessionclick" type="radio" name="sessiontype" id="thoery" value="thoery">
+                            <label class="form-check-label session" for="thoery">
+                                <div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px" class="icon">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </div>
+                                <div style="display: inline-block">
+                                    <h6>Theory</h6>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+
+    <div class="row-mb-2">
+        <div id="card">
+            <div class="card">
+                <div class="card-body">
+                    <h5 style="color: #080529; font-weight: bold">Training Schedules on {{ $select_date }}</h5>
+                    <hr style="border-top: 1px solid #080529">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead style="background-color: #12C74E; color: white">
+                                <th>Time</th>
+                                <th>Instructors</th>
+                                <th>Lesson</th>
+                                <th>Trainers</th>
+                                <th>Details</th>
+                            </thead>
+                            <tbody>
+                                @foreach ($dayschedules as $schedule)
+                                    <tr>
+                                        <td>
+                                            <h5 style="color: #080529; font-weight: bold">{{ $schedule->time }}</h5>
+                                        </td>
+                                        <td>
+                                            @foreach ($instructors as $instructor)
+                                                @if($schedule->instructor == $instructor->user_id)
+                                                    <div>
+                                                        <div style="display: inline-block">
+                                                            <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor Profile" class="insprofile">
+                                                        </div>
+                                                        <div style="display: inline-block; padding-left: 10px">
+                                                            @php
+                                                                if($instructor->user->gender == 'male'){
+                                                                    $name = 'Mr. '.ucwords($instructor->user->f_name).' '.ucwords($instructor->user->l_name);
+                                                                }else{
+                                                                    $name = 'Mrs. '.ucwords($instructor->user->f_name).' '.ucwords($instructor->user->l_name);
+                                                                }
+                                                            @endphp
+                                                            <h5>
+                                                                {{ $name }}
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <h5 style="color: #020142">
+                                                {{ ucwords($schedule->lesson_type) }}
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <h5 style="background-color: #020142; color: white; padding: 5px; display: inline; border-radius: 5px">
+                                                    {{ $schedule->sheduledstudents_count }}
+                                                </h5>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="" class="viewprofile">Details</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-mb-2">
+        <div id="card">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <button class="slotbtn btnone" onclick="btnone()">Choose a Daily Schedule</button>
+                        <button class="slotbtn btntwo" onclick="btntwo()">Request a Special Schedule</button>
+                        <hr style="border-top: 1px solid #080529; margin-top: -1px">
+                    </div>
+                    <div id="exist">
+                        @php
+                            $date = date('l', strtotime($select_date));
+                            $text = "Choose a Time Slot ( $date time table )";
+                        @endphp
+                        <h5 style="color: #222944; font-weight: bold">{{ $text }}</h5>
+                        <hr style="border-top: 1px solid #222944">
+                        @if(count($time_table) == 0)
+                            <div class="alert alert-info" role="alert">
+                                No defined time slots on this day
+                            </div>
+                        @else
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead style="background-color: #F5A105 !important; color: rgb(11, 3, 59)">
+                                        <th style="text-align: center">Slot Name</th>
+                                        <th style="text-align: center">Time</th>
+                                        <th style="text-align: center">Instructors</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($time_table as $time)
+                                            <tr class="scheduletr">
+                                                <td style="vertical-align: middle">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input slotclick" type="radio" name="timeslot" value="{{ $time->time_slot }}" id="{{ $time->time_slot }}">
+                                                        <label for="{{ $time->time_slot }}" class="slot">
+                                                            <div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px" class="icon">
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div style="display: inline-block">
+                                                                <h6>
+                                                                    @php
+                                                                        echo ucwords("$time->slot_name");
+                                                                    @endphp
+                                                                </h6>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align: middle">
+                                                    <h5 style="color: #080529; font-weight: bold">
+                                                        {{ $time->time_slot }}
+                                                    </h5>
+                                                </td>
+                                                <td style="vertical-align: middle">
+                                                    <ul style="list-style-type: none; margin-left: 0px; margin-bottom: 0px">
+                                                        @foreach ($time->instructor_working_time_slot as $instructor)
+                                                            @foreach ($instructors as $ins)
+                                                                @if($instructor->instructor_uid == $ins->user_id)
+                                                                    <li>
+                                                                        @if(in_array( $ins->user_id, $absent_ids))
+                                                                            <input type="radio" id="{{ $time->time_slot }}-{{ $ins->id }}" name="{{ $time->time_slot }}-instructor_id" value="{{ $ins->user_id }}" class="nameclick" disabled>
+                                                                            <label class="name" for="{{ $time->time_slot }}-{{ $ins->id }}">
+                                                                                @php
+                                                                                    if ($ins->user->gender == 'male') {
+                                                                                        $name = 'Mr. '.ucwords($ins->user->f_name).' '.ucwords($ins->user->l_name).' (Leave)';
+                                                                                    }else{
+                                                                                        $name = 'Mrs. '.ucwords($ins->user->f_name).' '.ucwords($ins->user->l_name).' (Leave)';
+                                                                                    }
+                                                                                @endphp
+                                                                                <div style="vertical-align: middle">
+                                                                                    <div style="display: inline-block; padding-right: 10px">
+                                                                                        <img src="/uploadimages/instructors_profiles/{{ $ins->user->profile_img }}" alt="Instructor Profile" class="insprofile">
+                                                                                    </div>
+                                                                                    <div style="display: inline-block">
+                                                                                        <h5 style="margin-bottom: 0px">{{ $name }}</h5>
+                                                                                    </div>
+                                                                                    <div class="float-right icondiv" style="display: inline-block;">
+                                                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </label>
+                                                                        @else
+                                                                            <input type="radio" id="{{ $time->time_slot }}-{{ $ins->id }}" name="{{ $time->time_slot }}-instructor_id" value="{{ $ins->user_id }}" class="nameclick">
+                                                                            <label class="name" for="{{ $time->time_slot }}-{{ $ins->id }}">
+                                                                                @php
+                                                                                    if ($ins->user->gender == 'male') {
+                                                                                        $name = 'Mr. '.ucwords($ins->user->f_name).' '.ucwords($ins->user->l_name);
+                                                                                    }else{
+                                                                                        $name = 'Mrs. '.ucwords($ins->user->f_name).' '.ucwords($ins->user->l_name);
+                                                                                    }
+                                                                                @endphp
+                                                                                <div style="vertical-align: middle">
+                                                                                    <div style="display: inline-block; padding-right: 10px">
+                                                                                        <img src="/uploadimages/instructors_profiles/{{ $ins->user->profile_img }}" alt="Instructor Profile" class="insprofile">
+                                                                                    </div>
+                                                                                    <div style="display: inline-block; padding-right: 10px">
+                                                                                        <h5 style="margin-bottom: 0px">{{ $name }}</h5>
+                                                                                    </div>
+                                                                                    <div style="display: inline-block">
+                                                                                        <a class="viewprofile" href="{{ route('studentinstructordetails', $ins->user_id) }}">view profile</a>
+                                                                                    </div>
+                                                                                    <div class="float-right icondiv" style="display: inline-block;">
+                                                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </label>
+                                                                        @endif
+                                                                    </li>
+                                                                @endif
+                                                            @endforeach
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="card">
+                                <div class="text-center">
+                                    <button class="btn btn-success" type="submit">Request</button>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
+                    {{-- special --}}
+                    <div id="special" style="display: none">
+
+                        <div class="form-group">
+                            <label for="time">Enter Time</label>
+                            <input type="time" class="form-control" id="time">
+                        </div>
+
+                        <div>
+                            @foreach ($instructors as $ins)
+                                <div class="form-check" style="display: inline-block">
+                                    @if( in_array($ins->user_id, $absent_ids) )
+                                        <input class="form-check-input specialinsclick" type="radio" name="specialins" id="{{ $ins->user_id }}" value="{{ $ins->user_id }}" disabled>
+                                        <label class="form-check-label specialinslabel" for="{{ $ins->user_id }}">
+                                            <div class="text-center">
+                                                <img src="/uploadimages/instructors_profiles/{{ $ins->user->profile_img }}" alt="Instructor Profile" class="insprofile">
+                                            </div>
+                                            <div style="padding-top: 10px" class="text-center">
+                                                @php
+                                                    if($ins->user->gender == 'male'){
+                                                        $name = 'Mr. '.ucwords($ins->user->f_name).' '.ucwords($ins->user->l_name);
+                                                    }else{
+                                                        $name = 'Mr. '.ucwords($ins->user->f_name).' '.ucwords($ins->user->l_name);
+                                                    }
+                                                @endphp
+                                                <h6 style="color: #020142">
+                                                    {{ $name }} (Leave)
+                                                </h5>
+                                            </div>
+                                        </label>
+                                    @else
+                                        <input class="form-check-input specialinsclick" type="radio" name="specialins" id="{{ $ins->user_id }}" value="{{ $ins->user_id }}">
+                                        <label class="form-check-label specialinslabel" for="{{ $ins->user_id }}">
+                                            <div class="text-center">
+                                                <img src="/uploadimages/instructors_profiles/{{ $ins->user->profile_img }}" alt="Instructor Profile" class="insprofile">
+                                            </div>
+                                            <div style="padding-top: 10px" class="text-center">
+                                                @php
+                                                    if($ins->user->gender == 'male'){
+                                                        $name = 'Mr. '.ucwords($ins->user->f_name).' '.ucwords($ins->user->l_name);
+                                                    }else{
+                                                        $name = 'Mr. '.ucwords($ins->user->f_name).' '.ucwords($ins->user->l_name);
+                                                    }
+                                                @endphp
+                                                <h6 style="color: #020142">
+                                                    {{ $name }}
+                                                </h5>
+                                            </div>
+                                        </label>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div class="text-center" id="card">
+                            <button class="btn btn-success" type="submit">Request</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
     <script>
+
+        $('.btnone').click(function(){
+            $('.btnone').removeClass('slotbtnnotclick');
+            $('.btnone').addClass('slotbtnclick');
+            $('.btntwo').removeClass('slotbtnclick');
+            $('.btntwo').addClass('slotbtnnotclick');
+            document.getElementById('exist').style.display = 'block';
+            document.getElementById('special').style.display = 'none';
+
+        });
+
+        $('.btntwo').click(function(){
+            $('.btnone').removeClass('slotbtnclick');
+            $('.btnone').addClass('slotbtnnotclick');
+            $('.btntwo').removeClass('slotbtnnotclick');
+            $('.btntwo').addClass('slotbtnclick');
+            document.getElementById('exist').style.display = 'none';
+            document.getElementById('special').style.display = 'block';
+
+        });
+
         $(document).ready(function(){
+            $('.btnone').addClass('slotbtnclick');
+            $('.btntwo').addClass('slotbtnnotclick');
             $('aside ul .shedule').css('border-left', '5px solid #00bcd4');
         })
     </script>

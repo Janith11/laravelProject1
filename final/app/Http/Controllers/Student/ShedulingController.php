@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Student;
 
 use App\AlertForStudent;
+use App\EmplooyeeLeave;
+use App\Exam;
 use App\ExpandRequests;
 use App\Http\Controllers\Controller;
 use App\Instructor;
@@ -161,25 +163,32 @@ class ShedulingController extends Controller
 
                 $time_table = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $weekday_id)->get();
 
-                $timeslots = [];
-                foreach ($time_table as $table) {
-                    $timeslots[] = $table->time_slot;
-                }
-                $collecttimeslots = collect($timeslots);
-                $student_counts = OwnerShedule::where('date', $select_date)->whereIn('time', $collecttimeslots)->withcount('sheduledstudents')->get();
-
-                $final_counts = [];
-                foreach ($timeslots as $slot) {
-                    foreach ($student_counts as $count) {
-                        if ($slot == $count->time) {
-                            $final_counts[$slot] = $count->sheduledstudents_count;
-                        }
-                    }
-                };
+                $dayschedules = OwnerShedule::where('date', $select_date)->whereHas('sheduledstudents')->withCount('sheduledstudents')->get();
+                // return $dayschedules;
 
                 $instructors = Instructor::with('user')->get();
 
-                return view('student.sheduling.settimeslot', compact('time_table', 'select_date', 'final_counts', 'instructors'));
+                $theorysession = Exam::where('user_id', $user_id)->where('type', 'theory')->select('result')->first();
+                $tresult = $theorysession->result;
+
+                // absent instructors id list
+                $absent_ids = [];
+                // check single day leaves
+                $single_leave_days = EmplooyeeLeave::where('start_date', $date)->where('status', 1)->get();
+                if(count($single_leave_days) > 0){
+                    foreach ($single_leave_days as $leave) {
+                        $absent_ids[] = $leave->user_id;
+                    }
+                }
+                // check more leave days
+                $more_leave_days = EmplooyeeLeave::where('start_date', '<', $date)->where('end_date', '>=', $date)->where('status', 1)->get();
+                if (count($more_leave_days) > 0) {
+                    foreach ($more_leave_days as $leave) {
+                        $absent_ids[] = $leave->user_id;
+                    }
+                }
+                // return $final_counts;
+                return view('student.sheduling.settimeslot', compact('time_table', 'select_date', 'instructors', 'tresult', 'absent_ids', 'dayschedules'));
 
             }
 

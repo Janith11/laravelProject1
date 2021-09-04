@@ -317,6 +317,11 @@ class ShedulingController extends Controller
                 'shedule_id' => $schedule->id,
                 'student_id' => $student
             ]);
+            Attendance::create([
+                'shedule_id' => $schedule->id,
+                'user_id' => $student,
+                'attendance' => 0
+            ]);
         }
 
         // alert for students
@@ -388,6 +393,11 @@ class ShedulingController extends Controller
                 'shedulealert_id' => $alert_id->id,
                 'student_id' => $student,
                 'alert_status' => 0
+            ]);
+            Attendance::create([
+                'shedule_id' => $schedule_id,
+                'user_id' => $student,
+                'attendance' => 0,
             ]);
         }
 

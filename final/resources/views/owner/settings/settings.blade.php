@@ -35,6 +35,26 @@
 		max-width: 500px !important;
 	}
 
+    /* setting buttons */
+    .settingbtn{
+        border: 1px solid #080529;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 5px 5px 0px 0px;
+        color: #080529;
+    }
+    .settingbtn:focus{
+        outline: 0;
+    }
+    .settingbtnclick{
+        border-bottom: 1px solid white;
+        background-color: white;
+    }
+    .settingbtnnotclick{
+        background-color: rgb(177, 177, 177);
+        border: 1px solid #080529;
+    }
+
 </style>
 
 <div class="container">
@@ -85,10 +105,11 @@
 
     <div class="row-mb-2">
         <div>
-            <button class="btn btn-primary" id="details">Company Details</button>
-            <button class="btn btn-primary" id="hours">Open Hours</button>
-            <button class="btn btn-primary" id="other">Other</button>
-            <button class="btn btn-primary" id="profile">Profile</button>
+            <button class="settingbtn btnone">Company Details</button>
+            <button class="settingbtn btntwo">Open Hours</button>
+            <button class="settingbtn btnthree">Other</button>
+            <button class="settingbtn btnfour">Profile</button>
+            <hr style="border-top: 1px solid #080529; margin-top: -1px">
         </div>
     </div>
 
@@ -517,6 +538,10 @@
         $('#open_hours').hide();
         $('#others').hide();
         $('#owner_profile').hide();
+        $('.btnone').addClass('settingbtnclick');
+        $('.btntwo').addClass('settingbtnnotclick');
+        $('.btnthree').addClass('settingbtnnotclick');
+        $('.btnfour').addClass('settingbtnnotclick');
 
         if({{ $type }} == 1) {
             $("#one").attr('checked', 'checked');
@@ -526,42 +551,64 @@
 
     });
 
-    // $('#edit').click(function(){
-    //     $('#save').removeAttr("disabled");
-    //     $("input[id = 'details']").removeAttr("disabled");
-    // });
-
-    // $('#time_edit').click(function(){
-    //     $('#time_save').removeAttr("disabled");
-    //     $("input[id = 'time']").removeAttr("disabled");
-    // });
-
-    $('#details').click(function(){
+    $('.btnone').click(function(){
         $('#company_details').show();
         $('#open_hours').hide();
         $('#others').hide();
         $('#owner_profile').hide();
+        $('.btnone').removeClass('settingbtnnotclick');
+        $('.btnone').addClass('settingbtnclick');
+        $('.btntwo').removeClass('settingbtnclick');
+        $('.btntwo').addClass('settingbtnnotclick');
+        $('.btnthree').removeClass('settingbtnclick');
+        $('.btnthree').addClass('settingbtnnotclick');
+        $('.btnfour').removeClass('settingbtnclick');
+        $('.btnfour').addClass('settingbtnnotclick');
     });
 
-    $('#hours').click(function(){
+    $('.btntwo').click(function(){
         $('#open_hours').show();
         $('#company_details').hide();
         $('#owner_profile').hide();
         $('#others').hide();
+        $('.btnone').removeClass('settingbtnclick');
+        $('.btnone').addClass('settingbtnnotclick');
+        $('.btntwo').removeClass('settingbtnnotclick');
+        $('.btntwo').addClass('settingbtnclick');
+        $('.btnthree').removeClass('settingbtnclick');
+        $('.btnthree').addClass('settingbtnnotclick');
+        $('.btnfour').removeClass('settingbtnclick');
+        $('.btnfour').addClass('settingbtnnotclick');
     });
 
-    $('#other').click(function(){
+    $('.btnthree').click(function(){
         $('#open_hours').hide();
         $('#company_details').hide();
         $('#owner_profile').hide();
         $('#others').show();
+        $('.btnone').removeClass('settingbtnclick');
+        $('.btnone').addClass('settingbtnnotclick');
+        $('.btntwo').removeClass('settingbtnclick');
+        $('.btntwo').addClass('settingbtnnotclick');
+        $('.btnthree').removeClass('settingbtnnotclick');
+        $('.btnthree').addClass('settingbtnclick');
+        $('.btnfour').removeClass('settingbtnclick');
+        $('.btnfour').addClass('settingbtnnotclick');
     });
 
-    $('#profile').click(function(){
+    $('.btnfour').click(function(){
         $('#open_hours').hide();
         $('#company_details').hide();
         $('#others').hide();
         $('#owner_profile').show();
+        $('.btnone').removeClass('settingbtnclick');
+        $('.btnone').addClass('settingbtnnotclick');
+        $('.btntwo').removeClass('settingbtnclick');
+        $('.btntwo').addClass('settingbtnnotclick');
+        $('.btnthree').removeClass('settingbtnclick');
+        $('.btnthree').addClass('settingbtnnotclick');
+        $('.btnfour').removeClass('settingbtnnotclick');
+        $('.btnfour').addClass('settingbtnclick');
     });
 
 </script>

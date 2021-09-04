@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Exam;
 use App\Http\Controllers\Controller;
 use App\OwnerShedule;
 use Illuminate\Support\Facades\Auth;
 use App\Student;
 use App\User;
 use App\Posts;
+use App\SheduledStudents;
 use App\StudentCategory;
 use App\VehicleCategory;
 use Carbon\Carbon;
@@ -77,6 +79,81 @@ class StudentDashboadController extends Controller
             $absents[] = count($absent);
         }
 
-        return view('student.studentdashboad',compact('student','studentcategory','posts', 'todayshedules', 'session_count', 'progress', 'presents', 'absents', 'months'));
+        // bot start ===================================================================
+        $user_id = Auth::user()->id;
+
+        // theory and practicle sessions
+        $shedules = SheduledStudents::with('ownershedule')->whereHas('ownershedule')->where('student_id', $user_id)->get();
+        $theoryshedulescount = 0;
+        $practicleshedulescount = 0;
+        foreach($shedules as $shedule){
+            if($shedule->ownershedule->lesson_type == 'theory'){
+                $theoryshedulescount += 1;
+            }else{
+                $practicleshedulescount += 1;
+            }
+        }
+
+        // about theory exam
+        $theoryexam = Exam::where('user_id', $user_id)->where('type', 'theory')->where('result', 'pass')->count();
+
+        // about practicle exam
+        $practicleexam = Exam::where('user_id', $user_id)->where('type', 'practical')->where('result', 'pass')->count();
+
+        // about training categories
+        $categories = StudentCategory::where('user_id', $user_id)->count();
+        $trainingcategories = StudentCategory::where('user_id', $user_id)->where('tstatus', 'Without Training')->count();
+
+        // total sessions
+        $details = Student::where('user_id', $user_id)->get();
+        $totalsession = $tot;
+        $completedsession = $comp;
+        $amount = 0;
+        $paid = 0;
+        foreach($details as $detail){
+            $amount += $detail->total_fee;
+            $paid += $detail->paid_amount;
+        }
+
+        $botmsg = '';
+
+        // inertial stage
+        if ( ($theoryexam == 0) && ( $theoryshedulescount == 0 )) {
+            $botmsg = $botmsg.'You can apply your first theory session and also you can update your profile details';
+        }
+
+        // hoping to face theory examination
+        if( ($theoryexam == 0) && ( $theoryshedulescount > 0 ) ){
+            $botmsg = $botmsg.'Ready for your theory exam. The exam date will be informed by owner';
+        }
+
+        // theory examination pass
+        if( ($theoryexam > 0) && ( $theoryshedulescount > 0 ) && ($practicleexam == 0) && ($practicleshedulescount == 0) ){
+            $botmsg = $botmsg.'<strong>Condratulations !!</strong>. You passed your theory examination. Now you can apply for practicle sessions';
+        }
+
+        // hoping to face practicle examination
+        if( ($theoryexam > 0) && ( $theoryshedulescount > 0 ) && ($practicleexam == 0) && ($practicleshedulescount > 0) ){
+            $botmsg = $botmsg.'Ready for your practicle examination. Exam date will be informed by owner';
+        }
+
+        // completed all session
+        if( ($totalsession == $completedsession) && ($practicleexam == 0) ){
+            if( $amount != $paid ){
+                $botmsg = $botmsg.'Your not complete your payment.';
+            }
+            $botmsg = $botmsg.'You successfully complete your class sessions. If your not satisfied your practicle knowladge you can request more schedules in the more schedule section or you can ready for your practicle exam. Exam date will be informed by owner';
+        }
+
+        // get lysence
+        if($practicleexam > 0){
+            $botmsg = $botmsg.'Condratulations. now your successfully completed your class. your account will be deleted as soon as posible. thnak you for join with us';
+        }
+
+
+        // return $practicleexam;
+        // bot end
+
+        return view('student.studentdashboad',compact('student','studentcategory','posts', 'todayshedules', 'session_count', 'progress', 'presents', 'absents', 'months', 'botmsg'));
     }
 }
