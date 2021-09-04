@@ -75,7 +75,7 @@
             </div>
         </nav>
 
-        <main class="py-4 mt-5">
+        <main class=" mt-5">
             @yield('content')
         </main>
     </div>

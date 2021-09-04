@@ -214,54 +214,50 @@
   
         <div class="card-group">
           <div class="card">
-            <img class="card-img-top hover-shadow" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+            <img class="card-img-top hover-shadow" src="/images/landingpage/gallery/1.jpg" alt="Card image cap">
             
           </div>
           <div class="card">
-            <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+            <img class="card-img-top" src="/images/landingpage/gallery/2.jpg" alt="Card image cap">
             
           </div>
           <div class="card">
-            <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+            <img class="card-img-top" src="/images/landingpage/gallery/3.jpg" alt="Card image cap">
             
           </div>
         </div>
 
-       <div class="row">
-        <div class="col-md-4">
-           <div class="card">
-             <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-           </div>
+        <div class="card-group">
+          <div class="card">
+            <img class="card-img-top hover-shadow" src="/images/landingpage/gallery/4.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="/images/landingpage/gallery/5.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="/images/landingpage/gallery/6.jpg" alt="Card image cap">
+            
+          </div>
         </div>
-        <div class="col-md-4">
-         <div class="card">
-           <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-         </div>
-       </div>
-       <div class="col-md-4">
-         <div class="card">
-         <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-         </div>
-       </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-4">
-           <div class="card">
-             <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-           </div>
+        <div class="card-group">
+          <div class="card">
+            <img class="card-img-top hover-shadow" src="/images/landingpage/gallery/7.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card ">
+            <img class="card-img-top" src="/images/landingpage/gallery/8.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card">
+            <img class="card-img-top hover-overlay" src="/images/landingpage/gallery/9.jpg" alt="Card image cap">
+            
+          </div>
         </div>
-        <div class="col-md-4">
-         <div class="card">
-           <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-         </div>
-       </div>
-       <div class="col-md-4">
-         <div class="card">
-         <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-         </div>
-       </div>
-      </div>
+
+       
 
       </div>
     </section>

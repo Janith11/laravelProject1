@@ -4,7 +4,8 @@
              <li class=" d-flex justify-content-between align-items-center p-1  m-0" v-for="contact in sortedContacts" :key="contact.id" @click="selectContact(contact)" :class="{'selected': contact==selected}">
                 <div class="row">
                     <div class="avatar col float-left">
-                        <img class="rounded-circle border border-success" v-bind:src="'/uploadimages/students_profiles/'+contact.profile_img" alt="">
+                        <img class="rounded-circle border border-success" v-bind:src="'/uploadimages/owner_profile/'+contact.profile_img" alt="">
+                        <img class="rounded-circle border border-success" v-bind:src="'/uploadimages/instructors_profile/'+contact.profile_img" alt="">
                     </div>
                     <div class="contact col">
                         <h5 class="name myname mb-0">{{contact.f_name}} {{contact.l_name}}</h5>

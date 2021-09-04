@@ -150,7 +150,7 @@
                               <th scope="col">Id</th>
                               <th scope="col">Name</th>
                               <th scope="col">Email</th>
-                              <th scope="col">Concat No</th>
+                              <th scope="col">Contact No</th>
                               <th scope="col">Town</th>
                               <th scope="col">Message</th>
                             </tr>
@@ -163,7 +163,10 @@
                                         {{ $detail->id }}
                                     </td>
                                     <td>
-                                    {{ $detail->name }}
+                                        {{ $detail->name }}
+                                    </td>
+                                    <td>
+                                        {{ $detail->email }}
                                     </td>
                                     <td>
                                         {{ $detail->contactno }}
@@ -174,9 +177,9 @@
                                     <td>
                                         {{ $detail->message }}
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         {{ $detail->created_at }}
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 {{-- @endif --}}
                             @endforeach

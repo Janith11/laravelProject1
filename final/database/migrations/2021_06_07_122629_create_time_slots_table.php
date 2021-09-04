@@ -18,6 +18,9 @@ class CreateTimeSlotsTable extends Migration
             $table->unsignedBigInteger('weekday_id');
             $table->time('time_slot');
             $table->string('slot_name')->default('no name');
+            $table->string('exam_type');
+            $table->string('vehicle_category')->nullable();
+            $table->string('transmission')->nullable();
             $table->timestamps();
         });
     }

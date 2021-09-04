@@ -15,4 +15,8 @@ class StudentCategory extends Model
     public function vehiclecategory(){
         return $this->belongsTo(VehicleCategory::class, 'category', 'category_code');
     }
+    //relation with student_categories
+    public function Instructorcategories(){
+        return $this->belongsTo(Instructor::class, 'user_id', 'user_id');
+    }
 }
