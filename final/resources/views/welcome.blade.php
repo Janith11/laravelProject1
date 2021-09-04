@@ -214,54 +214,50 @@
   
         <div class="card-group">
           <div class="card">
-            <img class="card-img-top hover-shadow" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+            <img class="card-img-top hover-shadow" src="/images/landingpage/gallery/1.jpg" alt="Card image cap">
             
           </div>
           <div class="card">
-            <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+            <img class="card-img-top" src="/images/landingpage/gallery/2.jpg" alt="Card image cap">
             
           </div>
           <div class="card">
-            <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
+            <img class="card-img-top" src="/images/landingpage/gallery/3.jpg" alt="Card image cap">
             
           </div>
         </div>
 
-       <div class="row">
-        <div class="col-md-4">
-           <div class="card">
-             <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-           </div>
+        <div class="card-group">
+          <div class="card">
+            <img class="card-img-top hover-shadow" src="/images/landingpage/gallery/4.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="/images/landingpage/gallery/5.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="/images/landingpage/gallery/6.jpg" alt="Card image cap">
+            
+          </div>
         </div>
-        <div class="col-md-4">
-         <div class="card">
-           <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-         </div>
-       </div>
-       <div class="col-md-4">
-         <div class="card">
-         <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-         </div>
-       </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-4">
-           <div class="card">
-             <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-           </div>
+        <div class="card-group">
+          <div class="card">
+            <img class="card-img-top hover-shadow" src="/images/landingpage/gallery/7.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card ">
+            <img class="card-img-top" src="/images/landingpage/gallery/8.jpg" alt="Card image cap">
+            
+          </div>
+          <div class="card">
+            <img class="card-img-top hover-overlay" src="/images/landingpage/gallery/9.jpg" alt="Card image cap">
+            
+          </div>
         </div>
-        <div class="col-md-4">
-         <div class="card">
-           <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-         </div>
-       </div>
-       <div class="col-md-4">
-         <div class="card">
-         <img class="card-img-top" src="https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg" alt="Card image cap">
-         </div>
-       </div>
-      </div>
+
+       
 
       </div>
     </section>
@@ -275,33 +271,33 @@
 
           <div class="col-lg-3 col-md-6 text-center" data-aos="fade-up">
             <div class="count-box">
-              <i class="icofont-simple-smile" style="color: #20b38e;"></i>
-              <span data-toggle="counter-up">232</span>
-              <p>Happy Clients</p>
+              <i class="fas fa-users" style="color: #20b38e;"></i>
+              <span data-toggle="counter-up">400</span>
+              <p>Total Students</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 text-center" data-aos="fade-up" data-aos-delay="200">
             <div class="count-box">
-              <i class="icofont-document-folder" style="color: #c042ff;"></i>
-              <span data-toggle="counter-up">521</span>
-              <p>Projects</p>
+              <i class="fas fa-user-secret" style="color: #c042ff;"></i>
+              <span data-toggle="counter-up">5</span>
+              <p>Instructors</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 text-center" data-aos="fade-up" data-aos-delay="400">
             <div class="count-box">
-              <i class="icofont-live-support" style="color: #46d1ff;"></i>
-              <span data-toggle="counter-up">1,463</span>
-              <p>Hours Of Support</p>
+              <i class="fas fa-car-side" style="color: #46d1ff;"></i>
+              <span data-toggle="counter-up">17</span>
+              <p>Vehicles</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 text-center" data-aos="fade-up" data-aos-delay="600">
             <div class="count-box">
-              <i class="icofont-users-alt-5" style="color: #ffb459;"></i>
-              <span data-toggle="counter-up">15</span>
-              <p>Hard Workers</p>
+              <i class="far fa-building" style="color: #ffb459;"></i>
+              <span data-toggle="counter-up">4</span>
+              <p>Branches</p>
             </div>
           </div>
 

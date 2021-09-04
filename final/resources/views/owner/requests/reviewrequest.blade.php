@@ -76,21 +76,21 @@
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="fristname">Frist Name</label>
-                                    <input type="text" name="firstname" class="form-control" id="fristname" placeholder="Enter Frist name ..." value="{{ $r->f_name }}">
+                                    <input type="text" name="firstname" class="form-control" id="fristname" placeholder="Enter Frist name ..." value="{{ $r->f_name }}" disabled>
                                 </div>
                             </div>
 
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="middlename">Middle Name</label>
-                                    <input type="text" name="middlename" class="form-control" id="middlename" placeholder="Enter Middle name ..." value="{{ $r->m_name }}">
+                                    <input type="text" name="middlename" class="form-control" id="middlename" placeholder="Enter Middle name ..." value="{{ $r->m_name }}" disabled>
                                 </div>
                             </div>
 
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="lastname">Last Name</label>
-                                    <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Enter Last name ..." value="{{ $r->l_name }}">
+                                    <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Enter Last name ..." value="{{ $r->l_name }}" disabled>
                                 </div>
                             </div>
                         </div>
@@ -99,14 +99,14 @@
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="nicnumber">NIC Number</label>
-                                    <input type="text" name="nicnumber" class="form-control" id="nicnumber" placeholder="Enter Nic Number ..." value="{{ $r->nic_number }}">
+                                    <input type="text" name="nicnumber" class="form-control" id="nicnumber" placeholder="Enter Nic Number ..." value="{{ $r->nic_number }}" disabled>
                                 </div>
                             </div>
 
                             <div class="col-sm-8" id="register_form_item">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="{{ $r->email }}">
+                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="{{ $r->email }}" disabled>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                                 <div class="row">
                                     <div class="col" id="register_form_item">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gender" id="male" value="male" {{ $r->gender == 'male' ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="radio" name="gender" id="male" value="male" {{ $r->gender == 'male' ? 'checked' : '' }} disabled>
                                             <label class="form-check-label" for="male">
                                                 Male
                                             </label>
@@ -126,7 +126,7 @@
 
                                     <div class="col" id="register_form_item">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gender" id="female" value="male" {{ $r->gender == 'female' ? 'checked' : '' }}>
+                                            <input class="form-check-input" type="radio" name="gender" id="female" value="male" {{ $r->gender == 'female' ? 'checked' : '' }} disabled>
                                             <label class="form-check-label" for="female">
                                                 Female
                                             </label>
@@ -138,14 +138,14 @@
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="contactnumber">Contact Number</label>
-                                    <input type="text" name="contactnumber" class="form-control" id="contactnumber" placeholder="Enter Contact Number ..." value="{{ $r->contact_number }}">
+                                    <input type="text" name="contactnumber" class="form-control" id="contactnumber" placeholder="Enter Contact Number ..." value="{{ $r->contact_number }}" disabled>
                                 </div>
                             </div>
 
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="bithday">Birthday</label>
-                                    <input type="date" class="form-control" id="bithday" name="birthday" value="{{ $r->dob }}">
+                                    <input type="date" class="form-control" id="bithday" name="birthday" value="{{ $r->dob }}" disabled>
                                 </div>
                             </div>
 
@@ -155,21 +155,21 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label >Address</label>
-                                    <input type="text" name="addressnumber" class="form-control" id="addresslineone" placeholder="Address No ..." value="{{ $r->address_no }}">
+                                    <input type="text" name="addressnumber" class="form-control" id="addresslineone" placeholder="Address No ..." value="{{ $r->address_no }}" disabled>
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="addresslineone">Address Line One</label>
-                                    <input type="text" name="addressstreatname" class="form-control" id="addresslinetwo" placeholder="Street ..." value="{{ $r->address_lineone }}">
+                                    <input type="text" name="addressstreatname" class="form-control" id="addresslinetwo" placeholder="Street ..." value="{{ $r->address_lineone }}" disabled>
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="addresslineone">Address Line Two</label>
-                                    <input type="text" name="addresscity" class="form-control" id="addresslinethree" placeholder="city ..." value="{{ $r->address_linetwo }}">
+                                    <input type="text" name="addresscity" class="form-control" id="addresslinethree" placeholder="city ..." value="{{ $r->address_linetwo }}" disabled>
                                 </div>
                             </div>
                         </div>

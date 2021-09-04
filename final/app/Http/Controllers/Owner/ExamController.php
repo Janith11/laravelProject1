@@ -12,8 +12,13 @@ use Illuminate\Support\Facades\DB;
 class ExamController extends Controller
 {
     public function index(){
-        $students = Student::with('exams')->get();
-        return view('owner.exam.examlist', compact('students'));
+        $students = Student::with('exams')->paginate(4);
+        // return $students;
+        $lastgroupnumber =Student::all()->last();
+        $number= $lastgroupnumber->group_number;
+        $studentcount =Student::where('group_number',$number)->count();
+        // return $studentcount;
+        return view('owner.exam.examlist', compact('students','lastgroupnumber','studentcount'));
     }
 
     public function edit($user_id){
@@ -66,6 +71,34 @@ class ExamController extends Controller
     ]);
     return redirect()->route('ownerexamresult')->with('successmsg', 'Exam result is added successfully !');
 
+    }
+    public function setexamdate(Request $request){
+        $this->validate($request,[
+            'groupnumber'=>'required',
+            'result'=> 'required',
+            'date'=> 'required|date',
+            'examtype'=> 'required',
+        ]);
+        $type=$request->examtype;
+        $students = Student::with('exams')->where('group_number',$request->groupnumber)->get();
+        
+        if($students->isEmpty()){
+            return redirect()->back()->with('grouperror', 'Check group again! This group number is unavailable.');
+        }
+
+        foreach($students as $student){
+            $id='';
+            foreach($student->exams as $exam){
+                if($exam->type == $type){
+                    $id=$exam->id;
+                    $examupdate=Exam::find($id);
+                    $examupdate->date = $request->date;
+                    $examupdate->result=$request->result;
+                    $examupdate->save();
+                }
+            }
+        }
+        return redirect()->route('ownerexamresult')->with('successmsg', 'Student Group Exam date updated Successfully!');
     }
 
 }

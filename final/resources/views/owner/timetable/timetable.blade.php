@@ -2,7 +2,7 @@
 @section('content')
 <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 <style>
-
+/* 
         @media (min-width: 576px) {
             .card-columns {
                 column-count: 1;
@@ -25,7 +25,7 @@
             .card-columns {
                 column-count: 2;
             }
-        }
+        } */
 
         ul.ks-cboxtags {
             list-style: none;
@@ -86,15 +86,28 @@
             transition: all .2s;
         }
         ul.ks-cboxtags li input[type="checkbox"] {
-        display: absolute;
-            }
+            display: absolute;
+        }
         ul.ks-cboxtags li input[type="checkbox"] {
-        position: absolute;
-        opacity: 0;
-            }
+            position: absolute;
+            opacity: 0;
+        }
         ul.ks-cboxtags li input[type="checkbox"]:focus + label {
-        border: 2px solid #e9a1ff;
-            }
+            border: 2px solid #e9a1ff;
+        }
+
+        /* my radio button  */
+        .myradiobutton input[type="radio"]{
+            display: none;
+        }
+        .myradiobutton label:hover{
+            background-color: #2b9ace;
+            color: white;
+        }
+        .myradiobutton input[type="radio"]:checked +label {
+            background-color: #122e7c;
+            color: white;
+        }
 </style>
 
 <div class="container">
@@ -141,14 +154,14 @@
 
             <div class="card-body">
 
-                <h5 class="card-title" style="color: #222944; font-weight: bold">Time Slots</h5>
+                <h5 class="card-title" style="color: #222944; font-weight: bold">Time Table</h5>
 
                 <hr style="border: 0.5px solid #222944">
 
-                <div class="card-columns">
+                <div class="card">
 
                     @foreach ($timetable as $tbl)
-                    <div class="card border-primary" style="width: 100%;">
+                    <div class="card border-primary mb-2" style="width: 100%;">
                         <div class="card-body">
                             <h5 class="card-title" style="color: #222944; font-weight: bold">{{ $tbl->day_name }}</h5>
                             <hr style="border: 0.3px solid #222944">
@@ -158,15 +171,18 @@
                                         <h5>You haven't create time any slots for {{ $tbl->day_name }} </h5>
                                     </div>
                                 @else
-                                    <h6 style="padding-left: 10px">Time Slots</h6>
+                                    <h6 style="padding-left: 10px">Time Table</h6>
                                     <div class="table-responsive" style="padding-left: 10px; padding-right: 10px">
                                         <table class="table table-hover table-sm">
-                                            <thead class="thead">
+                                            <thead class="thead bg-dark text-white">
                                                 <tr>
                                                     <th scope="col">Time</th>
                                                     <th scope="col">Name</th>
                                                     <th scope="col">Instructor</th>
-                                                    <th scope="col"></th>
+                                                    <th scope="col">Session Type</th>
+                                                    <th scope="col">Vehicle Category</th>
+                                                    <th scope="col">Transmission</th>
+                                                    <th scope="col">Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -186,6 +202,31 @@
                                                                     @endforeach
                                                                     @endif
                                                             @endforeach
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ $timeslot->exam_type }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @if($timeslot->vehicle_category == 'A')
+                                                                Bike 
+                                                            @elseif ($timeslot->vehicle_category == 'B1')
+                                                                Three Wheel
+                                                            @elseif ($timeslot->vehicle_category == 'C1')
+                                                                Car, Van & etc.
+                                                            @elseif ($timeslot->vehicle_category == 'C')
+                                                                Heavy Vehicle
+                                                            @else
+                                                                none
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @if ($timeslot->transmission == 'Auto' || $timeslot->transmission == '3')
+                                                                Manual
+                                                            @elseif ($timeslot->transmission == 'Manual')
+                                                                Manual    
+                                                            @else
+                                                                none
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             <form method="POST" action="{{ route('deletetimeslot', $timeslot->id) }}" id="delete-form-{{ $timeslot->id }}" style="display: none">
@@ -227,25 +268,101 @@
                                                 <div class="form-group">
                                                     <input type="hidden" class="form-control" id="id" name="date_id" value="{{ $tbl->id }}">
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="name">Slot Name</label>
-                                                    <input type="text" class="form-control" id="name" name="slot_name" required>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="name">Session Name</label>
+                                                            <input type="text" class="form-control" id="name" name="slot_name" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="monday">Start Time</label>
+                                                            <input type="time" class="form-control" id="time" name="slot_time" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="monday">Session Type</label><br>
+                                                            <div class="form-check form-check-inline myradiobutton">
+                                                                <input class="form-check-input" type="radio" name="exam_type" id="{{ $tbl->id}}-theory" value="Theory" onclick="myTheory('{{ $tbl->id}}')">
+                                                                <label class="form-check-label p-2 px-2 border border-secondary rounded" for="{{ $tbl->id}}-theory">Theory</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline myradiobutton">
+                                                                <input class="form-check-input" type="radio" name="exam_type" id="{{ $tbl->id}}-practical" value="Practical" onclick="mypracticalradio('{{ $tbl->id}}')">
+                                                                <label class="form-check-label p-2 px-2 border border-secondary rounded" for="{{ $tbl->id}}-practical" >Practical</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="monday">Start Time</label>
-                                                    <input type="time" class="form-control" id="time" name="slot_time" required>
+
+                                                
+                                                <div class="row" id="{{ $tbl->id }}-divpractical1">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="result">Vehicle Category</label>
+                                                            <select  class="form-control" name="category" id="{{ $tbl->id }}-vehicleCategory">
+                                                                @foreach ($VehicleCategories as $category)
+                                                                    @if ($category->name == 'bike')
+                                                                        <option value= "A">Bike</option>        
+                                                                    @elseif ($category->name == 'threeweel')
+                                                                        <option value= "B1">Three Wheel</option>        
+                                                                    @elseif ($category->name == 'dualpurposes')
+                                                                        <option value= "C1">Car, Van & Dual Purposes</option>
+                                                                    @else
+                                                                        <option value= "C">Heavy Vehicle</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="result">Transmission Type</label>
+                                                            <select  class="form-control" name="transmission" id="{{ $tbl->id }}-transmission" onchange="myTransmission({{ $tbl->id }})">
+                                                                <option value= "3">Manual Transmission Only</option>
+                                                                <option value= "Auto">Auto</option>        
+                                                                <option value= "Manual">Manual</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="monday">Instructor Selection</label><br>
-                                                    @foreach ($instructor as $i)
-                                                        <ul class="ks-cboxtags">
-                                                            <li>
-                                                                <input type="checkbox" id="{{ $i->id }}{{ $tbl->id }}" name="instructor_id[]" value="{{ $i->user_id }}">
-                                                                <label for="{{ $i->id }}{{ $tbl->id }}">{{ $i->user->f_name }} {{ $i->user->l_name }}</label>
-                                                            </li>
-                                                        </ul>
-                                                    @endforeach
-                                                </div>
+
+                                                <div class="row mx-2" id="{{ $tbl->id }}-divpractical2">
+                                                    <div class="form-group">
+                                                        <label for="monday">Select Instructors</label><br>
+                                                        <div>
+                                                            <ul class="ks-cboxtags" id="{{ $tbl->id }}-PracticalInstructors">
+                                                                
+                                                                {{-- Come from AJAX  --}}
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>                                                       
+                                                </div>                                                       
+                                                            
+                                                {{-- for the theory users  --}}
+                                                <div class="row mx-2" id="{{ $tbl->id }}-divtheory1">
+                                                    <div class="form-group">
+                                                        <label for="monday">Select Instructors</label><br>
+                                                            <div>
+                                                                @foreach ($instructor as $i)
+                                                                <ul class="ks-cboxtags">
+                                                                    <li>
+                                                                        <input type="checkbox" id="{{ $i->id }}{{ $tbl->id }}" name="instructor_id[]" value="{{ $i->user_id }}">
+                                                                        <label for="{{ $i->id }}{{ $tbl->id }}">{{ $i->user->f_name }} {{ $i->user->l_name }}</label>
+                                                                    </li>
+                                                                </ul>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>                 
+                                                </div>                             
                                                 <div class="form-group text-center">
                                                     <button type="submit" class="btn btn-primary" style="color: white">Add Slot</button>
                                                 </div>
@@ -261,6 +378,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
     <script>
@@ -274,12 +392,104 @@
         }
     </script>
 
-</div>
+
 
 <script>
     $(document).ready(function(){
         $('aside ul .shedulings').css('border-left', '5px solid #00bcd4');
     })
+</script>
+   
+
+<script>
+    function myTransmission(id){
+        var selectedOption = id+'-transmission';
+        var vehicleCategory = id+'-vehicleCategory';
+        var PracticalInstructors = '#'+id+'-PracticalInstructors';
+        var Tvalue= document.getElementById(selectedOption).value;
+        var Cvalue= document.getElementById(vehicleCategory).value;
+
+        $.ajax({
+                    type: 'get',
+                    url: '/timetable/loadinstructor'+'/'+Cvalue+'/'+Tvalue,
+                    success: function (data) {
+                        if (!$.trim(data)){   
+                            alert("Please select other option. This option doesn't have instructors: " + data);
+                        }
+                        // alert(data);
+                            $(PracticalInstructors).find('label').remove();
+                            for(var i=0; i<data.length;i++){
+                                
+                                var test = $('<li><input type="checkbox" id="'+data[i].f_name+'" name="instructor_id[]" value="'+data[i].id+'"><label for="'+data[i].f_name+'">'+data[i].l_name+' '+data[i].f_name+'</label></li>') ;
+                                $(PracticalInstructors).append(test);
+                            }
+                            
+                    },
+                    error: function (error) {
+                        alert("Choose relevent category");
+                    }
+                });
+       
+    }
+
+    // $(document).ready(function(){
+    //     $('#mytransmission').change(function(){
+    //         var category = $('#ins_category option:selected').val();
+    //         var trasmission = $('#mytransmission option:selected').val();
+            
+            // e.preventDefault();
+
+    //         $.ajax({
+    //                 type: 'get',
+    //                 url: '/timetable/loadinstructor'+'/'+category+'/'+trasmission,
+    //                 success: function (data) {
+    //                     if (!$.trim(data)){   
+    //                         alert("Please select other option. This option doesn't have instructors: " + data);
+    //                     }
+    //                         $('#myinstructors').find('label').remove();
+    //                         for(var i=0; i<data.length;i++){
+                                
+    //                             var test = $('<li><input type="checkbox" id="'+data[i].f_name+'" name="instructor_id[]" value="'+data[i].id+'"><label for="'+data[i].f_name+'">'+data[i].l_name+' '+data[i].f_name+'</label></li>') ;
+    //                             $('#myinstructors').append(test);
+    //                         }
+                            
+    //                 },
+    //                 error: function (error) {
+    //                     alert("Choose relevent category");
+    //                 }
+    //             });
+
+    //     });
+    // });
+
+</script>
+
+<script>
+    function myTheory(id){
+        var x = '#'+id+'-theory';
+        var y1 = id+'-divpractical1';
+        var y2 = id+'-divpractical2';
+        var y3 = id+'-divtheory1';
+
+        if($(x).is(":checked")) {
+             document.getElementById(y1).style.display ="none";
+             document.getElementById(y2).style.display ="none";
+             document.getElementById(y3).style.display ="block";
+        }
+            
+    }
+    function mypracticalradio(id){
+        var x = '#'+id+'-practical';
+        var y1 = id+'-divpractical1';
+        var y2 = id+'-divpractical2';
+        var y3 = id+'-divtheory1';
+
+        if($(x).is(":checked")) {
+             document.getElementById(y1).style.display ="block";
+             document.getElementById(y2).style.display ="block";
+             document.getElementById(y3).style.display ="none";
+        }
+    }
 </script>
 
 @endsection

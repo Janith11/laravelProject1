@@ -1,5 +1,6 @@
 @extends('layouts.ownerapp')
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 
     #img{
@@ -20,6 +21,10 @@
         font-weight: 500;
         line-height: 1.2;
         color: inherit;
+    }
+    .active-cyan-4 input[type=text] {
+        border: 1px solid #4dd0e1;
+        box-shadow: 0 0 0 1px #4dd0e1;
     }
 
 </style>
@@ -143,8 +148,12 @@
                 <div class="card-body">
                     <h5 style="color: #222944; font-weight: bold">All Students</h5>
                     <hr style="border: 0.5px solid #222944">
+                    <div class="row">
+                        <div class="active-cyan-4 mb-4 col-12">
+                            <input class="form-control" type="text" placeholder="Student Search ..." aria-label="Search" onkeyup="myFunction()" id="myInput">
+                        </div>
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id="myTable">
                             <thead>
                             <tr>
                                 <th scope="col ">
@@ -209,5 +218,27 @@
         $('aside ul .students').css('border-left', '5px solid #00bcd4');
     })
 </script>
+
+{{-- search bar script  --}}
+<script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    </script>
 
 @endsection

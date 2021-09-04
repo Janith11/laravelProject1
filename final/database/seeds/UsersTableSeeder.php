@@ -91,12 +91,12 @@ class UsersTableSeeder extends Seeder
         ]);
         // id 5 instructor 4
         DB::table('users')->insert([
-            'role_id' => '3',
+            'role_id' => '2',
             'f_name'  => 'Udeshya',
             'm_name'  => 'Indunil',
             'l_name' => 'Kalindu',
             'email'   => 'udeshya@gmail.com',
-            'password' => Hash::make('rootstudent'),
+            'password' => Hash::make('rootinstructor'),
             'nic_number' => '992514785',
             'gender' => 'male',
             'contact_number' => '0762541478',

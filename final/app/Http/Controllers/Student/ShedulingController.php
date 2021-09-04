@@ -20,6 +20,7 @@ use App\StudentCategory;
 use App\TimeSlots;
 use App\VehicleCategory;
 use Carbon\Carbon;
+use App\Exam;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,9 +67,11 @@ class ShedulingController extends Controller
     }
 
     public function events($id){
-
+        
         $setone = SheduledStudents::with('ownershedule')->where('student_id', $id)->get();
         $settwo = SheduleRequest::with('ownershedules')->where('user_id', $id)->get();
+        $setthree = Exam::where('user_id',$id)->get();
+        
         $responses = [];
         foreach($setone as $one){
             $row = [];
@@ -111,6 +114,51 @@ class ShedulingController extends Controller
                 $row['color'] = '#FF2957';
                 $row['textColor'] = '#FFFFFF';
                 $row['date'] = $two->ownershedules->date;
+                array_push($responses, $row);
+            }
+        }
+        foreach($setthree as $three){
+            $row = [];
+            if($three->result == 'pass' && $three->type == 'theory'){
+                $row['title'] = 'Theory Exam';
+                $row['color'] = '#5BB85C';
+                $row['textColor'] = '#FFF';
+                $row['date'] = $three->date;
+                array_push($responses, $row);
+            }
+            elseif($three->result == 'pass' && $three->type == 'practical'){
+                $row['title'] = 'Practical Exam';
+                $row['color'] = '#5BB85C';
+                $row['textColor'] = '#FFF';
+                $row['date'] = $three->date;
+                array_push($responses, $row);
+            }
+            elseif($three->result == 'none' && $three->type == 'practical'){
+                $row['title'] = 'Practical Exam';
+                $row['color'] = '#1A57ED';
+                $row['textColor'] = '#FFF';
+                $row['date'] = $three->date;
+                array_push($responses, $row);
+            }
+            elseif($three->result == 'none' && $three->type == 'theory'){
+                $row['title'] = 'Theory Exam';
+                $row['color'] = '#1A57ED';
+                $row['textColor'] = '#FFF';
+                $row['date'] = $three->date;
+                array_push($responses, $row);
+            }
+            elseif($three->result == 'fail' && $three->type == 'theory'){
+                $row['title'] = 'Theory Exam';
+                $row['color'] = '#F01E1E';
+                $row['textColor'] = '#FFF';
+                $row['date'] = $three->date;
+                array_push($responses, $row);
+            }
+            elseif($three->result == 'fail' && $three->type == 'practical'){
+                $row['title'] = 'Practical Exam';
+                $row['color'] = '#F01E1E';
+                $row['textColor'] = '#FFF';
+                $row['date'] = $three->date;
                 array_push($responses, $row);
             }
         }

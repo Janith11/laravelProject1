@@ -20,4 +20,9 @@ class StudentCategory extends Model
     public function studentscategories(){
         return $this->belongsTo(Student::class, 'user_id', 'user_id');
     }
+
+    //relation with student_categories
+    public function Instructorcategories(){
+        return $this->belongsTo(Instructor::class, 'user_id', 'user_id');
+    }
 }

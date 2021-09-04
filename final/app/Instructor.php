@@ -27,7 +27,7 @@ class Instructor extends Model
         return $this->hasMany(EmplooyeeLeave::class, 'user_id', 'user_id');
     }
 
-    // relation with student_categories
+    //relation with student_categories
     public function categories(){
         return $this->hasMany(StudentCategory::class, 'user_id', 'user_id');
     }
