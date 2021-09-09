@@ -21,7 +21,7 @@
                         @foreach ($examdetail->exams as $exam)
                             <div class="col-md-6 bg-light">
                                 <table class="table table-sm table-hover">
-                                    <thead>
+                                    <thead class="table-dark">
                                       <tr>
                                         <th scope="col">Exam Type</th>
                                         <th scope="col">Date</th>
@@ -56,85 +56,7 @@
         </div>
     </div>
 
-    {{-- <div class="row-mb-2">
-        <div id="card" >
-          <div class="card-body">
-            <div class="card mt-2">
-                <div class="card-body">
-                    <h5 style="color: #222944; font-weight: bold"> Result sheet</h5>
-                    <hr style="border: 0.5px solid #222944">
-                        <div class="row">
-                            @foreach ($users as $s)
-                           <div class="col-sm-4" id="register_form_item">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <p>{{ $s->user->f_name }} {{ $s->user->l_name }}</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-4" id="register_form_item">
-                                <div class="form-group">
-                                    <label for="nic">NIC</label>
-                                    <p>{{ $s->user->nic_number }}</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-4" id="register_form_item">
-                                <div class="form-group">
-                                    <label for="contact number">Contact number</label>
-                                    <p>{{ $s->user->contact_number }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                </div>
-            </div>
-            @foreach ($examdetails as $examdetail)
-            @foreach ($examdetail->exams as $exam)
-            <div class="card">
-                <div class="card-body">
-                    <div class="row text-center">
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col">
-                                    <p>Exam Type</p>
-                                </div>
-                                <div class="col">
-                                    {{ $exam->type }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    Exam Date
-                                </div>
-                                <div class="col">
-                                    date
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    Result
-                                </div>
-                                <div class="col">
-                                    {{ $exam->result }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <p>Attempt</p>
-                                </div>
-                                <div class="col">
-                                    {{ $exam->attempt }}
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    {{-- <hr style="border: 0.5px solid #222944"> --}}
-                {{-- </div>
-            </div>
-            @endforeach
-            @endforeach
-          </div>
-        </div> --}}
+   
 </div>
 
     <script>

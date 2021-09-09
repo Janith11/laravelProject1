@@ -192,4 +192,10 @@
         <div style="background-color: #040124"></div>
 
     </div>
+
+    <script>
+        $(document).ready(function(){
+        $('aside ul .notification').css('border-left', '5px solid #00bcd4');
+    });
+    </script>
 @endsection

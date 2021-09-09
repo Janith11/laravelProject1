@@ -68,7 +68,7 @@ class RequestAlertController extends Controller
     }
 
     public function accept(Request $request){
-
+        
         $requestid = $request->request_id;
         $student_id = $request->student_id;
         $instructor_id = $request->instructor_id;

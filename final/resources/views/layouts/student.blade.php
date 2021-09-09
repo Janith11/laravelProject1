@@ -905,6 +905,19 @@
                         </div>
                     </li>
 
+                    <li class="nav-item mb-2 timetable" id="nav-item">
+                        <div style="padding-left: 10px">
+                            <div style="display: inline-block">
+                                <img src="/uploadimages/other/dashboardicons/shedules.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                            </div>
+                            <div style="display: inline-block">
+                                <a class="nav-link" href="{{ route('viewtimetable') }}" >
+                                    <span class="menu-title" id="item">Time Table</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
                     <li class="nav-item  mb-3 completesessions" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">

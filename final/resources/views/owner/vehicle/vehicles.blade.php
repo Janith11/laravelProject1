@@ -23,7 +23,7 @@
                         </div>
                         <div class="float-right">
                             <div style="display: inline-block">
-                                <a href="{{ route('addvehicles') }}" type="button" class="btn btn-success" style="color: #222944; background-color: #FFAF38">Add New</a>
+                                <a href="{{ route('addvehicles') }}" type="button" class="btn btn-success" style="color: #222944; background-color: #FFAF38">Add a Vehicle</a>
                             </div>
                             <div style="display: inline-block">
                                 <form method="post" action="{{ route('searchvehicle') }}">
@@ -63,7 +63,7 @@
         @endif
 
         @if(session('successmsg'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show mt-4 mb-2" role="alert">
                 <h5>
                     {{ session('successmsg') }}
                 </h5>
@@ -72,22 +72,35 @@
                 </button>
             </div>
         @endif
-
-        <div class="row justify-content-center">
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <h5 class="text-muted text-center mb-3">Vehicle Category</h5>
+                <canvas id="vehiclecategories"></canvas>
+            </div>
+            <div class="col-md-4" style="height: 350px !important">
+                <h5 class="text-muted text-center mb-3">Vehicle Condition</h5>
+                <canvas id="vehicleconditions"></canvas>
+            </div>
+            <div class="col-md-4" style="height: 350px !important">
+                <h5 class="text-muted text-center mb-3">Mileage</h5>
+                <canvas id="vehiclemileage"></canvas>
+            </div>
+        </div>
+        <div class="row justify-content-center my-3">
             @if(count($vehicles) == 0)
                 <div class="alert alert-info" role="alert" style="width: 100%">
-                    <h5>No vehicles added !!</h5>
+                    <h5>No vehicles were added !!</h5>
                 </div>
             @else
                 @foreach($vehicles as $vehicle)
                 <div class="col col-lg-4">
                     <div class="card" style=" border-radius: 10px; margin-top: 10px;">
-                        <figure id="figure">
+                        <figure id="figure mb-0">
                             <img class="card-img-top" src="/uploadimages/vehicles/{{ $vehicle->image }}" style="border-radius: 10px 10px 0px 0px;" id="vehicle_image">
                         </figure>
                         <div class="card-body">
-                            <h5 class="card-title" style="color: #222944; font-weight: bold;">{{ $vehicle->name }}</h5>
-                            <p class="card-text" style="color: #222944;">{{ $vehicle->description }}</p>
+                            <h5 class="card-title text-center mt-0" style="color: #222944; font-weight: bold;">{{ $vehicle->name }}</h5>
+                            <p class="card-text" style="color: #222944;">Vehicle Category : {{ $vehicle->category }}, Transmission: {{ $vehicle->transmission }}, Condition: {{ $vehicle->condition }}, Mileage: {{ $vehicle->mileage }} km </p>
                             <a href="{{ route('editvehicle', $vehicle->id) }}" class="btn btn-primary" style="background-color: #222944;">Edit</a>
                             <form method="POST" action="{{ route('deletevehicles', $vehicle->id) }}" id="delete-form-{{ $vehicle->id }}" style="display: none">
                                 @csrf
@@ -110,6 +123,121 @@
     </div>
 
     <script>
+        // vehicle categories chart
+        var xValues = @json($vehiclecat);
+        var yValues =@json($allcat);
+        var barColors = [
+            "#FF4069",
+            "#37A2EB",
+            "#FFCD56",
+            "#FF891A",
+        ];
+        var myChart = new Chart('vehiclecategories',{
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues,
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                }
+            },
+        });
+
+        // vehicle conditions chart
+        var y2Values = @json($vehiclecon);
+        var x2Values =@json($concat);
+        var myChart2 = new Chart('vehicleconditions',{
+            type: "bar",
+            data:{
+                labels: x2Values,
+                datasets: [{
+                    label:'',
+                    data: y2Values,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                            }
+                        }]
+                    }
+             }
+          });
+
+          //vehicle mileage
+          // vehicle conditions chart
+        var y3Values = @json($mil_count);
+        var x3Values =@json($mil_range);
+        var myChart2 = new Chart('vehiclemileage',{
+            type: "bar",
+            data:{
+                labels: x3Values,
+                datasets: [{
+                    label:'',
+                    data: y3Values,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                            }
+                        }]
+                    }
+             }
+          });
+
         $(document).ready(function(){
             $('aside ul .vehicle').css('border-left', '5px solid #00bcd4');
         })
