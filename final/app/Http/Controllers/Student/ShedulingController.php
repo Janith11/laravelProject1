@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Student;
 
 use App\AlertForStudent;
+use App\EmplooyeeLeave;
+use App\Exam;
 use App\ExpandRequests;
 use App\Http\Controllers\Controller;
 use App\Instructor;
-use App\OwnerShedule;
+use App\shedule;
 use App\RequestAlert;
 use App\RequestCategories;
 use App\SheduleAlert;
@@ -18,7 +20,6 @@ use App\StudentCategory;
 use App\TimeSlots;
 use App\VehicleCategory;
 use Carbon\Carbon;
-use App\Exam;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +44,7 @@ class ShedulingController extends Controller
         $user_id = Auth::user()->id;
 
         // check sheduling method
-        $today_sessions = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
+        $today_sessions = Shedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
         })->where('date', $today)->whereIn('shedule_status', [1, 2])->get();
 
@@ -61,57 +62,71 @@ class ShedulingController extends Controller
         $sheduling_type = ShedulingType::first();
         $type = $sheduling_type->type;
 
-        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session', 'requestdetails', 'categorydetails', 'type'));
+        // training categories
+        $trainingcat = StudentCategory::where('user_id', $user_id)->select(['category', 'transmission'])->get();
+        $trainingcounts = [];
+        foreach($trainingcat as $cat){
+            $child = [];
+            $res = shedule::where('vahicle_category', $cat->category)->where('transmission', $cat->transmission)->where('shedule_status', 2)->whereHas('sheduledstudents', function($query) use($user_id){
+                $query->where('student_id', $user_id);
+            })->count();
+            $child['category'] = $cat->category;
+            $child['count'] = $res;
+            array_push($trainingcounts, $child);
+        }
+        // return $trainingcounts;
+
+        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session', 'requestdetails', 'categorydetails', 'type', 'trainingcounts'));
     }
 
     public function events($id){
-        
-        $setone = SheduledStudents::with('ownershedule')->where('student_id', $id)->get();
-        $settwo = SheduleRequest::with('ownershedules')->where('user_id', $id)->get();
+
+        $setone = SheduledStudents::with('shedule')->where('student_id', $id)->get();
+        $settwo = SheduleRequest::with('shedules')->where('user_id', $id)->get();
         $setthree = Exam::where('user_id',$id)->get();
-        
+
         $responses = [];
         foreach($setone as $one){
             $row = [];
-            if ($one->ownershedule->shedule_status == 1) {
-                $row['title'] = $one->ownershedule->title;
+            if ($one->shedule->shedule_status == 1) {
+                $row['title'] = $one->shedule->title;
                 $row['color'] = '#35FF35';
                 $row['textColor'] = '#040124';
-                $row['date'] = $one->ownershedule->date;
+                $row['date'] = $one->shedule->date;
                 array_push($responses, $row);
-            }elseif ($one->ownershedule->shedule_status == 2) {
-                $row['title'] = $one->ownershedule->title;
+            }elseif ($one->shedule->shedule_status == 2) {
+                $row['title'] = $one->shedule->title;
                 $row['color'] = '#03011F';
                 $row['textColor'] = '#FFFFFF';
-                $row['date'] = $one->ownershedule->date;
+                $row['date'] = $one->shedule->date;
                 array_push($responses, $row);
-            }elseif ($one->ownershedule->shedule_status == 3) {
-                $row['title'] = $one->ownershedule->title;
+            }elseif ($one->shedule->shedule_status == 3) {
+                $row['title'] = $one->shedule->title;
                 $row['color'] = '#FF2957';
                 $row['textColor'] = '#FFFFFF';
-                $row['date'] = $one->ownershedule->date;
+                $row['date'] = $one->shedule->date;
                 array_push($responses, $row);
             }else{
-                $row['title'] = $one->ownershedule->title;
+                $row['title'] = $one->shedule->title;
                 $row['color'] = '#FF891A';
                 $row['textColor'] = '#040124';
-                $row['date'] = $one->ownershedule->date;
+                $row['date'] = $one->shedule->date;
                 array_push($responses, $row);
             }
         }
         foreach ($settwo as $two) {
             $row = [];
             if ($two->shedule_status == 0) {
-                $row['title'] = $two->ownershedules->title;
+                $row['title'] = $two->shedules->title;
                 $row['color'] = '#0FD8F3';
                 $row['textColor'] = '#040124';
-                $row['date'] = $two->ownershedules->date;
+                $row['date'] = $two->shedules->date;
                 array_push($responses, $row);
             }elseif ($two->shedule_status == 2) {
-                $row['title'] = $two->ownershedules->title;
+                $row['title'] = $two->shedules->title;
                 $row['color'] = '#FF2957';
                 $row['textColor'] = '#FFFFFF';
-                $row['date'] = $two->ownershedules->date;
+                $row['date'] = $two->shedules->date;
                 array_push($responses, $row);
             }
         }
@@ -178,7 +193,7 @@ class ShedulingController extends Controller
                 return back()->with('errormsg', 'You have already completed your total sessions !!');
             }else{
 
-                $select_dateshedules = SheduledStudents::where('student_id', $user_id)->whereHas('ownershedule', function($query) use($date){
+                $select_dateshedules = SheduledStudents::where('student_id', $user_id)->whereHas('shedule', function($query) use($date){
                     $query->where('date', $date);
                 })->count();
                 // return $select_dateshedules;
@@ -186,7 +201,36 @@ class ShedulingController extends Controller
                     return back()->with('errormsg', 'You Already have session on this day !!');
                 }
 
+                //all instructors
+                $instructors = Instructor::with('user')->get();
+
+                // absent instructors id list
+                $absent_ids = [];
+                // check single day leaves
+                $single_leave_days = EmplooyeeLeave::where('start_date', $date)->where('status', 1)->get();
+                if(count($single_leave_days) > 0){
+                    foreach ($single_leave_days as $leave) {
+                        $absent_ids[] = $leave->user_id;
+                    }
+                }
+                // check more leave days
+                $more_leave_days = EmplooyeeLeave::where('start_date', '<', $date)->where('end_date', '>=', $date)->where('status', 1)->get();
+                if (count($more_leave_days) > 0) {
+                    foreach ($more_leave_days as $leave) {
+                        $absent_ids[] = $leave->user_id;
+                    }
+                }
+
+                $instructor_count = $instructors->count();
+                if($instructor_count == count($absent_ids)){
+                    return back()->with('errormsg', 'All Instructors are Leave today !!');
+                }
+
+                // selected date details
                 $select_date = $date;
+
+                // collecting selected date session
+                $dayschedules = Shedule::where('date', $select_date)->whereHas('sheduledstudents')->withCount('sheduledstudents')->get();
 
                 $day_name = date('l', strtotime($select_date));
                 $weekday_id = 0;
@@ -207,27 +251,33 @@ class ShedulingController extends Controller
                     $weekday_id = 7;
                 }
 
-                $time_table = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $weekday_id)->get();
-
-                $timeslots = [];
-                foreach ($time_table as $table) {
-                    $timeslots[] = $table->time_slot;
-                }
-                $collecttimeslots = collect($timeslots);
-                $student_counts = OwnerShedule::where('date', $select_date)->whereIn('time', $collecttimeslots)->withcount('sheduledstudents')->get();
-
-                $final_counts = [];
-                foreach ($timeslots as $slot) {
-                    foreach ($student_counts as $count) {
-                        if ($slot == $count->time) {
-                            $final_counts[$slot] = $count->sheduledstudents_count;
-                        }
+                // get exam results
+                $theorysession = Exam::where('user_id', $user_id)->where('type', 'theory')->select('result')->first();
+                $tresult = $theorysession->result;
+                if($tresult == 'fail'){
+                    $theorysessions = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $weekday_id)->where('exam_type', 'theory')->get();
+                    if($theorysessions->count() == 0){
+                        return back()->with('errormsg', "No theory session on $day_name. Please Select another date !!");
+                    }else{
+                        $time_table = $theorysessions;
+                        $session_type = 'theory';
                     }
-                };
+                }
+                if($tresult == 'pass'){
+                    $practiclesessions = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $weekday_id)->where('exam_type', 'Practical')->get();
+                    if($practiclesessions->count() == 0){
+                        return back()->with('errormsg', "No practicle session on $day_name. Please Select another date !!");
+                    }else{
+                        $time_table = $practiclesessions;
+                        $session_type = 'practicle';
+                    }
+                }
 
-                $instructors = Instructor::with('user')->get();
+                // get categories
+                $trainingcategories = StudentCategory::where('user_id', $user_id)->get();
+                $categories = VehicleCategory::all();
 
-                return view('student.sheduling.settimeslot', compact('time_table', 'select_date', 'final_counts', 'instructors'));
+                return view('student.sheduling.settimeslot', compact('time_table', 'select_date', 'instructors', 'tresult', 'absent_ids', 'dayschedules', 'session_type', 'trainingcategories', 'categories', 'weekday_id'));
 
             }
 
@@ -236,56 +286,45 @@ class ShedulingController extends Controller
     }
 
     public function requestslot(Request $request){
-        $slot_time = $request->timeslot;
-        $special = $request->special_time;
+
         $date = $request->date;
-        $type = $request->sessiontype;
-        $val = $slot_time.'-instructor_id';
+        $lesson_type = $request->lesson_type;
+        $timeslot_id = $request->timeslot;
+        $category = $request->category;
+
+        $val = $timeslot_id.'-instructor_id';
         $instructor = $request->$val;
-        if (($slot_time == '') && ($special == '')) {
-            return back()->with('errormsg', 'Empty Input !!');
+
+        if($category == 'select'){
+            return back()->with('errormsg', 'Select a vehicle category !!');
         }
-        if (($slot_time != '') && ($special != '')) {
-            return back()->with('errormsg', 'Cannot Inputh Both !!');
+
+        if ($timeslot_id == '') {
+            return back()->with('errormsg', 'Select a session time !!');
+        }else{
+            $slots = TimeSlots::where('id', $timeslot_id)->select('time_slot')->first();
+            $slot_time = $slots->time_slot;
         }
+
         if($instructor == ''){
             return back()->with('errormsg', 'Choose an Instructor !!');
         }
-        if ($slot_time != '') {
-            $check = OwnerShedule::where('date', $date)->where('time', $slot_time)->where('instructor', $instructor)->first();
-            if(empty($check)){
-                $shedule = OwnerShedule::create([
-                    'title' => 'session request',
-                    'date' => $date,
-                    'color' => '#35FF35',
-                    'textColor' => '#222944',
-                    'time' => $slot_time,
-                    'lesson_type' => $type,
-                    'instructor' => $instructor,
-                    'shedule_status' => 1,
-                ]);
-            }
-        }
-        if ($special != '') {
-            $check = OwnerShedule::where('date', $date)->where('time', $special)->first();
-            if (empty($check)) {
-                $shedule = OwnerShedule::create([
-                    'title' => 'session request',
-                    'date' => $date,
-                    'color' => '#35FF35',
-                    'textColor' => '#222944',
-                    'time' => $special,
-                    'lesson_type' => $type,
-                    'instructor' => $instructor,
-                    'shedule_status' => 1,
-                ]);
-            }
-        }
+
+        $transmission = StudentCategory::where('user_id', Auth::user()->id)->where('category', $category)->select('transmission')->first();
+        $trans = $transmission->transmission;
+
+        $check = Shedule::where('date', $date)->where('time', $slot_time)->where('instructor', $instructor)->where('vahicle_category', $category[0])->where('transmission', $trans)->first();
         if(empty($check)){
-            // $shedulestudent = SheduledStudents::create([
-            //     'shedule_id' => $shedule->id,
-            //     'student_id' => Auth::user()->id,
-            // ]);
+            $shedule = Shedule::create([
+                'title' => 'session request',
+                'date' => $date,
+                'time' => $slot_time,
+                'lesson_type' => $lesson_type,
+                'instructor' => $instructor,
+                'vahicle_category' => $category[0],
+                'transmission' => $trans,
+                'shedule_status' => 1,
+            ]);
             $shedulerequest = SheduleRequest::create([
                 'shedule_id' => $shedule->id,
                 'user_id' => Auth::user()->id,
@@ -293,10 +332,6 @@ class ShedulingController extends Controller
                 'shedule_status' => 0
             ]);
         }else{
-            // $sheduledstudent = SheduledStudents::create([
-            //     'shedule_id' => $check->id,
-            //     'student_id' => Auth::user()->id,
-            // ]);
             $shedulerequest = SheduleRequest::create([
                 'shedule_id' => $check->id,
                 'user_id' => Auth::user()->id,
@@ -304,21 +339,26 @@ class ShedulingController extends Controller
                 'shedule_status' => 0
             ]);
         }
+
         return redirect()->route('studentsheduling')->with('succesmsg', 'Your Session request successfully send !!');
     }
 
     public function completedshedules(){
         $user_id = Auth::user()->id;
-        $shedules = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
+        $shedules = Shedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
         })->where('shedule_status', 2)->get();
-        return view('student.sheduling.progressdetails', compact('shedules'));
+        $categories = VehicleCategory::all();
+        $instructors = Instructor::with('user')->get();
+        return view('student.sheduling.progressdetails', compact('shedules', 'categories', 'instructors'));
     }
 
     public function pendingrequest(){
         $user_id = Auth::user()->id;
-        $shedules = SheduleRequest::with('ownershedules')->where('status', 0)->where('user_id', $user_id)->get();
-        return view('student.sheduling.pendingrequest', compact('shedules'));
+        $shedules = SheduleRequest::with('shedules')->where('status', 0)->where('user_id', $user_id)->get();
+        $categories = VehicleCategory::all();
+        $instructors = Instructor::with('user')->get();
+        return view('student.sheduling.pendingrequest', compact('shedules', 'categories','instructors'));
     }
 
     public function expandrequest(){
@@ -388,17 +428,38 @@ class ShedulingController extends Controller
 
     public function history(){
         $user_id = Auth::user()->id;
-        $history = SheduledStudents::where('student_id', $user_id)->with('ownershedule')->get();
+        $history = SheduledStudents::where('student_id', $user_id)->whereHas('shedule', function($query){
+            $query->whereNotIn('shedule_status', [1]);
+        })->orderBy('created_at', 'DESC')->get();
         $instructors = Instructor::with('user')->get();
-        return view('student.sheduling.history', compact('history', 'instructors'));
+        $categories = VehicleCategory::all();
+        return view('student.sheduling.history', compact('history', 'instructors', 'categories'));
     }
 
     public function rejected(){
         $user_id = Auth::user()->id;
-        $rejectedlists = SheduleRequest::with('ownershedules')->where('user_id', $user_id)->where('shedule_status', 2)->get();
+        $rejectedlists = SheduleRequest::with('shedules')->where('user_id', $user_id)->where('shedule_status', 2)->get();
         $instructors = Instructor::with('user')->get();
-        // return $instructors;
-        return view('student.sheduling.rejected', compact('rejectedlists', 'instructors'));
+        $categories = VehicleCategory::all();
+        return view('student.sheduling.rejected', compact('rejectedlists', 'instructors', 'categories'));
     }
 
+    public function getinstructordetails($category, $id){
+        $user_id = Auth::user()->id;
+        $transmission = StudentCategory::where('user_id', $user_id)->where('category', $category)->select('transmission')->first();
+        $trans = $transmission->transmission;
+        $results = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $id)->where('vehicle_category', $category)->where('transmission', $trans)->get();
+        // return $results;
+        return response()->json($results);
+    }
+
+    public function upcomingsessions(){
+        $user_id = Auth::user()->id;
+        $schedules = shedule::where('shedule_status', 1)->whereHas('sheduledstudents', function($query) use($user_id){
+            $query->where('student_id', $user_id);
+        })->get();
+        $instructors = Instructor::with('user')->get();
+        $categories = VehicleCategory::all();
+        return view('student.sheduling.upcoming', compact('schedules', 'instructors', 'categories'));
+    }
 }

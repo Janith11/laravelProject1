@@ -124,10 +124,10 @@
                                                         @endif
                                                     @endforeach
                                                 </td>
-                                                <td>{{ $request->ownershedules->lesson_type }}</td>
-                                                <td>{{ $request->ownershedules->date }}</td>
-                                                <td>{{ $request->ownershedules->time }}</td>
-                                                <td><a href="{{ route('shedulerequestdetails', [$request->ownershedules->date, $request->id, $request->user_id ]) }}" class="btn btn-success" type="button">Details</a></td>
+                                                <td>{{ $request->shedules->lesson_type }}</td>
+                                                <td>{{ $request->shedules->date }}</td>
+                                                <td>{{ $request->shedules->time }}</td>
+                                                <td><a href="{{ route('shedulerequestdetails', [$request->shedules->date, $request->id, $request->user_id ]) }}" class="btn btn-success" type="button">Details</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -139,7 +139,7 @@
             </div>
         </div>
 
-        
+
         <div class="card mt-2 mb-4">
             <div class="card-header"><h5>Contact us messages</h5></div>
             <div class="card-body">
@@ -185,10 +185,10 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>        
+                </div>
             </div>
         </div>
-        
+
         <div style="background-color: #040124"></div>
 
     </div>

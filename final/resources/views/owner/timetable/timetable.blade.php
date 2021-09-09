@@ -2,7 +2,7 @@
 @section('content')
 <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 <style>
-/* 
+/*
         @media (min-width: 576px) {
             .card-columns {
                 column-count: 1;
@@ -208,7 +208,7 @@
                                                         </td>
                                                         <td class="text-center">
                                                             @if($timeslot->vehicle_category == 'A')
-                                                                Bike 
+                                                                Bike
                                                             @elseif ($timeslot->vehicle_category == 'B1')
                                                                 Three Wheel
                                                             @elseif ($timeslot->vehicle_category == 'C1')
@@ -223,7 +223,7 @@
                                                             @if ($timeslot->transmission == 'Auto' || $timeslot->transmission == '3')
                                                                 Manual
                                                             @elseif ($timeslot->transmission == 'Manual')
-                                                                Manual    
+                                                                Manual
                                                             @else
                                                                 none
                                                             @endif
@@ -296,7 +296,7 @@
                                                     </div>
                                                 </div>
 
-                                                
+
                                                 <div class="row" id="{{ $tbl->id }}-divpractical1">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
@@ -304,9 +304,9 @@
                                                             <select  class="form-control" name="category" id="{{ $tbl->id }}-vehicleCategory">
                                                                 @foreach ($VehicleCategories as $category)
                                                                     @if ($category->name == 'bike')
-                                                                        <option value= "A">Bike</option>        
+                                                                        <option value= "A">Bike</option>
                                                                     @elseif ($category->name == 'threeweel')
-                                                                        <option value= "B1">Three Wheel</option>        
+                                                                        <option value= "B1">Three Wheel</option>
                                                                     @elseif ($category->name == 'dualpurposes')
                                                                         <option value= "C1">Car, Van & Dual Purposes</option>
                                                                     @else
@@ -321,14 +321,14 @@
                                                             <label for="result">Transmission Type</label>
                                                             <select  class="form-control" name="transmission" id="{{ $tbl->id }}-transmission" onchange="myTransmission({{ $tbl->id }})">
                                                                 <option value= "3">Manual Transmission Only</option>
-                                                                <option value= "Auto">Auto</option>        
+                                                                <option value= "Auto">Auto</option>
                                                                 <option value= "Manual">Manual</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -338,14 +338,14 @@
                                                         <label for="monday">Select Instructors</label><br>
                                                         <div>
                                                             <ul class="ks-cboxtags" id="{{ $tbl->id }}-PracticalInstructors">
-                                                                
+
                                                                 {{-- Come from AJAX  --}}
-                                                                
+
                                                             </ul>
                                                         </div>
-                                                    </div>                                                       
-                                                </div>                                                       
-                                                            
+                                                    </div>
+                                                </div>
+
                                                 {{-- for the theory users  --}}
                                                 <div class="row mx-2" id="{{ $tbl->id }}-divtheory1">
                                                     <div class="form-group">
@@ -361,8 +361,8 @@
                                                                 @endforeach
                                                             </div>
                                                         </div>
-                                                    </div>                 
-                                                </div>                             
+                                                    </div>
+                                                </div>
                                                 <div class="form-group text-center">
                                                     <button type="submit" class="btn btn-primary" style="color: white">Add Slot</button>
                                                 </div>
@@ -399,7 +399,7 @@
         $('aside ul .shedulings').css('border-left', '5px solid #00bcd4');
     })
 </script>
-   
+
 
 <script>
     function myTransmission(id){
@@ -413,46 +413,46 @@
                     type: 'get',
                     url: '/timetable/loadinstructor'+'/'+Cvalue+'/'+Tvalue,
                     success: function (data) {
-                        if (!$.trim(data)){   
+                        if (!$.trim(data)){
                             alert("Please select other option. This option doesn't have instructors: " + data);
                         }
                         // alert(data);
                             $(PracticalInstructors).find('label').remove();
                             for(var i=0; i<data.length;i++){
-                                
+
                                 var test = $('<li><input type="checkbox" id="'+data[i].f_name+'" name="instructor_id[]" value="'+data[i].id+'"><label for="'+data[i].f_name+'">'+data[i].l_name+' '+data[i].f_name+'</label></li>') ;
                                 $(PracticalInstructors).append(test);
                             }
-                            
+
                     },
                     error: function (error) {
                         alert("Choose relevent category");
                     }
                 });
-       
+
     }
 
     // $(document).ready(function(){
     //     $('#mytransmission').change(function(){
     //         var category = $('#ins_category option:selected').val();
     //         var trasmission = $('#mytransmission option:selected').val();
-            
+
             // e.preventDefault();
 
     //         $.ajax({
     //                 type: 'get',
     //                 url: '/timetable/loadinstructor'+'/'+category+'/'+trasmission,
     //                 success: function (data) {
-    //                     if (!$.trim(data)){   
+    //                     if (!$.trim(data)){
     //                         alert("Please select other option. This option doesn't have instructors: " + data);
     //                     }
     //                         $('#myinstructors').find('label').remove();
     //                         for(var i=0; i<data.length;i++){
-                                
+
     //                             var test = $('<li><input type="checkbox" id="'+data[i].f_name+'" name="instructor_id[]" value="'+data[i].id+'"><label for="'+data[i].f_name+'">'+data[i].l_name+' '+data[i].f_name+'</label></li>') ;
     //                             $('#myinstructors').append(test);
     //                         }
-                            
+
     //                 },
     //                 error: function (error) {
     //                     alert("Choose relevent category");
@@ -476,7 +476,7 @@
              document.getElementById(y2).style.display ="none";
              document.getElementById(y3).style.display ="block";
         }
-            
+
     }
     function mypracticalradio(id){
         var x = '#'+id+'-practical';

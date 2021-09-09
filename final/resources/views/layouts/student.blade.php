@@ -918,6 +918,19 @@
                         </div>
                     </li>
 
+                    <li class="nav-item  mb-3 instructor" id="nav-item">
+                        <div style="padding-left: 10px">
+                            <div style="display: inline-block">
+                                <img src="/uploadimages/other/dashboardicons/instructor.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                            </div>
+                            <div style="display: inline-block">
+                                <a class="nav-link" href="{{ route('studentinstructorsdetails') }}">
+                                    <span class="menu-title" id="item">Instructors</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
                     <li class="nav-item  mb-3 payments" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">

@@ -43,29 +43,48 @@
                                     <th>Time</th>
                                     <th>Session</th>
                                     <th>Instructor</th>
+                                    <th>Vehicle Category</th>
+                                    <th>Transmission</th>
                                     <th>Session ID</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($rejectedlists as $list)
                                         <tr>
-                                            <td>{{ $list->ownershedules->date }}</td>
-                                            <td>{{ $list->ownershedules->time }}</td>
-                                            <td>{{ $list->ownershedules->lesson_type }}</td>
+                                            <td>{{ $list->shedules->date }}</td>
+                                            <td>{{ $list->shedules->time }}</td>
+                                            <td>{{ ucwords($list->shedules->lesson_type) }}</td>
                                             <td>
                                                 <div>
                                                     @foreach ($instructors as $instructor)
-                                                        @if($instructor->user_id == $list->ownershedules->instructor)
+                                                        @if($instructor->user_id == $list->shedules->instructor)
                                                             <div style="display: inline-block">
                                                                 <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor Profile" class="img">
                                                             </div>
                                                             <div style="display: inline-block; padding-left: 10px">
-                                                                {{ $instructor->user->f_name }} {{ $instructor->user->l_name }}
+                                                                @php
+                                                                    if($instructor->user->gender = 'male'){
+                                                                        $name = 'Mr. '.$instructor->user->f_name.' '.$instructor->user->l_name;
+                                                                    }else{
+                                                                        $name = 'Mrs. '.$instructor->user->f_name.' '.$instructor->user->l_name;
+                                                                    }
+                                                                @endphp
+                                                                {{ $name }}
                                                             </div>
                                                         @endif
                                                     @endforeach
                                                 </div>
                                             </td>
-                                            <td>{{ $list->ownershedules->id }}</td>
+                                            <td>
+                                                @foreach ($categories as $cat)
+                                                    @if($cat->category_code == $list->shedules->vahicle_category)
+                                                        {{ ucwords($cat->name).' ('.$cat->category_code.')' }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                {{ $list->shedules->transmission }}
+                                            </td>
+                                            <td>{{ $list->shedules->id }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

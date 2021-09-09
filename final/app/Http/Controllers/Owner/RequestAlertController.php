@@ -12,11 +12,12 @@ use App\Http\Controllers\Controller;
 use App\Instructor;
 use Illuminate\Http\Request;
 use App\RequestAlert;
-use App\OwnerShedule;
+use App\Shedule;
 use App\SheduledStudents;
 use App\SheduleAlert;
 use App\SheduleRequest;
 use App\ContactUs;
+use App\VehicleCategory;
 
 //0 received
 //1 viewed ->clicked the alert
@@ -27,37 +28,43 @@ class RequestAlertController extends Controller
     public function index(){
         $notifications = RequestAlert::all();
         //get shedule request details
-        $shedulerequests = SheduleRequest::where('status', 0)->with('ownershedules')->get();
+        $shedulerequests = SheduleRequest::where('status', 0)->with('shedules')->get();
         $students = Student::with('user')->get();
         $contactus=ContactUs::orderBy('created_at','DESC')->get();
         return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students','contactus'));
     }
-    
+
     public function redirect($userid,$description,$id){
         if($description == '1'){
             $registration=User::where('id',$userid)->get();
             $category=StudentCategory::where('user_id',$userid)->get();
-            $details = CompanyDetails::first();
-            $logo = $details->logo;
             $reqalerts=RequestAlert::find($id);
             $reqalerts->status=1;
             $reqalerts->save();
 
-            return view('owner.requests.reviewrequest',compact('registration','category', 'logo'));
+            return view('owner.requests.reviewrequest',compact('registration','category'));
         }
         // }else{
-        //     $requestdetails=OwnerShedule::with('sheduledstudents')->where('shedule_status',4)->get();
+        //     $requestdetails=Shedule::with('sheduledstudents')->where('shedule_status',4)->get();
         //     $userdetails=User::all();
         //     return view('owner.sheduling.schedulerequests',compact('requestdetails','userdetails'));
         // }
     }
 
     public function requestdetails($date, $id, $user_id){
-        $result = SheduleRequest::where('id', $id)->with('ownershedules')->get();
-        $othershedules = OwnerShedule::where('date', $date)->withcount('sheduledstudents')->get();
+        $result = SheduleRequest::where('id', $id)->with('Shedules')->get();
+        $othershedules = Shedule::where('date', $date)->withcount('sheduledstudents')->get();
         $instructors = Instructor::with('user')->get();
         $student = Student::where('user_id', $user_id)->with('user')->get();
-        return view('owner.Alert.shedulerequestdetails', compact('result', 'othershedules', 'instructors', 'student', 'id'));
+        $categories = VehicleCategory::all();
+        foreach($result as $res){
+            $category = $res->shedules->vahicle_category;
+        }
+        $sessioncount = Shedule::where('vahicle_category', $category)->where('shedule_status', 2)->whereHas('sheduledstudents' , function($query)use($user_id){
+            $query->where('student_id', $user_id);
+        })->count();
+        // return $sessioncount;
+        return view('owner.Alert.shedulerequestdetails', compact('result', 'othershedules', 'instructors', 'student', 'id', 'categories', 'sessioncount', 'category'));
     }
 
     public function accept(Request $request){

@@ -62,11 +62,11 @@
                             <table>
                                 <tr>
                                     <td><h5>Date</h5></td>
-                                    <td><h5 style="padding-left: 30px">{{ $value->ownershedules->date }}</h5></td>
+                                    <td><h5 style="padding-left: 30px">{{ $value->shedules->date }}</h5></td>
                                 </tr>
                                 <tr>
                                     <td><h5>Time</h5></td>
-                                    <td><h5 style="padding-left: 30px">{{ $value->ownershedules->time }}</h5></td>
+                                    <td><h5 style="padding-left: 30px">{{ $value->shedules->time }}</h5></td>
                                 </tr>
                                 <tr>
                                     <td><h5>Status</h5></td>
@@ -82,13 +82,13 @@
                                 </tr>
                                 <tr>
                                     <td><h5>Session</h5></td>
-                                    <td><h5 style="padding-left: 30px">{{ $value->ownershedules->lesson_type }}</h5></td>
+                                    <td><h5 style="padding-left: 30px">{{ $value->shedules->lesson_type }}</h5></td>
                                 </tr>
                                 <tr>
                                     <td><h5>Instructor</h5></td>
                                     <td>
                                         @foreach ($instructors as $instructor)
-                                            @if($instructor->user_id == $value->ownershedules->instructor)
+                                            @if($instructor->user_id == $value->shedules->instructor)
                                                 <div style="padding-left: 30px">
                                                     <div style="display: inline-block">
                                                         <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor Profile" class="img2">

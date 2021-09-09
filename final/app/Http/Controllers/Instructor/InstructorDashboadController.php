@@ -6,7 +6,7 @@ use App\AlertForStudent;
 use App\EmployeeAttendances;
 use App\Http\Controllers\Controller;
 use App\Instructor;
-use App\OwnerShedule;
+use App\Shedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,9 +22,9 @@ class InstructorDashboadController extends Controller
         $current_date = Carbon::today();
         $endDate = Carbon::today()->addDays(7);
 
-        $today_shedules = OwnerShedule::with('sheduledstudents')->where('instructor', $instructor_id)->where('date', $current_date)->where('shedule_status', 1)->get();
+        $today_shedules = Shedule::with('sheduledstudents')->where('instructor', $instructor_id)->where('date', $current_date)->where('shedule_status', 1)->get();
 
-        $instructor_shedules = OwnerShedule::whereHas('sheduledstudents')->where('instructor', $instructor_id)->whereBetween('date', [$current_date, $endDate])->count();
+        $instructor_shedules = Shedule::whereHas('sheduledstudents')->where('instructor', $instructor_id)->whereBetween('date', [$current_date, $endDate])->count();
 
         $shedule_alerts = AlertForStudent::where('student_id', $instructor_id)->where('alert_status', 0)->count();
 
@@ -39,7 +39,7 @@ class InstructorDashboadController extends Controller
 
     public function instructorallevents(){
         $instructor_id = Auth::user()->id;
-        $shedules = OwnerShedule::where('instructor', $instructor_id)->get();
+        $shedules = Shedule::where('instructor', $instructor_id)->get();
         return response()->json($shedules);
     }
 }

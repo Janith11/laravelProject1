@@ -10,8 +10,8 @@ class SheduledStudents extends Model
     protected $fillable = ['shedule_id','student_id'];
 
     // make relation between sheeduledstudents and ownershedule model
-    public function ownershedule(){
-        return $this->belongsTo(OwnerShedule::class, 'shedule_id', 'id');
+    public function shedule(){
+        return $this->belongsTo(Shedule::class, 'shedule_id', 'id');
     }
 
     // make function between sheduledstudent and student

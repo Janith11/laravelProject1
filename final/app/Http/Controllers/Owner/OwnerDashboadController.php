@@ -7,13 +7,18 @@ use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
 use App\Http\Controllers\Controller;
 use App\Instructor;
-use App\OwnerShedule;
+use App\Shedule;
 use App\PaymentLog;
 use App\RequestAlert;
+use App\SheduledStudents;
 use App\SheduleRequest;
+use App\StudentCategory;
+use App\Vehicle;
+use App\VehicleCategory;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class OwnerDashboadController extends Controller
@@ -87,10 +92,10 @@ class OwnerDashboadController extends Controller
 
         //check incomplete shedules
         $current = Carbon::now()->today();
-        $check = OwnerShedule::select('id')->where('date', '<', $current)->where('shedule_status', '=', 1)->get();
+        $check = Shedule::select('id')->where('date', '<', $current)->where('shedule_status', '=', 1)->get();
         if(count($check) > 0){
             foreach ($check as $key => $value) {
-                $result = OwnerShedule::find($value->id);
+                $result = Shedule::find($value->id);
                 $result->shedule_status = 4;
                 $result->color = "#FF891A";
                 $result->textColor = "#040124";
@@ -110,7 +115,7 @@ class OwnerDashboadController extends Controller
 
         //today total shedules
         $today = Carbon::now()->today();
-        $totalshedules = OwnerShedule::where('date', $today)->count();
+        $totalshedules = Shedule::where('date', $today)->count();
 
         // make data to new student graph
         $currentmonth = date('M', strtotime($today));
@@ -161,8 +166,78 @@ class OwnerDashboadController extends Controller
             }
             $getexpences[] = $val;
         }
-        $expences = array_reverse($getexpences);
+        // $expences = array_reverse($getexpences);
+        $expences = $getexpences;
 
-        return view('owner.ownerdashboad', compact('totalstudent', 'totalrequests', 'totalinstructors', 'totalshedules','students', 'months', 'monymonths', 'income', 'expences'));
+        // category overview ===================================================================
+        $categories = VehicleCategory::all();
+        $manualcategory_names = [];
+        $automanualcategory_names = [];
+        $category_codes = [];
+        foreach($categories as $category){
+            if($category->transmission == 'manual'){
+                $manualcategory_names[] = ucwords($category->name);
+            }else{
+                $automanualcategory_names[] = ucwords($category->name);
+            }
+        }
+        // get category codes
+        foreach($categories as $category){
+            $category_codes[] = $category->category_code;
+        }
+
+        // get student count od each category
+        $manualcategory_count = [];
+        $automanualcategory_count = [];
+        foreach($category_codes as $category){
+            $manual = [];
+            $automanual = [];
+            if(($category == 'A') || ($category == 'C1') ){
+                $catautocount = StudentCategory::where('category', $category)->where('transmission', 'Auto')->whereHas('studentscategories')->count();
+                $catmanualcount = StudentCategory::where('category', $category)->where('transmission', 'Manual')->whereHas('studentscategories')->count();
+                $automanual['category'] = $category;
+                $automanual['auto'] = $catautocount;
+                $automanual['manual'] = $catmanualcount;
+                array_push($automanualcategory_count, $automanual);
+            }else{
+                $catcount = StudentCategory::where('category', $category)->whereHas('studentscategories')->count();
+                $manual["category"] = $category;
+                $manual['count'] = $catcount;
+                array_push($manualcategory_count, $manual);
+            }
+        }
+
+        // process data for category overviews
+        $manuallabels = $manualcategory_names;
+        $manualcount = [];
+        foreach($manualcategory_count as $category){
+            $manualcount[] = $category['count'];
+        }
+
+        $automanuallabels = $automanualcategory_names;
+        $automanualcount = [];
+        $auto_count = [];
+        $manual_count = [];
+        foreach($automanualcategory_count as $category){
+            $auto_count[] = $category['auto'];
+            $manual_count[] = $category['manual'];
+        }
+        $childauto['label'] = 'Auto';
+        $childauto['data'] = $auto_count;
+        $childauto['borderColor'] = '#78FF66';
+        $childauto['backgroundColor'] = '#78FF66';
+        array_push($automanualcount, $childauto);
+
+        $childmanual['label'] = 'Manual';
+        $childmanual['data'] = $manual_count;
+        $childmanual['borderColor'] = '#550243';
+        $childmanual['backgroundColor'] = '#550243';
+        array_push($automanualcount, $childmanual);
+
+        // vehicle overview =================================================================
+        $vahicles = Vehicle::all();
+        // return $vahicles;
+
+        return view('owner.ownerdashboad', compact('totalstudent', 'totalrequests', 'totalinstructors', 'totalshedules','students', 'months', 'monymonths', 'income', 'expences', 'manuallabels', 'manualcount', 'automanuallabels', 'automanualcount'));
     }
 }
