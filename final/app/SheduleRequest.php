@@ -8,7 +8,7 @@ class SheduleRequest extends Model
 {
     protected $fillable = ['shedule_id', 'user_id', 'status', 'shedule_status'];
 
-    public function ownershedules(){
-        return $this->belongsTo(OwnerShedule::class, 'shedule_id', 'id');
+    public function shedules(){
+        return $this->belongsTo(Shedule::class, 'shedule_id', 'id');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Exam;
 use App\Http\Controllers\Controller;
-use App\OwnerShedule;
+use App\Shedule;
 use Illuminate\Support\Facades\Auth;
 use App\Student;
 use App\User;
@@ -26,11 +26,11 @@ class StudentDashboadController extends Controller
         $studentcategory=StudentCategory::where('user_id',Auth::user()->id)->get();
         $posts = Posts::with('user')->orderBy('updated_at', 'desc')->get();
 
-        $todayshedules = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
+        $todayshedules = Shedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
         })->where('date', $today)->get();
 
-        $session_count =OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
+        $session_count =Shedule::whereHas('sheduledstudents', function($query) use($user_id){
             $query->where('student_id', $user_id);
         })->count();
 
@@ -41,7 +41,7 @@ class StudentDashboadController extends Controller
         $tot = $total_session->total_session;
         $progress = ( $comp / $tot) * (100);
 
-        $attendances = OwnerShedule::with('attendance')->whereHas('sheduledstudents' , function($query) use($user_id){
+        $attendances = Shedule::with('attendance')->whereHas('sheduledstudents' , function($query) use($user_id){
             $query->where('student_id', $user_id);
         })->get();
         if (count($attendances) != 0) {
@@ -62,7 +62,7 @@ class StudentDashboadController extends Controller
             $firstday = date('Y-m-01', strtotime($month));
             $lastday = date('Y-m-t', strtotime($month));
 
-            $present = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
+            $present = Shedule::whereHas('sheduledstudents', function($query) use($user_id){
                 $query->where('student_id', $user_id);
             })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function($query) use($user_id){
                 $query->where('user_id', $user_id)->where('attendance', 1);
@@ -70,7 +70,7 @@ class StudentDashboadController extends Controller
 
             $presents[] = count($present);
 
-            $absent = OwnerShedule::whereHas('sheduledstudents', function($query) use($user_id){
+            $absent = Shedule::whereHas('sheduledstudents', function($query) use($user_id){
                 $query->where('student_id', $user_id);
             })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function($query) use($user_id){
                 $query->where('user_id', $user_id)->where('attendance', 0);
@@ -83,11 +83,11 @@ class StudentDashboadController extends Controller
         $user_id = Auth::user()->id;
 
         // theory and practicle sessions
-        $shedules = SheduledStudents::with('ownershedule')->whereHas('ownershedule')->where('student_id', $user_id)->get();
+        $shedules = SheduledStudents::with('shedule')->whereHas('shedule')->where('student_id', $user_id)->get();
         $theoryshedulescount = 0;
         $practicleshedulescount = 0;
         foreach($shedules as $shedule){
-            if($shedule->ownershedule->lesson_type == 'theory'){
+            if($shedule->Shedule->lesson_type == 'theory'){
                 $theoryshedulescount += 1;
             }else{
                 $practicleshedulescount += 1;

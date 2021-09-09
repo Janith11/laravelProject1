@@ -7,7 +7,7 @@ use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
 use App\Http\Controllers\Controller;
 use App\Instructor;
-use App\OwnerShedule;
+use App\Shedule;
 use App\PaymentLog;
 use App\RequestAlert;
 use App\SheduledStudents;
@@ -92,10 +92,10 @@ class OwnerDashboadController extends Controller
 
         //check incomplete shedules
         $current = Carbon::now()->today();
-        $check = OwnerShedule::select('id')->where('date', '<', $current)->where('shedule_status', '=', 1)->get();
+        $check = Shedule::select('id')->where('date', '<', $current)->where('shedule_status', '=', 1)->get();
         if(count($check) > 0){
             foreach ($check as $key => $value) {
-                $result = OwnerShedule::find($value->id);
+                $result = Shedule::find($value->id);
                 $result->shedule_status = 4;
                 $result->color = "#FF891A";
                 $result->textColor = "#040124";
@@ -115,7 +115,7 @@ class OwnerDashboadController extends Controller
 
         //today total shedules
         $today = Carbon::now()->today();
-        $totalshedules = OwnerShedule::where('date', $today)->count();
+        $totalshedules = Shedule::where('date', $today)->count();
 
         // make data to new student graph
         $currentmonth = date('M', strtotime($today));

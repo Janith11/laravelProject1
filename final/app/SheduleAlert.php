@@ -14,7 +14,7 @@ class SheduleAlert extends Model
     }
 
     // create relation between shedule alert and owner shedules
-    public function ownershedule(){
-        return $this->belongsTo(OwnerShedule::class, 'shedule_id', 'id');
+    public function shedule(){
+        return $this->belongsTo(Shedule::class, 'shedule_id', 'id');
     }
 }

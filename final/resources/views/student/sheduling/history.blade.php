@@ -38,15 +38,15 @@
 <div class="container">
 
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Sheduling</h5>
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Scheduling</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
         <a href="{{ route('instructor.instructordashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentsheduling') }}"> / Shedule List</a>
-        <a style="padding-top: 6px; padding-left: 10px"> / Shedule History</a>
+        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentsheduling') }}"> / Schedule List</a>
+        <a style="padding-top: 6px; padding-left: 10px"> / Schedule History</a>
     </div>
 
     <div class="row-mb-2">
@@ -82,7 +82,7 @@
         <div id="card">
             <div class="card">
                 <div class="card-body">
-                    <h5 style="color: #222944; font-weight: bold">Shedule History</h5>
+                    <h5 style="color: #222944; font-weight: bold">Schedule History</h5>
                     <hr style="border-top: 1px solid #222944">
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -92,6 +92,8 @@
                                 <th>Time</th>
                                 <th>Session</th>
                                 <th>Instructor</th>
+                                <th>Vehicle category</th>
+                                <th>Transmission</th>
                                 <th>Status</th>
                             </thead>
                             <tbody>
@@ -100,35 +102,54 @@
                                 @endphp
                                 @foreach($history as $detail)
                                     <tr>
-                                        <td>{{$count}}</td>
-                                        <td>{{$detail->ownershedule->date}}</td>
-                                        <td>{{$detail->ownershedule->time}}</td>
-                                        <td>{{$detail->ownershedule->lesson_type}}</td>
+                                        <td style="vertical-align: middle">
+                                            <div style="background-color: #41B883; width: 30px; height: 30px; border-radius: 50%; text-align: center; padding-top: 5px; color: white">
+                                                {{$count}}
+                                            </div>
+                                        </td>
+                                        <td>{{$detail->shedule->date}}</td>
+                                        <td>{{$detail->shedule->time}}</td>
+                                        <td>{{ ucwords($detail->shedule->lesson_type) }}</td>
                                         <td>
                                             @foreach($instructors as $instructor)
-                                                @if($instructor->user_id == $detail->ownershedule->instructor)
+                                                @if($instructor->user_id == $detail->shedule->instructor)
                                                 <div>
-                                                    <div style="display: inline-block">
+                                                    <div style="display: inline-block; padding-right: 10px">
                                                         <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor profile" style="width: 30px; height: auto; border-radius: 50%">
                                                     </div>
                                                     <div style="display: inline-block">
-                                                        {{ $instructor->user->f_name }} {{ $instructor->user->l_name }}
+                                                        @php
+                                                            if ($instructor->user->gender == 'male'){
+                                                                $name = 'Mr. '.$instructor->user->f_name.' '.$instructor->user->l_name;
+                                                            }else{
+                                                                $name = 'Mrs. '.$instructor->user->f_name.' '.$instructor->user->l_name;
+                                                            }
+                                                        @endphp
+                                                        {{ $name }}
                                                     </div>
                                                 </div>
                                                 @endif
                                             @endforeach
                                         </td>
                                         <td>
-                                            @if($detail->ownershedule->shedule_status == 0)
-                                                cancel
-                                            @elseif($detail->ownershedule->shedule_status == 1)
-                                                upcomming
-                                            @elseif($detail->ownershedule->shedule_status == 2)
-                                                complete
-                                            @elseif($detail->ownershedule->shedule_status == 3)
-                                                incomplete
+                                            @foreach ($categories as $cat)
+                                                @if ($cat->category_code == $detail->shedule->vahicle_category)
+                                                    {{ ucwords($cat->name).' ('.$cat->category_code.')' }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $detail->shedule->transmission }}</td>
+                                        <td>
+                                            @if($detail->shedule->shedule_status == 0)
+                                                Cancel
+                                            @elseif($detail->shedule->shedule_status == 1)
+                                                Upcomming
+                                            @elseif($detail->shedule->shedule_status == 2)
+                                                Complete
+                                            @elseif($detail->shedule->shedule_status == 3)
+                                                Incomplete
                                             @else
-                                                pending
+                                                Pending
                                             @endif
                                         </td>
                                     </tr>

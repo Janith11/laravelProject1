@@ -138,6 +138,8 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/addshedule/calender/save', 'Owner\ShedulingController@createschedule')->name('savecreateshedule');
     Route::get('/addshedule/calender/updateschedule/{id}/{date}', 'Owner\ShedulingController@reupdateshedule')->name('updateexistschedule');
     Route::post('/addshedule/calender/saveupdateschedule', 'Owner\ShedulingController@saveupdateschedule')->name('saveupdateschedule');
+    Route::get('/gettheorysessions/{dayid}', 'Owner\ShedulingController@gettheorysession');
+    Route::get('/getpracticlesessions/{dayid}/{category}', 'Owner\ShedulingController@getpracticlesession');
     // my end
 
     Route::get('/allevents', 'Owner\ShedulingController@allevents')->name('allevents');
@@ -279,6 +281,8 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/studentshedule/history', 'Student\ShedulingController@history')->name('history');
     Route::delete('/studentshedule/delete/{id}', 'Student\ShedulingController@deleterequests')->name('deleterequests');
     Route::get('/studentshedule/rejected', 'Student\ShedulingController@rejected')->name('rejectedshedules');
+    Route::get('/studentshedule/getdate/getinstructordetails/{category}/{id}', 'Student\ShedulingController@getinstructordetails')->name('getrainingtinstructordetails');
+    Route::get('/studentschedule/upcoming', 'Student\ShedulingController@upcomingsessions')->name('studetnupcomingschedules');
 
     // comment
     Route::get('/comments', 'Student\CommentController@index')->name('studentcomment');

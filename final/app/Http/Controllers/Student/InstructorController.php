@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Instructor;
 use App\OwnerShedule;
+use App\Shedule;
 use App\StudentCategory;
 use App\VehicleCategory;
 use Carbon\Carbon;
@@ -45,7 +46,7 @@ class InstructorController extends Controller
 
         }
 
-        $shedules = OwnerShedule::where('instructor', $id)->get();
+        $shedules = Shedule::where('instructor', $id)->get();
         // return $trainingcategories;
 
         return view('student.instructor.instructorprofile', compact('instructor', 'vehiclecaategories'));

@@ -22,19 +22,20 @@
         width: 200px;
         height: 200px;
     }
+
 </style>
 
 <div class="container">
 
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Sheduling</h5>
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Scheduling</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
         <a href="{{ route('instructor.instructordashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a style="padding-top: 6px; padding-left: 10px"> / Shedule List</a>
+        <a style="padding-top: 6px; padding-left: 10px"> / Schedule List</a>
     </div>
 
     {{-- <div class="row justify-content-end">
@@ -79,18 +80,24 @@
             @if($total_session->total_session != $completed_session->completed_session)
                 <div id="card">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" style="border-left: 10px solid #1BC6FA">
                             <div>
                                 <div style="display: inline-block">
-                                    <h5 style="color: #060333; font-weight: bold">Pending Request</h5>
+                                    <a href="{{ route('studetnupcomingschedules') }}" style="text-decoration: none">
+                                        <h5 style="color: #060333; font-weight: bold">Upcoming Sessions</h5>
+                                    </a>
                                 </div>
-                                <div style="display: inline-block; padding-left: 10px; vertical-align: middle">
-                                    <a href="{{ route('studentpendingrequests') }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#1EE939" class="bi bi-clock-history" viewBox="0 0 16 16">
-                                            <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z"/>
-                                            <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z"/>
-                                            <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
-                                        </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="card">
+                    <div class="card">
+                        <div class="card-body" style="border-left: 10px solid #1BFA70">
+                            <div>
+                                <div style="display: inline-block">
+                                    <a href="{{ route('studentpendingrequests') }}" style="text-decoration: none">
+                                        <h5 style="color: #060333; font-weight: bold">Pending Request</h5>
                                     </a>
                                 </div>
                             </div>
@@ -100,16 +107,11 @@
             @endif
             <div id="card">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="border-left: 10px solid #FA1B39">
                         <div>
                             <div style="display: inline-block">
-                                <h5 style="color: #060333; font-weight: bold">Rejected Request</h5>
-                            </div>
-                            <div style="display: inline-block; padding-left: 10px; vertical-align: middle">
-                                <a href="{{ route('rejectedshedules') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FC2A35" class="bi bi-hand-thumbs-down" viewBox="0 0 16 16">
-                                        <path d="M8.864 15.674c-.956.24-1.843-.484-1.908-1.42-.072-1.05-.23-2.015-.428-2.59-.125-.36-.479-1.012-1.04-1.638-.557-.624-1.282-1.179-2.131-1.41C2.685 8.432 2 7.85 2 7V3c0-.845.682-1.464 1.448-1.546 1.07-.113 1.564-.415 2.068-.723l.048-.029c.272-.166.578-.349.97-.484C6.931.08 7.395 0 8 0h3.5c.937 0 1.599.478 1.934 1.064.164.287.254.607.254.913 0 .152-.023.312-.077.464.201.262.38.577.488.9.11.33.172.762.004 1.15.069.13.12.268.159.403.077.27.113.567.113.856 0 .289-.036.586-.113.856-.035.12-.08.244-.138.363.394.571.418 1.2.234 1.733-.206.592-.682 1.1-1.2 1.272-.847.283-1.803.276-2.516.211a9.877 9.877 0 0 1-.443-.05 9.364 9.364 0 0 1-.062 4.51c-.138.508-.55.848-1.012.964l-.261.065zM11.5 1H8c-.51 0-.863.068-1.14.163-.281.097-.506.229-.776.393l-.04.025c-.555.338-1.198.73-2.49.868-.333.035-.554.29-.554.55V7c0 .255.226.543.62.65 1.095.3 1.977.997 2.614 1.709.635.71 1.064 1.475 1.238 1.977.243.7.407 1.768.482 2.85.025.362.36.595.667.518l.262-.065c.16-.04.258-.144.288-.255a8.34 8.34 0 0 0-.145-4.726.5.5 0 0 1 .595-.643h.003l.014.004.058.013a8.912 8.912 0 0 0 1.036.157c.663.06 1.457.054 2.11-.163.175-.059.45-.301.57-.651.107-.308.087-.67-.266-1.021L12.793 7l.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581 0-.211-.027-.414-.075-.581-.05-.174-.111-.273-.154-.315l-.353-.354.353-.354c.047-.047.109-.176.005-.488a2.224 2.224 0 0 0-.505-.804l-.353-.354.353-.354c.006-.005.041-.05.041-.17a.866.866 0 0 0-.121-.415C12.4 1.272 12.063 1 11.5 1z"/>
-                                      </svg>
+                                <a href="{{ route('rejectedshedules') }}" style="text-decoration: none">
+                                    <h5 style="color: #060333; font-weight: bold">Rejected Request</h5>
                                 </a>
                             </div>
                         </div>
@@ -215,6 +217,73 @@
                     </div>
                 </div>
             @else
+                <div class="row row-cols-1">
+                    <div class="col-sm-6" style="padding-top: 10px">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 style="color: #03011F; font-weight: bold">About Sessions</h5>
+                                <div>
+                                    <canvas id="session-count"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="padding-top: 10px">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 style="color: #03011F; font-weight: bold">About Categories</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead style="background-color: #0FD8F3; color: white">
+                                            <th>Category</th>
+                                            <th>Sessions</th>
+                                        </thead>
+                                        @foreach ($trainingcounts as $count)
+                                            <tr>
+                                                <th>
+                                                    @foreach ($categorydetails as $cat)
+                                                        @if($cat->category_code == $count['category'])
+                                                            {{ ucwords($cat->name).' ('.$cat->category_code.')' }}
+                                                        @endif
+                                                    @endforeach
+                                                </th>
+                                                <td>{{ $count['count'] }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="col-sm-4" style="padding-top: 10px">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div style="text-align: center">
+                                    <div style="display: inline-block">
+                                        <div style="background-color: #0FD8F3; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 10px">
+
+                                        </div>
+                                    </div>
+                                    <div style="display: inline-block">
+                                        <div style="background-color: #0FD8F3; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 10px">
+
+                                        </div>
+                                    </div>
+                                    <div style="display: inline-block">
+                                        <div style="background-color: #0FD8F3; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 10px">
+
+                                        </div>
+                                    </div>
+                                    <div style="display: inline-block">
+                                        <div style="background-color: #0FD8F3; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 10px">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
+                </div>
                 <div id="card">
                     <div class="card">
                         <div class="card-body" style="border-left: 10px solid #FAD51B !important;">
@@ -395,46 +464,80 @@
 <script>
 
     var table = document.getElementById("todaysessions");
-    var x = setInterval(
-    function () {
+    if({{ count($today_sessions) }} > 0){
+        var x = setInterval(
+        function () {
 
-        for (var i = 1, row; row = table.rows[i]; i++) {
-            //iterate through rows
-            //rows would be accessed using the "row" variable assigned in the for loop
+            for (var i = 1, row; row = table.rows[i]; i++) {
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
 
-            var endDate = row.cells[1];
-            countDownDate = new Date(endDate.innerHTML.replace(/-/g, "/")).getTime();
-            var countDown = row.cells[4];
-            // Update the count down every 1 second
+                var endDate = row.cells[1];
+                countDownDate = new Date(endDate.innerHTML.replace(/-/g, "/")).getTime();
+                var countDown = row.cells[4];
+                // Update the count down every 1 second
 
-            // Get todays date and time
-            var now = new Date().getTime();
+                // Get todays date and time
+                var now = new Date().getTime();
 
-            // Find the distance between now an the count down date
-            var distance = countDownDate - now;
+                // Find the distance between now an the count down date
+                var distance = countDownDate - now;
 
-            // Time calculations for days, hours, minutes and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Display the result in the element
-            countDown.innerHTML = (hours + " : "
-                + minutes + " : " + seconds);
+                // Display the result in the element
+                countDown.innerHTML = (hours + " : "
+                    + minutes + " : " + seconds);
 
-            //If the count down is finished, write some text
-            if (distance < 0) {
-                clearInterval(x);
-                countDown.innerHTML = "Expired Shedule";
+                //If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    countDown.innerHTML = "Expired Shedule";
+                }
             }
-        }
-    }, 1000);
+        }, 1000);
+    }
 
     $(document).ready(function(){
         $('aside ul .shedule').css('border-left', '5px solid #00bcd4');
-    })
+    });
 
+</script>
+
+<script>
+    var tot = {{ $total_session->total_session }};
+    var cmp = {{ $completed_session->completed_session }};
+
+    new Chart("session-count", {
+        type: "bar",
+        data: {
+            labels: ['Total', 'Completed'],
+            datasets: [
+                {
+                data: [tot, cmp],
+                backgroundColor: ['#42FF71', '#031138'],
+                }
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 </script>
 
 @endsection

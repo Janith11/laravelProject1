@@ -6,7 +6,7 @@ use App\AlertForStudent;
 use App\Attendance;
 use App\Http\Controllers\Controller;
 use App\Instructor;
-use App\OwnerShedule;
+use App\Shedule;
 use App\SheduleAlert;
 use App\SheduledStudents;
 use App\Student;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 class ShedulingController extends Controller
 {
     public function todaysheduledetails($id){
-        $result = OwnerShedule::with('sheduledstudents')->where('id', $id)->get();
+        $result = Shedule::with('sheduledstudents')->where('id', $id)->get();
 
         // get read/unread details
         $allalert = SheduleAlert::where('shedule_id', $id)->get();
@@ -54,7 +54,7 @@ class ShedulingController extends Controller
     }
 
     public function reportattendance($id){
-        $shedule = OwnerShedule::with('sheduledstudents')->where('id', $id)->get();
+        $shedule = Shedule::with('sheduledstudents')->where('id', $id)->get();
 
         // get students details
         $students = [];
@@ -100,18 +100,18 @@ class ShedulingController extends Controller
         $instructor_id = Auth::user()->id;
         $current_date = Carbon::today();
 
-        $allshedules = OwnerShedule::where('instructor', $instructor_id)->count();
+        $allshedules = Shedule::where('instructor', $instructor_id)->count();
 
         $date_month = Carbon::now()->subDays(30);
-        $lastmonth_shedules = OwnerShedule::where('instructor', $instructor_id)->whereBetween('date', [$date_month, $current_date])->count();
+        $lastmonth_shedules = Shedule::where('instructor', $instructor_id)->whereBetween('date', [$date_month, $current_date])->count();
 
         $date_six_month = Carbon::now()->subDays(180);
-        $lastsixmonth_shedules = OwnerShedule::where('instructor', $instructor_id)->whereBetween('date', [$date_six_month, $current_date])->count();
+        $lastsixmonth_shedules = Shedule::where('instructor', $instructor_id)->whereBetween('date', [$date_six_month, $current_date])->count();
 
         $date_year = Carbon::now()->subDays(365);
-        $lastyear_shedules = OwnerShedule::where('instructor', $instructor_id)->whereBetween('date', [$date_year, $current_date])->count();
+        $lastyear_shedules = Shedule::where('instructor', $instructor_id)->whereBetween('date', [$date_year, $current_date])->count();
 
-        $today_shedules = OwnerShedule::with('sheduledstudents')->where('instructor', $instructor_id)->where('date', $current_date)->where('shedule_status', 1)->get();
+        $today_shedules = Shedule::with('sheduledstudents')->where('instructor', $instructor_id)->where('date', $current_date)->where('shedule_status', 1)->get();
 
         return view('instructor.shedules.shedulelist', compact('today_shedules', 'lastmonth_shedules', 'lastsixmonth_shedules', 'lastyear_shedules', 'allshedules'));
     }
@@ -120,7 +120,7 @@ class ShedulingController extends Controller
         $instructor_id = Auth::user()->id;
         $current_date = Carbon::today();
         $date_month = Carbon::now()->subDays(30);
-        $lastthirty_days = OwnerShedule::where('instructor', $instructor_id)->whereBetween('date', [$date_month, $current_date])->get();
+        $lastthirty_days = Shedule::where('instructor', $instructor_id)->whereBetween('date', [$date_month, $current_date])->get();
         return view('instructor.shedules.lastthirtydays', compact('lastthirty_days'));
         // return count($lastthirty_days);
     }
@@ -129,7 +129,7 @@ class ShedulingController extends Controller
         $instructor_id = Auth::user()->id;
         $current_date = Carbon::today();
         $date_six_month = Carbon::now()->subDays(180);
-        $lastsix_month = OwnerShedule::where('instructor', $instructor_id)->whereBetween('date', [$date_six_month, $current_date])->get();
+        $lastsix_month = Shedule::where('instructor', $instructor_id)->whereBetween('date', [$date_six_month, $current_date])->get();
         return view('instructor.shedules.lastsixmonth', compact('lastsix_month'));
     }
 
@@ -137,14 +137,14 @@ class ShedulingController extends Controller
         $instructor_id = Auth::user()->id;
         $current_date = Carbon::today();
         $date_year = Carbon::now()->subDays(365);
-        $lastyear = OwnerShedule::where('instructor', $instructor_id)->whereBetween('date', [$date_year, $current_date])->get();
+        $lastyear = Shedule::where('instructor', $instructor_id)->whereBetween('date', [$date_year, $current_date])->get();
         return view('instructor.shedules.lastyear', compact('lastyear'));
     }
 
     public function allshedules(){
         $instructor_id = Auth::user()->id;
         $current_date = Carbon::today();
-        $allshedules = OwnerShedule::where('instructor', $instructor_id)->get();
+        $allshedules = Shedule::where('instructor', $instructor_id)->get();
         return view('instructor.shedules.allshedules', compact('allshedules'));
     }
 
@@ -154,7 +154,7 @@ class ShedulingController extends Controller
 
     public function calendarevents(){
         $instructor_id = Auth::user()->id;
-        $setone = OwnerShedule::whereHas('sheduledstudents')->where('instructor', $instructor_id)->get();
+        $setone = Shedule::whereHas('sheduledstudents')->where('instructor', $instructor_id)->get();
         // return $settwo;
         $responses = [];
         foreach($setone as $one){
@@ -185,7 +185,7 @@ class ShedulingController extends Controller
                 array_push($responses, $row);
             }
         }
-        // $shedules = OwnerShedule::where('instructor', $instructor_id)->get();
+        // $shedules = Shedule::where('instructor', $instructor_id)->get();
         return response()->json($responses);
     }
 

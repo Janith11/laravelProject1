@@ -136,6 +136,139 @@
         background-color: #FFEA2F;
     }
 
+    .session{
+        border: 1px solid #040920;
+        border-radius: 5px;
+        padding: 5px 10px 0px 10px;
+        color: #040920;
+    }
+
+    .session:hover{
+        cursor: pointer;
+    }
+
+    .session_click{
+        display: none;
+    }
+
+    .session_click:checked + .session{
+        background-color: #040920;
+        color: white;
+    }
+
+    /* instructor profile */
+    .insprofile{
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .name{
+        padding: 5px 5px 5px 5px;
+        width: 100%;
+        border: 2px solid #EB9413;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .icondiv{
+        border: 1px solid #FFD700;
+        padding: 0px 5px 0px 5px;
+        border-radius: 5px;
+        margin-top: 4px;
+        margin-right: 4px;
+    }
+    .icondiv i{
+        color: #15F1E615;
+    }
+    .nameclick{
+        display: none;
+    }
+    .nameclick:checked + .name{
+        background-color: #F5C276;
+        color: rgb(87, 43, 2);
+    }
+    .nameclick:checked + .name .icondiv{
+        background-color: #080529;
+    }
+    .nameclick:checked + .name .icondiv i{
+        color: #EB9413;
+        transform: rotate(360deg);
+        transition: 1s;
+    }
+
+    .sessionclick{
+        display: none;
+    }
+    .session{
+        cursor: pointer;
+    }
+    .sessionclick:checked + .session .icon{
+        background-color: #080529;
+        color: #12C74E
+    }
+    .slotclick{
+        display: none;
+    }
+    .slot{
+        cursor: pointer;
+    }
+    .slotclick:checked + .slot .icon{
+        background-color: #080529;
+        color: #15F1E6
+    }
+
+    /* table row hover */
+    .scheduletr:hover{
+        background-color: #FFF1B1
+    }
+
+    .viewprofile{
+        text-decoration: none;
+        background-color: #090233;
+        color: white !important;
+        padding: 5px 10px 5px 10px;
+        border-radius: 50px;
+    }
+    .viewprofile:hover{
+        text-decoration: none !important;
+    }
+
+    /* time slot buttons */
+    .slotbtn{
+        border: 1px solid #080529;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 5px 5px 0px 0px;
+        color: #080529;
+    }
+    .slotbtn:focus{
+        outline: 0;
+    }
+    .slotbtnclick{
+        border-bottom: 1px solid white;
+        background-color: white;
+    }
+    .slotbtnnotclick{
+        background-color: rgb(177, 177, 177);
+        border: 1px solid #080529;
+    }
+
+    /* specila requests */
+    .specialinslabel{
+        border: 1px solid #020142;
+        border-radius: 5px;
+        padding: 5px;
+        background-color: #FFE551;
+        cursor: pointer;
+    }
+    .specialinsclick{
+        display: none;
+    }
+    .specialinsclick:checked + .specialinslabel{
+        background-color: #EB9413;
+    }
+
 </style>
 
 <div class="container">
@@ -164,18 +297,20 @@
         @endif
     </div>
 
+    <div id="errordiv"></div>
+
     <form action="{{ route('checkinputtimeslot') }}" method="POST">
         @csrf
 
         {{-- date --}}
         <input type="hidden" value="{{ $date }}" name="date">
 
-        <div class="row mb-2" style="padding-top: 10px">
-            <div class="col-sm-3">
-                <div class="card" style="width: 100%; border-radius: 10px">
+        <div class="row row-cols-1">
+            <div class="col-sm-3" style="padding-top: 10px">
+                <div class="card h-100" style="width: 100%; border-radius: 10px">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
+                        <div style="display: flex">
+                            <div style="display: inline-block">
                                 <a href="{{ route('calendar') }}" type="button" class="btn" style="background-color: lightgray; border: none; border-radius: 50%">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#222944" class="bi bi-calendar-event" viewBox="0 0 16 16" >
                                         <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
@@ -183,69 +318,119 @@
                                     </svg>
                                 </a>
                             </div>
-                            <div class="col-sm-9">
+                            <div style="display: inline-block">
                                 <h5 style=" padding-left: 10px; padding-top: 7px; color: #222944">{{ $date }}</h5>
                                 <small style=" padding-left: 10px;">your choosed date</small>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div style="padding-top: 10px; padding-bottom: 10px">
-                    <div class="card" style="border-radius: 10px; width: 100%;">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color: #222944; font-weight: bold">Already Alocated Times</h5>
-                            @if(count($shedules) == 0)
-                                <div class="alert alert-info">
-                                    <h6>No Shedules on this day</h6>
-                                </div>
-                            @else
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            @foreach ($shedules as $shedule)
-                                            <tr>
-                                                <td style="vertical-align: middle">
-                                                    <h5>{{ $shedule->time }}</h5>
-                                                </td>
-                                                <td style="text-align: center; vertical-align: middle">
-                                                    <h5 style="background-color: #4B053F; color: white; border-radius: 2px">{{ $shedule->sheduled_students_count }}</h5>
-                                                </td>
-                                                <td style="vertical-align: middle">
-                                                    <div style="background-color: #ccc; border-radius: 50%; padding: 5px 5px 5px 5px; width: 30px; height: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                                                        <a href="{{ route('updateexistschedule', [$shedule->id, $shedule->date]) }}">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#040D31" class="bi bi-plus" viewBox="0 0 16 16">
-                                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            @endif
-                        </div>
+            </div>
+            <div class="col-sm-9" style="padding-top: 10px">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #222944; font-weight: bold">Other Sessions</h5>
+                        @if(count($shedules) == 0)
+                            <div class="alert alert-info">
+                                <h6>No Shedules on this day</h6>
+                            </div>
+                        @else
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        @foreach ($shedules as $shedule)
+                                        <tr>
+                                            <td style="vertical-align: middle">
+                                                <h5>{{ $shedule->time }}</h5>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle">
+                                                <h5 style="background-color: #4B053F; color: white; border-radius: 2px">{{ $shedule->sheduled_students_count }}</h5>
+                                            </td>
+                                            <td style="vertical-align: middle">
+                                                <div style="background-color: #ccc; border-radius: 50%; padding: 5px 5px 5px 5px; width: 30px; height: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                                    <a href="{{ route('updateexistschedule', [$shedule->id, $shedule->date]) }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#040D31" class="bi bi-plus" viewBox="0 0 16 16">
+                                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9">
+        </div>
 
-                <div class="card" style="width: 100%; border-radius: 10px">
+        <div class="row-mb-2">
+            <div id="card">
+                <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title" style="color: #222944; font-weight: bold">Choose Time Slot</h5>
+                        <h5 class="card-title" style="color: #222944; font-weight: bold">Choose a session time</h5>
                         <hr style="border: 0.5px solid #222944">
-                        <div class="row">
+                        <div>
                             @if(count($timeslots) == 0)
                                 <div class="alert alert-info" role="alert">
                                     <h5 style="color: #222944">You hadn't defined time slots for {{ $selectdayname }}, <a href="{{ route('timetable') }}">create</a></h5>
                                 </div>
                             @else
-                                <h5 style="color: #222944; padding: 10px">Time slots on {{ $selectdayname }} </h5>
+                                <h6 style="color: #040920; font-weight: bold">Choose session type</h6>
+                                <div style="display: inline-block">
+                                    <div class="form-check">
+                                        <input class="form-check-input session_click" type="radio" name="session_type" id="theory" value="theory">
+                                        <label class="form-check-label session" for="theory">
+                                            <h5>Theory</h5>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div style="display: inline-block">
+                                    <div class="form-check">
+                                        <input class="form-check-input session_click" type="radio" name="session_type" id="practicle" value="practicle">
+                                        <label class="form-check-label session" for="practicle">
+                                            <h5>Practicle</h5>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display: none; padding-top: 20px" id="categorypanel">
+                                    <h6 style="color: #040920; font-weight: bold">Choose vehicle category</h6>
+                                    <select class="form-control" id="category" name="category[]">
+                                        <option value="select">Select</option>
+                                        @foreach ($categories as $cat)
+                                            <option value="{{ $cat->category_code }}">{{ ucwords($cat->name).' ('.$cat->category_code.')' }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div id="transmission-panel" style="display: none; padding-top: 10px">
+                                    <h6 style="color: #040920; font-weight: bold">Choose transmission</h6>
+                                    <div style="display: inline-block">
+                                        <div class="form-check">
+                                            <input class="form-check-input trans_click" type="radio" name="transmission" id="auto" value="auto">
+                                            <label class="form-check-label trans" for="auto">
+                                                <h5>Auto</h5>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div style="display: inline-block">
+                                        <div class="form-check">
+                                            <input class="form-check-input trans_click" type="radio" name="transmission" id="manual" value="auto">
+                                            <label class="form-check-label trans" for="manual">
+                                                <h5>Manual</h5>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="table-responsive" style="padding: 10px">
+                                    <h5 style="color: #010824; padding: 10px; font-weight: bold; display: none" id="heading">Sessions on {{ $selectdayname }} </h5>
                                     <table class="table table-hover">
-                                        <tbody>
-                                            @foreach ($timeslots as $slot)
+                                        <tbody id='inslist'>
+                                            {{-- @foreach ($timeslots as $slot)
                                             <tr>
                                                 <td style="vertical-align: middle">
                                                     <input class="form-check-input" type="radio" name="slottime[]" id="radio-{{ $slot->id }}" value="{{ $slot->time_slot }}" style="display: none">
@@ -297,9 +482,10 @@
                                                     @endforeach
                                                 </td>
                                             </tr>
-                                            @endforeach
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
+                                    <div id="infoalert" class="alert alert-info">select session type and vehicle category</div>
                                 </div>
                             @endif
                         </div>
@@ -345,12 +531,12 @@
                                                         <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor Profile" class="img">
                                                     </div>
                                                     <h6>{{ $instructor->user->f_name }} {{ $instructor->user->l_name }}</h6>
-                                                    @if(count($instructor->ownershedules) == 0)
+                                                    @if(count($instructor-> shedules) == 0)
                                                         I'm Leave
                                                     @else
                                                         <small>Work Hours</small>
                                                         <ul style="list-style-type: none">
-                                                            @foreach ($instructor->ownershedules as $shedule)
+                                                            @foreach ($instructor->shedules as $shedule)
                                                                 <li>{{ $shedule->time }}</li>
                                                             @endforeach
                                                         </ul>
@@ -367,12 +553,12 @@
                                                         <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor Profile" class="img">
                                                     </div>
                                                     <h6>{{ $instructor->user->f_name }} {{ $instructor->user->l_name }}</h6>
-                                                    @if(count($instructor->ownershedules) == 0)
+                                                    @if(count($instructor->shedules) == 0)
                                                         I'm free
                                                     @else
                                                         <small>Work Hours</small>
                                                         <ul style="list-style-type: none">
-                                                            @foreach ($instructor->ownershedules as $shedule)
+                                                            @foreach ($instructor->shedules as $shedule)
                                                                 <li>{{ $shedule->time }}</li>
                                                             @endforeach
                                                         </ul>
@@ -423,7 +609,128 @@
 
         $(document).ready(function(){
             $('aside ul .shedulings').css('border-left', '5px solid #00bcd4');
-        })
+        });
+
+        $('input[name="session_type"]').on('change', function(){
+            var session = $('input[name="session_type"]:checked').val();
+            var day = {{ $dayid }};
+            if(session == 'theory'){
+                $('#categorypanel').hide();
+                $('#transmission-panel').hide();
+                $.ajax({
+                    type: 'get',
+                    url: '/gettheorysessions/'+day,
+                    success:function(data){
+                        if (!$.trim(data)){
+                            $('#errordiv').empty();
+                            $('#inslist').empty();
+                            $('#errordiv').append('<div class="alert alert-info">Please Choose an another date or you can make special session</div>');
+                        }else{
+                            console.log(data);
+                            $('#inslist').empty();
+                            data.forEach(function(row){
+                                var tablerow = '<tr><td style="vertical-align:middle"><div class="form-check"><input class="form-check-input slotclick" type="radio" name="timeslot" value="'+row.id+'" id="'+row.time_slot+'"><label for="'+row.time_slot+'" class="slot"><div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px" class="icon"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><h6>'+capitalizeFirstLetter(row.slot_name)+'</h6></div></label></div></td><td style="vertical-align: middle"><h5 style="color: #080529; font-weight: bold">'+row.time_slot+'</h5></td><td>'+instructorslist(row.instructor_working_time_slot)+'</td></td></tr>';
+                                $('#inslist').append(tablerow);
+                            });
+                            $('#infoalert').hide();
+                            $('#heading').show();
+                            $('#errordiv').empty();
+                        }
+                    },
+                    error:function(){
+                        $('#errordiv').empty();
+                        $('#inslist').empty();
+                        $('#infoalert').show();
+                        $('#heading').hide();
+                        $('#errordiv').append('<div class="alert alert-danger">Please Select session type !!</div>');
+                    }
+                });
+            }else{
+                $('#categorypanel').show();
+                $('#transmission-panel').show();
+                $('#errordiv').empty();
+                $('#inslist').empty();
+                $('#infoalert').show();
+                $('#heading').hide();
+            }
+        });
+
+        $('select').on('change', function(){
+            var cat = document.getElementById('category').value;
+            console.log('change '+cat);
+            var day = {{ $dayid }};
+
+            $.ajax({
+                type: 'get',
+                url: '/getpracticlesessions/'+day+'/'+cat,
+                success:function(data){
+                    if (!$.trim(data)){
+                        console.log('empty');
+                        $('#errordiv').empty();
+                        $('#inslist').empty();
+                        $('#heading').hide();
+                        $('#infoalert').show();
+                        $('#errordiv').append('<div class="alert alert-info">Please Choose an another category or another date</div>');
+                    }else{
+                        console.log('success');
+                        $('#inslist').empty();
+                        data.forEach(function(row){
+                            var tablerow = '<tr><td style="vertical-align:middle"><div class="form-check"><input class="form-check-input slotclick" type="radio" name="timeslot" value="'+row.id+'" id="'+row.time_slot+'"><label for="'+row.time_slot+'" class="slot"><div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px" class="icon"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><h6>'+capitalizeFirstLetter(row.slot_name)+'</h6></div></label></div></td><td style="vertical-align: middle"><h5 style="color: #080529; font-weight: bold">'+row.time_slot+'</h5></td><td>'+instructorslist(row.instructor_working_time_slot)+'</td></td></tr>';
+                            $('#inslist').append(tablerow);
+                        });
+                        $('#infoalert').hide();
+                        $('#heading').show();
+                        $('#errordiv').empty();
+                    }
+                },
+                error:function(err){
+                    console.log('fail');
+                    $('#errordiv').empty();
+                    $('#inslist').empty();
+                    $('#infoalert').show();
+                    $('#heading').hide();
+                    $('#errordiv').append('<div class="alert alert-danger">Please Select a vehicle category !!</div>');
+                }
+            });
+
+        });
+
+        function instructorslist(array){
+
+            var instructorslist = '<ul style="list-style-type: none; margin-left: 0px; margin-bottom: 0px">';
+            var instructors = @json($instructors);
+            const absents = @json($absent_ids);
+
+            for(var i = 0; i<array.length ; i++){
+                for(var j=0; j<instructors.length; j++){
+                    if(array[i].instructor_uid == instructors[j].user_id){
+                        if(absents.includes(instructors[j].user_id)){
+                            // console.log('no');
+                            instructorslist = instructorslist+'<li><input type="radio" id="'+array[i].time_slot_id+'-'+instructors[j].user_id+'" name="'+array[i].time_slot_id+'-instructor_id" value="'+instructors[j].user_id+'" class="nameclick" ><label class="name" for="'+array[i].time_slot_id+'-'+instructors[j].user_id+'"><div style="vertical-align: middle"><div style="display: inline-block; padding-right: 10px"><img src="/uploadimages/instructors_profiles/'+instructors[j].user.profile_img+'" alt="Instructor Profile" class="insprofile"></div><div style="display: inline-block"><h5 style="margin-bottom: 0px">'+checkgenger(instructors[j].user.gender)+capitalizeFirstLetter(instructors[j].user.f_name)+' '+capitalizeFirstLetter(instructors[j].user.l_name)+'</h5></div><div class="float-right icondiv" style="display: inline-block;"><i class="fa fa-check" aria-hidden="true"></i></div></div></li>';
+                        }else{
+                            // console.log('yes'+array[i].time_slot_id+'-instructor_id');
+                            var url = '{{ route("studentinstructordetails", ":id") }}';
+                            url = url.replace(':id', instructors[j].user_id);
+                            instructorslist = instructorslist+'<li><input type="radio" id="'+array[i].time_slot_id+'-'+instructors[j].user_id+'" name="'+array[i].time_slot_id+'-instructor_id" value="'+instructors[j].user_id+'" class="nameclick" ><label class="name" for="'+array[i].time_slot_id+'-'+instructors[j].user_id+'"><div style="vertical-align: middle"><div style="display: inline-block; padding-right: 10px"><img src="/uploadimages/instructors_profiles/'+instructors[j].user.profile_img+'" alt="Instructor Profile" class="insprofile"></div><div style="display: inline-block"><h5 style="margin-bottom: 0px">'+checkgenger(instructors[j].user.gender)+capitalizeFirstLetter(instructors[j].user.f_name)+' '+capitalizeFirstLetter(instructors[j].user.l_name)+'</h5></div><div class="float-right icondiv" style="display: inline-block;"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><a class="viewprofile" href="'+url+'">view profile</a></div></div></li>';
+                        }
+                    }
+                }
+            }
+            return instructorslist+'</ul>';
+        }
+
+        function checkgenger(gender){
+            var value = 'Mr ';
+            if(gender == 'female'){
+                value = 'Mrs. ';
+            }
+            return value;
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
     </script>
 
 </div>

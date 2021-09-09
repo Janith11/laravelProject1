@@ -13,8 +13,8 @@ class Instructor extends Model
     }
 
     // create relation between instructor and owner shedule
-    public function ownershedules(){
-        return $this->hasMany(OwnerShedule::class, 'instructor', 'user_id');
+    public function shedules(){
+        return $this->hasMany(Shedule::class, 'instructor', 'user_id');
     }
 
     // realtion with employee attendances

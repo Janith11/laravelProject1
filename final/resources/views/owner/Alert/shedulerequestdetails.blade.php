@@ -58,108 +58,135 @@
         </div>
 
         <div class="row-mb-2">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div id="card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 style="color: #222944; font-weight: bold">Other Shedules on this day</h5>
-                                <hr style="border-top: 1px solid #222944">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class="tehead-dark">
-                                            <th>Title</th>
-                                            <th>Time</th>
-                                            <th>Session</th>
-                                            <th>Instructor</th>
-                                            <th>Total Students</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($othershedules as $shedules)
+            <div id="card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 style="color: #222944; font-weight: bold">Request Details</h5>
+                        <hr style="border-top: 1px solid #222944">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div style="padding-top: 20px">
+                                    @foreach ($student as $std)
+                                        <div class="row">
+                                            <div class="col-md-auto">
+                                                <img src="/uploadimages/students_profiles/{{ $std->user->profile_img }}" alt="Student Profile" id="studentprofile">
+                                            </div>
+                                            <div class="col">
+                                                <h5 style="color: #02071D">{{ $std->user->f_name }} {{ $std->user->l_name }}</h5>
+                                                <p>{{ $std->user->email }}<br>{{ $std->user->contact_number }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div style="padding-top: 20px;">
+                                    <div>
+                                        <div style="display: inline-block">
+                                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #02071D; padding: 0px 0px 0px 5px">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#FFFFFF" class="bi bi-journal-bookmark" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z"/>
+                                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div style="display: inline-block">
+                                            <h6 style="color: #0FC7AE; margin-bottom: 0px; background-color: white;">About sessions</h6>
+                                            <hr style="margin-top: -1px; border-top: 1px solid #02071D;">
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 20px">
+                                        <canvas id="progress"></canvas>
+                                    </div>
+                                    <div>
+                                        <div style="display: inline-block">
+                                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #02071D; padding: 0px 0px 0px 5px">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#FFFFFF" class="bi bi-bookmarks" viewBox="0 0 16 16">
+                                                    <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
+                                                    <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div style="display: inline-block">
+                                            <h6 style="color: #0FC7AE; margin-bottom: 0px; background-color: white;">About Category</h6>
+                                            <hr style="margin-top: -1px; border-top: 1px solid #02071D;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <table class="table table-hover">
+                                            <tbody>
                                                 <tr>
-                                                    <td>{{ $shedules->title }}</td>
-                                                    <td>{{ $shedules->time }}</td>
-                                                    <td>{{ $shedules->lesson_type }}</td>
+                                                    <th style="color: #02071D">Request category</th>
                                                     <td>
-                                                        @foreach ($instructors as $instructor)
-                                                            @if($instructor->user_id == $shedules->instructor)
-                                                                <div>
-                                                                    <div style="display: inline-block">
-                                                                        <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor Profile" id="img">
-                                                                    </div>
-                                                                    <div style="display: inline-block">
-                                                                        {{ $instructor->user->f_name }} {{ $instructor->user->l_name }}
-                                                                    </div>
-                                                                </div>            
+                                                        @foreach ($categories as $cat)
+                                                            @if ($cat->category_code == $category)
+                                                                {{ ucwords($cat->name).' ('.$cat->category_code.')' }}
                                                             @endif
                                                         @endforeach
                                                     </td>
-                                                    <td>{{ $shedules->sheduledstudents_count }}</td>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                <tr>
+                                                    <th style="color: #02071D">Total sessions</th>
+                                                    <td>{{ $sessioncount }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div id="card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 style="color: #222944; font-weight: bold">Request Details</h5>
-                                <hr style="border-top: 1px solid #222944">
-                                @foreach ($student as $std)
-                                    <div style="display: flex">
-                                        <div style="display: inline-block;float: top !important">
-                                            <img src="/uploadimages/students_profiles/{{ $std->user->profile_img }}" alt="Student Profile" id="studentprofile">
-                                        </div>
-                                        <div style="display: inline-block; padding-left: 20px">
-                                            <div>
-                                                <h5 style="color: #02071D">{{ $std->user->f_name }} {{ $std->user->l_name }}</h5>
-                                            </div>
-                                            <div>
-                                                <h5>{{ $std->user->email }}</h5>
-                                            </div>
-                                            <div>
-                                                <h5>{{ $std->user->contact_number }}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                            <div class="col-sm-8">
                                 <div class="table-responsive" style="padding-top: 10px">
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         @foreach($result as $res)
                                             <tr>
-                                                <th>Title</th>
-                                                <td>{{ $res->ownershedules->title }}</td>
+                                                <th style="color: #02071D">Title</th>
+                                                <td>{{ ucwords($res->shedules->title) }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Date</th>
-                                                <td>{{ $res->ownershedules->date }}</td>
+                                                <th style="color: #02071D">Date</th>
+                                                <td>{{ $res->shedules->date }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Time</th>
-                                                <td>{{ $res->ownershedules->time }}</td>
+                                                <th style="color: #02071D">Time</th>
+                                                <td>{{ $res->shedules->time }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Session</th>
-                                                <td>{{ $res->ownershedules->lesson_type }}</td>
+                                                <th style="color: #02071D">Session</th>
+                                                <td>{{ ucwords($res->shedules->lesson_type) }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Instructor</th>
+                                                <th style="color: #02071D">Vehicle category</th>
+                                                <td>
+                                                    @foreach ($categories as $cat)
+                                                        @if ($cat->category_code == $res->shedules->vahicle_category)
+                                                            <h6>{{ ucwords($cat->name).' ('.$cat->category_code.')' }} </h6>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #02071D">Transmission</th>
+                                                <td>{{ $res->shedules->transmission }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th style="color: #02071D">Instructor</th>
                                                 <td>
                                                     @foreach ($instructors as $instructor)
-                                                        @if($instructor->user_id == $res->ownershedules->instructor)
+                                                        @if($instructor->user_id == $res->shedules->instructor)
                                                             <div>
                                                                 <div style="display: inline-block">
                                                                     <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor Profile" id="img">
                                                                 </div>
                                                                 <div style="display: inline-block">
-                                                                    {{ $instructor->user->f_name }} {{ $instructor->user->l_name }}
+                                                                    @php
+                                                                            if($instructor->user->gender == 'male'){
+                                                                                $name = 'Mr. '.$instructor->user->f_name.' '.$instructor->user->l_name;
+                                                                            }else{
+                                                                                $name = 'Mrs. '.$instructor->user->f_name.' '.$instructor->user->l_name;
+                                                                            }
+                                                                        @endphp
+                                                                    {{ $name }}
                                                                 </div>
-                                                            </div>            
+                                                            </div>
                                                         @endif
                                                     @endforeach
                                                 </td>
@@ -187,8 +214,8 @@
                                         @foreach ($result as $res)
                                             <input type="text" name="shedule_id" value="{{ $res->shedule_id }}">
                                             <input type="text" name="student_id" value="{{ $res->user_id }}">
-                                            <input type="text" name="date" value="{{ $res->ownershedules->date }}">
-                                            <input type="text" name="time" value="{{ $res->ownershedules->time }}">
+                                            <input type="text" name="date" value="{{ $res->shedules->date }}">
+                                            <input type="text" name="time" value="{{ $res->shedules->time }}">
                                             <input type="text" name="reson" id="form_reson">
                                         @endforeach
                                     </form>
@@ -201,12 +228,75 @@
                                     @foreach ($result as $res)
                                         <input type="text" name="shedule_id" value="{{ $res->shedule_id }}">
                                         <input type="text" name="student_id" value="{{ $res->user_id }}">
-                                        <input type="text" name="instructor_id" value="{{ $res->ownershedules->instructor }}">
-                                        <input type="text" name="date" value="{{ $res->ownershedules->date }}">
-                                        <input type="text" name="time" value="{{ $res->ownershedules->time }}">
+                                        <input type="text" name="instructor_id" value="{{ $res->shedules->instructor }}">
+                                        <input type="text" name="date" value="{{ $res->shedules->date }}">
+                                        <input type="text" name="time" value="{{ $res->shedules->time }}">
                                     @endforeach
                                 </form>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-mb-2">
+            <div id="card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 style="color: #222944; font-weight: bold">Other schedules on this day</h5>
+                        <hr style="border-top: 1px solid #222944">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="thead-dark" >
+                                    <th>Title</th>
+                                    <th>Time</th>
+                                    <th>Session</th>
+                                    <th>Instructor</th>
+                                    <th>Vehicle Category</th>
+                                    <th>Transmission</th>
+                                    <th>Total Students</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($othershedules as $shedules)
+                                        <tr>
+                                            <td style="color: #02071D">{{ ucwords($shedules->title) }}</td>
+                                            <td style="color: #02071D">{{ $shedules->time }}</td>
+                                            <td style="color: #02071D">{{ ucwords($shedules->lesson_type) }}</td>
+                                            <td style="color: #02071D">
+                                                @foreach ($instructors as $instructor)
+                                                    @if($instructor->user_id == $shedules->instructor)
+                                                        <div>
+                                                            <div style="display: inline-block">
+                                                                <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="Instructor Profile" id="img">
+                                                            </div>
+                                                            <div style="display: inline-block">
+                                                                @php
+                                                                    if($instructor->user->gender == 'male'){
+                                                                        $name = 'Mr. '.$instructor->user->f_name.' '.$instructor->user->l_name;
+                                                                    }else{
+                                                                        $name = 'Mrs. '.$instructor->user->f_name.' '.$instructor->user->l_name;
+                                                                    }
+                                                                @endphp
+                                                                {{ $name }}
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td style="color: #02071D">
+                                                @foreach ($categories as $cat)
+                                                    @if ($cat->category_code == $shedules->vahicle_category)
+                                                        {{ ucwords($cat->name).' ('.$cat->category_code.')' }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td style="color: #02071D">{{ ucwords($shedules->transmission) }}</td>
+                                            <td style="color: #02071D">{{ $shedules->sheduledstudents_count }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -222,14 +312,52 @@
 
         $('#ignorebtn').click(function(){
             $('#ignore_panel').toggle();
-        })
+        });
 
         function ignore(){
             var reson = document.getElementById('reson').value;
             document.getElementById('form_reson').value = reson;
             var form = document.getElementById('ignore_form');
             form.submit();
-        }
+        };
+
+        $(document).ready(function(){
+
+            var student = @json($student);
+            var tot, cmp = 0;
+
+            for(var i = 0; i<student.length; i++){
+                tot = student[i].total_session;
+                cmp = student[i].completed_session;
+            }
+
+            new Chart("progress", {
+                type: "bar",
+                data: {
+                    labels: ['Total Sessions', 'Completed Sessions'],
+                    datasets: [
+                        {
+                        data: [tot, cmp],
+                        backgroundColor: ['#42FF71', '#031138'],
+                        }
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
     </script>
 
 @endsection

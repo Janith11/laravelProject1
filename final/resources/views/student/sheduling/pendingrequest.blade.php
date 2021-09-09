@@ -4,112 +4,33 @@
 
 <style>
 
-    #card{
-        padding: 10px;
-    }
-
-    .card{
-        border-radius: 10px;
-        border: 0px !important;
-    }
-
-    .card-body{
-        border-radius: 10px;
-    }
-
-    @keyframes move_wave {
-        0% {
-            transform: translateX(0) translateZ(0) scaleY(1)
-        }
-        50% {
-            transform: translateX(-25%) translateZ(0) scaleY(0.55)
-        }
-        100% {
-            transform: translateX(-50%) translateZ(0) scaleY(1)
-        }
-    }
-
-    .waveWrapper {
-        overflow: hidden;
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        margin: auto;
-        z-index:-1
-    }
-
-    .waveWrapperInner {
-        position: absolute;
-        width: 100%;
-        overflow: hidden;
-        height: 100%;
-        bottom: -1px;
-        background-image: linear-gradient(to top, #86377b 20%, #27273c 80%);
-    }
-
-.bgTop {
-    z-index: 15;
-    opacity: 0.5;
-}
-.bgMiddle {
-    z-index: 10;
-    opacity: 0.75;
-}
-.bgBottom {
-    z-index: 5;
-}
-.wave {
-    position: absolute;
-    left: 0;
-    width: 200%;
-    height: 100%;
-    background-repeat: repeat no-repeat;
-    background-position: 0 bottom;
-    transform-origin: center bottom;
-}
-.waveTop {
-    background-size: 50% 100px;
-}
-.waveAnimation .waveTop {
-  animation: move-wave 3s;
-   -webkit-animation: move-wave 3s;
-   -webkit-animation-delay: 1s;
-   animation-delay: 1s;
-}
-.waveMiddle {
-    background-size: 50% 120px;
-}
-.waveAnimation .waveMiddle {
-    animation: move_wave 10s linear infinite;
-}
-.waveBottom {
-    background-size: 50% 100px;
-}
-.waveAnimation .waveBottom {
-    animation: move_wave 15s linear infinite;
-}
-#countdown{
+    #countdown{
        background-color: #222944;
        color: #F5F23A;
        font-weight: bold;
        font-family: 'Open Sans Condensed', sans-serif;
        text-align: center;
-   }
+    }
+
+    .img{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 </style>
 
 <div class="container">
 
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Sheduling</h5>
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Scheduling</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
         <a href="{{ route('instructor.instructordashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentsheduling') }}"> / Shedule List</a>
+        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentsheduling') }}"> / Schedule List</a>
         <a style="padding-top: 6px; padding-left: 10px;"> / Pending Request</a>
     </div>
 
@@ -149,6 +70,9 @@
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Session</th>
+                                <th>Instructor</th>
+                                <th>Vehicle Category</th>
+                                <th>Transmission</th>
                                 <th class="text-center">D : H : M : S</th>
                                 <th class="text-center">Session ID</th>
                             </thead>
@@ -162,13 +86,44 @@
                                             <div style='background-color:rgb(25, 12, 59); color:white; padding:5x; border-radius: 5px'>{{ $count }}</div>
                                         </td>
                                         <td>
-                                            {{ $shedule->ownershedules->date }}
+                                            {{ $shedule->shedules->date }}
                                         </td>
                                         <td>
-                                            {{ $shedule->ownershedules->time }}
+                                            {{ $shedule->shedules->time }}
                                         </td>
                                         <td>
-                                            {{ $shedule->ownershedules->lesson_type }}
+                                            {{ ucwords($shedule->shedules->lesson_type) }}
+                                        </td>
+                                        <td>
+                                            @foreach($instructors as $ins)
+                                                @if($ins->user_id == $shedule->shedules->instructor)
+                                                    <div>
+                                                        <div style="display: inline-block; padding-right: 10px">
+                                                            <img src="/uploadimages/instructors_profiles/{{ $ins->user->profile_img }}" alt="Instructor Profile" class="img">
+                                                        </div>
+                                                        <div style="display: inline-block">
+                                                            @php
+                                                                if($ins->user->gender = 'male'){
+                                                                    $name = 'Mr. '.$ins->user->f_name.' '.$ins->user->l_name;
+                                                                }else{
+                                                                    $name = 'Mrs. '.$ins->user->f_name.' '.$ins->user->l_name;
+                                                                }
+                                                            @endphp
+                                                            {{ $name }}
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($categories as $cat)
+                                                @if($cat->category_code == $shedule->shedules->vahicle_category)
+                                                    {{ ucwords($cat->name).' ('.$cat->category_code.')' }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            {{ $shedule->shedules->transmission }}
                                         </td>
                                         <td id='countdown'></td>
                                         <td class='text-center'>
@@ -201,7 +156,7 @@
 
             var endDate = row.cells[1];
             countDownDate = new Date(endDate.innerHTML.replace(/-/g, "/")).getTime();
-            var countDown = row.cells[4];
+            var countDown = row.cells[7];
             // Update the count down every 1 second
 
             // Get todays date and time
