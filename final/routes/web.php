@@ -81,7 +81,7 @@ Route::group(['as' => 'student.', 'prefix' => 'student', 'namespace' => 'Student
 );
 
 
-// create route group with middleware
+// create route group with middleware of owner
 Route::middleware('checkrequest')->group(function(){
 
     //instructors
@@ -290,6 +290,9 @@ Route::middleware('studentprofile')->group(function(){
 
     //payments
     Route::get('/student/payments', 'Student\PaymentController@index')->name('studenentpaymentlogsview');
+
+    //time table view 
+    Route::get('/Time-Table', 'Student\TimeTableController@index')->name('viewtimetable');
 
 });
 

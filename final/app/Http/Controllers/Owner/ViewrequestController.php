@@ -23,7 +23,7 @@ class ViewrequestController extends Controller
         return view('owner.requests.reviewrequest',compact('registration','category'));
     }
     public function accept(Request $request, $id){
-
+        
         $this->validate($request,[
             'firstname' => 'required',
             'middlename' => 'required',

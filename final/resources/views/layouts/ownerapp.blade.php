@@ -985,7 +985,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item mb-3 vehicle" id="nav-item">
+                    <li class="nav-item mb-3 notification" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">
                                 <img src="/uploadimages/other/dashboardicons/notification.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">

@@ -38,7 +38,7 @@
             </div>
         @endif
 
-        @if(count($errors) > 0)
+        {{-- @if(count($errors) > 0)
         <div class="row mb-2">
             <div class="alert alert-danger">
                 <strong>Whoops!</strong> Some problems with your input.
@@ -49,7 +49,7 @@
                 </ul>
             </div>
         </div>
-        @endif
+        @endif --}}
 
         <div class="row mb-2">
             <div class="card" style="width: 100%;">
@@ -64,18 +64,69 @@
 
                                 <div class="form-group">
                                     <label class="form-label" for="imageFile">Choose Image</label>
-                                    <input type="file" class="form-control" id="image" name="image" onchange="uploadfile(event)">
+                                    <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" onchange="uploadfile(event)">
+                                    @error('image')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                               
+                                <div class="form-group">
+                                    <label for="vehiclename">Vehicle Name</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="vehiclename" placeholder="Vehicle Name..." name="name">
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="vehiclename">Name</label>
-                                    <input type="text" class="form-control" id="vehiclename" placeholder="Vehicle Name" name="name">
+                                    <label for="vehiclename">Vehicle Category</label>
+                                    <select class="custom-select" name="category">
+                                        {{-- <option selected>Select  a vehicle category</option> --}}
+                                        <option value="Bike">Bike</option>
+                                        <option value="Three Wheel">Three Wheel</option>
+                                        <option value="Car, Van & Dual Purposes">Car, Van & Dual Purposes</option>
+                                        <option value="Heavy Vehicle">Heavy Vehicle</option>
+                                      </select>
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="vehiclename">Vehicle Transmission</label>
+                                    <select class="custom-select" name="transmission">
+                                        {{-- <option selected>Select the type of Vehicle Transmission</option> --}}
+                                        <option value="Auto">Auto</option>
+                                        <option value="Manual">Manual</option>
+                                      </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="vehiclename">Vehicle Condition</label>
+                                    <select class="custom-select" name="condition">
+                                        {{-- <option selected>Select the condition of the vehicle</option> --}}
+                                        <option value="Excellent">Excellent</option>
+                                        <option value="Very Good">Very Good</option>
+                                        <option value="Good">Good</option>
+                                        <option value="Fair">Fair</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="vehiclename">Mileage (km)</label>
+                                    <input type="number" class="form-control @error('mileage') is-invalid @enderror"  placeholder="Mileage in kilometers" name="mileage">
+                                    @error('mileage')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                {{-- <div class="form-group">
                                     <label>Description</label>
                                     <textarea class="form-control" id="vehicledescription" name="description" rows="3"></textarea>
-                                </div>
+                                </div> --}}
 
                                 <button type="submit" class="btn btn-primary">Add Vehicle</button>
                             </form>
@@ -83,8 +134,8 @@
 
                         <div class="col-sm-6">
                             <div id="card">
-                                <h5 style="color: #050E33">Uploaded Image</h5>
-                                <div class="imgdiv">
+                                <h5 style="color: #050E33">Image</h5>
+                                <div class="imgdiv" style="min-height: 50%; width: auto; background-color: rgba(160, 157, 157, 0.486)">
                                     <img id="uploadimage" class="uploadimage"/>
                                 </div>
                             </div>

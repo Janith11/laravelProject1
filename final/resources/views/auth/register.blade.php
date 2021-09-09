@@ -45,9 +45,9 @@
     .step.finish {
         background-color: #0ba83f;
     }
-    input.invalid {
+    /* input.invalid {
         border: 2px solid red;
-    }
+    } */
     /* .step.finish {
         background-color: #04AA6D;
     } */
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="email" class="col-form-label text-md-right"><span class="text-danger">*</span>{{ __('E-Mail Address') }}</label>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="off" required>
+                                    <input id="email" onkeyup="checkEmail()" type="email" class="form-control"  name="email" value="{{ old('email') }}"  autocomplete="off" required>
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -112,7 +112,7 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="nicnumber" class="ol-form-label text-md-right"><span class="text-danger">*</span>{{ __('Nic Number') }}</label>
-                                    <input id="nicnumber" type="text" class="form-control @error('nicnumber') is-invalid @enderror" name="nicnumber" value="{{ old('nicnumber') }}"  autocomplete="off" autofocus>
+                                    <input id="nicnumber" onkeyup="checkNic()" type="text" class="form-control" name="nicnumber" value="{{ old('nicnumber') }}"  autocomplete="off">
 
                                     @error('nicnumber')
                                         <span class="invalid-feedback" role="alert">
@@ -170,7 +170,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="contactno" class=" col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Contact No') }}</label>
-                                    <input id="contactno" type="text" class="form-control @error('contactno') is-invalid @enderror" name="contactno" value="{{ old('contactno') }}" autocomplete="contactno" autofocus>
+                                    <input id="contactno" onkeyup="checkContact()" type="text" class="form-control @error('contactno') is-invalid @enderror" name="contactno" value="{{ old('contactno') }}" autocomplete="contactno" autofocus>
                                     @error('contactno')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -196,58 +196,58 @@
                         <div class="tab">
                             {{-- Eigth Row      --}}
                             <div class="form-group">  
-                                <h5 class="text-muted"><span class="text-danger">*</span>Choose you willing to train category</h5>
+                                <small class="text-muted mb-2"><span class="text-danger">*</span>Choose categories of your selection. You can select a vehicle category training with our instructors or you can get our service by without training and select relevent vehicle transmisssion of each category.</small>
 
                                 @foreach ($vehicalcategory as $vehicle) 
                                 <div class="row border bg-light my-2 mycategoryrow">
                                     <div class="col-md-4" id="{{ $vehicle->category_code }}A">
-                                        <input type="checkbox" class="form-check-input btn-check @error('vehicle_category[]') is-invalid @enderror" name="vehicle_category[]" value="{{ $vehicle->category_code }}" id="{{ $vehicle->category_code }}1">
+                                        <input type="checkbox" class="form-check-input btn-check categoryselector" name="vehicle_category[]" value="{{ $vehicle->category_code }}" id="{{ $vehicle->category_code }}-category" onclick="categoryCheckBox('{{ $vehicle->category_code }}')">
                                         @if ($vehicle->name == 'bike')
-                                            <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}1" class="col-form-label text-md-right">Bike</label>                                            
+                                            <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}-category" class="col-form-label text-md-right">Bike</label>                                            
                                         @elseif ($vehicle->name == 'threeweel')
-                                            <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}1" class="col-form-label text-md-right">Three Wheel</label>                                            
+                                            <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}-category" class="col-form-label text-md-right">Three Wheel</label>                                            
                                         @elseif ($vehicle->name == 'dualpurposes')
-                                            <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}1" class="col-form-label text-md-right">Car,Van & Dual Purposes</label>                                            
+                                            <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}-category" class="col-form-label text-md-right">Car,Van & Dual Purposes</label>                                            
                                         @elseif ($vehicle->name == 'heavyvehical')
-                                            <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}1" class="col-form-label text-md-right">Heavy Vehicle</label>                                            
+                                            <label class="btn btn-outline-primary btn-block" for="{{ $vehicle->category_code }}-category" class="col-form-label text-md-right">Heavy Vehicle</label>                                            
                                         @endif
                                     </div>
-                                    <div class="col-md-4 text-center" > 
+                                    <div class="col-md-4 text-center mytraining" id="{{ $vehicle->category_code }}-training"> 
                                         <div class="btn-group" id="{{ $vehicle->category_code }}B">                       
-                                            <input type="radio" class="btn-check" name="{{ $vehicle->category_code }}" value="Training" id="{{ $vehicle->id }}1" autocomplete="off" />
+                                            <input type="radio" class="btn-check" name="{{ $vehicle->category_code }}" value="Training" id="{{ $vehicle->id }}1" autocomplete="off" checked />
                                             <label class="btn btn-outline-success" for="{{ $vehicle->id }}1">Training</label>
                                         
                                             <input type="radio" class="btn-check" name="{{ $vehicle->category_code }}" value="Without Training" id="{{ $vehicle->id }}2" autocomplete="off" />
                                             <label class="btn btn-outline-danger" for="{{ $vehicle->id }}2">Without Training</label>
                                         </div>
                                     </div>
+                                    <div class="col-md-4 mytransmission" id="{{ $vehicle->category_code }}-transmission">
                                     @if( $vehicle->transmission == 'automanual')
-                                    <div class="col-md-4 " id="{{ $vehicle->category_code }}B">
+                                    
                                         <div class="btn-group">                       
-                                            <input type="radio" class="btn-check" name="trans{{ $vehicle->category_code }}" value="Auto" id="{{ $vehicle->id }}3" autocomplete="off"/>
+                                            <input type="radio" class="btn-check" name="trans{{ $vehicle->category_code }}" value="Auto" id="{{ $vehicle->id }}3" autocomplete="off" checked />
                                             <label class="btn btn-outline-success" for="{{ $vehicle->id }}3">Auto</label>
                                         
                                             <input type="radio" class="btn-check" name="trans{{ $vehicle->category_code }}" value="Manual" id="{{ $vehicle->id }}4" autocomplete="off" />
                                             <label class="btn btn-outline-danger" for="{{ $vehicle->id }}4">Manual</label>
                                         </div>
-                                    </div> 
+                                     
                                     @endif
-                                    {{-- @error('birthday')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror --}}
+                                    </div>                 
+                                   
                                 </div>          
                                 @endforeach   
                                 {{-- <small class="text-danger">*If you</small> --}}
                             </div> 
+                            <p class="text-danger mycategoryerror"  style="display: none">*You have to choose at least one Category</p>
                         </div>
                         {{-- tab four  --}}
                         <div class="tab">
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="password" class="col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Password') }}</label>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">
+                                    <input id="password" type="password"  class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password" onkeyup="checkPassword()">
+                                    <p id="passworderror" class="text-danger"></p>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -256,7 +256,8 @@
                                 </div>
                                 <div class="col-md-6">
                                 <label for="password-confirm" class="col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password" onkeyup="confirmPassword()">
+                                <p id="passwordconfirmerror" class="text-danger"></p>
                                 </div>
                             </div>
 
@@ -288,12 +289,6 @@
     </div>
 </div>
 
-{{-- <script>
-    $('#A1').click(function(){
-        $('#AB').toggle();
-    });
-</script> --}}
-{{-- tab script  --}}
 <script>
     var currentTab=0;
     showTab(currentTab);
@@ -334,7 +329,7 @@
 
         for(i=0; i < y.length; i++){
             if(y[i].value == ""){
-                y[i].className+= "invalid";
+                y[i].className+= " is-invalid";
                 valid = false;
             }
         }
@@ -351,10 +346,136 @@
         }
         x[n].className += " active";
     }
-    function emailvalidation(){
-        
-    }
+ </script>
+{{-- Email check  --}}
+<script>
+    const email = document.querySelector("#email");
+    let regExp= /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
+    function checkEmail(){
+        if(!email.value.match(regExp)){
+            $('#email').addClass('is-invalid');
+            $("#email").removeClass('is-valid');
+        }else{
+            $('#email').addClass('is-valid');
+            $("#email").removeClass('is-invalid');
+        }
+    }
 </script>
+{{-- NIc Check  --}}
+<script>
+    const nicNumber = document.querySelector("#nicnumber");
+    let old_nic = /^[0-9+]{9}[vV|xX]$/;
+    let new_nic = /^[0-9+]{12}$/;
+    function checkNic(){
+        if (nicNumber.value.length == 10 && nicNumber.value.match(old_nic)) {
+            $('#nicnumber').addClass('is-valid');
+            $("#nicnumber").removeClass('is-invalid');
+        }
+        else if (nicNumber.value.length == 12 && nicNumber.value.match(new_nic)) {
+            $('#nicnumber').addClass('is-valid');
+            $("#nicnumber").removeClass('is-invalid');
+        }else{
+            $('#nicnumber').addClass('is-invalid');
+            $("#nicnumber").removeClass('is-valid');
+        }
+    }
+</script>
+
+{{-- check contact  --}}
+<script>
+    const contactNo =document.querySelector("#contactno");
+    let contNo = /^[0-9+]{10}$/;
+    function checkContact(){
+        if (contactNo.value.length == 10 && contactNo.value.match(contNo)) {
+            $('#contactno').addClass('is-valid');
+            $("#contactno").removeClass('is-invalid');
+        }
+        else{
+            $('#contactno').addClass('is-invalid');
+            $("#contactno").removeClass('is-valid');
+        }
+    }
+</script>
+
+{{-- check category  --}}
+<script>
+    
+    var y1 = document.querySelectorAll(".mytraining");
+    var y2 = document.querySelectorAll(".mytransmission");
+    for (var i = 0; i < y1.length; i++) {
+        y1[i].style.display = "none";
+    }
+    for (var i = 0; i < y2.length; i++) {
+        y2[i].style.display = "none";
+    }
+    function categoryCheckBox(n){
+        var x = '#'+n+'-category';
+        var train = '#'+n+'-training';
+        var trans = '#'+n+'-transmission';
+        if($(x).is(":checked")) {
+            document.querySelector(train).style.display ="block";
+            document.querySelector(trans).style.display ="block";
+                        
+        }else{
+            document.querySelector(train).style.display ="none";
+            document.querySelector(trans).style.display ="none";
+        }
+    }
+    var c1 = document.querySelectorAll(".categoryselector");
+        c1[0].checked = true;
+        y1[0].style.display = "block";
+        y2[0].style.display = "block";
+        
+        $(document).ready(function(){
+            setInterval(function(){
+                var okay = "one";
+                for(var i=0; i<c1.length; i++){
+                if(c1[i].checked) {
+                    okay='two';
+                    break;
+                    }
+                }
+                if(okay == 'one'){
+                    document.querySelector(".mycategoryerror").style.display = "block";
+                } 
+                else{
+                    document.querySelector(".mycategoryerror").style.display = "none";
+                } 
+            },50);    
+        });
+        
+        
+</script>
+
+{{-- password check  --}}
+<script>
+    var y1 = document.getElementById("password");
+    var y2 = document.getElementById("password-confirm");
+    function checkPassword(){
+        if(y1.value.length < 8){
+            $('#password').addClass(' is-invalid');
+            $('#password').removeClass(' is-valid');
+            $("#passworderror").text("At least 8 characters are required!");
+        }else{
+            $('#password').addClass(' is-valid');
+            $('#password').removeClass(' is-invalid');
+            $("#passworderror").text("");
+        }
+    }
+    function confirmPassword(){
+        if(y1.value == y2.value){
+            $('#password-confirm').addClass(' is-valid');
+            $('#password-confirm').removeClass(' is-invalid');
+            $("#passwordconfirmerror").text("");
+        }else{
+            $('#password-confirm').addClass(' is-invalid');
+            $('#password-confirm').removeClass(' is-valid');
+            $("#passwordconfirmerror").text("Password does not match!");
+        }
+
+    }
+</script>
+
 @endsection
 

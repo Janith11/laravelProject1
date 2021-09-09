@@ -22,7 +22,7 @@
                     <h5 class="card-title" style="color: #222944; font-weight: bold">Edit Vehicle</h5>
                     <hr>
 
-                    @if(count($errors) > 0)
+                    {{-- @if(count($errors) > 0)
                         <div class="row mb-2">
                             <div class="alert alert-danger">
                                 <strong>Whoops!</strong> Some problems with your input.
@@ -33,7 +33,7 @@
                                 </ul>
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
 
                         <div class="row">
 
@@ -56,12 +56,54 @@
                                         <input type="file" class="form-control" id="image" name="image">
                                     </div>
                                     <div class="form-group">
-                                        <label for="name" style="color: #222944">Vehicle Name</label>
-                                        <input type="text" class="form-control" id="name" placeholder="name" value="{{ $editvehicle->name }}" name="name">
+                                        <label for="vehiclename">Vehicle Name</label>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="vehiclename" placeholder="Vehicle Name..." name="name" value="{{ $editvehicle->name }}">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
+    
                                     <div class="form-group">
-                                        <label for="description"  style="color: #222944">Desription</label>
-                                        <textarea class="form-control" id="description" placeholder="details" name="description">{{ $editvehicle->description }}</textarea>
+                                        <label for="vehiclename">Vehicle Category</label>
+                                        <select class="custom-select" name="category">
+                                            {{-- <option selected>Select  a vehicle category</option> --}}
+                                            <option value="Bike" {{ 'Bike' == $editvehicle->category ? 'selected' : ''}}>Bike</option>
+                                            <option value="Three Wheel" {{ 'Three Wheel' == $editvehicle->category ? 'selected' : ''}}>Three Wheel</option>
+                                            <option value="Car, Van & Dual Purposes" {{ 'Car, Van & Dual Purposes' == $editvehicle->category ? 'selected' : ''}}>Car, Van & Dual Purposes</option>
+                                            <option value="Heavy Vehicle" {{ 'Heavy Vehicle' == $editvehicle->category ? 'selected' : ''}}>Heavy Vehicle</option>
+                                          </select>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="vehiclename">Vehicle Transmission</label>
+                                        <select class="custom-select" name="transmission">
+                                            {{-- <option selected>Select the type of Vehicle Transmission</option> --}}
+                                            <option value="Auto" {{ 'Auto' == $editvehicle->transmission ? 'selected' : ''}}>Auto</option>
+                                            <option value="Manual" {{ 'Manual' == $editvehicle->transmission ? 'selected' : ''}}>Manual</option>
+                                          </select>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="vehiclename">Vehicle Condition</label>
+                                        <select class="custom-select" name="condition">
+                                            {{-- <option selected>Select the condition of the vehicle</option> --}}
+                                            <option value="Excellent" {{ 'Excellent' == $editvehicle->condition ? 'selected' : ''}}>Excellent</option>
+                                            <option value="Very Good" {{ 'Very Good' == $editvehicle->condition ? 'selected' : ''}}>Very Good</option>
+                                            <option value="Good" {{ 'Good' == $editvehicle->condition ? 'selected' : ''}}>Good</option>
+                                            <option value="Fair" {{ 'Fair' == $editvehicle->condition ? 'selected' : ''}}>Fair</option>
+                                        </select>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="vehiclename">Mileage (km)</label>
+                                        <input type="number" class="form-control @error('mileage') is-invalid @enderror"  placeholder="Mileage in kilometers" name="mileage" value="{{ $editvehicle->mileage }}">
+                                        @error('mileage')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <button type="submit" class="btn btn-primary">Save Changes</button>
                                 </form>
