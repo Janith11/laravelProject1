@@ -163,7 +163,7 @@
                     @foreach ($timetable as $tbl)
                     <div class="card border-primary mb-2" style="width: 100%;">
                         <div class="card-body">
-                            <h5 class="card-title" style="color: #222944; font-weight: bold">{{ $tbl->day_name }}</h5>
+                            <h5 class="card-title" style="color: #222944; font-weight: bold">{{ ucfirst($tbl->day_name) }}</h5>
                             <hr style="border: 0.3px solid #222944">
                             <div class="row">
                                 @if(count($tbl->timeslots) == 0)
@@ -171,7 +171,7 @@
                                         <h5>You haven't create time any slots for {{ $tbl->day_name }} </h5>
                                     </div>
                                 @else
-                                    <h6 style="padding-left: 10px">Time Table</h6>
+                                    {{-- <h6 style="padding-left: 10px">Time Table</h6> --}}
                                     <div class="table-responsive" style="padding-left: 10px; padding-right: 10px">
                                         <table class="table table-hover table-sm">
                                             <thead class="thead bg-dark text-white">
@@ -216,16 +216,21 @@
                                                             @elseif ($timeslot->vehicle_category == 'C')
                                                                 Heavy Vehicle
                                                             @else
-                                                                none
+                                                                None
                                                             @endif
                                                         </td>
                                                         <td class="text-center">
-                                                            @if ($timeslot->transmission == 'Auto' || $timeslot->transmission == '3')
+                                                            @if ($timeslot->transmission == 'Manual' || $timeslot->transmission == '3')
                                                                 Manual
+<<<<<<< HEAD
                                                             @elseif ($timeslot->transmission == 'Manual')
                                                                 Manual
+=======
+                                                            @elseif ($timeslot->transmission == 'Auto')
+                                                                Auto    
+>>>>>>> Janith
                                                             @else
-                                                                none
+                                                                None
                                                             @endif
                                                         </td>
                                                         <td>

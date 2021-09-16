@@ -17,18 +17,7 @@ use Illuminate\Http\Request;
 class TimeTableController extends Controller
 {
     public function index(){
-        // $InsCategories= StudentCategory::where('category',"A")->where('transmission',"Auto")->whereHas('Instructorcategories')->get();
-        // $InstructorUid=[];
-        // foreach($InsCategories as $c){
-        //     $InstructorUid[]= $c->user_id;
-        // }
-        // $InstructorUid=collect($InstructorUid);
-        // $InsNames=User::select(['f_name','l_name'])->whereIn('id',$InstructorUid)->get();
-        
-        // $x=json_encode(array('data'=>$InsNames));
-        // return x;
-        // return response()->json($InsNames); 
-
+       
         $instructor=Instructor::with('user')->get();
         $timetable = WeekDay::with('timeslots')->get();
         $VehicleCategories = VehicleCategory::all();
