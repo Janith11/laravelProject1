@@ -25,6 +25,20 @@
 </style>
 
 <div class="container">
+
+    @if(session()->has('message'))
+    <div class="alert alert-danger">
+        {{ session()->get('message') }}
+    </div>
+    @endif
+
+    @if(session()->has('verifiedmessage'))
+    <div class="alert alert-success">
+        {{ session()->get('verifiedmessage') }}
+    </div>
+    @endif
+
+
     {{-- <div class="row"> --}}
         <div class="card ">
             {{-- <div class="card-header">{{ __('Login') }}</div> --}}
@@ -43,9 +57,9 @@
                             </div>
                             
                             <div class="form-group row ">
-                                    <label for="email" class=" col-form-label text-md-right">{{ __('E-Mail Address') }}</label>                        
-                                    <input id="email" type="email" class=" form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                    @error('email')
+                                    <label for="contact_number" class=" col-form-label text-md-right">{{ __('Contact Number') }}</label>                        
+                                    <input id="contact_number" type="text" class=" form-control @error('contact_number') is-invalid @enderror" name="contact_number" value="{{ old('contact_number') }}" required autocomplete="off" autofocus>
+                                    @error('contact_number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

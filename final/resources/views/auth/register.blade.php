@@ -97,7 +97,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <label for="email" class="col-form-label text-md-right"><span class="text-danger">*</span>{{ __('E-Mail Address') }}</label>
                                     <input id="email" onkeyup="checkEmail()" type="email" class="form-control"  name="email" value="{{ old('email') }}"  autocomplete="off" required>
 
@@ -106,10 +106,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
-                            </div>
-                            {{-- Third Row  --}}
-                            <div class="form-group row">
+                                </div> --}}
                                 <div class="col-md-6">
                                     <label for="nicnumber" class="ol-form-label text-md-right"><span class="text-danger">*</span>{{ __('Nic Number') }}</label>
                                     <input id="nicnumber" onkeyup="checkNic()" type="text" class="form-control" name="nicnumber" value="{{ old('nicnumber') }}"  autocomplete="off">
@@ -120,14 +117,27 @@
                                         </span>
                                     @enderror
                                 </div>
+                            </div>
+                            {{-- Third Row  --}}
+                            <div class="form-group row">
+                                {{-- <div class="col-md-6">
+                                    <label for="nicnumber" class="ol-form-label text-md-right"><span class="text-danger">*</span>{{ __('Nic Number') }}</label>
+                                    <input id="nicnumber" onkeyup="checkNic()" type="text" class="form-control" name="nicnumber" value="{{ old('nicnumber') }}"  autocomplete="off">
+
+                                    @error('nicnumber')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div> --}}
                                 <div class="col-md-6">
                                     <label for="gender" class= "col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Gender') }}</label><br>
                                     <div class="form-check form-check-inline" >
-                                        <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" value="male">
+                                        <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" value="male" id="male">
                                         <label class="form-check-label" for="male">Male</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" value="female" checked>
+                                        <input class="form-check-input" type="radio" name="gender" value="female" id="female" checked>
                                         <label class="form-check-label" for="female">Female</label>
                                     </div>
                                 </div>

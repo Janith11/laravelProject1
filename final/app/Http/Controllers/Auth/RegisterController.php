@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Exception;
+use Twilio\Rest\Client;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -33,7 +36,15 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo;
+    // edited Janith 
+    protected $redirectTo='/Verify-your-phone/{id}';
+
+    //overide by Janith redirect Path
+
+    protected function redirectPath(){
+        $uid=Auth::user()->id;
+        return '/Verify-your-phone/'.$uid;
+    }
 
     /**
      * Create a new controller instance.
@@ -61,34 +72,18 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    // protected function validator(Request $data)
-    {
-
-        // $selected_category = $data['vehicle_category'];
-        // $test=[];
-        // foreach ($selected_category as  $category) {
-        //     $row =[];
-        //     if(($category == 'B1') || ($category == 'C')) {
-        //         $row[$category] = [ $data[$category], 3 ];
-        //     }
-        //     else{
-        //         $row[$category] = [ $data[$category], $data["trans".$category]  ];
-        //     }
-        //     array_push($test,$row);
-        // }
-        //  dd($test->category_code);
-    //    dd($data);
+      {
         return Validator::make($data, [
             // // 'name' => ['required', 'string', 'max:255'],
             // // 'username' => ['required', 'string', 'max:255', 'unique:users'],
              'firstname' => ['required', 'string', 'max:255'],
             'middlename' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'nicnumber' => ['required', 'string', 'max:15'],
+            'nicnumber' => ['required', 'string', 'max:12','unique:users,contact_number'],
             'gender' => ['required', 'string', 'max:7'],
-            'contactno' => ['required','max:15'],
+            'contactno' => ['required','max:15','unique:users,contact_number'],
             'birthday' => ['required', 'string','date','max:255'],
             'addressno' => ['required', 'string', 'max:255'],
             'addresslineone' => ['required', 'string', 'max:255'],
@@ -107,17 +102,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //create a random otp
+        $OTP= rand(100000,999999);
+       
+        //get ids from .env
+        $sid    = getenv("TWILIO_SID");
+        $token  = env("TWILIO_AUTH_TOKEN");
+        $from   = env("TWILIO_NUMBER");  
+       
         $user= User::create([
             'role_id' => 4,
             'f_name' => $data['firstname'],
             'm_name' => $data['middlename'],
             'l_name' => $data['lastname'],
             // 'username' => str_slug($data['username']),
-            'email' => $data['email'],
+            // 'email' => $data['email'],
             'nic_number' => $data['nicnumber'],
             'gender' => $data['gender'],
             // 'gender' => 'female',
             'contact_number' => $data['contactno'],
+            'contact_no_isVerified'=>'0',//just test
+            'otp' => $OTP,
             'dob' => $data['birthday'],
             'address_no' => $data['addressno'],
             'address_lineone' => $data['addresslineone'],
@@ -175,7 +180,27 @@ class RegisterController extends Controller
             'description'=>1, // Description 1 for registration 2 for schedules
             'status'=>0
         ]);
+        //user number convert to international number onlu for Sri Lanka p:)
+        $Co_number =$user->contact_number;
+        $str = ltrim($Co_number, $Co_number[0]);
+  	    $International_No = "+94".$str;
+    
+          try {
+        
+            $twilio = new Client($sid, $token);
+            $message = $twilio->messages
+                  ->create($International_No, // to
+                           array(
+                               "body" => "Hello ".$user->f_name." ".$user->l_name.". Welcome to the Driving School Management System. Your OTP is ".$OTP."\nThank you.",
+                               "from" => $from
+                           )
+                  );
+  
+            }catch (Exception $e) {
+                dd("Error: ". $e->getMessage());
+            }
        
         return $user;
+        // return redirect()->route('firstpage');
     }
 }

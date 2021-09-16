@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class OnlinepaperController extends Controller
 {
     public function index(){
-        return view('landingpage.onlinepaper');
+      return view('landingpage.onlinepaper');
     }
     public function paper1(){
         return view('landingpage.onlinepapers.paperone');
