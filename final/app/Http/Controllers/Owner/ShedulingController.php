@@ -11,11 +11,13 @@ use App\Attendance;
 use App\CompanyDetails;
 use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
+use App\Exam;
 use App\Http\Requests\CreateScheduleRequest;
 use App\SheduledStudents;
 use App\SheduleRequest;
 use App\ShedulingType;
 use App\Student;
+use App\StudentCategory;
 use App\TimeSlots;
 use App\TimeTable;
 use App\VehicleCategory;
@@ -244,7 +246,9 @@ class ShedulingController extends Controller
 
         // get selected date shedules with students count
         $shedules = Shedule::where('date', $date)->withcount('SheduledStudents')->whereHas('SheduledStudents')->get();
-        $instructors = Instructor::with(['user', 'Shedules' => function($query) use($date){
+
+        // instructor list
+        $instructors = Instructor::with(['user', 'shedules' => function($query) use($date){
             $query->where('date', $date);
         }])->get();
 
@@ -633,8 +637,456 @@ class ShedulingController extends Controller
         return response()->json($results);
     }
 
-    public function getpracticlesession($dayid, $category){
-        $results = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $dayid)->where('exam_type', 'Practical')->where('vehicle_category', $category)->get();
+    public function getpracticlesession($dayid, $category, $trans){
+        $results = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $dayid)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->get();
         return response()->json($results);
+    }
+
+    // my new functions ==========================================================
+    public function owneraddschedule(){
+        $categories = VehicleCategory::all();
+        $studentslist = Student::with('user')->get();
+        $instructorslist = Instructor::with('user')->get();
+        return view('owner.sheduling.owneraddschedule', compact('categories', 'studentslist', 'instructorslist'));
+    }
+
+    public function getalltheorystudents(){
+        $studentsids = Exam::where('type', 'theory')->where('result', 'fail')->select('user_id')->get();
+        $ids = [];
+        foreach($studentsids as $id){
+            $ids[] = $id->user_id;
+        }
+        $students = Student::with('user')->whereIn('user_id', $ids)->get();
+        return response()->json($students);
+    }
+
+    public function getautomanualstudents($category, $transmission){
+        $students_ids = StudentCategory::where('category', $category)->where('transmission', $transmission)->where('tstatus', 'Training')->get();
+
+        $ids = [];
+        foreach($students_ids as $id){
+            $ids[] = $id->user_id;
+        }
+        $t_pass_ids = [];
+        foreach($ids as $id){
+            $result = Exam::where('user_id', $id)->where('type', 'theory')->select('result')->first();
+            if($result != null){
+                if ($result->result == 'pass') {
+                    $t_pass_ids[] = $id;
+                }
+            }
+        }
+        $students = Student::with('user')->whereIn('user_id', $t_pass_ids)->get();
+
+        return response()->json($students);
+    }
+
+    public function getmanualstudents($category){
+        $students_ids = StudentCategory::where('category', $category)->where('tstatus', 'Training')->get();
+
+        $ids = [];
+        foreach($students_ids as $id){
+            $ids[] = $id->user_id;
+        }
+        $t_pass_ids = [];
+        foreach($ids as $id){
+            $result = Exam::where('user_id', $id)->where('type', 'theory')->select('result')->first();
+            if($result != null){
+                if ($result->result == 'pass') {
+                    $t_pass_ids[] = $id;
+                }
+            }
+        }
+        $students = Student::with('user')->whereIn('user_id', $t_pass_ids)->get();
+
+        return response()->json($students);
+    }
+
+    public function gettheorydays($count, $students){
+        $students = explode(',',$students);
+        $current = date('Y-m-d');
+        $days = [];
+        for ($i=1; $i <= $count ; $i++) {
+            $child = [];
+            $date = date('Y-m-d', strtotime("+$i day"));
+            $child['date'] = $date;
+            $child['ui_date'] = date('M-d', strtotime($date));
+            $day_name = date('l', strtotime("+$i day", strtotime($current)));
+            $child['name'] = $day_name;
+            $havesession = 0;
+            $result = 0;
+            $child['have_ids'] = [];
+            foreach($students as $std){
+                $result = Shedule::whereHas('sheduledstudents', function($query) use($std){
+                    $query->where('student_id', $std);
+                })->where('date', $date)->where('shedule_status', 1 )->get();
+                if($result->count() > 0){
+                    $havesession += 1;
+                    array_push($child['have_ids'], $std);
+                }else{
+                    array_push($child['have_ids'] ,0);
+                }
+            }
+            $child['have_session'] = $havesession;
+            if ($day_name == 'Monday') {
+                $child['weekday_id'] = 1;
+                $session_count = TimeSlots::where('weekday_id', 1)->where('exam_type', 'Theory')->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Tuesday'){
+                $child['weekday_id'] = 2;
+                $session_count = TimeSlots::where('weekday_id', 2)->where('exam_type', 'Theory')->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Wednesday'){
+                $child['weekday_id'] = 3;
+                $session_count = TimeSlots::where('weekday_id', 3)->where('exam_type', 'Theory')->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Thursday'){
+                $child['weekday_id'] = 4;
+                $session_count = TimeSlots::where('weekday_id', 4)->where('exam_type', 'Theory')->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Friday'){
+                $child['weekday_id'] = 5;
+                $session_count = TimeSlots::where('weekday_id', 5)->where('exam_type', 'Theory')->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Saturday'){
+                $child['weekday_id'] = 6;
+                $session_count = TimeSlots::where('weekday_id', 6)->where('exam_type', 'Theory')->count();
+                $child['session_count'] = $session_count;
+            }else{
+                $child['weekday_id'] = 7;
+                $session_count = TimeSlots::where('weekday_id', 7)->where('exam_type', 'Theory')->count();
+                $child['session_count'] = $session_count;
+            }
+            array_push($days, $child);
+        }
+        return response()->json($days);
+    }
+
+    public function getonlymanualdays($count, $category, $students){
+        $students = explode(',',$students);
+        $current = date('Y-m-d');
+        $days = [];
+        for ($i=1; $i <= $count ; $i++) {
+            $child = [];
+            $date = date('Y-m-d', strtotime("+$i day"));
+            $child['date'] = $date;
+            $child['ui_date'] = date('M-d', strtotime($date));
+            $day_name = date('l', strtotime("+$i day", strtotime($current)));
+            $child['name'] = $day_name;
+            $havesession = 0;
+            $result = 0;
+            $child['have_ids'] = [];
+            foreach($students as $std){
+                $result = Shedule::whereHas('sheduledstudents', function($query) use($std){
+                    $query->where('student_id', $std);
+                })->where('date', $date)->where('shedule_status', 1 )->get();
+                if($result->count() > 0){
+                    $havesession += 1;
+                    array_push($child['have_ids'], $std);
+                }else{
+                    array_push($child['have_ids'] ,0);
+                }
+            }
+            $child['have_session'] = $havesession;
+            if ($day_name == 'Monday') {
+                $child['weekday_id'] = 1;
+                $session_count = TimeSlots::where('weekday_id', 1)->where('exam_type', 'Practical')->where('vehicle_category', $category)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Tuesday'){
+                $child['weekday_id'] = 2;
+                $session_count = TimeSlots::where('weekday_id', 2)->where('exam_type', 'Practical')->where('vehicle_category', $category)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Wednesday'){
+                $child['weekday_id'] = 3;
+                $session_count = TimeSlots::where('weekday_id', 3)->where('exam_type', 'Practical')->where('vehicle_category', $category)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Thursday'){
+                $child['weekday_id'] = 4;
+                $session_count = TimeSlots::where('weekday_id', 4)->where('exam_type', 'Practical')->where('vehicle_category', $category)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Friday'){
+                $child['weekday_id'] = 5;
+                $session_count = TimeSlots::where('weekday_id', 5)->where('exam_type', 'Practical')->where('vehicle_category', $category)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Saturday'){
+                $child['weekday_id'] = 6;
+                $session_count = TimeSlots::where('weekday_id', 6)->where('exam_type', 'Practical')->where('vehicle_category', $category)->count();
+                $child['session_count'] = $session_count;
+            }else{
+                $child['weekday_id'] = 7;
+                $session_count = TimeSlots::where('weekday_id', 7)->where('exam_type', 'Practical')->where('vehicle_category', $category)->count();
+                $child['session_count'] = $session_count;
+            }
+            array_push($days, $child);
+        }
+        return response()->json($days);
+    }
+
+    public function getautomanualdays($count, $category, $trans, $students){
+        $students = explode(',',$students);
+        $current = date('Y-m-d');
+        $days = [];
+        for ($i=1; $i <= $count ; $i++) {
+            $child = [];
+            $date = date('Y-m-d', strtotime("+$i day"));
+            $child['date'] = $date;
+            $child['ui_date'] = date('M-d', strtotime($date));
+            $day_name = date('l', strtotime("+$i day", strtotime($current)));
+            $child['name'] = $day_name;
+            $havesession = 0;
+            $result = 0;
+            $child['have_ids'] = [];
+            foreach($students as $std){
+                $result = Shedule::whereHas('sheduledstudents', function($query) use($std){
+                    $query->where('student_id', $std);
+                })->where('date', $date)->where('shedule_status', 1 )->get();
+                if($result->count() > 0){
+                    $havesession += 1;
+                    array_push($child['have_ids'], $std);
+                }else{
+                    array_push($child['have_ids'] ,0);
+                }
+            }
+            $child['have_session'] = $havesession;
+            if ($day_name == 'Monday') {
+                $child['weekday_id'] = 1;
+                $session_count = TimeSlots::where('weekday_id', 1)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Tuesday'){
+                $child['weekday_id'] = 2;
+                $session_count = TimeSlots::where('weekday_id', 2)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Wednesday'){
+                $child['weekday_id'] = 3;
+                $session_count = TimeSlots::where('weekday_id', 3)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Thursday'){
+                $child['weekday_id'] = 4;
+                $session_count = TimeSlots::where('weekday_id', 4)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Friday'){
+                $child['weekday_id'] = 5;
+                $session_count = TimeSlots::where('weekday_id', 5)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->count();
+                $child['session_count'] = $session_count;
+            }elseif($day_name == 'Saturday'){
+                $child['weekday_id'] = 6;
+                $session_count = TimeSlots::where('weekday_id', 6)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->count();
+                $child['session_count'] = $session_count;
+            }else{
+                $child['weekday_id'] = 7;
+                $session_count = TimeSlots::where('weekday_id', 7)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->count();
+                $child['session_count'] = $session_count;
+            }
+            array_push($days, $child);
+        }
+        return response()->json($days);
+    }
+
+    public function gettheorysessionins($day){
+        $day_name = date('l', strtotime($day));
+        $day_id = 0;
+        if($day_name == 'Monday'){
+            $day_id = 1;
+        }
+        else if($day_name == 'Tuesday'){
+            $day_id = 2;
+        }
+        else if($day_name == 'Wednesday'){
+            $day_id = 3;
+        }
+        else if($day_name == 'Thursday'){
+            $day_id = 4;
+        }
+        else if($day_name == 'Friday'){
+            $day_id = 5;
+        }
+        else if($day_name == 'Saturday'){
+            $day_id = 6;
+        }
+        else{
+            $day_id = 7;
+        }
+        $results = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $day_id)->where('exam_type', 'Theory')->get();
+        return response()->json($results);
+    }
+
+    public function getmanualsessionins($day, $category){
+        $day_name = date('l', strtotime($day));
+        $day_id = 0;
+        if($day_name == 'Monday'){
+            $day_id = 1;
+        }
+        else if($day_name == 'Tuesday'){
+            $day_id = 2;
+        }
+        else if($day_name == 'Wednesday'){
+            $day_id = 3;
+        }
+        else if($day_name == 'Thursday'){
+            $day_id = 4;
+        }
+        else if($day_name == 'Friday'){
+            $day_id = 5;
+        }
+        else if($day_name == 'Saturday'){
+            $day_id = 6;
+        }
+        else{
+            $day_id = 7;
+        }
+        $results = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $day_id)->where('exam_type', 'Practical')->where('vehicle_category', $category)->get();
+        return response()->json($results);
+    }
+
+    public function getautomanualsessionsins($day, $category, $trans){
+        $day_name = date('l', strtotime($day));
+        $day_id = 0;
+        if($day_name == 'Monday'){
+            $day_id = 1;
+        }
+        else if($day_name == 'Tuesday'){
+            $day_id = 2;
+        }
+        else if($day_name == 'Wednesday'){
+            $day_id = 3;
+        }
+        else if($day_name == 'Thursday'){
+            $day_id = 4;
+        }
+        else if($day_name == 'Friday'){
+            $day_id = 5;
+        }
+        else if($day_name == 'Saturday'){
+            $day_id = 6;
+        }
+        else{
+            $day_id = 7;
+        }
+        $results = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $day_id)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->get();
+        return response()->json($results);
+    }
+
+    public function othersessions($date){
+        $othersessions = Shedule::where('date', $date)->where('shedule_status', 1)->withcount('SheduledStudents')->whereHas('SheduledStudents')->get();
+        return response()->json($othersessions);
+    }
+
+    public function getcustometime($date){
+
+        $absent_ids = [];
+        // check single day leaves
+        $single_leave_days = EmplooyeeLeave::where('start_date', $date)->where('status', 1)->get();
+        if(count($single_leave_days) > 0){
+            foreach ($single_leave_days as $leave) {
+                $absent_ids[] = $leave->user_id;
+            }
+        }
+        // check more leave days
+        $more_leave_days = EmplooyeeLeave::where('start_date', '<', $date)->where('end_date', '>=', $date)->where('status', 1)->get();
+        if (count($more_leave_days) > 0) {
+            foreach ($more_leave_days as $leave) {
+                $absent_ids[] = $leave->user_id;
+            }
+        }
+
+        $instructors = Instructor::with(['user', 'shedules' => function($query) use($date){
+            $query->where('date', $date);
+        }])->get();
+        $result = [];
+        foreach($instructors as $ins){
+            $child = [];
+            $child['user_id'] = $ins->user_id;
+            $shedules = [];
+            if(count($ins->shedules) > 0){
+                foreach($ins->shedules as $shedule){
+                    $shedules[] = $shedule->time;
+                }
+            }
+            $child['working_times'] = $shedules;
+            if(in_array($ins->user_id, $absent_ids)){
+                $child['status'] = 0;
+            }else{
+                $child['status'] = 1;
+            }
+            array_push($result, $child);
+        }
+        return response()->json($result);
+    }
+
+    public function confirmlaststep(Request $request){
+        $session_type = $request->session_type;
+        $date = $request->date;
+        $transmission = 'none';
+        $category = 'none';
+        if($session_type == 'practicle'){
+            $transmission = $request->transmission;
+            $category = $request->category[0];
+        }
+        $type = $request->type;
+        if($type == 'defined'){
+            $time = $request->timeslots;
+            $ins = "instructor-".$time;
+            $instructor = $request->$ins;
+        }
+        if($type == 'custome'){
+            $time = $request->custome_time;
+            $instructor = $request->custome_instructors;
+        }
+        $title = $request->title;
+        if(!$title){
+            $count = Shedule::count();
+            $title = 'Session '.($count + 1);
+        }
+
+        $shedule = Shedule::create([
+            'title' => $title,
+            'date' => $date,
+            'time' => $time,
+            'lesson_type' => $session_type,
+            'instructor' => $instructor,
+            'vahicle_category' => $category,
+            'transmission' => $transmission,
+            'shedule_status' => 1,
+        ]);
+
+        $students = $request->students;
+        foreach ($students as $std) {
+            SheduledStudents::create([
+                'shedule_id' => $shedule->id,
+                'student_id' => $std,
+            ]);
+        }
+
+        $insalert = "You have to instruct a new $session_type on $date at $time";
+        $stdalert = "You have to participate a new $session_type on $date at $time";
+
+        $insalertmsg = SheduleAlert::create([
+            'shedule_id' => $shedule->id,
+            'message' => $insalert,
+        ]);
+        AlertForStudent::create([
+            'shedulealert_id' => $insalertmsg->id,
+            'student_id' => $instructor,
+            'alert_status' => 0,
+        ]);
+
+        $stdalertmsg = SheduleAlert::create([
+            'shedule_id' => $shedule->id,
+            'message' => $stdalert,
+        ]);
+        foreach ($students as $std) {
+            AlertForStudent::create([
+                'shedulealert_id' => $stdalertmsg->id,
+                'student_id' => $std,
+                'alert_status' => 0,
+            ]);
+            Attendance::create([
+                'shedule_id' => $shedule->id,
+                'user_id' => $std,
+                'attendance' => 0
+            ]);
+        }
+
+        return redirect()->route('owneraddschedule')->with('successmsg', 'Schedule added successfully !!');
     }
 }

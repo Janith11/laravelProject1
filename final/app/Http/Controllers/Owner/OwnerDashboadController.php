@@ -97,8 +97,6 @@ class OwnerDashboadController extends Controller
             foreach ($check as $key => $value) {
                 $result = Shedule::find($value->id);
                 $result->shedule_status = 4;
-                $result->color = "#FF891A";
-                $result->textColor = "#040124";
                 $result->save();
             }
         }

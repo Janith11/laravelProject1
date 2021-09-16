@@ -827,6 +827,9 @@
                                     <a href="{{ route('addstudent') }}" class="dropdownitem">Add Student</a>
                                 </li>
                                 <li>
+                                    <a href="{{ route('studentgroups') }}" class="dropdownitem">Student Groups</a>
+                                </li>
+                                <li>
                                     <a href="{{ route('ownerexamresult') }}" class="dropdownitem">Exam Results</a>
                                 </li>
                                 <li>
@@ -876,7 +879,10 @@
                                     <a href="{{ route('ownershedulelist') }}" class="dropdownitem" >Shedule List</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('calendar') }}" class="dropdownitem">Add Shedule</a>
+                                    <a href="{{ route('owneraddschedule') }}" class="dropdownitem">Add Schedule</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('calendar') }}" class="dropdownitem">Calender</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('timetable') }}" class="dropdownitem">Time Slots</a>

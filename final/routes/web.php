@@ -139,7 +139,21 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/addshedule/calender/updateschedule/{id}/{date}', 'Owner\ShedulingController@reupdateshedule')->name('updateexistschedule');
     Route::post('/addshedule/calender/saveupdateschedule', 'Owner\ShedulingController@saveupdateschedule')->name('saveupdateschedule');
     Route::get('/gettheorysessions/{dayid}', 'Owner\ShedulingController@gettheorysession');
-    Route::get('/getpracticlesessions/{dayid}/{category}', 'Owner\ShedulingController@getpracticlesession');
+    Route::get('/getpracticlesessions/{dayid}/{category}/{trans}', 'Owner\ShedulingController@getpracticlesession');
+
+    Route::get('/owneraddschedule', 'Owner\ShedulingController@owneraddschedule')->name('owneraddschedule');
+    Route::get('/theorystudents', 'Owner\ShedulingController@getalltheorystudents');
+    Route::get('/aoutomanualstudents/{category}/{trans}', 'Owner\ShedulingController@getautomanualstudents');
+    Route::get('/manualstudents/{category}', 'Owner\ShedulingController@getmanualstudents');
+    Route::get('/theorydays/{count}/{students}', 'Owner\ShedulingController@gettheorydays');
+    Route::get('/onlymanualdays/{count}/{category}/{students}', 'Owner\ShedulingController@getonlymanualdays');
+    Route::get('/automanualdays/{count}/{category}/{trans}/{studnets}', 'Owner\ShedulingController@getautomanualdays');
+    Route::get('/theorysessionsins/{date}', 'Owner\ShedulingController@gettheorysessionins');
+    Route::get('/manualsessionsins/{date}/{category}', 'Owner\ShedulingController@getmanualsessionins');
+    Route::get('/automanualsessionsins/{date}/{category}/{trans}', 'Owner\ShedulingController@getautomanualsessionsins');
+    Route::get('/othersessons/{date}', 'Owner\ShedulingController@othersessions');
+    Route::get('/custometime/{date}', 'Owner\ShedulingController@getcustometime');
+    Route::post('/confirmshedule', 'Owner\ShedulingController@confirmlaststep')->name('confirmfinalstep');
     // my end
 
     Route::get('/allevents', 'Owner\ShedulingController@allevents')->name('allevents');
@@ -247,6 +261,9 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/requestdetails/accept', 'Owner\RequestAlertController@accept')->name('acceptshedulerequest');
     Route::post('/requestdetails/ignore', 'Owner\RequestAlertController@ignore')->name('ignoreshedulerequest');
     // Route::get('requestalert/accepetrequest/{id}','Owner\RequestAlertController@acceptschedule')->name('studentschedulerequestaccepet');
+
+    // groups
+    Route::get('/studentgroups', 'Owner\StudentGroups@index')->name('studentgroups');
 
 });
 

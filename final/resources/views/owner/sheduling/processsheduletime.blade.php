@@ -269,6 +269,24 @@
         background-color: #EB9413;
     }
 
+    /* auto manual style */
+    .trans_click{
+        display: none
+    }
+
+    .trans{
+        border: 1px solid #010824;
+        border-radius: 5px;
+        padding: 5px 10px 0px 10px;
+        color: #010824;
+        cursor: pointer;
+    }
+
+    .trans_click:checked + .trans{
+        background-color: #010824;
+        color: white
+    }
+
 </style>
 
 <div class="container">
@@ -370,34 +388,40 @@
             <div id="card">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title" style="color: #222944; font-weight: bold">Choose a session time</h5>
-                        <hr style="border: 0.5px solid #222944">
-                        <div>
-                            @if(count($timeslots) == 0)
-                                <div class="alert alert-info" role="alert">
-                                    <h5 style="color: #222944">You hadn't defined time slots for {{ $selectdayname }}, <a href="{{ route('timetable') }}">create</a></h5>
-                                </div>
-                            @else
-                                <h6 style="color: #040920; font-weight: bold">Choose session type</h6>
-                                <div style="display: inline-block">
-                                    <div class="form-check">
-                                        <input class="form-check-input session_click" type="radio" name="session_type" id="theory" value="theory">
-                                        <label class="form-check-label session" for="theory">
-                                            <h5>Theory</h5>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div style="display: inline-block">
-                                    <div class="form-check">
-                                        <input class="form-check-input session_click" type="radio" name="session_type" id="practicle" value="practicle">
-                                        <label class="form-check-label session" for="practicle">
-                                            <h5>Practicle</h5>
-                                        </label>
-                                    </div>
-                                </div>
+                        <div style="display:inline-block ">
+                            <h5 style="color: #040920; font-weight: bold">Choose session type</h5>
+                        </div>
+                        <div style="display: inline-block">
+                            <div class="form-check">
+                                <input class="form-check-input session_click" type="radio" name="session_type" id="theory" value="theory">
+                                <label class="form-check-label session" for="theory">
+                                    <h5>Theory</h5>
+                                </label>
+                            </div>
+                        </div>
+                        <div style="display: inline-block">
+                            <div class="form-check">
+                                <input class="form-check-input session_click" type="radio" name="session_type" id="practicle" value="practicle">
+                                <label class="form-check-label session" for="practicle">
+                                    <h5>Practicle</h5>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                                <div class="form-group" style="display: none; padding-top: 20px" id="categorypanel">
-                                    <h6 style="color: #040920; font-weight: bold">Choose vehicle category</h6>
+        <div class="row-mb-2" id="categorypanel" style="display: none">
+            <div id="card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div style="display: inline-block; padding-right: 10px">
+                                    <h5 style="color: #040920; font-weight: bold">Choose vehicle category</h5>
+                                </div>
+                                <div style="display: inline-block; padding-right: 10px">
                                     <select class="form-control" id="category" name="category[]">
                                         <option value="select">Select</option>
                                         @foreach ($categories as $cat)
@@ -405,9 +429,12 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-                                <div id="transmission-panel" style="display: none; padding-top: 10px">
-                                    <h6 style="color: #040920; font-weight: bold">Choose transmission</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <div style="display: inline-block; padding-right: 10px">
+                                    <h5 style="color: #040920; font-weight: bold">Choose transmission</h5>
+                                </div>
+                                <div style="display: inline-block">
                                     <div style="display: inline-block">
                                         <div class="form-check">
                                             <input class="form-check-input trans_click" type="radio" name="transmission" id="auto" value="auto">
@@ -418,14 +445,39 @@
                                     </div>
                                     <div style="display: inline-block">
                                         <div class="form-check">
-                                            <input class="form-check-input trans_click" type="radio" name="transmission" id="manual" value="auto">
+                                            <input class="form-check-input trans_click" type="radio" name="transmission" id="manual" value="manual">
                                             <label class="form-check-label trans" for="manual">
                                                 <h5>Manual</h5>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="row-mb-2">
+            <div id="card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #010824; font-weight: bold">Choose a session time</h5>
+
+                        <input type="radio" class="timeslotbtn" id="defined" name="timeslotchooser">
+                        <label for="defined" id="slotchooser">Defined session time</label>
+                        <input type="radio" class="timeslotbtn" id="custome" name="timeslotchooser">
+                        <label for="custome" id="slotchooser">Custome session time</label>
+
+                        <hr style="border-top: 1px solid #010824; margin-top: -1px">
+
+                        <div>
+                            @if(count($timeslots) == 0)
+                                <div class="alert alert-info" role="alert">
+                                    <h5 style="color: #222944">You hadn't defined time slots for {{ $selectdayname }}, <a href="{{ route('timetable') }}">create</a></h5>
+                                </div>
+                            @else
                                 <div class="table-responsive" style="padding: 10px">
                                     <h5 style="color: #010824; padding: 10px; font-weight: bold; display: none" id="heading">Sessions on {{ $selectdayname }} </h5>
                                     <table class="table table-hover">
@@ -489,6 +541,8 @@
                                 </div>
                             @endif
                         </div>
+
+                        {{-- define custome time --}}
                         <div class="row">
                             <div id="card">
                                 <div>
@@ -504,6 +558,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div id="card">
                                 <div id="custome_slot">
@@ -559,7 +614,9 @@
                                                         <small>Work Hours</small>
                                                         <ul style="list-style-type: none">
                                                             @foreach ($instructor->shedules as $shedule)
-                                                                <li>{{ $shedule->time }}</li>
+                                                                @if ($shedule->date == $date)
+                                                                    <li>{{ $shedule->time }}</li>
+                                                                @endif
                                                             @endforeach
                                                         </ul>
                                                     @endif
@@ -570,9 +627,11 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row justify-content-md-center">
                             <button class="btn btn-primary" type="submit">Confirm Time Slot</button>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -605,10 +664,6 @@
         $('.deff-slot-name').click(function(){
             $('.deff-slot-name').removeClass('deff-slot-name-active');
             $(this).addClass('deff-slot-name-active');
-        });
-
-        $(document).ready(function(){
-            $('aside ul .shedulings').css('border-left', '5px solid #00bcd4');
         });
 
         $('input[name="session_type"]').on('change', function(){
@@ -655,44 +710,94 @@
             }
         });
 
+        // check transmission is checked
+        $('input[name="transmission"]').on('change', function(){
+            var cat = document.getElementById('category').value;
+            var trans = $('input[name="transmission"]:checked').val();
+            var day = {{ $dayid }};
+            if(cat == 'select'){
+                $('#errordiv').empty();
+                $('#errordiv').append('<div class="alert alert-danger">Please Select a category !!</div>');
+            }else{
+                $.ajax({
+                    type: 'get',
+                    url: '/getpracticlesessions/'+day+'/'+cat+'/'+trans,
+                    success:function(data){
+                        if (!$.trim(data)){
+                            console.log('empty');
+                            $('#errordiv').empty();
+                            $('#inslist').empty();
+                            $('#heading').hide();
+                            $('#infoalert').show();
+                            $('#errordiv').append('<div class="alert alert-info">Please Choose an another category or another date</div>');
+                        }else{
+                            console.log('success');
+                            $('#inslist').empty();
+                            data.forEach(function(row){
+                                var tablerow = '<tr><td style="vertical-align:middle"><div class="form-check"><input class="form-check-input slotclick" type="radio" name="timeslot" value="'+row.id+'" id="'+row.time_slot+'"><label for="'+row.time_slot+'" class="slot"><div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px" class="icon"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><h6>'+capitalizeFirstLetter(row.slot_name)+'</h6></div></label></div></td><td style="vertical-align: middle"><h5 style="color: #080529; font-weight: bold">'+row.time_slot+'</h5></td><td>'+instructorslist(row.instructor_working_time_slot)+'</td></td></tr>';
+                                $('#inslist').append(tablerow);
+                            });
+                            $('#infoalert').hide();
+                            $('#heading').show();
+                            $('#errordiv').empty();
+                        }
+                    },
+                    error:function(err){
+                        console.log('fail');
+                        $('#errordiv').empty();
+                        $('#inslist').empty();
+                        $('#infoalert').show();
+                        $('#heading').hide();
+                        $('#errordiv').append('<div class="alert alert-danger">Please Select a vehicle category !!</div>');
+                    }
+                });
+            }
+        });
+
+        // check category is checked
         $('select').on('change', function(){
             var cat = document.getElementById('category').value;
-            console.log('change '+cat);
+            var trans = $('input[name="transmission"]:checked').val();
+            console.log('change '+trans);
             var day = {{ $dayid }};
 
-            $.ajax({
-                type: 'get',
-                url: '/getpracticlesessions/'+day+'/'+cat,
-                success:function(data){
-                    if (!$.trim(data)){
-                        console.log('empty');
+            if(trans == 'empty'){
+                $('#errordiv').empty();
+                $('#errordiv').append('<div class="alert alert-danger">Please select transmission !!</div>');
+            }else{
+                $.ajax({
+                    type: 'get',
+                    url: '/getpracticlesessions/'+day+'/'+cat+'/'+trans,
+                    success:function(data){
+                        if (!$.trim(data)){
+                            console.log('empty');
+                            $('#errordiv').empty();
+                            $('#inslist').empty();
+                            $('#heading').hide();
+                            $('#infoalert').show();
+                            $('#errordiv').append('<div class="alert alert-info">Please Choose an another category or another date</div>');
+                        }else{
+                            console.log('success');
+                            $('#inslist').empty();
+                            data.forEach(function(row){
+                                var tablerow = '<tr><td style="vertical-align:middle"><div class="form-check"><input class="form-check-input slotclick" type="radio" name="timeslot" value="'+row.id+'" id="'+row.time_slot+'"><label for="'+row.time_slot+'" class="slot"><div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px" class="icon"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><h6>'+capitalizeFirstLetter(row.slot_name)+'</h6></div></label></div></td><td style="vertical-align: middle"><h5 style="color: #080529; font-weight: bold">'+row.time_slot+'</h5></td><td>'+instructorslist(row.instructor_working_time_slot)+'</td></td></tr>';
+                                $('#inslist').append(tablerow);
+                            });
+                            $('#infoalert').hide();
+                            $('#heading').show();
+                            $('#errordiv').empty();
+                        }
+                    },
+                    error:function(err){
+                        console.log('fail');
                         $('#errordiv').empty();
                         $('#inslist').empty();
-                        $('#heading').hide();
                         $('#infoalert').show();
-                        $('#errordiv').append('<div class="alert alert-info">Please Choose an another category or another date</div>');
-                    }else{
-                        console.log('success');
-                        $('#inslist').empty();
-                        data.forEach(function(row){
-                            var tablerow = '<tr><td style="vertical-align:middle"><div class="form-check"><input class="form-check-input slotclick" type="radio" name="timeslot" value="'+row.id+'" id="'+row.time_slot+'"><label for="'+row.time_slot+'" class="slot"><div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px" class="icon"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><h6>'+capitalizeFirstLetter(row.slot_name)+'</h6></div></label></div></td><td style="vertical-align: middle"><h5 style="color: #080529; font-weight: bold">'+row.time_slot+'</h5></td><td>'+instructorslist(row.instructor_working_time_slot)+'</td></td></tr>';
-                            $('#inslist').append(tablerow);
-                        });
-                        $('#infoalert').hide();
-                        $('#heading').show();
-                        $('#errordiv').empty();
+                        $('#heading').hide();
+                        $('#errordiv').append('<div class="alert alert-danger">Please Select a vehicle category !!</div>');
                     }
-                },
-                error:function(err){
-                    console.log('fail');
-                    $('#errordiv').empty();
-                    $('#inslist').empty();
-                    $('#infoalert').show();
-                    $('#heading').hide();
-                    $('#errordiv').append('<div class="alert alert-danger">Please Select a vehicle category !!</div>');
-                }
-            });
-
+                });
+            }
         });
 
         function instructorslist(array){
@@ -730,6 +835,10 @@
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
+
+        $(document).ready(function(){
+            $('aside ul .shedulings').css('border-left', '5px solid #00bcd4');
+        });
 
     </script>
 
