@@ -17,7 +17,12 @@ class StudentMiddleware
     public function handle($request, Closure $next)
     {
         if(Auth::check() && Auth::user()->role->id == 3){
-            return $next($request);
+            if(Auth::user()->contact_no_isVerified){
+                return $next($request);
+            }else{
+                Auth::logout();
+                return redirect()->back()->with('message', 'Your Account is not Verified!');
+            }
         }else{
             return redirect()->route('login');
         }

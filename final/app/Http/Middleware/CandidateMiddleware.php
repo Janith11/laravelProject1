@@ -17,7 +17,13 @@ class CandidateMiddleware
     public function handle($request, Closure $next)
     {
         if(Auth::check() && Auth::user()->role->id == 4){
-            return $next($request);
+            $uid=Auth::user()->id;
+            if(Auth::user()->contact_no_isVerified){
+                return $next($request);
+            }else{
+                // Auth::logout();
+                return redirect()->route('AgainResendOTPLogin');
+            }
         }else{
             return redirect()->route('login');
         }

@@ -68,10 +68,10 @@
                                         <td ><h5 class="card-title">ID</h5></td>
                                         <td><h5>{{ $instructor->id }}</h5></td>
                                       </tr>
-                                      <tr>
+                                      {{-- <tr>
                                         <td ><h5 class="card-title">Email</h5></td>
                                         <td><h5>{{ $instructor->email }}</h5></td>
-                                      </tr>
+                                      </tr> --}}
                                       <tr>
                                         <td ><h5 class="card-title">Contact</h5></td>
                                         <td><h5>{{ $instructor->contact_number }}</h5></td>
