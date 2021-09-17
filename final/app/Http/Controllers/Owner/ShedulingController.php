@@ -48,20 +48,6 @@ use Illuminate\Support\Facades\DB;
 class ShedulingController extends Controller
 {
 
-    // public $date;
-    // public $time;
-    // public $choosedins;
-    // public $instructors;
-    // public $students;
-
-    // public function setdate($date){
-    //     $this->date = $date;
-    // }
-
-    // public function getdate(){
-    //     return $this->date;
-    // }
-
     public function index(){
 
         $prevhour = date('H') - 1;
@@ -109,14 +95,16 @@ class ShedulingController extends Controller
         $uncompleteshedules_sixmonth = Shedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 4)->get();
         $uncompleteshedules_year = Shedule::whereBetween('date', [$date_month, $current])->where('shedule_status', '=', 4)->get();
 
-        return view('owner.sheduling.shedulelist', compact('shedules','totalshedules', 'today_shedules', 'totalshedules_month', 'totalshedules_lastmonth', 'next_shedules','totalshedules_sixmonth', 'totalshedules_year','complateshedules_month','complateshedules_lastmonth', 'complateshedules_sixmonth', 'complateshedules_year', 'canceledshedules_month','canceledshedules_lastmonth', 'canceledshedules_sixmonth','canceledshedules_year', 'uncompleteshedules_month', 'uncompleteshedules_lastmonth', 'uncompleteshedules_sixmonth', 'uncompleteshedules_year'));
+        // scheduling type
+        $shedulingtype = ShedulingType::select('type')->first();
+        $type = $shedulingtype->type;
+
+        return view('owner.sheduling.shedulelist', compact('shedules','totalshedules', 'today_shedules', 'totalshedules_month', 'totalshedules_lastmonth', 'next_shedules','totalshedules_sixmonth', 'totalshedules_year','complateshedules_month','complateshedules_lastmonth', 'complateshedules_sixmonth', 'complateshedules_year', 'canceledshedules_month','canceledshedules_lastmonth', 'canceledshedules_sixmonth','canceledshedules_year', 'uncompleteshedules_month', 'uncompleteshedules_lastmonth', 'uncompleteshedules_sixmonth', 'uncompleteshedules_year', 'type'));
         // return $today_shedules;
     }
 
-    public function addschedule(){
-        $shedulingtype = ShedulingType::select('type')->first();
-        $type = $shedulingtype->type;
-        return view('owner.sheduling.addshedule', compact('type'));
+    public function calender(){
+        return view('owner.sheduling.calender');
     }
 
     public function allevents(){
@@ -172,198 +160,6 @@ class ShedulingController extends Controller
     }
 
     // ====================================== ADD NEW PART ===========================
-    public function checkinputdate($date){
-
-        $today = Carbon::now()->today();
-        $start = strtotime($today);
-        $end = strtotime($date);
-        $daydiff = ($end - $start)/60/60/24;
-        $selectdayname = date('l', strtotime($date));
-
-        // chack day difference with selected date
-        if($daydiff <= 0){
-            return back()->with('errormsg', 'Cannot add Shedule for previous Day !!');
-        }
-
-        // absent instructors id list
-        $absent_ids = [];
-        // check single day leaves
-        $single_leave_days = EmplooyeeLeave::where('start_date', $date)->where('status', 1)->get();
-        if(count($single_leave_days) > 0){
-            foreach ($single_leave_days as $leave) {
-                $absent_ids[] = $leave->user_id;
-            }
-        }
-        // check more leave days
-        $more_leave_days = EmplooyeeLeave::where('start_date', '<', $date)->where('end_date', '>=', $date)->where('status', 1)->get();
-        if (count($more_leave_days) > 0) {
-            foreach ($more_leave_days as $leave) {
-                $absent_ids[] = $leave->user_id;
-            }
-        }
-
-        $leaves = collect($absent_ids);
-        $presentinstructors = Instructor::with(['user' => function($query){
-            $query->where('status', 1);
-        }, 'Shedules' => function($query) use($date){
-            $query->where('date', $date);
-        }])->whereNotIn('user_id', $leaves)->get();
-
-        if(count($presentinstructors) == 0){
-            return back()->with('errormsg', 'All Instructors are Leave on today !!');
-        }
-
-        // check student availability
-        $students_id = Shedule::with('sheduledstudents')->where('date', $date)->get();
-        $studentwithshedule = [];
-        foreach ($students_id as $key => $value) {
-            foreach ($value->sheduledstudents as $id) {
-                $studentwithshedule[] = $id->student_id;
-            }
-        }
-        $havesheduled = collect($studentwithshedule);
-        if (count($studentwithshedule) > 0) {
-            $filterstudents = Student::with(['user', 'attendances'])->whereNotIn('user_id', $havesheduled)->whereHas('user', function($query){
-                $query->where('status', 1);
-            })->get();
-            if (count($filterstudents) == 0) {
-                return back()->with('errormsg', 'Cannot add new shedule on this day becouse of all student have session on this day !!');
-            }else{
-                $presentstudents = $filterstudents;
-            }
-        }else{
-            $presentstudents = Student::with(['user','attendances'])->whereHas('user', function($query){
-                $query->where('status', 1);
-            })->get();
-        }
-
-        // get weekday id
-        $timeslot = WeekDay::where('day_name', $selectdayname)->select('id')->first();
-        $dayid = $timeslot->id;
-
-        //get defined timeslots with instructors
-        $timeslots = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $dayid)->get();
-
-        // get selected date shedules with students count
-        $shedules = Shedule::where('date', $date)->withcount('SheduledStudents')->whereHas('SheduledStudents')->get();
-
-        // instructor list
-        $instructors = Instructor::with(['user', 'shedules' => function($query) use($date){
-            $query->where('date', $date);
-        }])->get();
-
-        // get all categories
-        $categories = VehicleCategory::all();
-
-        return view('owner.sheduling.processsheduletime', compact('date', 'timeslots', 'shedules', 'selectdayname', 'instructors', 'absent_ids', 'categories', 'dayid'));
-    }
-
-    public function checkinputtimeslot(Request $request){
-        $date = $request->date;
-        if ($request->has('slotdivider')) {
-            $custometime = $request->custometime;
-            $customeinstructor = $request->customeinstructor;
-            if($custometime == ''){
-                return back()->with('errormessage', 'If you want Custome time slot, Please Enter a time !!');
-            }
-            if(empty($customeinstructor)){
-                return back()->with('errormessage', 'If you want Custome time slot, Please choose an instructor !!');
-            }
-            $time = $custometime;
-            $instructor = $customeinstructor[0];
-        }else{
-            $deffslot = $request->slottime;
-            if(empty($deffslot)){
-                return back()->with('errormessage', 'You have to choose available or custome time slot !!');
-            }
-            $value = $deffslot[0].'-select';
-            $deffinstructor = $request->$value;
-            if(empty($deffinstructor)){
-                return back()->with('errormessage', 'Please choose relevent Instructor !!');
-            }
-            $time = $deffslot[0];
-            $instructor = $deffinstructor[0];
-        }
-
-        // instructors details
-        $instructors = Instructor::with('user')->get();
-
-        // get free students
-        $havesessions = Shedule::with('sheduledstudents')->whereHas('sheduledstudents')->where('date', $date)->get();
-        $havesessionids = [];
-        foreach($havesessions as $session){
-            foreach ($session->sheduledstudents as $student) {
-                $havesessionids[] = $student->student_id;
-            }
-        }
-        $filterids = collect($havesessionids);
-        $students = Student::with('user')->whereNotIn('user_id', $filterids)->get();
-        // return $students;
-        return view('owner.sheduling.precesscreateshedule', compact('date', 'time', 'instructor', 'instructors', 'students'));
-    }
-
-    public function createschedule(CreateScheduleRequest $request){
-        $date = $request->date;
-        $time = $request->time;
-        $instructor = $request->instructor;
-        $session_name = $request->session_name;
-        $session_type = $request->session_type;
-        $students = $request->students;
-
-        $schedule = Shedule::create([
-            'title' => $session_name,
-            'date' => $date,
-            'color' => '#040124',
-            'textColor' => '#35FF35',
-            'time' => $time,
-            'lesson_type' => $session_type,
-            'instructor' => $instructor,
-            'shedule_status' => 1,
-        ]);
-
-        foreach ($students as $student) {
-            SheduledStudents::create([
-                'shedule_id' => $schedule->id,
-                'student_id' => $student
-            ]);
-            Attendance::create([
-                'shedule_id' => $schedule->id,
-                'user_id' => $student,
-                'attendance' => 0
-            ]);
-        }
-
-        // alert for students
-        $studentmessage = "You Have to Participate to a new $session_type Session on $date at $time.";
-        $studentalert = SheduleAlert::create([
-            'shedule_id' => $schedule->id,
-            'message' => $studentmessage
-        ]);
-        foreach ($students as $student) {
-            AlertForStudent::create([
-                'shedulealert_id' => $studentalert->id,
-                'student_id' => $student,
-                'alert_status' => 0
-            ]);
-        }
-
-        //alert for instructor
-        $instructormessage = "You Have to Instruct to a new $session_type Session on $date at $time.";
-        $instructoralert = SheduleAlert::create([
-            'shedule_id' => $schedule->id,
-            'message' => $instructormessage
-        ]);
-        foreach ($students as $student) {
-            AlertForStudent::create([
-                'shedulealert_id' => $instructoralert->id,
-                'student_id' => $student,
-                'alert_status' => 0
-            ]);
-        }
-
-        return redirect('/');
-    }
-
     public function reupdateshedule($id, $date){
         $instructors = Instructor::with('user')->get();
         $shedules = Shedule::where('id', $id)->withCount('sheduledstudents')->get();
@@ -535,7 +331,6 @@ class ShedulingController extends Controller
         return view('owner.sheduling.todayshedules', compact('today_shedules'));
     }
 
-
     // complate shedule
     public function markascomplete($id){
 
@@ -630,16 +425,6 @@ class ShedulingController extends Controller
 
         }
 
-    }
-
-    public function gettheorysession($dayid){
-        $results = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $dayid)->where('exam_type', 'theory')->get();
-        return response()->json($results);
-    }
-
-    public function getpracticlesession($dayid, $category, $trans){
-        $results = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $dayid)->where('exam_type', 'Practical')->where('vehicle_category', $category)->where('transmission', $trans)->get();
-        return response()->json($results);
     }
 
     // my new functions ==========================================================

@@ -878,9 +878,11 @@
                                 <li>
                                     <a href="{{ route('ownershedulelist') }}" class="dropdownitem" >Shedule List</a>
                                 </li>
-                                <li>
-                                    <a href="{{ route('owneraddschedule') }}" class="dropdownitem">Add Schedule</a>
-                                </li>
+                                @if($type->type == 1)
+                                    <li>
+                                        <a href="{{ route('owneraddschedule') }}" class="dropdownitem">Add Schedule</a>
+                                    </li>
+                                @endif
                                 <li>
                                     <a href="{{ route('calendar') }}" class="dropdownitem">Calender</a>
                                 </li>
