@@ -111,12 +111,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-4" id="register_form_item">
+                            {{-- <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
                                     <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-sm-4" id="register_form_item">
                                 <label for="gender">Gender</label>
                                 <div class="row">
@@ -152,9 +152,7 @@
                                     <input type="date" class="form-control" id="bithday" name="birthday">
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label style="padding-left: 15px; padding-top: 10px">Address No</label>
@@ -168,6 +166,10 @@
                                     <input type="text" name="addressstreatname" class="form-control" id="addresslinetwo" placeholder="Street ...">
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+                           
 
                             <div class="col-sm-4">
                                 <div class="form-group">

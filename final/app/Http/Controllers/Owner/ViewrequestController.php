@@ -10,6 +10,8 @@ use App\Exam;
 use App\Message;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Exception;
+use Twilio\Rest\Client;
 
 class ViewrequestController extends Controller
 {
@@ -29,7 +31,7 @@ class ViewrequestController extends Controller
             'middlename' => 'required',
             'lastname' => 'required',
             'nicnumber' => 'required',
-            'email' => 'required',
+            // 'email' => 'required',
             'gender' => 'required',
             'contactnumber' => 'required',
             'birthday' => 'required|date',
@@ -39,6 +41,11 @@ class ViewrequestController extends Controller
             'price' => 'required',
             'totalsession' => 'required'
         ]);
+            //get ids from .env
+            $sid    = getenv("TWILIO_SID");
+            $token  = env("TWILIO_AUTH_TOKEN");
+            $from   = env("TWILIO_NUMBER");  
+
             $user = User::find($id);
 
             $user->f_name = $request->firstname;
@@ -46,7 +53,7 @@ class ViewrequestController extends Controller
             $user->m_name = $request->middlename;
             $user->l_name = $request->lastname;
             $user->nic_number = $request->nicnumber;
-            $user->email = $request->email;
+            // $user->email = $request->email;
             $user->gender = $request->gender;
             $user->contact_number = $request->contactnumber;
             $user->dob = $request->birthday;
@@ -103,6 +110,27 @@ class ViewrequestController extends Controller
                     'has_read'=>0,
                     'text'=>'You can schedule the time table with your free time. Good luck in your future career. Thank You!'
                 ]);
+
+                //sending sms user account is activated
+                //user number convert to international number onlu for Sri Lanka p:)
+                $Co_number =$user->contact_number;
+                $str = ltrim($Co_number, $Co_number[0]);
+                $International_No = "+94".$str;
+    
+                try {
+                
+                    $twilio = new Client($sid, $token);
+                    $message = $twilio->messages
+                        ->create($International_No, // to
+                                array(
+                                    "body" => "Hello, ".$user->f_name." ".$user->l_name.". Your Account is activated by Administration. Now you can continue your lessons. Thank You. \n-Driving School Management System- .",
+                                    "from" => $from
+                                )
+                        );
+        
+                    }catch (Exception $e) {
+                        dd("Error: ". $e->getMessage());
+                    }
              return redirect()->route('viewrequest')->with('successmsg', 'Student Registered Successfully !');
     }
 
@@ -110,6 +138,26 @@ class ViewrequestController extends Controller
             $user = User::find($id);
             $user->status = 0;
             $user->save();
+
+             //user number convert to international number onlu for Sri Lanka p:)
+             $Co_number =$user->contact_number;
+             $str = ltrim($Co_number, $Co_number[0]);
+             $International_No = "+94".$str;
+ 
+             try {
+             
+                 $twilio = new Client($sid, $token);
+                 $message = $twilio->messages
+                     ->create($International_No, // to
+                             array(
+                                 "body" => "Hello, ".$user->f_name." ".$user->l_name.". Your request deleted by Administration. Contact us for more details. Thank You. \n-Driving School Management System- .",
+                                 "from" => $from
+                             )
+                     );
+     
+                 }catch (Exception $e) {
+                     dd("Error: ". $e->getMessage());
+                 }
             return redirect()->route('viewrequest')->with('successmsg', 'Student Request is deleted Successfully !');
         }
         public function viewdeleterequests(){

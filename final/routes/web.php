@@ -25,6 +25,11 @@ Route::get('/', function () {
 })->name('firstpage');
 
 Auth::routes();
+//Auth Two Factor Authentication
+Route::get('/Verify-your-phone/{id}', 'Auth\TwoFactorAuthenteController@index')->name('TwoFactorAuth');
+Route::post('/Verify-your-phone/code', 'Auth\TwoFactorAuthenteController@verify')->name('TwoFactorAuthCode');
+Route::get('/Verify-your-phone/resend-code/{id}', 'Auth\TwoFactorAuthenteController@resendverify')->name('ResendOTPRegistration');
+Route::get('/Again-resend-OTP', 'Auth\TwoFactorAuthenteController@againresendverify')->name('AgainResendOTPLogin');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contactus', 'landingpage\ContactusController@index')->name('contactus');

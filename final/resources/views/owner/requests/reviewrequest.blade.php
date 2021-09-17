@@ -103,15 +103,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-8" id="register_form_item">
+                            {{-- <div class="col-sm-8" id="register_form_item">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
                                     <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="{{ $r->email }}" readonly>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
+                            </div> --}}
                             <div class="col-sm-4" id="register_form_item">
                                 <label for="gender">Gender</label>
                                 <div class="row">
@@ -141,17 +138,15 @@
                                     <input type="text" name="contactnumber" class="form-control" id="contactnumber" placeholder="Enter Contact Number ..." value="{{ $r->contact_number }}" readonly>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="row">
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="bithday">Birthday</label>
                                     <input type="date" class="form-control" id="bithday" name="birthday" value="{{ $r->dob }}" readonly>
                                 </div>
                             </div>
-
-                        </div>
-
-                     <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label >Address</label>
@@ -166,6 +161,9 @@
                                 </div>
                             </div>
 
+                        </div>
+
+                     <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="addresslineone">Address Line Two</label>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b63db30525b660444283a6a01d8f96ed",
+    "content-hash": "76640f1d62638e40dac1a5e44c597e92",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -352,21 +352,21 @@
         },
         {
             "name": "fakerphp/faker",
-            "version": "v1.15.0",
+            "version": "v1.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "89c6201c74db25fa759ff16e78a4d8f32547770e"
+                "reference": "271d384d216e5e5c468a6b28feedf95d49f83b35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/89c6201c74db25fa759ff16e78a4d8f32547770e",
-                "reference": "89c6201c74db25fa759ff16e78a4d8f32547770e",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/271d384d216e5e5c468a6b28feedf95d49f83b35",
+                "reference": "271d384d216e5e5c468a6b28feedf95d49f83b35",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0",
-                "psr/container": "^1.0",
+                "psr/container": "^1.0 || ^2.0",
                 "symfony/deprecation-contracts": "^2.2"
             },
             "conflict": {
@@ -386,7 +386,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "v1.15-dev"
+                    "dev-main": "v1.16-dev"
                 }
             },
             "autoload": {
@@ -411,9 +411,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v1.15.0"
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.16.0"
             },
-            "time": "2021-07-06T20:39:40+00:00"
+            "time": "2021-09-06T14:53:37+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -4414,6 +4414,60 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.3"
             },
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "6.28.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twilio/twilio-php.git",
+                "reference": "530be7f621fc8fb1d2af5ba5a70e278f262e048f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/530be7f621fc8fb1d2af5ba5a70e278f262e048f",
+                "reference": "530be7f621fc8fb1d2af5ba5a70e278f262e048f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3 || ^7.0",
+                "phpunit/phpunit": ">=4.5",
+                "theseer/phpdox": "^0.12.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "http://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "support": {
+                "issues": "https://github.com/twilio/twilio-php/issues",
+                "source": "https://github.com/twilio/twilio-php/tree/6.28.2"
+            },
+            "time": "2021-09-08T19:54:49+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
