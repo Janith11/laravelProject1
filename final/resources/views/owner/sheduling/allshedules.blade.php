@@ -11,7 +11,7 @@
 <div class="container">
 
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Shedules</h5>
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Schedules</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
         <a href="{{ route('owner.ownerdashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
@@ -19,7 +19,7 @@
             </svg>
         </a>
         <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> / Shedule List</a>
-        <a style="padding-top: 6px; padding-left: 10px"> / All Shedules</a>
+        <a style="padding-top: 6px; padding-left: 10px"> / All Schedules</a>
     </div>
 
     {{-- <div class="row mb-2 justify-content-end">

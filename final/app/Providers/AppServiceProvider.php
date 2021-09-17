@@ -71,5 +71,9 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts.landingpage', function($view){
             $view->with('companydetailfooter', \App\CompanyDetails::first()->get());
         });
+
+        view()->composer('layouts.ownerapp', function($view){
+            $view->with('type', \App\ShedulingType::select('type')->first());
+        });
     }
 }

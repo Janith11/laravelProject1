@@ -270,7 +270,7 @@
         var correctAns = questions[que_count].answer;
         console.log(correctAns);
         console.log(userAns);
-        if(correctAns==userAns){
+        if(correctAns == userAns){
             // alert('wrong');
             console.log("Answer is corect");
         }else{

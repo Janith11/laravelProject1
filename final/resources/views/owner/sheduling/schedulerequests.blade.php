@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Shedules</h5>
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Schedules</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
         <a href="{{ route('owner.ownerdashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
@@ -31,7 +31,7 @@
             <table class="table table-light table-sm table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">Image</th>  
+                    <th scope="col">Image</th>
                     <th scope="col">ID</th>
                     <th scope="col">Instructor</th>
                     <th scope="col">Date</th>
@@ -43,21 +43,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                @foreach ($requestdetails as $req) 
+                @foreach ($requestdetails as $req)
                   <tr>
-                    @foreach ($req->sheduledstudents as $schedule )                 
+                    @foreach ($req->sheduledstudents as $schedule )
                         @foreach ($userdetails as $user)
                             @if($schedule->student_id == $user->id)
                             <td><img src="/uploadimages/students_profiles/{{ $user->profile_img }}" alt="profile image" class="rounded-circle" style="max-width: 25px;height:auto"></td>
                             <td>{{ $user->id }}</td>
-                            @endif       
-                        @endforeach        
+                            @endif
+                        @endforeach
                     @endforeach
                     @foreach ($userdetails as $user)
                         @if ($req->instructor == $user->id)
                             <td>{{ $user->f_name }} {{ $user->l_name }}</td>
-                        @endif            
-                    @endforeach                              
+                        @endif
+                    @endforeach
                     <td>{{ $req->date }}</td>
                     <td>{{ $req->time }}</td>
                     <td>{{ $req->lesson_type }}</td>
@@ -65,7 +65,7 @@
                     <td><a href="" class="btn btn-danger btn-sm">Delete</a></td>
                     <td><a href="" class="btn btn-info btn-sm">More</a></td>
                   </tr>
-                @endforeach      
+                @endforeach
                 </tbody>
               </table>
         </div>

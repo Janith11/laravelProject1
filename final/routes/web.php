@@ -130,17 +130,11 @@ Route::middleware('checkrequest')->group(function(){
     // sheduling part
     Route::get('/shedulelist', 'Owner\ShedulingController@index')->name('ownershedulelist');
     Route::get('/shedulelist/viewdetails/{id}', 'owner\ShedulingController@viewdetails')->name('viewdetails');
-    Route::get('/shedulelist/calendar', 'owner\ShedulingController@addschedule')->name('calendar');
+    Route::get('/shedulelist/calendar', 'owner\ShedulingController@calender')->name('calendar');
 
     // my start
-    Route::get('/addshedule/calendar/{date}', 'Owner\ShedulingController@checkinputdate')->name('checkinputdate');
-    Route::post('/addshedule/calender/check', 'Owner\ShedulingController@checkinputtimeslot')->name('checkinputtimeslot');
-    Route::post('/addshedule/calender/save', 'Owner\ShedulingController@createschedule')->name('savecreateshedule');
     Route::get('/addshedule/calender/updateschedule/{id}/{date}', 'Owner\ShedulingController@reupdateshedule')->name('updateexistschedule');
     Route::post('/addshedule/calender/saveupdateschedule', 'Owner\ShedulingController@saveupdateschedule')->name('saveupdateschedule');
-    Route::get('/gettheorysessions/{dayid}', 'Owner\ShedulingController@gettheorysession');
-    Route::get('/getpracticlesessions/{dayid}/{category}/{trans}', 'Owner\ShedulingController@getpracticlesession');
-
     Route::get('/owneraddschedule', 'Owner\ShedulingController@owneraddschedule')->name('owneraddschedule');
     Route::get('/theorystudents', 'Owner\ShedulingController@getalltheorystudents');
     Route::get('/aoutomanualstudents/{category}/{trans}', 'Owner\ShedulingController@getautomanualstudents');
@@ -315,7 +309,7 @@ Route::middleware('studentprofile')->group(function(){
     // instructors
     Route::get('/instructorsdetails', 'Student\InstructorController@index')->name('studentinstructorsdetails');
     Route::get('/instructordetails/{id}', 'Student\InstructorController@insprofile')->name('studentinstructordetails');
-    //time table view 
+    //time table view
     Route::get('/Time-Table', 'Student\TimeTableController@index')->name('viewtimetable');
 
 });
