@@ -1,13 +1,27 @@
 @extends('layouts.landingpage')
 @section('content')
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+<style>
+    .option{
+        transition-duration: 0.2s;
+    }
+    .option:hover{
+        background-color: rgba(21, 11, 168, 0.198);
+        transition-duration: 0.3s;
+    }
+    .option_list .option.disabled{
+        pointer-events: none;
+    }
+    
+</style>
+
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 <div class="mb-3">
     <img class="image-fluid p-0 m-0" src="/images/landingpage/examcover.png" alt="Card image cap" style="width: 100%; height: auto;">
 </div>
-<div class="container mb-5">
-    <div class="row mb-2 mt-5">
+<div class="container mb-5" style="height: 90vh">
+    <div class="row">
         <a href="{{route('onlinepaper')}}">
             <h5 style="color: #222944; font-weight: bold; padding-top: 3px">All Papers</h5>
         </a>
@@ -18,317 +32,434 @@
         <h1 class="mb-5 text-center">Paper 01</h1>
     </div>
 
-     {{-- toast --}}
-     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <img src="..." class="rounded mr-2" alt="...">
-          <strong class="mr-auto">Bootstrap</strong>
-          <small>11 mins ago</small>
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="toast-body">
-          Hello, world! This is a toast message.
-        </div>
-      </div>
+    <div class="card w-100 border border-primary ">
 
-    <!-- question 01  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 01. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/1.jpg" alt="" style="max-width: 200px;">
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question1" value="1"> 1.ඉරට්ටේ දිනවල වාහන ඇතුලුවීම තහනම් </p>
-                        <p><input type="radio" name="question1" value="2"> 2.ඔත්තේ දිනවල වාහන ඇතුළු වීම  තහනම් </p>
-                        <p><input type="radio" name="question1" value="3"> 3.ඉරට්ටේ දිනවල වාහන නැවැත්වීම තහනම් </p>
-                        <p><input type="radio" name="question1" value="4"> 4.ඔත්තේ දිනවල වාහන නැවැත්වීම තහනම්</p>
-                    </div>
-                    <div id="result-1" style="width: 100%"></div>
+        {{-- display one  --}}
+        <div class="card-body firstdiv">
+            <div class="div text-center mt-5 mb-5 pt-3 pb-3 start_btn">
+                <button class="btn btn-lg btn-primary">Start Quiz</button>
+            </div>
+        </div>
+
+        {{-- display two  --}}
+        <div class="info_box" style="display: none">
+            <div class="card-header">Rules and Regulations of this question paper</div>
+            <div class="card-body">
+                <ol>
+                    <li>You will have only 20 seconds per each question.</li>
+                    <li>Once you select a answer you can't reselect it.</li>
+                    <li>You have to answer the questions within the given time.</li>
+                    <li>If you can't answer the within given time, your answer will be displayed.</li>
+                    <li>Try your best in answer the questions. Good Luck!</li>
+                </ol>
+                <div class="text-right buttons">
+                    <button class="btn btn-danger quit">Exit</button>
+                    <button class="btn btn-primary restart">Continue</button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- question 02  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 02. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/2.png" alt="" style="max-width: 200px;">
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question3" value="1"> 1.ඉදිරියෙන් නවතිනු </p>
-                        <p><input type="radio" name="question3" value="2"> 2.එකිනෙක හරහා ගමන් කරන මාර්ගය ඉදිරියෙනි</p>
-                        <p><input type="radio" name="question3" value="3"> 3.අනිවාර්‍ය වට රවුම ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question3" value="4"> 4.වට රවුම ඉදිරියෙනි</p>
-                    </div>
-                    <div id="result-2" style="width: 100%"></div>
+        {{-- display three  --}}
+        <div class="thirddiv" style="display: none">
+            <div class="card-header d-flex justify-content-between">
+                <div class="align-self-start que_text">
+                    {{-- <h5 style="font-size: 25px;font-weight: 450">මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</h5> --}}
+                </div>
+                <div class="align-self-end">
+                    <h5>Time Left<span class=" p-2 bg-dark text-light ml-3 rounded timer_sec">20</span></h5>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- question 03  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 03. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/3.png" alt="" style="max-width: 200px;">
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question3" value="1"> 1.මාර්ගය ඉඩ දෙනු  </p>
-                        <p><input type="radio" name="question3" value="2"> 2.අනිවාර්යෙන් ත්‍රිකෝණාකාර මංසන්ධිය</p>
-                        <p><input type="radio" name="question3" value="3"> 3.ඉදිරියෙන් මාර්ගය ඉඩ දෙනු </p>
-                        <p><input type="radio" name="question3" value="4"> 4.ප්‍රධාන මාර්ගය ඉදිරියෙනි</p>
-                    </div>
-                    <div id="result-3" style="width: 100%"></div>
-                </div>
+            <div class="progress" style="height: 7px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-        </div>
-    </div>
-
-    <!-- question 04  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 04. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
+            {{-- <div class="time_line bg-primary" style="height: 4px;"> --}}
+                {{-- time line here  --}}
+            {{-- </div> --}}
+            <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/4.png" alt="" style="max-width: 200px;">
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question4" value="1">  1.සතුන්ගේ අභය භූමිය ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question4" value="2"> 2.ගවයන් ඇති කරන ගොවිපල ඉදිරියෙනි</p>
-                        <p><input type="radio" name="question4" value="3"> 3. ගවයන් හෝ වෙනත් සතුන් මාර්ගය හරහා ගමන් කිරීමට ඉඩ ඇති ස්ථානය  ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question4" value="4"> 4.ගවයන් සඳහා මාර්ගය මාරුවීමට වෙන් කළ  ස්ථානය ඉදිරියෙනි</p>
-                    </div>
-                    <div id="result-4" style="width: 100%"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- question 05  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 05. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/5.png" alt="" style="max-width: 200px;">
+                    <div class="col-md-5 col-sm-5 col-xs-4 text-center p-4 paper_img">
+                        {{-- <img src="/images/onlinepaper/1.jpg" alt="" style="max-width: 200px;"> --}}
                     </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question5" value="1"> 1.දකුණු පැත්තට ද්විත්ව වංගුව ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question5" value="2"> 2.U හැඩයට හැරවිය හැකි ස්ථානය ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question5" value="3"> 3.දකුණු පැත්තට වංගුව ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question5" value="4"> 4.දකුණු පැත්තට වැලමිට වංගුව ඉදිරියෙනි</p>
-                    </div>
-                    <div id="result-5" style="width: 100%"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- question 06  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 06. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/6.png" alt="" style="max-width: 200px;">
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question6" value="1"> 1.ඉදිරියෙන් හතරමං හන්දිය </p>
-                        <p><input type="radio" name="question6" value="2"> 2.ප්‍රමුඛතා මාර්ග ය </p>
-                        <p><input type="radio" name="question6" value="3"> 3. ප්‍රමුඛතා මාර්ගය ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question6" value="4"> 4.මංසන්ධි කොටුව</p>
+                    <div class="option_list col-md-7 col-sm-7 col-xs-8">
+                       {{-- four options here  --}}
                     </div>
                     <div id="result-6" style="width: 100%"></div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- question 07  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 07. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/7.png" alt="" style="max-width: 200px;">
+                {{-- footer  --}}
+                <div class="row mt-3 ">
+                    <div class="col total_que">
+                        {{-- <p>2 of 10 Questions</p> --}}
                     </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question7" value="1"> 1.වම් පැත්තෙන් රථවාහන ප්‍රධාන මාර්ගයට එක් වන සන්දිය ඉදිරියෙනි</p>
-                        <p><input type="radio" name="question7" value="2"> 2.පළමුවෙන් වම් පැත්තට විහිදෙන විෂම විසම සන්දිය ඉදිරියෙනි</p>
-                        <p><input type="radio" name="question7" value="3"> 3.වම් පැත්තෙන් එන රථ වාහන සඳහා ප්‍රමුඛතාව දෙනු </p>
-                        <p><input type="radio" name="question7" value="4"> 4.Y හැඩය මංසන්ධිය ඉදිරියෙනි </p>
+                    <div class="col text-right">
+                        <button class="btn btn-primary next_btn">Next Question <i class="fas fa-arrow-alt-circle-right"></i></button>
                     </div>
                     <div id="result-7" style="width: 100%"></div>
                 </div>
+
             </div>
         </div>
-    </div>
 
-    <!-- question 08  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 08. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
+        {{-- display four  --}}
+        <div class="fourthdiv" style="display: none;">
+            <div class="card-body alert-success border border-primary">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/8.png" alt="" style="max-width: 200px;">
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question8" value="1">1.ලමයි මාරු වන ස්ථානය </p>
-                        <p><input type="radio" name="question8" value="2">2.අන්ධ මිනිසුන් මාරුවන ස්ථානය ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question8" value="3">3.ලමයින් මාරුවන ස්තානය ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question8" value="4">4.පාසල ඉදිරියෙනි</p>
+                    <div class="col text-center mt-2 p-5">
+                        <i class="fas fa-trophy fa-5x text-warning"></i>
                     </div>
                     <div id="result-8" style="width: 100%"></div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- question 09  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 09. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/9.png" alt="" style="max-width: 200px;">
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question9" value="1"> 1.පදිකයින් මාරු වන ස්ථානය </p>
-                        <p><input type="radio" name="question9" value="2"> 2.පොලිස් ස්ථානය </p>
-                        <p><input type="radio" name="question9" value="3"> 3.ඉන්ධන පිරවුම් හල  </p>
-                        <p><input type="radio" name="question9" value="4"> 4.වාහන නවත්වන ස්ථානය</p>
+                    <div class="col text-center">
+                        {{-- <h4 class="text-success">Congratulations! You just complete the Quiz!</h4> --}}
+                        <div class="result_text">
+                            {{-- <h4>Sorry, You have only <span>2</span> out of <span>10</span> </h4> --}}
+                        </div>    
                     </div>
                     <div id="result-9" style="width: 100%"></div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- question 10  -->
-    <div class="row  justify-content-center mb-3">
-        <div class="card border-primary col-lg-12 col-xs-11" >
-            <div class="card-header">Question 10. මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?</div>
-            <div class="card-body text-primary">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4 mb-3 text-left">
-                        <img src="/images/onlinepaper/10.png" alt="" style="max-width: 200px;">
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <p><input type="radio" name="question10" value="1"> 1.දකුණු පැත්තට ද්විත්ව වංගුව ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question10" value="2"> 2.ඉදිරියෙන් දකුණට හරවනු </p>
-                        <p><input type="radio" name="question10" value="3"> 3.දකුණු පැත්තට වංගුව ඉදිරියෙනි </p>
-                        <p><input type="radio" name="question10" value="4"> 4.දකුණු පැත්තට වැලමිට වංගුව ඉදිරියෙනි</p>
+                    <div class="col text-right pr-5">
+                        <button class="btn btn-success restart_quiz">Replay Quiz</button>
+                        <button class="btn btn-danger quit_quiz">Exit</button>
                     </div>
                     <div id="result-10" style="width: 100%"></div>
                 </div>
             </div>
         </div>
+
     </div>
 
-    <button type="button" class="btn btn-primary mb-5 mt-5" id="finish" onclick="finish()">Submit</button>
-    <button type="button" class="btn btn-primary mb-5 mt-5" id="redo" onclick="redo()" style="display: none">Redo</button>
-
-
-
+    {{-- end  --}}
 </div>
 
 <script>
+    const start_btn = document.querySelector(".start_btn button");
+    const firstdiv = document.querySelector(".firstdiv");
+    const thirddiv = document.querySelector(".thirddiv");
+    const info_box = document.querySelector(".info_box");
+    const exit_btn = document.querySelector(".buttons .quit");
+    const restart_btn = document.querySelector(".buttons .restart");
+    const next_btn = document.querySelector(".next_btn");
+    const option_list = document.querySelector(".option_list");
+    const timeCount=document.querySelector(".timer_sec");
+    const timeLine =document.querySelector(".progress-bar");
+    const result_box =document.querySelector(".fourthdiv");
+    const restart_quiz =document.querySelector(".restart_quiz");
+    const quit_quit =document.querySelector(".quit_quiz");
 
-    function finish(){
-        const answers = [3, 4, 4, 4, 4, 1, 1, 1, 4, 3];
-        for(var i = 0; i<10; i++){
-            var name = 'question'+(i+1);
-            var resultdiv = '#result-'+(i+1);
-            var q = $('input[name="'+name+'"]:checked').val();
-            if(q){
-                if(q == answers[i]){
-                    $(resultdiv).empty();
-                    $(resultdiv).append('<div class="alert alert-success">Your Answer is Correct</div>');
-                }else{
-                    $(resultdiv).empty();
-                    $(resultdiv).append('<div class="alert alert-danger">Your Answer is Wrong, Correct answer is '+answers[0]+'</div>');
-                }
-            }else{
-                $(resultdiv).empty();
-                $(resultdiv).append('<div class="alert alert-info">Not answerd</div>');
-            }
-            $('#finish').hide();
-            $('#redo').show();
-            console.log('given '+q+' Answer '+answers[i] );
+    // question array
+    let questions = [
+        {
+            numb: 1,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "ඉරට්ටේ දිනවල වාහන නැවැත්වීම තහනම්",
+            imgSrc: "/images/onlinepaper/1.jpg",
+            options: [
+                "ඉරට්ටේ දිනවල වාහන ඇතුලුවීම තහනම්",
+                "ඔත්තේ දිනවල වාහන ඇතුළු වීම  තහනම්",
+                "ඉරට්ටේ දිනවල වාහන නැවැත්වීම තහනම්",
+                "ඔත්තේ දිනවල වාහන නැවැත්වීම තහනම්"
+            ]
+        },
+        {
+            numb: 2,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "වට රවුම ඉදිරියෙනි",
+            imgSrc: "/images/onlinepaper/2.png",
+            options: [
+                "ඉදිරියෙන් නවතිනු",
+                "එකිනෙක හරහා ගමන් කරන මාර්ගය ඉදිරියෙනි",
+                "අනිවාර්‍ය වට රවුම ඉදිරියෙනි",
+                "වට රවුම ඉදිරියෙනි"
+            ]
+        },
+        {
+            numb: 3,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "මාර්ගය ඉඩ දෙනු",
+            imgSrc: "/images/onlinepaper/3.png",
+            options: [
+                "මාර්ගය ඉඩ දෙනු",
+                "අනිවාර්යෙන් ත්‍රිකෝණාකාර මංසන්ධිය",
+                "ඉදිරියෙන් මාර්ගය ඉඩ දෙනු",
+                "ප්‍රධාන මාර්ගය ඉදිරියෙනි"
+            ]
+        },
+        {
+            numb: 4,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "ගවයන් හෝ වෙනත් සතුන් මාර්ගය හරහා ගමන් කිරීමට ඉඩ ඇති ස්ථානය  ඉදිරියෙනි",
+            imgSrc: "/images/onlinepaper/4.png",
+            options: [
+                "සතුන්ගේ අභය භූමිය ඉදිරියෙනි",
+                "ගවයන් ඇති කරන ගොවිපල ඉදිරියෙනි",
+                "ගවයන් හෝ වෙනත් සතුන් මාර්ගය හරහා ගමන් කිරීමට ඉඩ ඇති ස්ථානය  ඉදිරියෙනි",
+                "ගවයන් සඳහා මාර්ගය මාරුවීමට වෙන් කළ  ස්ථානය ඉදිරියෙනි"
+            ]
+        },
+        {
+            numb: 5,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "දකුණු පැත්තට වැලමිට වංගුව ඉදිරියෙනි",
+            imgSrc: "/images/onlinepaper/5.png",
+            options: [
+                "දකුණු පැත්තට ද්විත්ව වංගුව ඉදිරියෙනි",
+                "U හැඩයට හැරවිය හැකි ස්ථානය ඉදිරියෙනි",
+                "දකුණු පැත්තට වංගුව ඉදිරියෙනි",
+                "දකුණු පැත්තට වැලමිට වංගුව ඉදිරියෙනි"
+            ]
+        },
+        {
+            numb: 6,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "ප්‍රමුඛතා මාර්ගය",
+            imgSrc: "/images/onlinepaper/6.png",
+            options: [
+                "ඉදිරියෙන් හතරමං හන්දිය",
+                "ප්‍රමුඛතා මාර්ගය",
+                "ප්‍රමුඛතා මාර්ගය ඉදිරියෙනි",
+                "මංසන්ධි කොටුව"
+            ]
+        },
+        {
+            numb: 7,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "වම් පැත්තෙන් රථවාහන ප්‍රධාන මාර්ගයට එක් වන සන්දිය ඉදිරියෙනි",
+            imgSrc: "/images/onlinepaper/7.png",
+            options: [
+                "වම් පැත්තෙන් රථවාහන ප්‍රධාන මාර්ගයට එක් වන සන්දිය ඉදිරියෙනි",
+                "පළමුවෙන් වම් පැත්තට විහිදෙන විෂම විසම සන්දිය ඉදිරියෙනි",
+                "වම් පැත්තෙන් එන රථ වාහන සඳහා ප්‍රමුඛතාව දෙනු",
+                "Y හැඩය මංසන්ධිය ඉදිරියෙනි"
+            ]
+        },
+        {
+            numb: 8,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "ලමයින් මාරුවන ස්තානය ඉදිරියෙනි",
+            imgSrc: "/images/onlinepaper/8.png",
+            options: [
+                "ලමයි මාරු වන ස්ථානය",
+                "අන්ධ මිනිසුන් මාරුවන ස්ථානය ඉදිරියෙනි",
+                "ලමයින් මාරුවන ස්තානය ඉදිරියෙනි",
+                "පපාසල ඉදිරියෙනි"
+            ]
+        },
+        {
+            numb: 9,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "වාහන නවත්වන ස්ථානය",
+            imgSrc: "/images/onlinepaper/9.png",
+            options: [
+                "පදිකයින් මාරු වන ස්ථානය",
+                "පොලිස් ස්ථානය",
+                "ඉන්ධන පිරවුම් හල",
+                "වාහන නවත්වන ස්ථානය"
+            ]
+        },
+        {
+            numb: 10,
+            question: "මෙම මාර්ග ලකුණින් දැක්වෙන්නේ?",
+            answer: "දකුණු පැත්තට වංගුව ඉදිරියෙනි",
+            imgSrc: "/images/onlinepaper/10.png",
+            options: [
+                "දකුණු පැත්තට ද්විත්ව වංගුව ඉදිරියෙනි",
+                "ඉදිරියෙන් දකුණට හරවනු",
+                "දකුණු පැත්තට වංගුව ඉදිරියෙනි",
+                "දකුණු පැත්තට වැලමිට වංගුව ඉදිරියෙනි"
+            ]
         }
+
+    ];
+
+    start_btn.onclick = () =>{
+        firstdiv.style.display = "none";
+        info_box.style.display = "block";
     }
 
-    function redo(){
-        $('#finish').show();
-        $('#redo').hide();
-        for(var i = 1; i<= 10; i++){
-            var resultdiv = '#result-'+i;
-            $(resultdiv).empty();
-        }
+    exit_btn.onclick = () =>{
+        firstdiv.style.display = "block";
+        info_box.style.display = "none";
     }
 
+    restart_btn.onclick = () =>{
+        thirddiv.style.display = "block";
+        info_box.style.display = "none";
+        showQuestions(0);
+        queCounter(1);
+        startTimer(20);
+        startTimerLine(0);
+        next_btn.style.display ="none";
+    }
 
-    function check(){
-        var score=0;
-        var result="";
-         if(document.getElementById("correct1").checked){
-            score++;
-         }
-         if(document.getElementById("correct2").checked){
-            score++;
-         }
-         if(document.getElementById("correct3").checked){
-            score++;
-         }
-         if(document.getElementById("correct4").checked){
-            score++;
-         }
-         if(document.getElementById("correct5").checked){
-            score++;
-         }
-         if(document.getElementById("correct6").checked){
-            score++;
-         }
-         if(document.getElementById("correct7").checked){
-            score++;
-         }
-         if(document.getElementById("correct8").checked){
-            score++;
-         }
-         if(document.getElementById("correct9").checked){
-            score++;
-         }
-         if(document.getElementById("correct10").checked){
-            score++;
-         }
-        if(score=="10"){
-            result = "Congratulations!, You got 10 Out of 10";
-        }else if(score > "5"){
-            result = "Not Bad";
-        }else if(score >0){
-            result = "poor";
+    quit_quit.onclick = ()=>{
+        window.location.reload();
+    }
+    restart_quiz.onclick= ()=>{
+        window.location.reload();
+    }
+
+    let que_count = 0;
+    let queNumber = 1;
+    let counter;
+    let timeValue = 20;
+    let widthValue = 0;
+    let userScore = 0;
+
+    //when press next btn
+    next_btn.onclick = () =>{
+        if(que_count < questions.length - 1 ){
+            que_count++;
+            queNumber++;
+            showQuestions(que_count);
+            queCounter(queNumber);
+            clearInterval(counter);
+            startTimer(timeValue);
+            clearInterval(counterLine);
+            startTimerLine(widthValue);
         }else{
-            result = "You got 0 marks!";
+            console.log("Questions over");
+            showResultBox();
         }
-        alert(result+""+score);
     }
+
+
+
+    function showQuestions(index){
+        const que_text = document.querySelector(".que_text");
+        const paper_img =document.querySelector(".paper_img");
+
+        let img_tag = '<img src='+questions[index].imgSrc +' alt="" style="max-width: 200px;">';
+        paper_img.innerHTML = img_tag;
+        let que_tag = '<h5 style="font-size: 25px;font-weight: 450">'+questions[index].numb+". "+questions[index].question+'</h5>';
+      
+        let option_tag = '<div class="option border rounded mb-2 p-1"><div class="col-10 d-inline"><span style="font-size: 20px;">'+questions[index].options[0]+'</span></div></div>'
+                        +'<div class="option border rounded mb-2 p-1"><div class="col-10 d-inline"><span style="font-size: 20px;">'+questions[index].options[1]+'</span></div></div>'
+                        +'<div class="option border rounded mb-2 p-1"><div class="col-10 d-inline"><span style="font-size: 20px;">'+questions[index].options[2]+'</span></div></div>'
+                        +'<div class="option border rounded mb-2 p-1"><div class="col-10 d-inline"><span style="font-size: 20px;">'+questions[index].options[3]+'</span></div></div>';
+
+
+        que_text.innerHTML = que_tag;
+        option_list.innerHTML=option_tag;
+        const option = option_list.querySelectorAll(".option");
+        for(let i = 0; i< option.length; i++){
+            option[i].setAttribute("onclick", "optionSelected(this)");
+        }
+    }
+    let tickIcon ='<div class="myicon text-success d-inline px-5 py-1 float-right"><i class="far fa-check-circle fa-lg"></i></div>';
+    let crossIcon ='<div class="myicon text-danger d-inline px-5 py-1 float-right"><i class="far fa-times-circle fa-lg"></i></div>';
+
+    function optionSelected(answer){
+        clearInterval(counter);
+        clearInterval(counterLine);
+        var userAns = answer.textContent;
+        var correctAns = questions[que_count].answer;
+        let allOptions = option_list.children.length;
+        if(correctAns.replace(/ /g,'')==userAns.replace(/ /g,'')){
+            userScore+=1;
+            answer.classList.add("alert-success");
+            answer.classList.add("border-success");
+            answer.classList.add("text-success");
+            answer.insertAdjacentHTML("beforeend",tickIcon);
+            console.log("Answer is correct");
+            
+        }else{
+            answer.classList.add("alert-danger");
+            answer.classList.add("border-danger");
+            answer.classList.add("text-danger");
+            answer.insertAdjacentHTML("beforeend",crossIcon);
+            console.log("Answer is wrong");  
+            //if answer is incorrect automatic display corect answer
+            for(let i = 0; i<allOptions; i++){
+                if(option_list.children[i].textContent.replace(/ /g,'') == correctAns.replace(/ /g,'')){
+                    option_list.children[i].setAttribute("class", "alert-success border-success text-success border rounded mb-2");
+                    option_list.children[i].insertAdjacentHTML("beforeend",tickIcon);                   
+                }
+                
+            }
+        }
+
+        //when user select a option disable other options
+        for (let i= 0;  i<allOptions;i++) {
+            option_list.children[i].classList.add("disabled");
+            
+        }
+        next_btn.style.display="block";
+
+    }
+
+    function showResultBox(){
+        result_box.style.display = "block";
+        thirddiv.style.display = "none";
+        const scoreText=document.querySelector(".result_text");
+        if(userScore>7){
+            let scoreTag = '<h4>Congratulations!, you got <span>'+userScore +'</span> out of <span>'+questions.length+'</span> </h4>';
+            scoreText.innerHTML = scoreTag;
+        }else if(userScore>5){
+            let scoreTag = '<h4>Congratulations!, You have only <span>'+userScore +'</span> out of <span>'+questions.length+'</span> </h4>';
+            scoreText.innerHTML = scoreTag;
+        }else if(userScore>0){
+            let scoreTag = '<h4>Sorry, You have only <span>'+userScore +'</span> out of <span>'+questions.length+'</span> </h4>';
+            scoreText.innerHTML = scoreTag;
+        }else{
+            let scoreTag = '<h4>Do not give up, Try again. Your Score <span>'+userScore +'</span> out of <span>'+questions.length+'</span> </h4>';
+            scoreText.innerHTML = scoreTag;
+        }
+    }
+
+    function queCounter(index){
+        //question number bottom
+        const total_que= document.querySelector(".total_que");
+        let totalQuestionTag = '<p><span>'+index+'</span> of 10 Questions</p>';
+        total_que.innerHTML = totalQuestionTag;
+    }
+
+    function startTimer(time){
+        counter =setInterval(timer,1000);
+        function timer(){
+            timeCount.textContent=time;
+            time--;
+            if(time <9){
+                let addZero = timeCount.textContent;
+                timeCount.textContent = "0"+addZero;
+            }
+            if(time < 0){
+                clearInterval(counter);
+                timeCount.textContent="00";
+
+                var correctAns = questions[que_count].answer;
+                let allOptions = option_list.children.length;
+
+                for(let i = 0; i<allOptions; i++){
+                if(option_list.children[i].textContent.replace(/ /g,'') == correctAns.replace(/ /g,'')){
+                    option_list.children[i].setAttribute("class", "alert-success border-success text-success border rounded mb-2");
+                    option_list.children[i].insertAdjacentHTML("beforeend",tickIcon);                   
+                    }
+                
+                }
+                for (let i= 0;  i<allOptions;i++) {
+                    option_list.children[i].classList.add("disabled");
+                }
+                    next_btn.style.display="block";
+                }
+        }
+    }
+
+    function startTimerLine(time){
+        counterLine =setInterval(timer,210); 
+        function timer(){
+            time+=1;
+            timeLine.style.width = time + "%";
+            // timeLine.innerHTML = time + "%";
+            if(time > 100){
+                clearInterval(counterLine);
+            }
+        }
+    }
+
+
+
 </script>
 @endsection
