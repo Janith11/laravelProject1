@@ -389,3 +389,7 @@ Route::group(['as' => 'candidate.', 'prefix' => 'candidate', 'namespace' => 'can
         Route::get('dashboard', 'CandidateController@index')->name('candidatedashboard');
     }
 );
+
+// check nic number
+Route::get('/ckecknic/{nic}', 'RegisterInputValiadteController@checkNIC');
+Route::get('/checkmobile/{mobile}', 'RegisterInputValiadteController@checkMobile');

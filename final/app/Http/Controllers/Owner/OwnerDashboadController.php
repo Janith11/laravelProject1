@@ -234,8 +234,19 @@ class OwnerDashboadController extends Controller
 
         // vehicle overview =================================================================
         $vahicles = Vehicle::all();
-        // return $vahicles;
 
-        return view('owner.ownerdashboad', compact('totalstudent', 'totalrequests', 'totalinstructors', 'totalshedules','students', 'months', 'monymonths', 'income', 'expences', 'manuallabels', 'manualcount', 'automanuallabels', 'automanualcount'));
+        // instructor overview
+        $instructor_count = [];
+        foreach($category_codes as $code){
+            $cat_count = StudentCategory::where('category', $code)->whereHas('Instructorcategories')->count();
+            $instructor_count[] = $cat_count;
+        }
+        $cat_names = [];
+        foreach($categories as $cat){
+            $cat_names[] = ucwords($cat->name);
+        }
+        // return $instructor_count;
+
+        return view('owner.ownerdashboad', compact('totalstudent', 'totalrequests', 'totalinstructors', 'totalshedules','students', 'months', 'monymonths', 'income', 'expences', 'manuallabels', 'manualcount', 'automanuallabels', 'automanualcount', 'instructor_count', 'cat_names'));
     }
 }

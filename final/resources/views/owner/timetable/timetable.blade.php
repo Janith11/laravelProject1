@@ -158,20 +158,21 @@
 
                 <hr style="border: 0.5px solid #222944">
 
-                <div class="card">
+                {{-- <div class="card"> --}}
 
                     @foreach ($timetable as $tbl)
                     <div class="card border-primary mb-2" style="width: 100%;">
                         <div class="card-body">
+
                             <h5 class="card-title" style="color: #222944; font-weight: bold">{{ ucfirst($tbl->day_name) }}</h5>
                             <hr style="border: 0.3px solid #222944">
+
                             <div class="row">
                                 @if(count($tbl->timeslots) == 0)
                                     <div class="alert alert-info" role="alert" style="width: 100%">
                                         <h5>You haven't create time any slots for {{ $tbl->day_name }} </h5>
                                     </div>
                                 @else
-                                    {{-- <h6 style="padding-left: 10px">Time Table</h6> --}}
                                     <div class="table-responsive" style="padding-left: 10px; padding-right: 10px">
                                         <table class="table table-hover table-sm">
                                             <thead class="thead bg-dark text-white">
@@ -222,13 +223,8 @@
                                                         <td class="text-center">
                                                             @if ($timeslot->transmission == 'Manual' || $timeslot->transmission == '3')
                                                                 Manual
-<<<<<<< HEAD
-                                                            @elseif ($timeslot->transmission == 'Manual')
-                                                                Manual
-=======
                                                             @elseif ($timeslot->transmission == 'Auto')
-                                                                Auto    
->>>>>>> Janith
+                                                                Auto
                                                             @else
                                                                 None
                                                             @endif
@@ -256,6 +252,7 @@
                                     </div>
                                 @endif
                             </div>
+
                             <div class="row justify-content-center">
                                 <button class="btn btn-primary" onclick="createpanel('{{ $tbl->day_name }}')" style="font-size: 20px; border-radius: 50%; background-color: #122e7c;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -263,6 +260,7 @@
                                     </svg>
                                 </button>
                             </div>
+
                             <div class="row justify-content-center" >
                                 <div id="{{ $tbl->day_name }}" style="display: none; padding-top: 10px" class="w-100">
                                     <div class="card border-success">
@@ -270,9 +268,13 @@
                                             <h6 class="card-subtitle mb-2" style="color: #222944">Add New Slot</h6>
                                             <form method="POST" action="{{ route('addtimeslot') }}">
                                                 @csrf
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" id="id" name="date_id" value="{{ $tbl->id }}">
+
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <input type="hidden" class="form-control" id="id" name="date_id" value="{{ $tbl->id }}">
+                                                    </div>
                                                 </div>
+
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="form-group">
@@ -300,7 +302,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
 
                                                 <div class="row" id="{{ $tbl->id }}-divpractical1">
                                                     <div class="col-md-4">
@@ -333,7 +334,6 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -351,7 +351,7 @@
                                                     </div>
                                                 </div>
 
-                                                {{-- for the theory users  --}}
+                                                {{-- for the theory users remove  both of them --}}
                                                 <div class="row mx-2" id="{{ $tbl->id }}-divtheory1">
                                                     <div class="form-group">
                                                         <label for="monday">Select Instructors</label><br>
@@ -368,38 +368,40 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group text-center">
-                                                    <button type="submit" class="btn btn-primary" style="color: white">Add Slot</button>
-                                                </div>
+
+                                                {{-- <div class="row"> --}}
+                                                    <div class="form-group text-center">
+                                                        <button type="submit" class="btn btn-primary" style="color: white">Add Slot</button>
+                                                    </div>
+                                                {{-- </div> --}}
+
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     @endforeach
-                </div>
+                {{-- </div> --}}
             </div>
         </div>
     </div>
+
 </div>
 
 
-    <script>
-        function createpanel(name) {
-            var x = document.getElementById(name);
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-    </script>
-
-
-
 <script>
+    function createpanel(name) {
+        var x = document.getElementById(name);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
     $(document).ready(function(){
         $('aside ul .shedulings').css('border-left', '5px solid #00bcd4');
     })
