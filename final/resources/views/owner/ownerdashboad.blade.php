@@ -199,7 +199,10 @@
             <div class="col col-sm-4" id="card">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 style="color: #030A25; font-weight: bold; text-align: center">Vehicles & Instructors</h5>
+                        <h5 style="color: #030A25; font-weight: bold; text-align: center">Instructors</h5>
+                        <div>
+                            <canvas id="instructor-stat"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -362,6 +365,26 @@
                 }]
             }
         }
+    });
+
+    var cat_labels = @json($cat_names);
+    var ins_values = @json($instructor_count);
+
+    new Chart("instructor-stat", {
+        type: "doughnut",
+        data: {
+            labels: cat_labels,
+            datasets: [{
+                backgroundColor: ["#35FF35", "#03011F", "#FF2957", "#FF891A",],
+                data: ins_values
+            }],
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'bottom',
+            }
+        },
     });
 
     $(document).ready(function(){

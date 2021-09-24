@@ -72,26 +72,48 @@
                 </button>
             </div>
         @endif
-        <div class="row mt-4">
+
+        @if(count($vehicles) == 0)
+            <div class="alert alert-info" role="alert" style="width: 100%">
+                <h5>No vehicles were added !!</h5>
+            </div>
+        @endif
+
+        <div class="row mt-4 row-cols-1">
             <div class="col-md-4">
-                <h5 class="text-muted text-center mb-3">Vehicle Category</h5>
-                <canvas id="vehiclecategories"></canvas>
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="text-muted text-center mb-3">Vehicle Category</h5>
+                        <div>
+                            <canvas id="vehiclecategories"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4" style="height: 350px !important">
-                <h5 class="text-muted text-center mb-3">Vehicle Condition</h5>
-                <canvas id="vehicleconditions"></canvas>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="text-muted text-center mb-3">Vehicle Condition</h5>
+                        <div>
+                            <canvas id="vehicleconditions"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4" style="height: 350px !important">
-                <h5 class="text-muted text-center mb-3">Mileage</h5>
-                <canvas id="vehiclemileage"></canvas>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="text-muted text-center mb-3">Mileage</h5>
+                        <div>
+                            <canvas id="vehiclemileage"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
         <div class="row justify-content-center my-3">
-            @if(count($vehicles) == 0)
-                <div class="alert alert-info" role="alert" style="width: 100%">
-                    <h5>No vehicles were added !!</h5>
-                </div>
-            @else
+            @if(count($vehicles) != 0)
                 @foreach($vehicles as $vehicle)
                 <div class="col col-lg-4">
                     <div class="card" style=" border-radius: 10px; margin-top: 10px;">

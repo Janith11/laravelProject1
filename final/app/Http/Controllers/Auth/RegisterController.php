@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\HevyVehicleStudent;
 use App\User;
 use App\Student;
 use App\StudentCategory;
@@ -36,7 +37,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    // edited Janith 
+    // edited Janith
     protected $redirectTo='/Verify-your-phone/{id}';
 
     //overide by Janith redirect Path
@@ -92,7 +93,7 @@ class RegisterController extends Controller
 
     }
 
-    
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -104,12 +105,12 @@ class RegisterController extends Controller
     {
         //create a random otp
         $OTP= rand(100000,999999);
-       
+
         //get ids from .env
         $sid    = getenv("TWILIO_SID");
         $token  = env("TWILIO_AUTH_TOKEN");
-        $from   = env("TWILIO_NUMBER");  
-       
+        $from   = env("TWILIO_NUMBER");
+
         $user= User::create([
             'role_id' => 4,
             'f_name' => $data['firstname'],
@@ -137,7 +138,7 @@ class RegisterController extends Controller
         //     'amount'=>0,
         //     'total_fee'=>0,
         // ]);
-        
+
         $selected_category = $data['vehicle_category'];
         $test=[];
         foreach ($selected_category as  $category) {
@@ -152,7 +153,7 @@ class RegisterController extends Controller
         }
         foreach($test as $value){
             foreach($value as $key=>$val1){
-           
+
             $transmission = '';
             $trainig='';
             $count=0;
@@ -172,9 +173,22 @@ class RegisterController extends Controller
                 'transmission'=>$transmission
             ]);
         }
-            
-            
+
+
         }
+
+
+        // insert heavy vehicle id
+        foreach($selected_category as $category){
+            if($category == 'C'){
+                $licence_id = $data['licence_number'];
+                HevyVehicleStudent::create([
+                    'user_id' => $user->id,
+                    'licence_number' => $licence_id,
+                ]);
+            }
+        }
+
         RequestAlert::create([
             'user_id'=>$user->id,
             'description'=>1, // Description 1 for registration 2 for schedules
@@ -184,23 +198,24 @@ class RegisterController extends Controller
         $Co_number =$user->contact_number;
         $str = ltrim($Co_number, $Co_number[0]);
   	    $International_No = "+94".$str;
-    
-          try {
-        
-            $twilio = new Client($sid, $token);
-            $message = $twilio->messages
-                  ->create($International_No, // to
-                           array(
-                               "body" => "Hello ".$user->f_name." ".$user->l_name.". Welcome to the Driving School Management System. Your OTP is ".$OTP."\nThank you.",
-                               "from" => $from
-                           )
-                  );
-  
-            }catch (Exception $e) {
-                dd("Error: ". $e->getMessage());
-            }
-       
+
+        try {
+
+            // $twilio = new Client($sid, $token);
+            // $message = $twilio->messages
+            //       ->create($International_No, // to
+            //                array(
+            //                    "body" => "Hello ".$user->f_name." ".$user->l_name.". Welcome to the Driving School Management System. Your OTP is ".$OTP."\nThank you.",
+            //                    "from" => $from
+            //                )
+            //       );
+
+        }catch (Exception $e) {
+            dd("Error: ". $e->getMessage());
+        }
+
         return $user;
         // return redirect()->route('firstpage');
     }
+
 }
