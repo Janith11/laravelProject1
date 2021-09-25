@@ -226,7 +226,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <canvas id="automanualchart" style="height: 100%; padding-top: 20px"></canvas>
+                                    <canvas id="automanualchart" style="height: 300px; padding-top: 20px"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -244,7 +244,7 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <h6 class="card-title"><span class="text-success"><i class="fas fa-circle"></i></span> Debit<span class="text-warning">&nbsp;&nbsp;<i class="fas fa-circle"></i></span>Credit</h6>
+                        <h6 class="card-title"><span class="text-success"><i class="fas fa-circle"></i></span> Debit<span class="text-warning">&nbsp;&nbsp;<i class="fas fa-circle" style="color: #300157"></i></span>Credit</h6>
                     </div>
                     <div style="width: 100%">
                         <canvas id="myChart2" style="width:100%;max-width:1000px; height: 300px;"></canvas>
