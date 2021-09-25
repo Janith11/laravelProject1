@@ -12,6 +12,36 @@
         <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studenentpaymentlogsview') }}"> / Payment Logs</a>
      </div>
 
+     <div class="row mb-1">
+        <div class="col">
+            @if (session('succmsg'))
+                <div class="alert alert-success">
+                    <h5>
+                        {{ session('succmsg') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col">
+            @if (session('errormsg'))
+                <div class="alert alert-danger">
+                    <h5>
+                        {{ session('errormsg') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>
+                </div>
+            @endif
+        </div>
+    </div>
+
      @foreach ($studentdetails as $student)
      <div class="row-mb-2">
         <div class="row">
@@ -91,6 +121,37 @@
         </div>
     </div>
 
+    <div class="card-group py-4">
+        
+            <div class="card mx-2">
+                <div class="card-body">
+                    <h4>Pay Online</h4>
+                    <form  action="{{ route("paypal") }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                          <label for="onlinepay">Amount</label>
+                          <input type="text" class="form-control" id="onlinepay" placeholder="Enter the amount in Sri Lankan rupee.." onkeyup="convetCurrency();" value="1" name="slvalue" required>
+                          <input type="text" id="hiddenUSD" name="amount" style="display: none">
+                          <input type="text" name="uid" value="{{ Auth::user()->id }}" style="display: none">
+                          <small class="form-text text-muted">Check the your input before submitting.</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Pay Now</button>
+                      </form>
+                </div>
+            </div>
+        
+        
+            <div class="card mx-2">
+                <div class="card-body ">
+                    <p>Paypal is not supporting Sri Lnakan currency. If you are using online payment, your input convert to USD.</p>
+                    <h5 class="mt-2">Your payment is USD : <span id="convertedusd"></span></h5>
+                    <!-- PayPal Logo --><table border="0"  cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a></td></tr></table><!-- PayPal Logo -->
+                </div>
+            </div>
+        
+    </div>
+
+
     <div class="card mt-3">
         <div class="card-body">
             <table class="table table-striped table-sm table-hover table-responsive w-100 d-block d-md-table">
@@ -124,6 +185,32 @@
 
 
 </div>
+{{-- Change currency using fixer api io--}}
+<script>
+    function convetCurrency(){
+        var apikey = '{{ env('CURRENCY_API_KEY') }}';
+        var slr =document.getElementById("onlinepay").value;
+        var usd =document.getElementById("convertedusd");
+        var hiddenusd =document.getElementById("hiddenUSD");
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://data.fixer.io/api/latest?access_key="+apikey+"&symbols=USD,LKR";
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function(){
+            if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                var result   = xmlhttp.responseText;
+                var jsResult = JSON.parse(result);
+                // console.log(jsResult);
+                var oneUnit = jsResult.rates.LKR/jsResult.rates.USD;
+                var SLinUSDlong =slr/oneUnit;
+                var SLinUSD =SLinUSDlong.toFixed(2);
+                usd.innerHTML = SLinUSD;
+                hiddenusd.value= SLinUSD;
+            }
+        }
+    }
+</script>
+
 <script>
     $(document).ready(function(){
         $('aside ul .payments').css('border-left', '5px solid #00bcd4');

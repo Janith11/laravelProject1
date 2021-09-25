@@ -351,13 +351,6 @@
         clearInterval(counterLine);
         var userAns = answer.textContent;
         var correctAns = questions[que_count].answer;
-<<<<<<< HEAD
-        console.log(correctAns);
-        console.log(userAns);
-        if(correctAns == userAns){
-            // alert('wrong');
-            console.log("Answer is corect");
-=======
         let allOptions = option_list.children.length;
         if(correctAns.replace(/ /g,'')==userAns.replace(/ /g,'')){
             userScore+=1;
@@ -367,7 +360,6 @@
             answer.insertAdjacentHTML("beforeend",tickIcon);
             console.log("Answer is correct");
             
->>>>>>> Janith
         }else{
             answer.classList.add("alert-danger");
             answer.classList.add("border-danger");
