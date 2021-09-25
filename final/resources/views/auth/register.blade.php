@@ -216,6 +216,11 @@
                             <div class="form-group">
                                 <small class="text-muted mb-2"><span class="text-danger">*</span>Choose categories of your selection. You can select a vehicle category training with our instructors or you can get our service by without training and select relevent vehicle transmisssion of each category.</small>
 
+                                <div class="row border bg-light my-2 mycategoryrow">
+                                    <div class="col-md-4 text-center"><h5>Vehicle Category</h5></div>
+                                    <div class="col-md-4 text-center"><h5>Training Type</h5></div>
+                                    <div class="col-md-4 text-center"><h5>Transmision</h5></div>
+                                </div>
                                 @foreach ($vehicalcategory as $vehicle)
                                 <div class="row border bg-light my-2 mycategoryrow">
                                     <div class="col-md-4" id="{{ $vehicle->category_code }}A">
