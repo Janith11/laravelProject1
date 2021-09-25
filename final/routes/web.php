@@ -317,6 +317,10 @@ Route::middleware('studentprofile')->group(function(){
     //time table view
     Route::get('/Time-Table', 'Student\TimeTableController@index')->name('viewtimetable');
 
+    //Pay with paypal
+    Route::post('/paypal','Student\PaymentController@payWithpaypal')->name('paypal');
+    Route::get('/status/{id}/{lk}', 'Student\PaymentController@getPaymentStatus')->name('status');
+
 });
 
 

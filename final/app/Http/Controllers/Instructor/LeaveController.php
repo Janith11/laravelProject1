@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\instructor;
+namespace App\Http\Controllers\Instructor;
 
 use App\EmplooyeeLeave;
 use App\EmployeeAttendances;
@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Null_;
 use phpDocumentor\Reflection\Types\This;
+use Illuminate\Support\Facades\DB;
 
 class LeaveController extends Controller
 {
