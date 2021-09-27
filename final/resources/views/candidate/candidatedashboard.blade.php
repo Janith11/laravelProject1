@@ -64,6 +64,21 @@
       @endif
 
       @if (auth()->user()->status == '3')
+      <div class="row mt-3 mb-1">
+        <div class="col-12">
+          @if (session('successmsg'))
+            <div class="alert alert-success">
+                <h5>
+                    {{ session('successmsg') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+          @endif  
+        </div>  
+      </div>
+
         <div class="mt-5">
           <div class="card shadow-lg p-1" style="border-radius: 3rem;">
             <div class="card-body mt-1 mb-3">
@@ -74,6 +89,18 @@
               <p class="text-muted"><i class="fas fa-check-circle fa-lg text-success"></i> The administration identify you did not allow the terms and conditions of the company.</span></p>
               <p class="text-muted"><i class="fas fa-check-circle fa-lg text-success"></i> If you did not agree with the above statements you can contact us via below link.</p>
               <p class="text-muted"><i class="fas fa-check-circle fa-lg text-success"></i> Sorry for any inconvenience this may cause.</p>
+            </div>
+            <div class="row px-5 mb-2">
+              <h5>If you want more services please send us a message</h5>
+              <form class="w-100" action="{{ route('candidate.candidatedashboardrequests') }}" method="POST">
+                @csrf
+                <div class="form-group w-100">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="message" required></textarea>
+                  <input type="text" name="id" value="{{ Auth::user()->id }}" style="display: none">
+                  <input type="text" name="uname" value="{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}" style="display: none">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
             </div>
             <div class="card-footer text-muted text-center">
               <a href="{{ route('firstpage') }}" class="btn btn-primary btn-sm"><i class="far fa-address-card p-1 fa-lg"></i>Contact Us</a>

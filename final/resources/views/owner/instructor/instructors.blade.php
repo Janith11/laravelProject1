@@ -68,10 +68,27 @@
                                         <td ><h5 class="card-title">ID</h5></td>
                                         <td><h5>{{ $instructor->id }}</h5></td>
                                       </tr>
-                                      {{-- <tr>
-                                        <td ><h5 class="card-title">Email</h5></td>
-                                        <td><h5>{{ $instructor->email }}</h5></td>
-                                      </tr> --}}
+                                      <tr>
+                                        <td ><h5 class="card-title">Categories</h5></td>
+                                        @foreach ($categories as $c)                                        
+                                          @if($c->user_id == $instructor->id)
+                                            <td>
+                                                @if ($c->category == "A")
+                                                <p class="badge badge-warning py-1">Bike</p>    
+                                                @endif
+                                                @if ($c->category == "B")
+                                                <p class="badge badge-warning py-1">Three Wheel</p>    
+                                                @endif
+                                                @if ($c->category == "C1")
+                                                <p class="badge badge-warning py-1">Car,Van & Dual Purposes</p>    
+                                                @endif
+                                                @if ($c->category == "C")
+                                                <p class="badge badge-warning py-1">Heavy Vehicle</p>    
+                                                @endif
+                                            </td>
+                                         @endif
+                                        @endforeach
+                                      </tr>
                                       <tr>
                                         <td ><h5 class="card-title">Contact</h5></td>
                                         <td><h5>{{ $instructor->contact_number }}</h5></td>

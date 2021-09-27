@@ -11,6 +11,9 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Image;
+use Exception;
+use Twilio\Rest\Client;
+use Illuminate\Support\Facades\Auth;
 
 class SettingController extends Controller
 {
@@ -199,23 +202,78 @@ class SettingController extends Controller
     }
 
     public function store(Request $request){
-        // return 'hi';
-
         $this->validate($request, [
             'current_password' => ['required', new MatchOldPassword],
-            'new_password' => 'required|min:8',
-            're_enter_password' => ['same:new_password'],
-            // |min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$|confirmed
         ]);
 
-        $instructor_id = 1;
+        $user = Auth::user();
+        
+        //generate a new OTP
+        $OTP= rand(100000,999999);
 
-        $instructor = User::find($instructor_id);
-        $instructor->password = Hash::make($request->new_password);
-        $instructor->save();
+        //find user and save new OTP
+        $user->otp = $OTP;
+        $user->save();
+        
+        //convert international number
+        $Co_number =$user->contact_number;
+        $str = ltrim($Co_number, $Co_number[0]);
+  	    $International_No = "+94".$str;
+        
+        //get ids from .env
+        $sid    = getenv("TWILIO_SID");
+        $token  = env("TWILIO_AUTH_TOKEN");
+        $from   = env("TWILIO_NUMBER");  
 
-        return redirect()->route('settings')->with('successmsg', 'Password Change Successfully !!');
+        //sending sms
+        try {
+            $twilio = new Client($sid, $token);
+            // $message = $twilio->messages
+            //       ->create($International_No, //to
+            //                array(
+            //                    "body" => "Hello ".$user->f_name." ".$user->l_name."\nResending OTP. Welcome to the Driving School Management System. Your OTP is ".$OTP."\nThank you.",
+            //                    "from" => $from
+            //                ));    
+        }catch (Exception $e) {
+        dd("Error: ". $e->getMessage());
+        }
+
+        return redirect()->route('ownerpasswordViewOTP');
 
     }
 
+    public function ViewOTP(){
+        return view('owner.settings.EnterOTP');
+    }
+
+    public function checkOTP(Request $request){
+        $this->validate($request, [
+            'otp' => ['required'],
+        ]);
+        
+        $user = Auth::user();
+
+        if($user->otp == $request->otp){
+            return redirect()->route('ownerpasswordChangeNewPassword');
+        }else{
+            return redirect()->back()->with('errormsg', 'OTP is incorrect!');
+        }   
+    }
+
+    public function ChangeNewPassword(){
+        return view('owner.settings.ChangeNewPassword');
+    }
+
+    public function UpdatePassword(Request $request){
+        $this->validate($request, [
+            'new_password' => 'required|min:8',
+            'confirm_password' => ['same:new_password'],
+        ]);
+        $Owner = Auth::user();
+        $Owner->password = Hash::make($request->new_password);
+        $Owner->save();
+
+        Auth::logout();
+        return redirect()->route('login')->with('verifiedmessage', 'Pasword change successfully!');
+    }
 }

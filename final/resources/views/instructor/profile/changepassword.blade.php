@@ -1,14 +1,6 @@
-@extends('layouts.instructorapp')
+@extends('layouts.ownerapp')
 
 @section('content')
-
-    <meta name="_token" content="{{ csrf_token() }}">
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
 
 <style>
     #img{
@@ -33,14 +25,14 @@
 <div class="container">
 
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Profile</h5>
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Settings</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
-        <a href="{{ route('instructor.instructordashboad') }}">
+        <a href="{{ route('owner.ownerdashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('instructorprofile') }}"> / Profile details</a>
+        <a style="padding-top: 6px; padding-left: 10px" href="{{ route('settings') }}"> / Settings</a>
         <a style="padding-top: 6px; padding-left: 10px"> / Change Password</a>
     </div>
 
@@ -85,12 +77,12 @@
                                     </td>
                                     <td>
                                         <div class="form-group" style="padding-left: 10px">
-                                            <input type="text" class="form-control" name="current_password">
+                                            <input type="password" class="form-control" name="current_password" placeholder="Current password">
                                         </div>
                                     </td>
                                 </tr>
 
-                                <tr>
+                                {{-- <tr>
                                     <td>
                                         <h5 id="header">New password</h5>
                                     </td>
@@ -110,12 +102,12 @@
                                             <input type="text" class="form-control" name="re_enter_password">
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> --}}
 
                             </table>
-
+                            <small class="text-muted">Please Enter your current password, we will sent you a OTP to your mobile phone to change your password.</small>
                             <div id="card" class="text-center">
-                                <button class="btn btn-success" type="submit">Change</button>
+                                <button class="btn btn-success" type="submit">Send OTP</button>
                             </div>
 
                         </form>
@@ -130,7 +122,7 @@
 
 <script>
     $(document).ready(function(){
-        $('aside ul .profile').css('border-left', '5px solid #00bcd4');
+        $('aside ul .settings').css('border-left', '5px solid #00bcd4');
     })
 </script>
 

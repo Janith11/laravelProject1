@@ -59,6 +59,11 @@
 
         <div class="card mt-4">
             <div class="card-body">
+                @if(count($notifications)==0)
+                    <div class="alert alert-info" role="alert">
+                        <h5>Student requests empty!</h5>
+                    </div>
+                @endif
                 <table class="table borderless table-hover">
                     <tbody>
                         {{-- from request alert controller --}}
@@ -98,7 +103,7 @@
                     <div class="card-body">
                         @if(count($shedulerequests) == 0)
                             <div class="alert alert-info" role="alert">
-                                <h5>No any Shedule Requests</h5>
+                                <h5>No Shedule Requests</h5>
                             </div>
                         @else
                             <h5 style="color: #222944; font-weight: bold">@php
@@ -186,6 +191,29 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-sm table-striped text-center">
+                    <thead>
+                      <tr>
+                        <th scope="col">Student Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Message</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($outer_Messages as $m)                 
+                        <tr>
+                            <th scope="row">{{ $m->uid }}</th>
+                            <td>{{ $m->name }}</td>
+                            <td>{{ $m->message }}</td>
+                        </tr>
+                      @endforeach  
+                      </tbody>
+                  </table>
             </div>
         </div>
 
