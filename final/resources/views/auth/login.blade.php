@@ -94,11 +94,12 @@
                                         {{ __('Login') }}
                                     </button>
 
-                                    @if (Route::has('password.request'))
+                                    {{-- @if (Route::has('password.request'))
                                         <a class="btn btn-link text-danger" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
                                         </a>
-                                    @endif
+                                    @endif --}}
+                                    <a class="btn btn-link text-danger" href="{{ route('ResetMyPasswordView') }}">Forgot Your Password?</a>                                    
                                 {{-- </div> --}}
                             </div>
                         </form>

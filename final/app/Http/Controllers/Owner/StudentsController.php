@@ -40,7 +40,8 @@ class StudentsController extends Controller
     public function viewstudent($user_id){
         $student = Student::where('user_id','=',$user_id)->with('user')->get();
         $examdetails = Student::where('user_id','=',$user_id)->with('exams')->get();
-        return view('owner.students.viewstudent',compact('student','examdetails'));
+        $student_categories= StudentCategory::where('user_id','=',$user_id)->get();
+        return view('owner.students.viewstudent',compact('student','examdetails','student_categories'));
 
     }
 
@@ -280,6 +281,15 @@ class StudentsController extends Controller
         $user->status = 1;
         $user->save();
         return redirect()->route('viewstudentrecyclebin')->with('successmsg', 'Student is restored successfully!');
+    }
+
+    public function deleteStudent(Request $request){
+        $user_id=$request->uid;
+        $user=User::find($user_id);
+        $user->role_id = 4;
+        $user->status = 3;
+        $user->save();
+        return redirect()->route('studentslist')->with('successmsg', 'Student is Deleted successfully!');
     }
 
 

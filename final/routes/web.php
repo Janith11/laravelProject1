@@ -31,6 +31,13 @@ Route::post('/Verify-your-phone/code', 'Auth\TwoFactorAuthenteController@verify'
 Route::get('/Verify-your-phone/resend-code/{id}', 'Auth\TwoFactorAuthenteController@resendverify')->name('ResendOTPRegistration');
 Route::get('/Again-resend-OTP', 'Auth\TwoFactorAuthenteController@againresendverify')->name('AgainResendOTPLogin');
 
+//Pasword Reset form Outer Login
+Route::get('/Loging_Reset_my_Password_view', 'Auth\MyResetPasswordController@index')->name('ResetMyPasswordView');
+Route::post('/Loging_Reset_Sending_OTP', 'Auth\MyResetPasswordController@checknumber')->name('ResetMyPasswordSendingOTP');
+Route::post('/Loging_Reset_Submitting_OTP', 'Auth\MyResetPasswordController@checkotp')->name('ResetMyPasswordSubmittingOTP');
+Route::post('/Loging_Reset_Submitting_Password', 'Auth\MyResetPasswordController@changepassword')->name('ResetMyPasswordFinal');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contactus', 'landingpage\ContactusController@index')->name('contactus');
 Route::get('/gallery', 'landingpage\GalleryControllere@index')->name('gallery');
@@ -115,6 +122,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/students/completedstudents/temporydelete/{id}', 'Owner\StudentsController@temporydelete')->name('temporystudentdelete');
     Route::get('/students/completedstudents/recyclebin', 'Owner\StudentsController@viewrecycle')->name('viewstudentrecyclebin');
     Route::post('/students/completedstudents/restorestudent/{id}', 'Owner\StudentsController@restorestudent')->name('restorestudent');
+    Route::post('/students/delete_Student', 'Owner\StudentsController@deleteStudent')->name('DeleteStudent');
 
     //student category part update and add category in the studentcontroller
     Route::post('/updatecategory/test/{id}/{userid}', 'Owner\StudentsController@updatecategory')->name('updatestudentcategory');
@@ -213,6 +221,10 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/settings/savesprofileimage', 'Owner\SettingController@updateprofilepicture')->name('updateownerprofileimage');
     Route::get('/settings/password', 'Owner\SettingController@password')->name('ownerpassword');
     Route::post('/settings/password/save', 'Owner\SettingController@store')->name('saveownerpassword');
+    Route::get('/settings/password/OTP', 'Owner\SettingController@ViewOTP')->name('ownerpasswordViewOTP');
+    Route::post('/settings/password/CheckOTP', 'Owner\SettingController@CheckOTP')->name('saveownerpasswordCheckOTP');
+    Route::get('/settings/password/Change_Password', 'Owner\SettingController@ChangeNewPassword')->name('ownerpasswordChangeNewPassword');
+    Route::post('/settings/password/Update_password', 'Owner\SettingController@UpdatePassword')->name('saveownerpasswordUpdatePassword');
 
     // attendances
     Route::get('/attendanceslist', 'Owner\EmplooyeeAttendanceController@index')->name('attendanceslist');
@@ -284,6 +296,9 @@ Route::middleware('studentprofile')->group(function(){
     Route::post('/studentprofile/updateprofileimage', 'Student\StudentProfileController@updateprofilepicture')->name('studentupdateprofilepicture');
     Route::get('/studentprofile/changepassword', 'Student\StudentProfileController@changepassword')->name('studentchangepassword');
     Route::post('/studentprofile/changepassword/save', 'Student\StudentProfileController@store')->name('studentupdatepassword');
+    Route::post('/studentprofile/changepassword/OTP', 'Student\StudentProfileController@enterotp')->name('studentupdatepasswordenterotp');
+    Route::get('/studentprofile/changepassword/Change_New_password', 'Student\StudentProfileController@chanegPasswordView')->name('studentupdatepasswordChangeView');
+    Route::post('/studentprofile/changepassword/update', 'Student\StudentProfileController@updatepassword')->name('studentupdatepasswordupdate');
 
     // sheduling part
     Route::get('/studentshedule', 'Student\ShedulingController@index')->name('studentsheduling');
@@ -360,6 +375,10 @@ Route::middleware('instructordashboard')->group(function(){
     Route::post('/instructorprofile/updateprofileimage', 'Instructor\ProfileController@updateprofilepicture')->name('instructorupdateprofilepicture');
     Route::get('/instructorprofile/changepassword', 'Instructor\ChangePasswordController@index')->name('instructorchangepassword');
     Route::post('/instructorprofile/updatepassword', 'Instructor\ChangePasswordController@store')->name('updateinstructorpassword');
+    Route::get('/instructorprofile/SendOTP', 'Instructor\ChangePasswordController@SendOTP')->name('instructorpasswordSEndOTP');
+    Route::post('/instructorprofile/CheckOTP', 'Instructor\ChangePasswordController@CheckOTP')->name('instructorpasswordCheckOTP');
+    Route::get('/instructorprofile/Change_Password', 'Instructor\ChangePasswordController@ChangePasswordView')->name('instructorpasswordChangeView');
+    Route::post('/instructorprofile/PasswordChanged', 'Instructor\ChangePasswordController@PasswordChanged')->name('instructorpassworChanged');
 
     //Chat
     Route::get('/Ichat', 'Instructor\ChatController@index')->name('instructorchat');
@@ -391,6 +410,7 @@ Route::middleware('instructordashboard')->group(function(){
 Route::group(['as' => 'candidate.', 'prefix' => 'candidate', 'namespace' => 'candidate', 'middleware' => ['auth', 'candidate']],
     function(){
         Route::get('dashboard', 'CandidateController@index')->name('candidatedashboard');
+        Route::post('new-quiries', 'CandidateController@requests')->name('candidatedashboardrequests');
     }
 );
 

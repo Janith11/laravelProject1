@@ -9,7 +9,7 @@
 
 <div class="container">
 
-    <div class="row mb-2">
+    <div class="row">
         <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Students</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
         <a href="{{ route('owner.ownerdashboad') }}">
@@ -19,6 +19,24 @@
         </a>
         <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentslist') }}"> / Students List</a>
         <a style="padding-top: 6px; padding-left: 10px"> / Students Details</a>
+    </div>
+
+    <div class="row">
+      <div class="col d-flex justify-content-end">
+        <form method="POST" action="{{ route('DeleteStudent') }}" id="delete-form-student" style="display: none">
+          @csrf
+          @foreach ($student as $stu)
+            <input type="text" name="uid" value="{{ $stu->user->id }}">
+          @endforeach
+        </form>
+      <button onclick="if(confirm('Are You Sure to Remove this Student?')){
+          event.preventDefault();
+          document.getElementById('delete-form-student').submit();
+      }else{
+          event.preventDefault();
+      }" href="" class="btn btn-danger" >Remove Student
+      </button>
+      </div>
     </div>
 
       <div class="tab mt-4 mb-2">
@@ -60,8 +78,27 @@
                           <td><small>{{$s->user->address_no}}, {{$s->user->address_lineone}}, {{$s->user->address_linetwo}}</small></td>
                         </tr>
                         <tr>
-                          <td scope="row">View Categories</td>
-                          <td scope="row"><a href="{{ route('categoryview',$s->user->id) }}" type="button" class="btn btn-success">Category</a></button></td>
+                          <td scope="row">Categories</td>
+                          <td>
+                            @foreach ($student_categories as $c)
+                              @if ($c->category == "A")
+                              <p class="badge badge-warning py-1">Bike</p>    
+                              @endif
+                              @if ($c->category == "B")
+                              <p class="badge badge-warning py-1">Three Wheel</p>    
+                              @endif
+                              @if ($c->category == "C1")
+                              <p class="badge badge-warning py-1">Car,Van & Dual Purposes</p>    
+                              @endif
+                              @if ($c->category == "C")
+                              <p class="badge badge-warning py-1">Heavy Vehicle</p>    
+                              @endif
+                            @endforeach
+                          </td>
+                        </tr>
+                        <tr>
+                          {{-- <td>Edit Category</td> --}}
+                          <td scope="row"><a href="{{ route('categoryview',$s->user->id) }}" type="button" class="btn btn-success">Edit Category</a></button></td>
                         </tr>
                       </tbody>
                     </table>
@@ -121,46 +158,49 @@
                 </div>
               </div>
               @endforeach
+              
               <div class="card mt-4 mb-2">
 
                 <div class="card-body">
                     <h4 class="card-title">Exam Results</h4>
+                    <div class="row">
                     @foreach ($examdetails as $examdetail)
                     @foreach ($examdetail->exams as $exam)
-
-                    <div class="card col-md-6">
-                      <div class="card-body">
-                      <div class="table-responsive">
-                      <table class="table mt-5 table-sm">
-                      <tbody>
-                          <tr>
-                            <td scope="row">Type</td>
-                            <td><h5>{{ $exam->type }}</h5></td>
-                          </tr>
-                          <tr>
-                            <td scope="row">Exam date</td>
-                            <td><h5>{{ $exam->date }}</h5></td>
-                          </tr>
-                          <tr>
-                            <td scope="row">Result</td>
-                            <td><h5>{{ $exam->result }}</h5></td>
-                          </tr>
-                          <tr>
-                            <td scope="row">Attempt</td>
-                            <td><h5>{{ $exam->attempt }}</h5></td>
-                          </tr>
-                          <tr>
-                            <td scope="row"><a href="{{ route('editexamlist',$exam->user_id) }}" type="button" class="btn btn-primary">Edit Results</a></button></td>
-                            </tr>
-                          </tbody>
-                      </table>
-                    </div>
-                      </div>
-                    </div>
+                      <div class="col-sm-6">
+                        <div class="card">
+                          <div class="card-body">
+                            <table class="table mt-5 table-sm">
+                              <tbody>
+                                <tr>
+                                  <td scope="row">Type</td>
+                                  <td><h5>{{ $exam->type }}</h5></td>
+                                </tr>
+                                <tr>
+                                  <td scope="row">Exam date</td>
+                                  <td><h5>{{ $exam->date }}</h5></td>
+                                </tr>
+                                <tr>
+                                  <td scope="row">Result</td>
+                                  <td><h5>{{ $exam->result }}</h5></td>
+                                </tr>
+                                <tr>
+                                  <td scope="row">Attempt</td>
+                                  <td><h5>{{ $exam->attempt }}</h5></td>
+                                </tr>
+                                <tr>
+                                  <td scope="row"><a href="{{ route('editexamlist',$exam->user_id) }}" type="button" class="btn btn-primary">Edit Results</a></button></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>  
                     @endforeach
                     @endforeach
+                    </div>
                   </div>
                 </div>
+
               </div>
 
         </div>

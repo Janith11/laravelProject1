@@ -41,7 +41,7 @@
             </svg>
         </a>
         <a style="padding-top: 6px; padding-left: 10px" href="{{ route('studentprofile') }}"> / Profile details</a>
-        <a style="padding-top: 6px; padding-left: 10px"> / Change Password</a>
+        <a style="padding-top: 6px; padding-left: 10px"> / Change Password/ OTP</a>
     </div>
 
     <div class="row-mb-2">
@@ -73,7 +73,7 @@
                         <h5 id="header" style="font-weight: bold; text-align: center">Change Password</h5>
                         <hr style="border-top: 1px solid #222944">
 
-                        <form action="{{ route('studentupdatepassword') }}" method="POST">
+                        <form action="{{ route('studentupdatepasswordenterotp') }}" method="POST">
 
                             @csrf
 
@@ -81,41 +81,19 @@
 
                                 <tr>
                                     <td>
-                                        <h5 id="header">Current password</h5>
+                                        <h5 id="header">OTP</h5>
                                     </td>
                                     <td>
                                         <div class="form-group" style="padding-left: 10px">
-                                            <input type="password" class="form-control" name="current_password" placeholder="Current password">
+                                            <input type="text" class="form-control" name="otp" placeholder="Enter OTP" required>
                                         </div>
                                     </td>
                                 </tr>
-
-                                {{-- <tr>
-                                    <td>
-                                        <h5 id="header">New password</h5>
-                                    </td>
-                                    <td>
-                                        <div class="form-group" style="padding-left: 10px">
-                                            <input type="text" class="form-control" name="new_password">
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <h5 id="header">Re-Enter password</h5>
-                                    </td>
-                                    <td>
-                                        <div class="form-group" style="padding-left: 10px">
-                                            <input type="text" class="form-control" name="re_enter_password">
-                                        </div>
-                                    </td>
-                                </tr> --}}
-
+                               
                             </table>
-                            <small class="text-muted">Please Enter your current password, we will sent you a OTP to your mobile phone to change your password.</small>
+                            <small class="text-muted">Please enter your OTP to change the password.</small>
                             <div id="card" class="text-center">
-                                <button class="btn btn-success" type="submit">Send OTP</button>
+                                <button class="btn btn-success" type="submit">Continue</button>
                             </div>
 
                         </form>
