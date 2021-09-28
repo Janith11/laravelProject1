@@ -9,6 +9,7 @@ use App\Student;
 use App\Exam;
 use App\Message;
 use App\Http\Controllers\Controller;
+use App\VehicleCategory;
 use Illuminate\Http\Request;
 use Exception;
 use Twilio\Rest\Client;
@@ -22,10 +23,11 @@ class ViewrequestController extends Controller
     public function get($id){
         $registration=User::where('id',$id)->get();
         $category=StudentCategory::where('user_id',$id)->get();
-        return view('owner.requests.reviewrequest',compact('registration','category'));
+        $vehiclecategory = VehicleCategory::all();
+        return view('owner.requests.reviewrequest',compact('registration','category', 'vehiclecategory'));
     }
     public function accept(Request $request, $id){
-        
+
         $this->validate($request,[
             'firstname' => 'required',
             'middlename' => 'required',
@@ -44,7 +46,7 @@ class ViewrequestController extends Controller
             //get ids from .env
             $sid    = getenv("TWILIO_SID");
             $token  = env("TWILIO_AUTH_TOKEN");
-            $from   = env("TWILIO_NUMBER");  
+            $from   = env("TWILIO_NUMBER");
 
             $user = User::find($id);
 
@@ -116,9 +118,9 @@ class ViewrequestController extends Controller
                 $Co_number =$user->contact_number;
                 $str = ltrim($Co_number, $Co_number[0]);
                 $International_No = "+94".$str;
-    
+
                 try {
-                
+
                     $twilio = new Client($sid, $token);
                     $message = $twilio->messages
                         ->create($International_No, // to
@@ -127,7 +129,7 @@ class ViewrequestController extends Controller
                                     "from" => $from
                                 )
                         );
-        
+
                     }catch (Exception $e) {
                         dd("Error: ". $e->getMessage());
                     }
@@ -143,9 +145,9 @@ class ViewrequestController extends Controller
              $Co_number =$user->contact_number;
              $str = ltrim($Co_number, $Co_number[0]);
              $International_No = "+94".$str;
- 
+
              try {
-             
+
                  $twilio = new Client($sid, $token);
                  $message = $twilio->messages
                      ->create($International_No, // to
@@ -154,7 +156,7 @@ class ViewrequestController extends Controller
                                  "from" => $from
                              )
                      );
-     
+
                  }catch (Exception $e) {
                      dd("Error: ". $e->getMessage());
                  }

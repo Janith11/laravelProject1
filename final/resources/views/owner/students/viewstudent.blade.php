@@ -99,19 +99,19 @@
                     <table class="table mt-3 table-sm">
                         <tbody>
                           <tr>
-                            <td scope="row">scheduled</td>
-                            <td><h5><span class="badge badge-primary">5</span></h5></td>
+                            <td scope="row">Total sessions</td>
+                            <td><h5><span class="badge badge-primary">{{ $s->total_session }}</span></h5></td>
                           </tr>
                           <tr>
-                            <td scope="row">Participated</td>
-                            <td><h5><span class="badge badge-success">4</span></h5></td>
+                            <td scope="row">Completed Sessions</td>
+                            <td><h5><span class="badge badge-success">{{ $s->completed_session }}</span></h5></td>
                           </tr>
                           <tr>
-                            <td scope="row">not participated</td>
-                            <td><h5><span class="badge badge-danger">1</span></h5></td>
+                            <td scope="row">Not Completed Sessions</td>
+                            <td><h5><span class="badge badge-danger">{{ $s->total_session - $s->completed_session }}</span></h5></td>
                           </tr>
                           <tr>
-                            <td scope="row"><button class="btn btn-primary">View Calender</button></td>
+                            <td scope="row"><a href="{{ route('studenteventcalendar', $s->user_id) }}" class="btn btn-primary" type="button" >View Calender</a></td>
                             </tr>
                           </tbody>
                       </table>

@@ -11,6 +11,8 @@ use App\Exam;
 use App\VehicleCategory;
 use App\StudentCategory;
 use App\Message;
+use App\SheduledStudents;
+use App\SheduleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -270,10 +272,12 @@ class StudentsController extends Controller
         $user->save();
         return redirect()->route('completedstudents')->with('successmsg', 'Student is deleted successfully!, Student account has been disabled!');
     }
+
     public function viewrecycle(){
         $users=User::where('role_id',4)->where('status',3)->get();
         return view('owner.students.viewdeletedstudents',compact('users'));
     }
+
     public function restorestudent(Request $request,$userid){
         $user=User::where('id',$userid)->first();
         $user->role_id = 3;
@@ -282,6 +286,61 @@ class StudentsController extends Controller
         return redirect()->route('viewstudentrecyclebin')->with('successmsg', 'Student is restored successfully!');
     }
 
+    public function studentsevent($user_id){
+        return view('owner.students.studentcalenderview', compact('user_id'));
+    }
+
+    public function studenteventlist($user_id){
+        $responses = [];
+        $resultone = SheduledStudents::with('shedule')->where('student_id', $user_id)->get();
+        $resulttwo = SheduleRequest::with('Shedules')->where('user_id', $user_id)->whereIn('shedule_status', [0, 2])->get();
+        foreach($resultone as $one){
+            $row = [];
+            if ($one->shedule->shedule_status == 1) {
+                $row['title'] = $one->shedule->title;
+                $row['color'] = '#35FF35';
+                $row['textColor'] = '#040124';
+                $row['date'] = $one->shedule->date;
+                array_push($responses, $row);
+            }elseif ($one->shedule->shedule_status == 2) {
+                $row['title'] = $one->shedule->title;
+                $row['color'] = '#03011F';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $one->shedule->date;
+                array_push($responses, $row);
+            }elseif ($one->shedule->shedule_status == 3) {
+                $row['title'] = $one->shedule->title;
+                $row['color'] = '#FF2957';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $one->shedule->date;
+                array_push($responses, $row);
+            }else{
+                $row['title'] = $one->shedule->title;
+                $row['color'] = '#FF891A';
+                $row['textColor'] = '#040124';
+                $row['date'] = $one->shedule->date;
+                array_push($responses, $row);
+            }
+        }
+        foreach ($resulttwo as $two) {
+            $row = [];
+            if ($two->shedule_status == 0) {
+                $row['title'] = $two->Shedules->title;
+                $row['color'] = '#0FD8F3';
+                $row['textColor'] = '#040124';
+                $row['date'] = $two->Shedules->date;
+                array_push($responses, $row);
+            }elseif ($two->shedule_status == 2) {
+                $row['title'] = $two->Shedules->title;
+                $row['color'] = '#FF2957';
+                $row['textColor'] = '#FFFFFF';
+                $row['date'] = $two->Shedules->date;
+                array_push($responses, $row);
+            }
+        }
+        // return $user_id;
+        return response()->json($responses);
+    }
 
 }
 

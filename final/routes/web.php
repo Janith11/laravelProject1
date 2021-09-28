@@ -115,6 +115,8 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/students/completedstudents/temporydelete/{id}', 'Owner\StudentsController@temporydelete')->name('temporystudentdelete');
     Route::get('/students/completedstudents/recyclebin', 'Owner\StudentsController@viewrecycle')->name('viewstudentrecyclebin');
     Route::post('/students/completedstudents/restorestudent/{id}', 'Owner\StudentsController@restorestudent')->name('restorestudent');
+    Route::get('/studenteventcalendar/{user_id}', 'Owner\StudentsController@studentsevent')->name('studenteventcalendar');
+    Route::get('/studenteventlist/{user_id}', 'Owner\StudentsController@studenteventlist')->name('studenteventlist');
 
     //student category part update and add category in the studentcontroller
     Route::post('/updatecategory/test/{id}/{userid}', 'Owner\StudentsController@updatecategory')->name('updatestudentcategory');
@@ -153,6 +155,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/othersessons/{date}', 'Owner\ShedulingController@othersessions');
     Route::get('/custometime/{date}', 'Owner\ShedulingController@getcustometime');
     Route::post('/confirmshedule', 'Owner\ShedulingController@confirmlaststep')->name('confirmfinalstep');
+    Route::get('/chnageinstructor/{ins}/{shedule_id}', 'Owner\ShedulingController@changeInstructor');
     // my end
 
     Route::get('/allevents', 'Owner\ShedulingController@allevents')->name('allevents');
@@ -163,6 +166,9 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('shedulelist/allshedules', 'owner\ShedulingController@allshedules')->name('allshedules');
     Route::get('shedulelist/todayshedules/markascomplete/{id}', 'Owner\ShedulingController@markascomplete')->name('markascomplete');
     Route::post('shedulelist/todayshedules/saveascomplete', 'Owner\ShedulingController@saveascomplete')->name('saveascomplete');
+    Route::get('/schedulelist/editschedule/{schedule_id}', 'Owner\ShedulingController@ownereditschedule')->name('ownereditschedule');
+    Route::delete('/removestudents/{student_list}/{shedule_id}', 'Owner\ShedulingController@removestudents');
+    Route::get('/getsheduledstudents/{shedule_id}', 'Owner\ShedulingController@getsheduledstudents');
 
     // session time table
     Route::get('/timetable', 'Owner\TimeTableController@index')->name('timetable');

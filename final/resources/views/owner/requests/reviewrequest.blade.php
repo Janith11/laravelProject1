@@ -63,7 +63,7 @@
         <div id="card">
             <div class="card">
                 <div class="card-body">
-                    <h5 style="color: #222944; font-weight: bold">Review new Student</h5>
+                    <h5 style="color: #222944; font-weight: bold" id="header">Review new Student <span id="matcherr">&nbsp;&nbsp;</span></h5>
                     <hr style="border: 0.5px solid #222944">
 
                     @foreach ($registration as $r)
@@ -144,9 +144,12 @@
                             <div class="col-sm-4" id="register_form_item">
                                 <div class="form-group">
                                     <label for="bithday">Birthday</label>
-                                    <input type="date" class="form-control" id="bithday" name="birthday" value="{{ $r->dob }}" readonly>
+                                    <input type="date" class="form-control" id="birthday" name="birthday" value="{{ $r->dob }}" readonly>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label >Address</label>
@@ -161,9 +164,6 @@
                                 </div>
                             </div>
 
-                        </div>
-
-                     <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="addresslineone">Address Line Two</label>
@@ -173,37 +173,42 @@
                         </div>
 
                         @endforeach
+                        <label for="">Requested Categories</label>
                         @foreach ($category as $c)
-                            <div class="row">
+                            @foreach ($vehiclecategory as $cat)
+                                @if($c->category == $cat->category_code)
+                                    <div class="row">
 
-                                <div class="col-sm-4">
-                                    <div class="col-md-4 mt-2" id="{{ $c->category_code }}A">
-                                        <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $c->category }}" id="{{ $c->category }}1" checked required disabled>
-                                        <label class="btn btn-outline-dark btn-block" for="{{ $c->category }}1" class="col-form-label text-md-right">{{ $c->category }}</label>
+                                        <div class="col-sm-4">
+                                            <div class="mt-2" id="{{ $c->category_code }}A">
+                                                <input type="checkbox" class="form-check-input btn-check" name="vehicle_category[]" value="{{ $c->category }}" id="{{ $c->category }}1" checked required disabled>
+                                                <label class="btn btn-outline-dark btn-block" for="{{ $c->category }}1" class="col-form-label text-md-right">{{ ucwords($cat->name) }} ({{ $c->category }})</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="btn-group " id="{{ $c->category }}B">
+                                                <input type="radio" class="btn-check " name="{{ $c->category }}" value="Training" id="{{ $c->id }}1" {{ $c->tstatus == 'Training' ? 'checked' : '' }} / disabled>
+                                                <label class="btn btn-outline-success m-1" for="{{ $c->id }}1">Training</label>
+
+                                                <input type="radio" class="btn-check" name="{{ $c->category }}" value="Without Training" id="{{ $c->id }}2" {{ $c->tstatus == 'Without Training' ? 'checked' : '' }}/ disabled>
+                                                <label class="btn btn-outline-danger m-1" for="{{ $c->id }}2">Without Training</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            @if( $c->transmission != '3')
+                                            <div class="btn-group">
+                                                <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Auto" id="{{ $c->id }}3" {{ $c->transmission == 'Auto' ? 'checked' : '' }}/ disabled>
+                                                <label class="btn btn-outline-success m-1" for="{{ $c->id }}3">Auto Transmission</label>
+
+                                                <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Manual" id="{{ $c->id }}4" {{ $c->transmission == 'Manual' ? 'checked' : '' }}/ disabled>
+                                                <label class="btn btn-outline-danger m-1" for="{{ $c->id }}4">Manual Transmission</label>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="btn-group " id="{{ $c->category }}B">
-                                        <input type="radio" class="btn-check " name="{{ $c->category }}" value="Training" id="{{ $c->id }}1" {{ $c->tstatus == 'Training' ? 'checked' : '' }} / disabled>
-                                        <label class="btn btn-outline-success m-1" for="{{ $c->id }}1">Training</label>
-
-                                        <input type="radio" class="btn-check" name="{{ $c->category }}" value="Without Training" id="{{ $c->id }}2" {{ $c->tstatus == 'Without Training' ? 'checked' : '' }}/ disabled>
-                                        <label class="btn btn-outline-danger m-1" for="{{ $c->id }}2">Without Training</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    @if( $c->transmission != '3')
-                                    <div class="btn-group">
-                                        <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Auto" id="{{ $c->id }}3" {{ $c->transmission == 'Auto' ? 'checked' : '' }}/ disabled>
-                                        <label class="btn btn-outline-success m-1" for="{{ $c->id }}3">Auto Transmission</label>
-
-                                        <input type="radio" class="btn-check" name="trans{{ $c->category }}" value="Manual" id="{{ $c->id }}4" {{ $c->transmission == 'Manual' ? 'checked' : '' }}/ disabled>
-                                        <label class="btn btn-outline-danger m-1" for="{{ $c->id }}4">Manual Transmission</label>
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
+                                @endif
+                            @endforeach
                         @endforeach
                         <div class="row">
                             <div class="col-sm-4">
@@ -245,7 +250,69 @@
 <script>
     $(document).ready(function(){
         $('aside ul .requests').css('border-left', '5px solid #00bcd4');
-    })
+    });
+
+    var nic = $('#nicnumber').val();
+    var bday = $('#birthday').val();
+    console.log('nic '+nic+' bithday '+bday);
+
+    var bmonth = bday.substr(5, 2);
+    var bdate = bday.substr(8, 2);
+    if(nic.length == 10){
+        var byear = bday.substr(2,2);
+        var nyear = nic.substr(0,2);
+        var nbday = nic.substr(3, 3);
+        var year = checkyear(byear, nyear);
+        if (year == false) {
+            $('#header').css('color', 'red');
+            $('#matcherr').empty();
+            $('#matcherr').append("( Entered NIC and Birthday doesn't match)");
+        }
+        var dates = gettotaldays(byear, bmonth, bdate, nbday);
+        if (dates == false) {
+            $('#header').css('color', 'red');
+            $('#matcherr').empty();
+            $('#matcherr').append("( Entered NIC and Birthday doesn't match)");
+        }
+
+    }else{
+        var byear = bday.substr(0,4);
+        var year = checkyear(byear, nyear);
+    }
+
+    function checkyear(byear, nyear){
+        if(byear != nyear){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    function gettotaldays(byear, bmonth, bdate, nbday){
+        var birthday;
+        var birthyear;
+        if(byear.length == 2){
+            var by = '19'+byear+'-'+01+'-'+01;
+            birthyear = new Date(by);
+            var date = '19'+byear+'-'+bmonth+'-'+bdate;
+            birthday = new Date(date);
+        }else{
+            var by = '19'+byear+'-'+01+'-'+01;
+            birthyear = new Date(by);
+            var date = byear+'-'+bmonth+'-'+bdate;
+            birthday = new Date(date);
+        }
+        var DiffTime = birthday.getTime() - birthyear.getTime();
+        var DiffDays = Math.round(DiffTime / (1000 * 3600 * 24));
+        if(parseInt(DiffDays) == parseInt(nbday)){
+            console.log('birthday diff match'+DiffDays);
+            return true;
+        }else{
+            console.log('birthday diff not match'+DiffDays);
+            return false;
+        }
+
+    }
 </script>
 
 @endsection

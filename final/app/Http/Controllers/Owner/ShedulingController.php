@@ -874,4 +874,64 @@ class ShedulingController extends Controller
 
         return redirect()->route('owneraddschedule')->with('successmsg', 'Schedule added successfully !!');
     }
+
+    // edit schedule function
+    public function ownereditschedule($shedule_id){
+        $shedule = Shedule::with('sheduledstudents')->where('id', $shedule_id)->get();
+        $categories = VehicleCategory::all();
+        $instructor = Instructor::with('user')->get();
+        $students = Student::with('user')->get();
+        return view('owner.sheduling.editschedule', compact('shedule', 'categories', 'instructor', 'students'));
+    }
+
+    public function removestudents($student_list, $shedule_id){
+        // return $shedule_id;
+        $students = explode(',',$student_list);
+        $ids = [];
+        foreach($students as $std){
+            $result = SheduledStudents::where('shedule_id' , $shedule_id)->where('student_id', $std)->get();
+            foreach($result as $res){
+                $ids[] = $res->id;
+            }
+        }
+        $message = "You Removed from Session $shedule_id";
+        $removealert = SheduleAlert::create([
+            'shedule_id' => $shedule_id,
+            'message' => $message,
+        ]);
+        foreach($ids as $id){
+            SheduledStudents::find($id)->delete();
+            AlertForStudent::create([
+                'shedulealert_id' => $removealert->id,
+                'student_id' => $id,
+                'alert_status' => 0
+            ]);
+        }
+        return response()->json(['message' => 'Student Remove Successfully !!']);
+    }
+
+    public function getsheduledstudents($shedule_id){
+        $result = SheduledStudents::where('shedule_id', $shedule_id)->get();
+        return response()->json($result);
+    }
+
+    public function changeInstructor($ins, $shedule_id){
+        $shedule = Shedule::find($shedule_id);
+        $shedule->instructor = $ins;
+        $shedule->save();
+
+        $result = Shedule::where('id', $shedule_id)->first();
+        $message = "You Have to Instruct a $result->lesson_type Session on $result->date at $result->time"; 
+        $insalert = SheduleAlert::create([
+            'shedule_id' => $shedule_id,
+            'message' => $message,
+        ]);
+
+        AlertForStudent::create([
+            'shedulealert_id' => $insalert->id,
+            'student_id' => $ins,
+            'alert_status' => 0
+        ]);
+        return response()->json(['message' => 'Instructor Change Succesfully ']);
+    }
 }
