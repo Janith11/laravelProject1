@@ -11,14 +11,17 @@ use App\StudentCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
+use Exception;
+use Twilio\Rest\Client;
 
 class IntructorsController extends Controller
 {
     public function index(){
         $instructors = User::where('role_id',2)->where('status',1)->get();
+        $categories= StudentCategory::all();
         $details = CompanyDetails::first();
         $logo = $details->logo;
-        return view('owner.instructor.instructors', compact('instructors', 'logo'));
+        return view('owner.instructor.instructors', compact('instructors', 'logo','categories'));
     }
     public function addinstructor(){
         $vehicalcategory=VehicleCategory::all();
@@ -97,6 +100,32 @@ class IntructorsController extends Controller
             ]);
             }
         }
+
+        // send sms to the new instructor USERNAME AND PASSWORD NOT ADDED TO THE SMS YET
+               
+        //convert international number
+        $Co_number =$user->contact_number;
+        $str = ltrim($Co_number, $Co_number[0]);
+  	    $International_No = "+94".$str;
+        
+        //get ids from .env
+        $sid    = getenv("TWILIO_SID");
+        $token  = env("TWILIO_AUTH_TOKEN");
+        $from   = env("TWILIO_NUMBER");  
+
+        //sending sms
+        try {
+            $twilio = new Client($sid, $token);
+            // $message = $twilio->messages
+            //       ->create($International_No, //to
+            //                array(
+            //                    "body" => "Hello ".$user->f_name." ".$user->l_name."\nResending OTP. Welcome to the Driving School Management System. Your OTP is ".$OTP."\nThank you.",
+            //                    "from" => $from
+            //                ));    
+        }catch (Exception $e) {
+        dd("Error: ". $e->getMessage());
+        }
+
         return redirect()->route('insertinstructor')->with('successmsg', 'One Instructor is added successfuly !');
     }
 

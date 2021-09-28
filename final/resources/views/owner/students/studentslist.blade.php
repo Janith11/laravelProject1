@@ -141,6 +141,22 @@
         </div>
     </div>
 
+    {{-- success Messages  --}}
+    <div class="row">
+        <div class="col-sm-12">
+            @if(session('successmsg'))
+                <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+                    <h5>
+                        {{ session('successmsg') }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+        </div>
+    </div>
+
     {{-- start tabel  --}}
     <div class="row-mb-2">
         <div id="card">

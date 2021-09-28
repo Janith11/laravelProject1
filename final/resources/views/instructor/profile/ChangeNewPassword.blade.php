@@ -1,4 +1,4 @@
-@extends('layouts.student')
+@extends('layouts.ownerapp')
 
 @section('content')
 
@@ -29,7 +29,7 @@
     }
 
 </style>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <div class="container">
 
     <div class="row mb-2">
@@ -73,7 +73,7 @@
                         <h5 id="header" style="font-weight: bold; text-align: center">Change Password</h5>
                         <hr style="border-top: 1px solid #222944">
 
-                        <form action="{{ route('studentupdatepassword') }}" method="POST">
+                        <form action="{{ route('instructorpassworChanged') }}" method="POST" onsubmit="checkpassword()">
 
                             @csrf
 
@@ -81,41 +81,31 @@
 
                                 <tr>
                                     <td>
-                                        <h5 id="header">Current password</h5>
-                                    </td>
-                                    <td>
-                                        <div class="form-group" style="padding-left: 10px">
-                                            <input type="password" class="form-control" name="current_password" placeholder="Current password">
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                {{-- <tr>
-                                    <td>
                                         <h5 id="header">New password</h5>
                                     </td>
                                     <td>
                                         <div class="form-group" style="padding-left: 10px">
-                                            <input type="text" class="form-control" name="new_password">
+                                            <input type="password" class="form-control" name="new_password" id="password" placeholder="New password" onkeyup="password1()">
+                                            <small id="passwordHelp" class="text-danger"></small>
                                         </div>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <h5 id="header">Re-Enter password</h5>
+                                        <h5 id="header">Confirm Password</h5>
                                     </td>
                                     <td>
                                         <div class="form-group" style="padding-left: 10px">
-                                            <input type="text" class="form-control" name="re_enter_password">
+                                            <input type="password" class="form-control" id="confirmPassword1" name="confirm_password" placeholder="Confirm Password" onkeyup="confirmPassword2()" >
+                                            <small id="confirmpasswordHelp" class="text-danger"></small>
                                         </div>
                                     </td>
-                                </tr> --}}
-
+                                </tr>
                             </table>
-                            <small class="text-muted">Please Enter your current password, we will sent you a OTP to your mobile phone to change your password.</small>
+                            <small class="text-muted">Now you can change your password.</small>
                             <div id="card" class="text-center">
-                                <button class="btn btn-success" type="submit">Send OTP</button>
+                                <button class="btn btn-success" type="submit">Change Password</button>
                             </div>
 
                         </form>
@@ -127,6 +117,43 @@
     </div>
 
 </div>
+
+    <script>
+        function password1(){
+            var pass = document.getElementById("password").value;
+            if(pass.length >= 8){
+                $('#password').addClass('is-valid');
+                $("#password").removeClass('is-invalid');
+                $('#passwordHelp').html("");
+            }else{
+                $('#password').addClass('is-invalid');
+                $("#password").removeClass('is-valid');
+                $('#passwordHelp').html("*At least 8 characters.");
+            }
+        }
+        function confirmPassword2(){
+            var pass = document.getElementById("password").value;
+            var compass = document.getElementById("confirmPassword1").value;
+            if(pass == compass){
+                $('#confirmPassword1').addClass('is-valid');
+                $("#confirmPassword1").removeClass('is-invalid');
+                $('#confirmpasswordHelp').html("");
+            }else{
+                $('#confirmPassword1').addClass('is-invalid');
+                $("#confirmPassword1").removeClass('is-valid');
+                $('#confirmpasswordHelp').html("*Password doesn't match.");
+            }
+        }
+        function checkPassword(){
+            var password = document.querySelector("#password").value;
+            var confirmpassword = document.querySelector("#confirmPassword1").value;
+            if(password.length >= 8 && confirmpassword==password){
+               return true;
+            }else{
+               return false;
+            }
+        }  
+    </script>
 
     <script>
         $(document).ready(function(){

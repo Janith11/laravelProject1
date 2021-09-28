@@ -9,6 +9,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Exception;
+use Twilio\Rest\Client;
 
 class StudentProfileController extends Controller
 {
@@ -82,18 +84,79 @@ class StudentProfileController extends Controller
 
         $this->validate($request, [
             'current_password' => ['required', new MatchOldPassword],
-            'new_password' => 'required|min:8',
-            're_enter_password' => ['same:new_password'],
-            // |min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$|confirmed
         ]);
 
-        $student_id = Auth::user()->id;
+        $user = Auth::user();
+        
+        //generate a new OTP
+        $OTP= rand(100000,999999);
 
-        $student = User::find($student_id);
+        //find user and save new OTP
+        $user->otp = $OTP;
+        $user->save();
+        
+        //convert international number
+        $Co_number =$user->contact_number;
+        $str = ltrim($Co_number, $Co_number[0]);
+  	    $International_No = "+94".$str;
+        
+        //get ids from .env
+        $sid    = getenv("TWILIO_SID");
+        $token  = env("TWILIO_AUTH_TOKEN");
+        $from   = env("TWILIO_NUMBER");  
+
+        //sending sms
+        try {
+            $twilio = new Client($sid, $token);
+            // $message = $twilio->messages
+            //       ->create($International_No, //to
+            //                array(
+            //                    "body" => "Hello ".$user->f_name." ".$user->l_name."\nResending OTP. Welcome to the Driving School Management System. Your OTP is ".$OTP."\nThank you.",
+            //                    "from" => $from
+            //                ));    
+        }catch (Exception $e) {
+        dd("Error: ". $e->getMessage());
+        }
+
+        return view('student.profile.EnterOTP');
+
+        // $student = User::find($student_id);
+        // $student->password = Hash::make($request->new_password);
+        // $student->save();
+
+        // return redirect()->route('studentprofile')->with('successmsg', 'Password Change Successfully !!');
+
+    }
+
+    public function enterotp(Request $request){
+        $this->validate($request, [
+            'otp' => ['required'],
+        ]);
+        
+        $user = Auth::user();
+
+        if($user->otp == $request->otp){
+            return redirect()->route('studentupdatepasswordChangeView');
+        }else{
+            return view('student.profile.EnterOTP')->with('errormsg', 'OTP is incorrect!');
+        }   
+    }
+
+    public function chanegPasswordView(){
+        return view('student.profile.changeNewPassword');
+    }
+
+    public function updatepassword(Request $request){
+       
+        $this->validate($request, [
+            'new_password' => 'required|min:8',
+            'confirm_password' => ['same:new_password'],
+        ]);
+        $student = Auth::user();
         $student->password = Hash::make($request->new_password);
         $student->save();
 
-        return redirect()->route('studentprofile')->with('successmsg', 'Password Change Successfully !!');
-
+        Auth::logout();
+        return redirect()->route('login')->with('verifiedmessage', 'Pasword change successfully!');
     }
 }

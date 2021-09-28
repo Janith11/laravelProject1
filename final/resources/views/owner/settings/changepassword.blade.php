@@ -77,12 +77,12 @@
                                     </td>
                                     <td>
                                         <div class="form-group" style="padding-left: 10px">
-                                            <input type="text" class="form-control" name="current_password">
+                                            <input type="password" class="form-control" name="current_password" placeholder="Current password">
                                         </div>
                                     </td>
                                 </tr>
 
-                                <tr>
+                                {{-- <tr>
                                     <td>
                                         <h5 id="header">New password</h5>
                                     </td>
@@ -102,12 +102,12 @@
                                             <input type="text" class="form-control" name="re_enter_password">
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> --}}
 
                             </table>
-
+                            <small class="text-muted">Please Enter your current password, we will sent you a OTP to your mobile phone to change your password.</small>
                             <div id="card" class="text-center">
-                                <button class="btn btn-success" type="submit">Change</button>
+                                <button class="btn btn-success" type="submit">Send OTP</button>
                             </div>
 
                         </form>

@@ -18,6 +18,7 @@ use App\SheduleAlert;
 use App\SheduleRequest;
 use App\ContactUs;
 use App\VehicleCategory;
+use App\OuterStudentMessage;
 
 //0 received
 //1 viewed ->clicked the alert
@@ -31,7 +32,8 @@ class RequestAlertController extends Controller
         $shedulerequests = SheduleRequest::where('status', 0)->with('shedules')->get();
         $students = Student::with('user')->get();
         $contactus=ContactUs::orderBy('created_at','DESC')->get();
-        return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students','contactus'));
+        $outer_Messages=OuterStudentMessage::orderBy('created_at','DESC')->get();
+        return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students','contactus','outer_Messages'));
     }
 
     public function redirect($userid,$description,$id){
