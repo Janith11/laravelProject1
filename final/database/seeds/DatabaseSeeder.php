@@ -36,7 +36,9 @@ class DatabaseSeeder extends Seeder
                     PostSeeder::class,
                     TimeSlotSeeder::class,
                     InstructorforTimeSlot::class,
-                    SheduleSeeder::class
+                    SheduleSeeder::class,
+                    OuterMessageSeeder::class,
+                    ContactUsSeeder::class
                 ]);
     }
 }

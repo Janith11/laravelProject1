@@ -152,7 +152,7 @@
                     <table class="table borderless table-hover table-striped">
                         <thead>
                             <tr>
-                              <th scope="col">Id</th>
+                              <th scope="col">Time</th>
                               <th scope="col">Name</th>
                               <th scope="col">Email</th>
                               <th scope="col">Contact No</th>
@@ -165,7 +165,7 @@
                                 {{-- @if ($n->description == 3)                     --}}
                                 <tr>
                                     <td scope="row">
-                                        {{ $detail->id }}
+                                        {{ $detail->created_at->diffForHumans() }}
                                     </td>
                                     <td>
                                         {{ $detail->name }}
@@ -196,24 +196,29 @@
 
         <div class="card">
             <div class="card-body">
-                <table class="table table-sm table-striped text-center">
-                    <thead>
-                      <tr>
-                        <th scope="col">Student Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Message</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($outer_Messages as $m)                 
+                <div class="card-header"><h5>Request from Deleted Students</h5></div> 
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-sm table-striped ">
+                        <thead>
                         <tr>
-                            <th scope="row">{{ $m->uid }}</th>
-                            <td>{{ $m->name }}</td>
-                            <td>{{ $m->message }}</td>
+                            <th scope="col">Student Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Time</th>
                         </tr>
-                      @endforeach  
-                      </tbody>
-                  </table>
+                        </thead>
+                        <tbody>
+                        @foreach ($outer_Messages as $m)                 
+                            <tr>
+                                <th scope="row">{{ $m->uid }}</th>
+                                <td>{{ $m->name }}</td>
+                                <td>{{ $m->message }}</td>
+                                <td>{{ $m->created_at->diffForHumans() }}</td>
+                            </tr>
+                        @endforeach  
+                        </tbody>
+                    </table>
+                </div>    
             </div>
         </div>
 

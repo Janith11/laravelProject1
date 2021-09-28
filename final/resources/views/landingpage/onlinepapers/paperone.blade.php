@@ -295,7 +295,7 @@
     }
 
     quit_quit.onclick = ()=>{
-        window.location.reload();
+        window.location.href = "{{ route('onlinepaper')}}";
     }
     restart_quiz.onclick= ()=>{
         window.location.reload();
