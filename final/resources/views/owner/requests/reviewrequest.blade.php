@@ -147,6 +147,12 @@
                                     <input type="date" class="form-control" id="birthday" name="birthday" value="{{ $r->dob }}" readonly>
                                 </div>
                             </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <input type="text" class="form-control" id="age" disabled>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -218,9 +224,14 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="groupnumber">Group Number</label>
-                                    <input type="text" name="groupnumber" class="form-control is-valid" id="groupnumber" placeholder="Group Number" value="1">
+                                <div style="display: inline-block">
+                                    <div class="form-group">
+                                        <label for="groupnumber">Group Number</label>
+                                        <input type="text" name="groupnumber" class="form-control is-valid" id="groupnumber" placeholder="Group Number" value="1">
+                                    </div>
+                                </div>
+                                <div style="display: inline-block; padding-right: 10px">
+                                    <a href="{{ route('studentgroups') }}" class="btn btn-dark" type="button">Groups</a>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -252,67 +263,15 @@
         $('aside ul .requests').css('border-left', '5px solid #00bcd4');
     });
 
-    var nic = $('#nicnumber').val();
-    var bday = $('#birthday').val();
-    console.log('nic '+nic+' bithday '+bday);
+    var inputbday = $('#birthday').val();
+    var today = new Date();
+    var bday = new Date(inputbday);
 
-    var bmonth = bday.substr(5, 2);
-    var bdate = bday.substr(8, 2);
-    if(nic.length == 10){
-        var byear = bday.substr(2,2);
-        var nyear = nic.substr(0,2);
-        var nbday = nic.substr(3, 3);
-        var year = checkyear(byear, nyear);
-        if (year == false) {
-            $('#header').css('color', 'red');
-            $('#matcherr').empty();
-            $('#matcherr').append("( Entered NIC and Birthday doesn't match)");
-        }
-        var dates = gettotaldays(byear, bmonth, bdate, nbday);
-        if (dates == false) {
-            $('#header').css('color', 'red');
-            $('#matcherr').empty();
-            $('#matcherr').append("( Entered NIC and Birthday doesn't match)");
-        }
+    var DiffTime = today.getTime() - bday.getTime();
+    var DiffDays = Math.round(DiffTime / (1000 * 3600 * 24 * 365));
 
-    }else{
-        var byear = bday.substr(0,4);
-        var year = checkyear(byear, nyear);
-    }
+    document.getElementById('age').value = DiffDays;
 
-    function checkyear(byear, nyear){
-        if(byear != nyear){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    function gettotaldays(byear, bmonth, bdate, nbday){
-        var birthday;
-        var birthyear;
-        if(byear.length == 2){
-            var by = '19'+byear+'-'+01+'-'+01;
-            birthyear = new Date(by);
-            var date = '19'+byear+'-'+bmonth+'-'+bdate;
-            birthday = new Date(date);
-        }else{
-            var by = '19'+byear+'-'+01+'-'+01;
-            birthyear = new Date(by);
-            var date = byear+'-'+bmonth+'-'+bdate;
-            birthday = new Date(date);
-        }
-        var DiffTime = birthday.getTime() - birthyear.getTime();
-        var DiffDays = Math.round(DiffTime / (1000 * 3600 * 24));
-        if(parseInt(DiffDays) == parseInt(nbday)){
-            console.log('birthday diff match'+DiffDays);
-            return true;
-        }else{
-            console.log('birthday diff not match'+DiffDays);
-            return false;
-        }
-
-    }
 </script>
 
 @endsection
