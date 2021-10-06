@@ -128,6 +128,16 @@
                             <div id="card">
                                 <a href="{{ route('instructorprofile') }}" type="button" class="btn btn-primary">Change Profile</a>
                             </div>
+                            <div id="card">
+                                <h5>Training Categories</h5>
+                                @foreach ($categories as $cat)
+                                    @foreach ($trainingcategories as $tcat)
+                                        @if($tcat->category == $cat->category_code)
+                                            <h5 style="background-color: #23CF70; color: #fff; border-radius: 5px">{{ ucwords($cat->name) }} ( {{$cat->category_code}} )</h5>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -229,7 +239,7 @@
                                     <hr style="color: #222944; border-top: 1px solid #222944">
                                     @if(count($today_shedules) == 0)
                                         <div class="alert alert-info" role="alert">
-                                            <h5><strong>Wooops!!</strong> You Don't have any shedules on today</h5>
+                                            <h5>You Don't have shedules on today</h5>
                                         </div>
                                     @else
                                     <div class="table-responsive">

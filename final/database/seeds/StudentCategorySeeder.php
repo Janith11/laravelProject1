@@ -11,13 +11,31 @@ class StudentCategorySeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
+    {
         //instructors all instructors are tstatus training
         DB::table('student_categories')->insert([
             'user_id' => '2',
             'category' => 'A',
             'tstatus' => 'Training',
             'transmission' => 'Auto',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '2',
+            'category' => 'B1',
+            'tstatus' => 'Training',
+            'transmission' => 'Auto',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '2',
+            'category' => 'C1',
+            'tstatus' => 'Training',
+            'transmission' => 'Auto',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '2',
+            'category' => 'C',
+            'tstatus' => 'Training',
+            'transmission' => 'Manual',
         ]);
         DB::table('student_categories')->insert([
             'user_id' => '3',
@@ -37,8 +55,8 @@ class StudentCategorySeeder extends Seeder
             'tstatus' => 'Training',
             'transmission' => 'Auto',
         ]);
-        
-        
+
+
         //students
         DB::table('student_categories')->insert([
             'user_id' => '6',

@@ -868,7 +868,7 @@ class ShedulingController extends Controller
             Attendance::create([
                 'shedule_id' => $shedule->id,
                 'user_id' => $std,
-                'attendance' => 0
+                'attendance' => 2
             ]);
         }
 
@@ -888,10 +888,15 @@ class ShedulingController extends Controller
         // return $shedule_id;
         $students = explode(',',$student_list);
         $ids = [];
+        $attendids = [];
         foreach($students as $std){
             $result = SheduledStudents::where('shedule_id' , $shedule_id)->where('student_id', $std)->get();
+            $attendres = Attendance::where('shedule_id', $shedule_id)->where('user_id', $std)->get();
             foreach($result as $res){
                 $ids[] = $res->id;
+            }
+            foreach($attendres as $res){
+                $attendids[] = $res->id;
             }
         }
         $message = "You Removed from Session $shedule_id";
@@ -907,6 +912,9 @@ class ShedulingController extends Controller
                 'alert_status' => 0
             ]);
         }
+        foreach($attendids as $id){
+            Attendance::find($id)->delete();
+        }
         return response()->json(['message' => 'Student Remove Successfully !!']);
     }
 
@@ -921,7 +929,7 @@ class ShedulingController extends Controller
         $shedule->save();
 
         $result = Shedule::where('id', $shedule_id)->first();
-        $message = "You Have to Instruct a $result->lesson_type Session on $result->date at $result->time"; 
+        $message = "You Have to Instruct a $result->lesson_type Session on $result->date at $result->time";
         $insalert = SheduleAlert::create([
             'shedule_id' => $shedule_id,
             'message' => $message,
