@@ -49,6 +49,38 @@ class InstructorController extends Controller
         $shedules = Shedule::where('instructor', $id)->get();
         // return $trainingcategories;
 
-        return view('student.instructor.instructorprofile', compact('instructor', 'vehiclecaategories'));
+        $today = Carbon::now()->today();
+        $currentmonth = date('M', strtotime($today));
+        $getmonths = [];
+        for ($i=0; $i < 6; $i++) {
+            $month = date('M', strtotime("-$i month", strtotime($currentmonth)));
+            $getmonths[] = $month;
+        }
+        $getmonths = array_reverse($getmonths);
+        $getsessions = [];
+        foreach ($trainingcategories as $cat) {
+            $child = [];
+            foreach($vehiclecaategories as $vcat){
+                if($vcat->category_code == $cat){
+                    $child['label'] = ucwords($vcat->name);
+                }
+            }
+            $datachild = [];
+            foreach($getmonths as $month){
+                $firstday = date('Y-m-01', strtotime($month));
+                $lastday = date('Y-m-t', strtotime($month));
+                $cat_count = Shedule::where('instructor', $id)->whereBetween('date', [$firstday, $lastday])->where('vahicle_category', $cat)->count();
+                array_push($datachild, $cat_count);
+                //
+            }
+            $child['data'] = $datachild;
+            $color = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF57)), 6, '0', STR_PAD_LEFT);
+            $child['borderColor'] = $color;
+            $child['backgroundColor'] = $color;
+            $child['borderWidth'] = 1;
+            array_push($getsessions, $child);
+        }
+
+        return view('student.instructor.instructorprofile', compact('instructor', 'vehiclecaategories', 'getmonths', 'getsessions'));
     }
 }

@@ -7,6 +7,8 @@ use App\EmployeeAttendances;
 use App\Http\Controllers\Controller;
 use App\Instructor;
 use App\Shedule;
+use App\StudentCategory;
+use App\VehicleCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +36,12 @@ class InstructorDashboadController extends Controller
 
         $thismonth_leave = EmployeeAttendances::where('user_id', $instructor_id)->whereBetween('date', [$startof_month, $endof_month])->where('status', 3)->count();
         // return $user_details;
-        return view('instructor.instructordashboad',compact('user_details','today_shedules', 'instructor_shedules', 'shedule_alerts', 'thismonth_attend', 'thismonth_leave'));
+
+        $trainingcategories = StudentCategory::where('user_id', $instructor_id)->get();
+
+        $categories = VehicleCategory::all();
+
+        return view('instructor.instructordashboad',compact('user_details','today_shedules', 'instructor_shedules', 'shedule_alerts', 'thismonth_attend', 'thismonth_leave', 'trainingcategories', 'categories'));
     }
 
     public function instructorallevents(){

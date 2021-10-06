@@ -84,6 +84,9 @@
             <div class="col col-sm-8" style="padding-top: 10px">
                 <div class="card h-100">
                     <div class="card-body">
+                        <div class="text-center">
+                            <h5 style="color: #020C33; font-weight: bold">About Categories</h5>
+                        </div>
                         <div>
                             <canvas id="myChart"></canvas>
                         </div>
@@ -99,23 +102,17 @@
 
     <script>
 
+        var months = @json($getmonths);
+        var values = @json($getsessions);
+        console.log(months);
+
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             responsive: true,
             type: 'line',
             data: {
-                labels: ['one', 'two', 'three'],
-                datasets: [{
-                    label: 'Attend',
-                    data: [10, 5, 6],
-                    backgroundColor: [
-                        'rgba(41, 241, 195, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(42, 187, 155, 1)',
-                    ],
-                    borderWidth: 1
-                }]
+                labels: months,
+                datasets: values,
             },
             options: {
                 responsive: true,
