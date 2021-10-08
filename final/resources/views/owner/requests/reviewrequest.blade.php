@@ -263,9 +263,36 @@
         $('aside ul .requests').css('border-left', '5px solid #00bcd4');
     });
 
-    var inputbday = $('#birthday').val();
-    var today = new Date();
-    var bday = new Date(inputbday);
+    // var inputbday = $('#birthday').val();
+    // var today = new Date();
+    // var bday = new Date(inputbday);
+    var nic = $('#nicnumber').val();
+    var bday = $('#birthday').val();
+    console.log('nic '+nic+' bithday '+bday);
+
+    var bmonth = bday.substr(5, 2);
+    var bdate = bday.substr(8, 2);
+    if(nic.length == 10){
+        var byear = bday.substr(2,2);
+        var nyear = nic.substr(0,2);
+        var nbday = nic.substr(3, 3);
+        var year = checkyear(byear, nyear);
+        if (year == false) {
+            $('#header').css('color', 'red');
+            $('#matcherr').empty();
+            $('#matcherr').append("( Entered NIC and Birthday doesn't match)");
+        }
+        var dates = gettotaldays(byear, bmonth, bdate, nbday);
+        // if (dates == false) {
+        //     $('#header').css('color', 'red');
+        //     $('#matcherr').empty();
+        //     $('#matcherr').append("( Entered NIC and Birthday doesn't match)");
+        // }
+
+    }else{
+        var byear = bday.substr(0,4);
+        var year = checkyear(byear, nyear);
+    }
 
     var DiffTime = today.getTime() - bday.getTime();
     var DiffDays = Math.round(DiffTime / (1000 * 3600 * 24 * 365));

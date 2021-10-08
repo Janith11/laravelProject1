@@ -128,7 +128,7 @@
                         <div class="carousel-content container">
                             <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Shan</span> Learners</h2>
                             <p class="animate__animated animate__fadeInUp">Are you hoping to be a good driver? This is the the place you are searching...</p>
-                            <a href="{{ route('login') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Let's Drive</a>
+                            <a href="{{ route('register') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto"><h6>Sign Up Now</h6></a>
                         </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                             <div class="carousel-content container">
                                 <h2 class="animate__animated animate__fadeInDown">Are you busy with works?</h2>
                                 <p class="animate__animated animate__fadeInUp">Don't worry... This is the best driving school which can schedule with your free time</p>
-                                <a href="{{ route('login') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Let's Drive</a>
+                                <a href="{{ route('register') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto"><h6>Let's Drive</h6></a>
                             </div>
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                             <div class="carousel-content container">
                                 <h2 class="animate__animated animate__fadeInDown">Want to be a good driver?</h2>
                                 <p class="animate__animated animate__fadeInUp">With our trusted instructors and good service compnay.let's come with us to join unreliable driving school experience</p>
-                                <a href="{{ route('login') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Let's Drive</a>
+                                <a href="{{ route('register') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto"><h6>Sign Up Now</h6></a>
                             </div>
                         </div>
                     </div>
@@ -434,30 +434,30 @@
             <h5 class="card-title text-center openhourh5" style="color: #34314C; font-weight: bold;">Office Hours</h5>
             @foreach ($openhours as $openhour)
               @if ($openhour->weekday_id == 1)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Monday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Monday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
               @endif
               @if ($openhour->weekday_id == 2)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C;">Tuesday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C;">Tuesday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
               @endif
               @if ($openhour->weekday_id == 3)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Wednesday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Wednesday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
               @endif
               @if ($openhour->weekday_id == 4)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Thursday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Thursday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
               @endif
               @if ($openhour->weekday_id == 5)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Friday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Friday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
               @endif
               @if ($openhour->weekday_id == 6)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Saturday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Saturday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
               @endif
               @if ($openhour->weekday_id == 7)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Sunday {{ $openhour->from }}am - {{ $openhour->to }}pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Sunday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
               @endif
             @endforeach
             
             
-            <small class="openhour"><span class="text-danger">*</span> Closed on public holidays and every Monday</small>
+            <small class="openhour text-danger">* Closed on every public holidays</small>
           {{-- </div> --}}
         </div>
     </div>
@@ -486,7 +486,7 @@
           <div class="col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="info-box rounded" style="box-shadow:0px 2px 21px -1px rgba(36, 62, 180, 0.329); background-color: rgb(255, 255, 255)">
               <i class="bx bx-envelope" style="background-color: white"></i>
-              <h3>Email Us</h3>
+              <h3>Email Address</h3>
               <p>{{ $companydetails->email }}</p>
             </div>
           </div>
@@ -494,7 +494,7 @@
           <div class="col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="info-box rounded" style="box-shadow:0px 2px 21px -1px rgba(36, 62, 180, 0.329); background-color: rgb(255, 255, 255)">
               <i class="bx bx-phone-call" style="background-color: white"></i>
-              <h3>Call Us</h3>
+              <h3>Contact Number</h3>
               <p>{{ $companydetails->contact_number }}</p>
             </div>
           </div>

@@ -41,10 +41,11 @@ class RequestAlertController extends Controller
             $registration=User::where('id',$userid)->get();
             $category=StudentCategory::where('user_id',$userid)->get();
             $reqalerts=RequestAlert::find($id);
+            $vehiclecategory = VehicleCategory::all();
             $reqalerts->status=1;
             $reqalerts->save();
 
-            return view('owner.requests.reviewrequest',compact('registration','category'));
+            return view('owner.requests.reviewrequest',compact('registration','category','vehiclecategory'));
         }
         // }else{
         //     $requestdetails=Shedule::with('sheduledstudents')->where('shedule_status',4)->get();
