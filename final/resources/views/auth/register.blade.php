@@ -127,16 +127,19 @@
                             </div>
                             {{-- Third Row  --}}
                             <div class="form-group row">
-                                {{-- <div class="col-md-6">
-                                    <label for="nicnumber" class="ol-form-label text-md-right"><span class="text-danger">*</span>{{ __('Nic Number') }}</label>
-                                    <input id="nicnumber" onkeyup="checkNic()" type="text" class="form-control" name="nicnumber" value="{{ old('nicnumber') }}"  autocomplete="off">
-
-                                    @error('nicnumber')
+                               
+                                {{-- birthday  --}}
+                                <div class="col-md-6">
+                                    <label for="birthday" class=" col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Birthday') }}</label>
+                                    <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" autocomplete="birthday" autofocus>
+                                    <span id="bdayError" class="text-danger"></span>
+                                    @error('birthday')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div> --}}
+                                </div>
+                            
                                 <div class="col-md-6">
                                     <label for="gender" class= "col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Gender') }}</label><br>
                                     <div class="form-check form-check-inline" >
@@ -147,8 +150,10 @@
                                         <input class="form-check-input" type="radio" name="gender" value="female" id="female" checked>
                                         <label class="form-check-label" for="female">Female</label>
                                     </div>
+                                    <span id="GenderError" class="text-danger"></span>
                                 </div>
                             </div>
+                            {{-- </div> --}}
                         </div>
                         {{-- tab two  --}}
                         <div class="tab">
@@ -197,18 +202,7 @@
                                 </div>
                             </div>
                             {{-- Sixth row  --}}
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="birthday" class=" col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Birthday') }}</label>
-                                    <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" autocomplete="birthday" autofocus>
-
-                                    @error('birthday')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+                            {{-- Birthday was here  --}}
                         </div>
                         {{-- tab three  --}}
                         <div class="tab">
@@ -429,7 +423,8 @@
         var m_name = $('#middlename').val();
         var l_name = $('#lastname').val();
         var nic = $('#nicnumber').val();
-        var letters = /^[A-Za-z]+$/;
+        var b_day = $('#birthday').val();
+        var letters = /^[A-Za-z\s]*$/;
         if((f_name.length < 2) || (!f_name.match(letters))) {
             $('#firstname').addClass('is-invalid');
             err_count ++;
@@ -442,10 +437,102 @@
             $('#lastname').addClass('is-invalid');
             err_count ++;
         }
+        if(b_day.length == 0){
+                $('#birthday').addClass('is-invalid');
+                err_count ++;
+            }
+        //check nic birthday and gender    
+        if(nic.length == 10){
+            var nicYear= nic.substr(0,2);
+            var nicMonth=nic.substr(2,3);
+            var gender = "male";
+            if(nicMonth>499){
+                nicMonth=nicMonth-500;
+                gender="female";
+            }
+            var bdayYear=b_day.substr(2,2);
+            var day1 = '19'+nicYear+'-'+01+'-'+01;
+            var birthyearbegin = new Date(day1);
+            var birthyearDate = new Date(b_day);
+            var dateDiffeTime = birthyearDate.getTime() -birthyearbegin.getTime();
+            var dateDiffeTimeInDays = Math.round(dateDiffeTime/(1000*3600*24)+1);
+            // console.log(nicMonth);
+            // console.log(dateDiffeTimeInDays);
+            if(nicMonth != dateDiffeTimeInDays && nicYear != bdayYear){
+                $('#birthday').addClass('is-invalid'); 
+                $('#bdayError').append('NIC and Birthday does not match.');
+                err_count++;
+            }else{
+                $('#birthday').removeClass('is-invalid'); 
+                $('#bdayError').append('');
+            }
+            //gender and nic
+            if(gender == 'male'){
+                if($('#male').is(":checked")){
+                    $('#GenderError').append('');
+                }else{
+                    // GenderError
+                    $('#GenderError').append('NIC and your gender does not match.');
+                    err_count++;                    
+                }
+            }else{
+                if($('#female').is(":checked")){
+                    $('#GenderError').append('');
+                }else{
+                    $('#GenderError').append('NIC and your gender does not match.');
+                }
+            }
+        }
+        if(nic.length == 12){
+            var nicYear= nic.substr(0,4);
+            var bdayYear=b_day.substr(0,4);
+            var nicMonth=nic.substr(4,3);
+            var gender = "male";
+            if(nicMonth>499){
+                nicMonth=nicMonth-500;
+                gender="female";
+            }
+            var day1 = nicYear+'-'+01+'-'+01;
+            var birthyearbegin = new Date(day1);
+            var birthyearDate = new Date(b_day);
+            var dateDiffeTime = birthyearDate.getTime() -birthyearbegin.getTime();
+            var dateDiffeTimeInDays = Math.round(dateDiffeTime/(1000*3600*24)+1);
+            console.log(nicYear);
+            console.log(bdayYear);
+            
+            if(nicMonth != dateDiffeTimeInDays && nicYear != bdayYear){
+                $('#birthday').addClass('is-invalid'); 
+                $('#bdayError').append('NIC and Birthday does not match.');
+                err_count++;
+            }else{
+                $('#birthday').removeClass('is-invalid'); 
+                $('#bdayError').append('');
+            }
+            //gender and nic
+            if(gender == 'male'){
+                if($('#male').is(":checked")){
+                    $('#GenderError').append('');
+                }else{
+                    // GenderError
+                    $('#GenderError').append('NIC and your gender does not match.');
+                    err_count++;                    
+                }
+            }else{
+                if($('#female').is(":checked")){
+                    $('#GenderError').append('');
+                }else{
+                    $('#GenderError').append('NIC and your gender does not match.');
+                }
+            }
+        }
+
         var res = CheckNIC(nic);
         if(res == false){
             err_count ++;
         }
+        // else{
+        //     $('#lastname').removeClass('is-invalid');
+        // }
         return err_count;
     }
 
@@ -487,9 +574,8 @@
         var no = $('#addressno').val();
         var lineone = $('#addresslineone').val();
         var linetwo = $('#addresslinetwo').val();
-        var b_day = $('#birthday').val();
         var mobile = $('#contactno').val();
-        var letters = /^[A-Za-z]+$/;
+        var letters = /^[A-Za-z\s]+$/;
         if(nextClick == 2){
             if( no.length < 1 ){
                 $('#addressno').addClass('is-invalid');
@@ -501,10 +587,6 @@
             }
             if ((linetwo.length < 2) || (!linetwo.match(letters))) {
                 $('#addresslinetwo').addClass('is-invalid');
-                err_count ++;
-            }
-            if(b_day.length == 0){
-                $('#birthday').addClass('is-invalid');
                 err_count ++;
             }
             var res = CheckMobile(mobile);
@@ -551,6 +633,7 @@
         if($('#C-category').is(':checked')){
             var number = $('#licence-number').val()
             if(number.length < 5){
+                $('#licence-number').addClass('is-invalid');
                 err_count++;
             }
         }
@@ -691,7 +774,7 @@
 </script>
 
 {{-- password check  --}}
-<script>
+{{-- <script>
     var y1 = $("#password").val();
     var y2 = $("#password-confirm").val();
     function checkPassword(){
@@ -717,11 +800,11 @@
         }
 
     }
-</script>
+</script> --}}
 
 <script>
     function InputValidate(element){
-        var letters = /^[A-Za-z]+$/;
+        var letters = /^[A-Za-z\s]+$/;
         if(($('#'+element).val().length < 2) || (!$('#'+element).val().match(letters))){
             $('#'+element).addClass(' is-invalid');
             $('#'+element).removeClass(' is-valid');
@@ -735,6 +818,8 @@
 
     function licenceNumberValidation(){
         var number = $('#licence-number').val();
+        // let contNo = /^[0-9+]{10}$/;
+        // if (number.length == 10 && number.match(contNo))
         if(number.length < 5){
             $('#licence-number').addClass(' is-invalid');
             $('#licence-number').removeClass(' is-valid');
@@ -782,6 +867,7 @@
         return err_count;
     }
 </script>
+
 
 @endsection
 

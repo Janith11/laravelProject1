@@ -269,11 +269,11 @@
             $('#matcherr').append("( Entered NIC and Birthday doesn't match)");
         }
         var dates = gettotaldays(byear, bmonth, bdate, nbday);
-        if (dates == false) {
-            $('#header').css('color', 'red');
-            $('#matcherr').empty();
-            $('#matcherr').append("( Entered NIC and Birthday doesn't match)");
-        }
+        // if (dates == false) {
+        //     $('#header').css('color', 'red');
+        //     $('#matcherr').empty();
+        //     $('#matcherr').append("( Entered NIC and Birthday doesn't match)");
+        // }
 
     }else{
         var byear = bday.substr(0,4);
