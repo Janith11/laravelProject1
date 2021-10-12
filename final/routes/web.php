@@ -174,6 +174,7 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('shedulelist/allshedules', 'owner\ShedulingController@allshedules')->name('allshedules');
     Route::get('shedulelist/todayshedules/markascomplete/{id}', 'Owner\ShedulingController@markascomplete')->name('markascomplete');
     Route::post('shedulelist/todayshedules/saveascomplete', 'Owner\ShedulingController@saveascomplete')->name('saveascomplete');
+    Route::delete('/removefromhistory/{id}', 'Owner\ShedulingController@removefromhistory')->name('removefromhistory');
     Route::get('/schedulelist/editschedule/{schedule_id}', 'Owner\ShedulingController@ownereditschedule')->name('ownereditschedule');
     Route::delete('/removestudents/{student_list}/{shedule_id}', 'Owner\ShedulingController@removestudents');
     Route::get('/getsheduledstudents/{shedule_id}', 'Owner\ShedulingController@getsheduledstudents');
@@ -341,6 +342,9 @@ Route::middleware('studentprofile')->group(function(){
     //Pay with paypal
     Route::post('/paypal','Student\PaymentController@payWithpaypal')->name('paypal');
     Route::get('/status/{id}/{lk}', 'Student\PaymentController@getPaymentStatus')->name('status');
+
+    // my progress
+    Route::get('/myprogress', 'Student\MyProgressController@index')->name('myprogress');
 
 });
 

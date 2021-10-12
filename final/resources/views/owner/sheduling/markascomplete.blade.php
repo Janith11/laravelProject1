@@ -18,6 +18,52 @@
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
+    .checkuser{
+        display: none;
+    }
+
+    .attend-label{
+        cursor: pointer;
+    }
+
+    .attend-icon{
+        border: 1px solid #020B30;
+        border-radius: 5px;
+        padding: 0px 5px 0px 5px;
+        margin: 10px;
+    }
+
+    .checkuser:checked + .attend-label .attend-icon{
+        background-color: #3CF56A
+    }
+
+    .checkuser:checked + .attend-label .attend-icon i{
+        color: #020B30;
+    }
+
+    .instructor-label{
+        cursor: pointer;
+    }
+
+    .checkinstructor{
+        display: none
+    }
+
+    .instructor-check-icon{
+        border: 1px solid #020B30;
+        border-radius: 5px;
+        padding: 0px 5px 0px 5px;
+        margin: 10px;
+    }
+
+    .checkinstructor:checked + .instructor-label .instructor-check-icon{
+        background-color: #3CF56A;
+    }
+
+    .checkinstructor:checked + .instructor-label .instructor-check-icon i{
+        color: #020B30;
+    }
+
 </style>
 
 <div class="container">
@@ -47,58 +93,83 @@
         @endif
     </div>
 
-    <div class="row mb-2 justify-content-end">
-        <button type="button" class="checkall btn btn-primary">Select all</button>
-    </div>
-
-    @if(count($reports) != 0)
-        <div class="alert alert-info" role="alert">
-            <h5>Instructor has report attendance</h5>
-            <ul style="list-style-type: disc">
-                @foreach($reports as $report)
-                    <li>
-                        @foreach($students_details as $student)
-                            @if($student->user_id == $report->user_id)
-                                {{$student->user->f_name}} is attend.
-                            @endif
-                        @endforeach
-                    </li>
-                @endforeach
-            </ul>
+    <div class="row-mb-2">
+        <div id="card">
+            <div class="card">
+                <div class="card-body">
+                    <h5 style="color: #020B30; font-weight: bold">Session Details</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead class="thead-dark">
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Session Type</th>
+                                <th>Category</th>
+                                <th>Transmission</th>
+                            </thead>
+                            <tbody>
+                                @foreach ($shedule as $sh)
+                                    <tr>
+                                        <td><h6 class="badge badge-warning">{{ $sh->id }}</h6></td>
+                                        <td>{{ ucwords($sh->title) }}</td>
+                                        <td>{{ $sh->date }}</td>
+                                        <td>{{ $sh->time }}</td>
+                                        <td>{{ ucwords($sh->lesson_type) }}</td>
+                                        <td>
+                                            @foreach ($categories as $cat)
+                                                @if($cat->category_code == $sh->vahicle_category)
+                                                    {{ ucwords($cat->name) }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>{{ ucwords($sh->transmission) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    @endif
+    </div>
 
     <form action="{{ route('saveascomplete') }}" method="POST">
         @csrf
+
         @foreach($shedule as $sdl)
             <input type="hidden" value="{{ $sdl->id }}" name="id">
         @endforeach
+
         <div class="row-mb-2">
-            <h5 style="padding-top: 10px; padding-left:10px; color: #222944; font-weight: bold">Instructor</h5>
             <div id="card">
                 <div class="card">
                     <div class="card-body">
+                        <h5 style="padding-top: 10px; padding-left:10px; color: #222944; font-weight: bold">Instructor</h5>
                         <div class="table-responsive">
                             <table class="table">
                                 @foreach($instructor_details as $instructor)
                                     <tbody>
                                         <tr>
                                             <td style="vertical-align: middle">
-                                                <input type="checkbox" name="instructor[]"  class="checkuser" value="{{ $instructor->user->id }}">
+                                                <input type="checkbox" name="instructor[]"  class="checkinstructor" value="{{ $instructor->user->id }}" id="instructor-{{ $instructor->user->user_id }}">
+                                                <label for="instructor-{{ $instructor->user->user_id }}" class="instructor-label">
+                                                    <div style="display: inline-block" class="instructor-check-icon">
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div style="display: inline-block">
+                                                        <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="profile image" id="img">
+                                                    </div>
+                                                    <div style="display: inline-block; margin: 10px">
+                                                        <h5>{{ $instructor->user->f_name }} {{ $instructor->user->l_name }}</h5>
+                                                    </div>
+                                                </label>
                                             </td>
                                             <td>
-                                                <img src="/uploadimages/instructors_profiles/{{ $instructor->user->profile_img }}" alt="profile image" id="img">
-                                            </td>
-                                            <td>
-                                                <h5>{{ $instructor->user->f_name }} {{ $instructor->user->l_name }}</h5>
-                                            </td>
-                                            <td>
-                                                @foreach ($shedule as $sdl)
-                                                    <h5>{{ $sdl->lesson_type }} session</h5>
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                <h5>{{ $instructor->user->contact_number }}</h5>
+                                                <label for="instructor-{{ $instructor->user->user_id }}">
+                                                    <h5>{{ $instructor->user->contact_number }}</h5>
+                                                </label>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -111,31 +182,55 @@
         </div>
 
         <div class="row-mb-2">
-            <h5 style="padding-top: 10px; padding-left:10px; color: #222944; font-weight: bold">Students</h5>
             <div id="card">
                 <div class="card">
                     <div class="card-body">
+                        <div class="row mb-2 justify-content-between">
+                            <h5 style="padding-left:20px; color: #222944; font-weight: bold">Students</h5>
+                            <div style="margin-right: 10px">
+                                <button type="button" class="checkall btn btn-primary">Select all</button>
+                                <button type="button" class="btn btn-danger" id="delete-btn">Remove from History</button>
+                            </div>
+                        </div>
+                        @if(count($attendids) != 0)
+                            <div class="alert alert-info" role="alert">
+                                <h5>Instructor has reported attendance</h5>
+                            </div>
+                        @endif
+                        @if($checkallabsent > 0)
+                            <div class="alert alert-danger" role="alert">
+                                <h5>All students didn't attend</h5>
+                            </div>
+                        @endif
                         <div class="table-responsive">
                             <table class="table">
                                 @foreach($students_details as $student)
                                     <tbody>
-                                        <tr>
+                                        <tr id="row-{{ $student->user_id }}">
                                             <td style="vertical-align: middle">
-                                                <input type="checkbox" name="students[]"  class="checkuser" value="{{ $student->user->id }}">
+                                                <input type="checkbox" name="students[]"  class="checkuser" value="{{ $student->user->id }}" id="student-attend-{{ $student->user_id }}">
+                                                <label for="student-attend-{{ $student->user_id }}" class="attend-label">
+                                                    <div class="attend-icon" style="display: inline-block">
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div style="display: inline-block">
+                                                        <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="profile image" id="img">
+                                                    </div>
+                                                    <div style="display: inline-block; margin: 10px">
+                                                        <h5>{{ $student->user->f_name }} {{ $student->user->l_name }}
+                                                        @php
+                                                            if(in_array($student->user_id, $attendids)){
+                                                                echo '<span class="badge badge-success">Attend</span>';
+                                                            }
+                                                        @endphp
+                                                        </h5>
+                                                    </div>
+                                                </label>
                                             </td>
                                             <td>
-                                                <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="profile image" id="img">
-                                            </td>
-                                            <td>
-                                                <h5>{{ $student->user->f_name }} {{ $student->user->l_name }}</h5>
-                                            </td>
-                                            <td>
-                                                @foreach ($shedule as $sdl)
-                                                    <h5>{{ $sdl->lesson_type }} session</h5>
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                <h5>{{ $student->user->contact_number }}</h5>
+                                                <label for="student-attend-{{ $student->user_id }}" class="attend-label">
+                                                    <h5>{{ $student->user->contact_number }}</h5>
+                                                </label>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -158,18 +253,55 @@
 </div>
 
 <script>
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     var clicked = false;
     $(".checkall").on("click", function() {
         $(".checkuser").prop("checked", !clicked);
         clicked = !clicked;
         this.innerHTML = clicked ? 'Deselect' : 'Select all';
     });
-</script>
 
-<script>
     $(document).ready(function(){
         $('aside ul .shedulings').css('border-left', '5px solid #00bcd4');
-    })
+
+        var ids = @json($attendids);
+        if(ids.length > 0){
+            $('#delete-btn').prop('disabled', true);
+        }
+
+    });
+
+    $('#delete-btn').click(function(){
+        var shedule = @json($shedule);
+        var schedule_id;
+
+        shedule.forEach(function(data){
+            schedule_id = data.id;
+        });
+
+        $.ajax({
+            url: '/removefromhistory/'+schedule_id,
+            type: 'DELETE',
+            success:function(){
+                console.log('success');
+            },
+            complete:function(){
+                console.log('complete');
+                window.location.href = '{{ route("todayshedules") }}';
+            },
+            error:function(){
+                console.log('error');
+            }
+        });
+    });
+
+
 </script>
 
 @endsection

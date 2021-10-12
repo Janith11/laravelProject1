@@ -30,7 +30,7 @@
 </style>
 
 <div class="container">
-    
+
     <div class="row mb-2">
         <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Students</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
@@ -44,11 +44,6 @@
 
     <div class="row-mb-2">
         <div class="row justify-content-end">
-            <div style="padding-right: 10px">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="student_name" placeholder="Student Name" style="border-radius: 50px">
-                </div>
-            </div>
             <div style="padding-right: 15px">
                 <a type="button" class="btn btn-primary" style="color: white" href="{{ route('addstudent') }}">Add Student</a>
             </div>
@@ -252,7 +247,7 @@
           } else {
             tr[i].style.display = "none";
           }
-        }       
+        }
       }
     }
     </script>

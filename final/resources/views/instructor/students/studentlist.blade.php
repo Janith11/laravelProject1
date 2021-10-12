@@ -45,9 +45,9 @@
                         <table class="table">
                             <thead>
                             <tr>
+                                <th scope="col">User Id</th>
                                 <th scope="col ">Name</th>
                                 <th scope="col ">NIC</th>
-                                <th scope="col">Id</th>
                                 <th scope="col">Training Categories</th>
                                 <th></th>
                             </tr>
@@ -55,6 +55,7 @@
                             <tbody>
                             @foreach ($students as $student)
                             <tr>
+                                <td>{{ $student->user_id}}</td>
                                 <td>
                                     <div class="row">
                                         <div style="display: inline-block; padding-left: 10px">
@@ -67,12 +68,11 @@
                                     </div>
                                 </td>
                                 <td>{{ $student->user->nic_number}}</td>
-                                <td>{{ $student->user_id}}</td>
                                 <td>
                                     <ul>
                                         @foreach($student->studentcategories as $trainingcategory)
                                             <li>
-                                                {{ $trainingcategory->vehiclecategory->name }} / {{ $trainingcategory->vehiclecategory->category_code }}
+                                                {{ ucwords($trainingcategory->vehiclecategory->name) }} / {{ $trainingcategory->vehiclecategory->category_code }}
                                             </li>
                                         @endforeach
                                     </ul>

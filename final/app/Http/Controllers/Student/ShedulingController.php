@@ -62,21 +62,7 @@ class ShedulingController extends Controller
         $sheduling_type = ShedulingType::first();
         $type = $sheduling_type->type;
 
-        // training categories
-        $trainingcat = StudentCategory::where('user_id', $user_id)->select(['category', 'transmission'])->get();
-        $trainingcounts = [];
-        foreach($trainingcat as $cat){
-            $child = [];
-            $res = shedule::where('vahicle_category', $cat->category)->where('transmission', $cat->transmission)->where('shedule_status', 2)->whereHas('sheduledstudents', function($query) use($user_id){
-                $query->where('student_id', $user_id);
-            })->count();
-            $child['category'] = $cat->category;
-            $child['count'] = $res;
-            array_push($trainingcounts, $child);
-        }
-        // return $trainingcounts;
-
-        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session', 'requestdetails', 'categorydetails', 'type', 'trainingcounts'));
+        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session', 'requestdetails', 'categorydetails', 'type',));
     }
 
     public function events($id){

@@ -123,7 +123,7 @@
                     <div class="card-body">
                         <div>
                             <div style="display: inline-block">
-                                <h5 style="color: #060333; font-weight: bold">Your Progress</h5>
+                                <h5 style="color: #060333; font-weight: bold">Session Progress</h5>
                             </div>
                             <div style="display: inline-block" class="float-right">
                                 <a href="{{ route('history') }}">
@@ -217,73 +217,6 @@
                     </div>
                 </div>
             @else
-                <div class="row row-cols-1">
-                    <div class="col-sm-6" style="padding-top: 10px">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 style="color: #03011F; font-weight: bold">About Sessions</h5>
-                                <div>
-                                    <canvas id="session-count"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6" style="padding-top: 10px">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 style="color: #03011F; font-weight: bold">About Categories</h5>
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead style="background-color: #0FD8F3; color: white">
-                                            <th>Category</th>
-                                            <th>Sessions</th>
-                                        </thead>
-                                        @foreach ($trainingcounts as $count)
-                                            <tr>
-                                                <th>
-                                                    @foreach ($categorydetails as $cat)
-                                                        @if($cat->category_code == $count['category'])
-                                                            {{ ucwords($cat->name).' ('.$cat->category_code.')' }}
-                                                        @endif
-                                                    @endforeach
-                                                </th>
-                                                <td>{{ $count['count'] }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- <div class="col-sm-4" style="padding-top: 10px">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div style="text-align: center">
-                                    <div style="display: inline-block">
-                                        <div style="background-color: #0FD8F3; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 10px">
-
-                                        </div>
-                                    </div>
-                                    <div style="display: inline-block">
-                                        <div style="background-color: #0FD8F3; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 10px">
-
-                                        </div>
-                                    </div>
-                                    <div style="display: inline-block">
-                                        <div style="background-color: #0FD8F3; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 10px">
-
-                                        </div>
-                                    </div>
-                                    <div style="display: inline-block">
-                                        <div style="background-color: #0FD8F3; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin: 10px">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-                </div>
                 <div id="card">
                     <div class="card">
                         <div class="card-body" style="border-left: 10px solid #FAD51B !important;">
@@ -455,10 +388,6 @@
         }
     };
 
-    // script for request etra session
-    // $('#request').click(function(){
-    //     $('#extrasessions').toggle();
-    // });
 </script>
 
 <script>
@@ -506,38 +435,6 @@
         $('aside ul .shedule').css('border-left', '5px solid #00bcd4');
     });
 
-</script>
-
-<script>
-    var tot = {{ $total_session->total_session }};
-    var cmp = {{ $completed_session->completed_session }};
-
-    new Chart("session-count", {
-        type: "bar",
-        data: {
-            labels: ['Total', 'Completed'],
-            datasets: [
-                {
-                data: [tot, cmp],
-                backgroundColor: ['#42FF71', '#031138'],
-                }
-            ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: false
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
 </script>
 
 @endsection

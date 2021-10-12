@@ -10,9 +10,13 @@ use App\Shedule;
 use App\SheduleAlert;
 use App\SheduledStudents;
 use App\Student;
+use App\StudentCategory;
+use App\StudentProgress;
 use Carbon\Carbon;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\Foreach_;
 
 class ShedulingController extends Controller
 {
@@ -70,6 +74,11 @@ class ShedulingController extends Controller
     }
 
     public function saveattendance(Request $request){
+        // 0 - absent
+        // 1 - attend
+        // 2 - all are absent
+        // 3 - report attendance
+
         $students = $request->students;
         $empty = $request->empty;
         $shedule_id = $request->id;
@@ -90,9 +99,33 @@ class ShedulingController extends Controller
                 $reportattendance->attendance = 3;
                 $reportattendance->save();
             }
+
+            $category =  Shedule::where('id', $shedule_id)->first();
+            $vcat = $category->vahicle_category;
+            foreach($students as $std){
+                $var = "session-grade-".$std;
+                $grade = $request->$var;
+                StudentProgress::create([
+                    'shedule_id' => $shedule_id,
+                    'user_id' => $std,
+                    'category_code' => $vcat,
+                    'grade' => $grade
+                ]);
+            }
+
             return redirect()->route('instructor.instructordashboad')->with('successmsg', 'Report attendance successfully ');
         }else{
-            return 'empty';
+            $attendances = Attendance::where('shedule_id', $shedule_id)->get();
+            foreach($attendances as $attend){
+                $attendanceids[] = $attend->id;
+            }
+            foreach($attendanceids as $id){
+                $attend = Attendance::find($id);
+                $attend->attendance = 2;
+                $attend->save();
+            }
+
+            return redirect()->route('instructor.instructordashboad')->with('successmsg', 'Report attendance successfully ');
         }
     }
 
