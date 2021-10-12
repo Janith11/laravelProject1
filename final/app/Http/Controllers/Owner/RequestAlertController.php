@@ -122,7 +122,7 @@ class RequestAlertController extends Controller
         $studentattendace = Attendance::create([
             'shedule_id' => $shedule_id,
             'user_id' => $student_id,
-            'attendance' => 2
+            'attendance' => 0
         ]);
 
         return redirect()->route('viewalert')->with('successmsg', 'Accept request Successfully !!');

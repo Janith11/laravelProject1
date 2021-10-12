@@ -42,7 +42,7 @@
       <div class="tab mt-4 mb-2">
         <button class="btn btn-lg tablinks btn-secondary" onclick="openCity(event, 'profile')" id="defaultOpen">Profile</button>
         <button class="btn btn-lg tablinks btn-secondary" onclick="openCity(event, 'Invoices')">Invoices</button>
-        {{-- <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button> --}}
+        <button class="btn btn-lg tablinks btn-secondary" onclick="openCity(event, 'Progress')">Progress</button>
       </div>
 
       @foreach ($student as $s)
@@ -61,10 +61,10 @@
                           <td scope="row">ID</td>
                           <td>{{$s->user_id}}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                           <td scope="row">Email</td>
                           <td>{{$s->user->email}}</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                           <td scope="row">Phone</td>
                           <td>{{$s->user->contact_number}}</td>
@@ -82,16 +82,16 @@
                           <td>
                             @foreach ($student_categories as $c)
                               @if ($c->category == "A")
-                              <p class="badge badge-warning py-1">Bike</p>    
+                              <p class="badge badge-warning py-1">Bike</p>
                               @endif
                               @if ($c->category == "B")
-                              <p class="badge badge-warning py-1">Three Wheel</p>    
+                              <p class="badge badge-warning py-1">Three Wheel</p>
                               @endif
                               @if ($c->category == "C1")
-                              <p class="badge badge-warning py-1">Car,Van & Dual Purposes</p>    
+                              <p class="badge badge-warning py-1">Car,Van & Dual Purposes</p>
                               @endif
                               @if ($c->category == "C")
-                              <p class="badge badge-warning py-1">Heavy Vehicle</p>    
+                              <p class="badge badge-warning py-1">Heavy Vehicle</p>
                               @endif
                             @endforeach
                           </td>
@@ -158,7 +158,7 @@
                 </div>
               </div>
               @endforeach
-              
+
               <div class="card mt-4 mb-2">
 
                 <div class="card-body">
@@ -194,7 +194,7 @@
                             </table>
                           </div>
                         </div>
-                      </div>  
+                      </div>
                     @endforeach
                     @endforeach
                     </div>
@@ -251,13 +251,85 @@
             </div>
       </div>
 
+        {{-- progress details --}}
+        <div id="Progress" class="tabcontent">
+            <div class="mydiv1" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row row-cols-1">
 
+                    <div class="col col-sm-4" style="padding-top: 10px">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 style="color: #020C35; font-weight: bold;">About Sessions</h5>
+                                <div style="margin: 10px">
+                                    <canvas id="session-count" style="width: 500px"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-sm-4" style="padding-top: 10px">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 style="color: #020C35; font-weight: bold;">About Categories</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead style="background-color: #0FD8F3; color: white">
+                                            <th>Category</th>
+                                            <th>Sessions</th>
+                                        </thead>
+                                        @foreach ($trainingcounts as $count)
+                                            <tr>
+                                                <th>
+                                                    @foreach ($vcategories as $cat)
+                                                        @if($cat->category_code == $count['category'])
+                                                            {{ ucwords($cat->name).' ('.$cat->category_code.')' }}
+                                                        @endif
+                                                    @endforeach
+                                                </th>
+                                                <td>{{ $count['count'] }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-sm-4" style="padding-top: 10px">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 style="color: #020C35; font-weight: bold;">Summery of Progress</h5>
+                                <div style="margin: 10px">
+                                    <canvas id="summery"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row-mb-2">
+
+                    <div id="card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 style="color: #020C35; font-weight: bold">Summery Progress of Categories</h5>
+                                <div>
+                                    <canvas id="category"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 
     </div>
 
-    <script>
-      function openCity(evt, cityName) {
+<script>
+    function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
@@ -269,17 +341,84 @@
         }
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
-      }
+    }
 
-      // Get the element with id="defaultOpen" and click on it
-      document.getElementById("defaultOpen").click();
-    </script>
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
 
-
-<script>
     $(document).ready(function(){
         $('aside ul .students').css('border-left', '5px solid #00bcd4');
-    })
+    });
+
+    var xValues = ["Weak", "Average", "Good", "Very Good"];
+    var yValues = @json($yValues);
+    var barColors = [
+        "#35FF35",
+        "#03011F",
+        "#FF2957",
+        "#FF891A",
+    ];
+
+    new Chart("summery", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues,
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'bottom',
+            }
+        },
+    });
+
+    var dataset = @json($dataset);
+
+    new Chart("category", {
+        type: "line",
+        data: {
+            labels: ['Weak', 'Average', 'Good', 'Very Good'],
+            datasets: dataset,
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+
+    var tot = {{ $total_session->total_session }};
+    var cmp = {{ $completed_session->completed_session }};
+
+    new Chart("session-count", {
+        type: "bar",
+        data: {
+            labels: ['Total', 'Completed'],
+            datasets: [
+                {
+                data: [tot, cmp],
+                backgroundColor: ['#42FF71', '#031138'],
+                }
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 </script>
 
 @endsection

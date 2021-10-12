@@ -335,7 +335,8 @@ class ShedulingController extends Controller
     public function markascomplete($id){
 
         $shedule = Shedule::where('id', $id)->with('SheduledStudents')->get();
-        $reports = Attendance::where('shedule_id', $id)->where('attendance', 3)->get();
+        $reports = Attendance::where('shedule_id', $id)->where('attendance', 3)->select('user_id')->get();
+        $checkallabsent = Attendance::where('shedule_id', $id)->where('attendance', 2)->count();
 
         //get instructor details
         $instructors = [];
@@ -357,7 +358,16 @@ class ShedulingController extends Controller
         $student = collect($students);
         $students_details = Student::with('user')->whereIn('user_id', $student)->get();
 
-        return view('owner.sheduling.markascomplete', compact('students_details', 'instructor_details', 'shedule', 'reports'));
+        // get attend ids
+        $attendids = [];
+        foreach($reports as $rep){
+            $attendids[] = $rep->user_id;
+        }
+
+        // vehicle categories
+        $categories = VehicleCategory::all();
+
+        return view('owner.sheduling.markascomplete', compact('students_details', 'instructor_details', 'shedule', 'attendids', 'categories', 'checkallabsent'));
     }
 
     public function saveascomplete(Request $request){
@@ -400,8 +410,6 @@ class ShedulingController extends Controller
 
                 // update shedule as complete in owner shedule table
                 $owner_shedule = Shedule::find($shedule_id);
-                $owner_shedule->color = "#03011F";
-                $owner_shedule->textColor = "#FFFFFF";
                 $owner_shedule->shedule_status = 2;
                 $owner_shedule->save();
 
@@ -425,6 +433,23 @@ class ShedulingController extends Controller
 
         }
 
+    }
+
+    public function removefromhistory($id){
+        Shedule::find($id)->delete();
+        $sheduledstudents = SheduledStudents::where('shedule_id', $id)->get();
+        $sheduledstudentsids = [];
+        $attendanceids = [];
+        foreach($sheduledstudents as $shedulestd){
+            $sheduledstudentsids[] = $shedulestd->id;
+        }
+        foreach ($sheduledstudentsids as $id) {
+            SheduledStudents::find($id)->delete();
+        }
+        foreach($attendanceids as $id){
+            Attendance::find($id)->delete();
+        }
+        return response()->json('success');
     }
 
     // my new functions ==========================================================
@@ -868,7 +893,7 @@ class ShedulingController extends Controller
             Attendance::create([
                 'shedule_id' => $shedule->id,
                 'user_id' => $std,
-                'attendance' => 2
+                'attendance' => 0
             ]);
         }
 
