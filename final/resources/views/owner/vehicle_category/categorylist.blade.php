@@ -101,7 +101,7 @@
                                     {{-- <input type="text" class="form-control" name="category_name"> --}}
                                     <select id="category" class="form-control" name="category_name">
                                         <option value="bike">Bike</option>
-                                        <option value="threeweel">Threeweel</option>
+                                        <option value="threeweel">Three Wheel</option>
                                         <option value="dualpurposes">Car, Van, Dual Purpose</option>
                                         <option value="heavyvehical">Heavy Vehical</option>
                                     </select>

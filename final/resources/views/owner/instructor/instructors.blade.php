@@ -57,7 +57,7 @@
                             <div class="gradient text-center p-2">
                                 <img class="rounded-circle border border-success" style="max-width: 200px" src="/uploadimages/instructors_profiles/{{ $instructor->profile_img }}" alt="profile image">
                             </div>
-                            <div class="card-body shadow">
+                            <div class="card-body shadow table-responsive">
                                 <table class="table table-sm">
                                     <tbody>
                                       <tr>
@@ -72,21 +72,19 @@
                                         <td ><h5 class="card-title">Categories</h5></td>
                                         @foreach ($categories as $c)                                        
                                           @if($c->user_id == $instructor->id)
-                                            <td>
                                                 @if ($c->category == "A")
-                                                <p class="badge badge-warning py-1">Bike</p>    
+                                                <td><p class="badge badge-warning">Bike</p></td>    
                                                 @endif
                                                 @if ($c->category == "B")
-                                                <p class="badge badge-warning py-1">Three Wheel</p>    
+                                                <td><p class="badge badge-warning">Three Wheel</p></td>    
                                                 @endif
                                                 @if ($c->category == "C1")
-                                                <p class="badge badge-warning py-1">Car,Van & Dual Purposes</p>    
+                                                <td><p class="badge badge-warning ">Dual Purposes</p></td>    
                                                 @endif
                                                 @if ($c->category == "C")
-                                                <p class="badge badge-warning py-1">Heavy Vehicle</p>    
+                                                <td><p class="badge badge-warning ">Heavy Vehicle</p></td>    
                                                 @endif
-                                            </td>
-                                         @endif
+                                          @endif      
                                         @endforeach
                                       </tr>
                                       <tr>
