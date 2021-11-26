@@ -122,13 +122,13 @@ class ViewrequestController extends Controller
                 try {
 
                     $twilio = new Client($sid, $token);
-                    $message = $twilio->messages
-                        ->create($International_No, // to
-                                array(
-                                    "body" => "Hello, ".$user->f_name." ".$user->l_name.". Your Account is activated by Administration. Now you can continue your lessons. Thank You. \n-Driving School Management System- .",
-                                    "from" => $from
-                                )
-                        );
+                    // $message = $twilio->messages
+                    //     ->create($International_No, // to
+                    //             array(
+                    //                 "body" => "Hello, ".$user->f_name." ".$user->l_name.". Your Account is activated by Administration. Now you can continue your lessons. Thank You. \n-Driving School Management System- .",
+                    //                 "from" => $from
+                    //             )
+                    //     );
 
                     }catch (Exception $e) {
                         dd("Error: ". $e->getMessage());

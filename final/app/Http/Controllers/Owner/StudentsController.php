@@ -398,6 +398,7 @@ class StudentsController extends Controller
         // return $user_id;
         return response()->json($responses);
     }
+
     public function deleteStudent(Request $request){
         $user_id=$request->uid;
         $user=User::find($user_id);
@@ -407,7 +408,25 @@ class StudentsController extends Controller
         return redirect()->route('studentslist')->with('successmsg', 'Student is Deleted successfully!');
     }
 
+    public function getallstudents(){
+        $results = User::with('student')->where('role_id', [3,4])->get();
+        return $results;
+    }
 
+    public function active(){
+        $results = Student::with('user')->get();
+        return $results;
+    }
+
+    public function requestedstudents(){
+        $results = User::where('status', 0)->where('role_id', 4)->get();
+        return $results;
+    }
+
+    public function fineshedcourse(){
+        $results = User::with('student')->where('status', 2)->where('role_id', 4)->get();
+        return $results;
+    }
 }
 
 

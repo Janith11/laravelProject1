@@ -125,6 +125,10 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/studenteventcalendar/{user_id}', 'Owner\StudentsController@studentsevent')->name('studenteventcalendar');
     Route::get('/studenteventlist/{user_id}', 'Owner\StudentsController@studenteventlist')->name('studenteventlist');
     Route::post('/students/delete_Student', 'Owner\StudentsController@deleteStudent')->name('DeleteStudent');
+    Route::get('/studentlist/allstudent', 'Owner\StudentsController@getallstudents');
+    Route::get('/studentlist/activestudents', 'Owner\StudentsController@active');
+    Route::get('/studentlist/requestedstudents', 'Owner\StudentsController@requestedstudents');
+    Route::get('/studentlist/finishedcurse', 'Owner\StudentsController@fineshedcourse');
 
     //student category part update and add category in the studentcontroller
     Route::post('/updatecategory/test/{id}/{userid}', 'Owner\StudentsController@updatecategory')->name('updatestudentcategory');

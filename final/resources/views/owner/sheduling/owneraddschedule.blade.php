@@ -369,6 +369,13 @@
         background-color: white;
     }
 
+    #step_navigate{
+        background-color: #03022C;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+
 </style>
 
 <div class="container">
@@ -456,7 +463,12 @@
                     {{-- student selecting type buttons --}}
                     <div class="child-panel">
                         <div style="display: inline-block; padding-right: 10px">
-                            <h5 class="heading">Filter students from </h5>
+                            <div style="display: inline-block; padding-right:10px">
+                                <h4 id="step_navigate" style="text-align: center; color:#FFFFFF">1</h4>
+                            </div>
+                            <div style="display: inline-block">
+                                <h5 class="heading">Filter students from </h5>
+                            </div>
                         </div>
                         <input type="radio" name="student-selection-type" value="all" id="all" class="student-selecting-checked" checked>
                         <label for="all" class="student-selecting-label">
@@ -471,7 +483,12 @@
                     {{-- session title --}}
                     <div class="child-panel">
                         <div style="display: inline-block; padding-right: 10px">
-                            <h5 class="heading">Session Title </h5>
+                            <div style="display: inline-block; padding-right:10px">
+                                <h4 id="step_navigate" style="text-align: center; color:#FFFFFF">2</h4>
+                            </div>
+                            <div style="display: inline-block">
+                                <h5 class="heading">Session Title </h5>
+                            </div>
                         </div>
                         <div style="display: inline-block; padding-right: 10px">
                             <div class="form-group">
@@ -486,7 +503,12 @@
                         {{-- session type panel --}}
                         <div class="child-panel">
                             <div style="display: inline-block">
-                                <h5 class="heading">Select Session Type</h5>
+                                <div style="display: inline-block; padding-right:10px">
+                                    <h4 id="step_navigate" style="text-align: center; color:#FFFFFF">3</h4>
+                                </div>
+                                <div style="display: inline-block">
+                                    <h5 class="heading">Select Session Type</h5>
+                                </div>
                             </div>
                             <div style="display: inline-block">
                                 <div class="form-check">
@@ -504,12 +526,19 @@
                                     </label>
                                 </div>
                             </div>
+                            <div style="display: inline-block" id="session_type_error">
+                            </div>
                         </div>
 
                         {{-- category panel --}}
                         <div class="child-panel" style="display: none" id="cat-panel">
                             <div style="display: inline-block; padding-right: 10px">
-                                <h5 class="heading">Select a Category</h5>
+                                <div style="display: inline-block; padding-right:10px">
+                                    <h4 id="step_navigate" style="text-align: center; color:#FFFFFF">4</h4>
+                                </div>
+                                <div style="display: inline-block">
+                                    <h5 class="heading">Select a Category</h5>
+                                </div>
                             </div>
                             <div style="display: inline-block;">
                                 <select class="form-control" id="category" name="category[]">
@@ -519,12 +548,18 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div style="display: inline-block" id="category_error"></div>
                         </div>
 
                         {{-- transmission panel --}}
                         <div class="child-panel" style="display: none" id="trans-panel">
                             <div style="display: inline-block; padding-right: 10px">
-                                <h5 class="heading">Select Transmission</h5>
+                                <div style="display: inline-block; padding-right:10px">
+                                    <h4 id="step_navigate" style="text-align: center; color:#FFFFFF">5</h4>
+                                </div>
+                                <div style="display: inline-block">
+                                    <h5 class="heading">Select Transmission</h5>
+                                </div>
                             </div>
                             <div style="display: inline-block">
                                 <div style="display: inline-block">
@@ -811,6 +846,7 @@
             $('#cat-panel').show();
             $('#result-body').empty();
             $('#result-info').show();
+            clearall();
         }else{
             $('#cat-panel').hide();
             $('#trans-panel').hide();
@@ -825,6 +861,8 @@
                         $('#notifydiv').append('<div class="alert alert-info">All students are passed theory exams</div>');
                         $('#result-info').show();
                         $('#result-body').empty();
+                        $('#session_type_error').append('<div class="alert alert-danger"><h6>All students are passed theory examination</h6></div>');
+                        errorclear('session_type_error');
                     }else{
                         $('#result-info').hide();
                         $('#notifydiv').empty();
@@ -864,10 +902,13 @@
                         $('#notifydiv').append('<div class="alert alert-info">No Students on this category</div>');
                         $('#result-info').show();
                         $('#result-body').empty();
+                        $('#category_error').append('<div class="alert alert-danger"><h6>No students in this category</h6></div>');
+                        errorclear('category_error');
                     }else{
                         $('#result-info').hide();
                         $('#notifydiv').empty();
                         $('#result-body').empty();
+                        //$('#category_error').empty();
                         data.forEach(function(row){
                             var url = '{{ route("viewstudent", ":id") }}';
                             url = url.replace(':id', row.user_id);
@@ -1580,6 +1621,23 @@
             }
         }
     });
+
+    function errorclear(error){
+        const errors = ['session_type_error', 'category_error'];
+        errors.forEach(function(row){
+            if(row != error){
+                $('#'+row).empty();
+            }
+        });
+    }
+
+    function clearall(){
+        console.log('call');
+        const errors = ['session_type_error', 'category_error'];
+        errors.forEach(function(row){
+            $('#'+row).empty();
+        });
+    }
 
 </script>
 

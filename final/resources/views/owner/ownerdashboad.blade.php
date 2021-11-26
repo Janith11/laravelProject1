@@ -212,7 +212,7 @@
                         <h5 style="color: #030A25; font-weight: bold; text-align: center">Category Overview</h5>
                         <div class="row">
                             <div class="col col-sm-6">
-                                <canvas id="manualchart" style="height: 100%; padding-top: 20px"></canvas>
+                                <canvas id="manualchart" style=" padding-top: 20px"></canvas>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="text-center">
