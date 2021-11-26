@@ -548,7 +548,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div style="display: inline-block" id="category_error"></div>
+                            <div style="display: inline-block" id="category_error_panel"></div>
                         </div>
 
                         {{-- transmission panel --}}
@@ -846,7 +846,7 @@
             $('#cat-panel').show();
             $('#result-body').empty();
             $('#result-info').show();
-            clearall();
+            // $('session_type_error').empty();
         }else{
             $('#cat-panel').hide();
             $('#trans-panel').hide();
@@ -861,12 +861,13 @@
                         $('#notifydiv').append('<div class="alert alert-info">All students are passed theory exams</div>');
                         $('#result-info').show();
                         $('#result-body').empty();
-                        $('#session_type_error').append('<div class="alert alert-danger"><h6>All students are passed theory examination</h6></div>');
-                        errorclear('session_type_error');
+                        // $('#session_type_error').append('<div class="alert alert-danger"><h6>All students are passed theory examination</h6></div>');
+                        //errorclear('session_type_error');
                     }else{
                         $('#result-info').hide();
                         $('#notifydiv').empty();
                         $('#result-body').empty();
+                        // errorclear('session_type_error');
                         data.forEach(function(row){
                             var url = '{{ route("viewstudent", ":id") }}';
                             url = url.replace(':id', row.user_id);
@@ -893,6 +894,8 @@
         $('#result-info').show();
         if( (category == 'select') || (category == 'B1') || (category == 'C') ){
             $('#trans-panel').hide();
+            // clearall();
+            //errorclear('category_error');
             $.ajax({
                 type: 'get',
                 url: '/manualstudents/'+category,
@@ -902,13 +905,14 @@
                         $('#notifydiv').append('<div class="alert alert-info">No Students on this category</div>');
                         $('#result-info').show();
                         $('#result-body').empty();
-                        $('#category_error').append('<div class="alert alert-danger"><h6>No students in this category</h6></div>');
-                        errorclear('category_error');
+                        // $('#category_error_panel').append('<div class="alert alert-danger"><h6>No students in this category</h6></div>');
+                        //errorclear('category_error');
                     }else{
                         $('#result-info').hide();
                         $('#notifydiv').empty();
                         $('#result-body').empty();
                         //$('#category_error').empty();
+                        // clearall();
                         data.forEach(function(row){
                             var url = '{{ route("viewstudent", ":id") }}';
                             url = url.replace(':id', row.user_id);
@@ -1237,7 +1241,7 @@
             text = '<h6 style="color:#07123B">All students are free on this day</h6>';
         }else{
             const ids = new Array(haveids);
-            text = '<h6 style="color:#07123B"><button onclick="displayhavestudentids(['+ids+'])" class="btn-have-std"><span style="background-color:#2F0033; color:white; padding:0px 5px 0px 5px; border-radius:5px">'+count+' students</span></button> have another sessions on this day</h6>';
+            text = '<h6 style="color:#07123B"><button type="button" onclick="displayhavestudentids(['+ids+'])" class="btn-have-std"><span style="background-color:#2F0033; color:white; padding:0px 5px 0px 5px; border-radius:5px">'+count+' students</span></button> have another sessions on this day</h6>';
         }
         return text;
     }
@@ -1245,7 +1249,7 @@
     // child function of studenthavesession
     function displayhavestudentids(ids){
         var studentslist = @json($studentslist);
-        console.log(studentslist);
+        console.log(' student list '+studentslist);
         $('#student-list').empty();
         studentslist.forEach(function(main){
             ids.forEach(function(id){
@@ -1623,9 +1627,10 @@
     });
 
     function errorclear(error){
-        const errors = ['session_type_error', 'category_error'];
+        const errors = ['session_type_error', 'category_error_panel'];
         errors.forEach(function(row){
             if(row != error){
+                console.log('calll');
                 $('#'+row).empty();
             }
         });
@@ -1633,7 +1638,7 @@
 
     function clearall(){
         console.log('call');
-        const errors = ['session_type_error', 'category_error'];
+        const errors = ['session_type_error', 'category_error_panel'];
         errors.forEach(function(row){
             $('#'+row).empty();
         });
