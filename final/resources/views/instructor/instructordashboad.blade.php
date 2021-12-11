@@ -223,10 +223,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" >
                     <div class="col-sm-12">
-                        <div id="card">
-                            <div class="card">
+                        <div id="card" >
+                            <div class="card" style="height: 250px; overflow:scroll;">
                                 <div class="card-body">
                                     <div class="row justify-content-between">
                                         <div style="display: inline-block; padding-left: 10px">
