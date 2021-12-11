@@ -70,22 +70,34 @@
                                       </tr>
                                       <tr>
                                         <td ><h5 class="card-title">Categories</h5></td>
+                                        <td>
+                                        <Ul >
                                         @foreach ($categories as $c)                                        
                                           @if($c->user_id == $instructor->id)
+                                          
+                                         
                                                 @if ($c->category == "A")
-                                                <td><p class="badge badge-warning">Bike</p></td>    
+                                                <li class="d-inline badge badge-warning">Motor Bicycle</li>
+                                                {{-- <td><p class="badge badge-warning">Bike</p></td>     --}}
                                                 @endif
                                                 @if ($c->category == "B")
-                                                <td><p class="badge badge-warning">Three Wheel</p></td>    
+                                                <li class="d-inline badge badge-warning">Three Wheel</li>
+                                                {{-- <td><p class="badge badge-warning">Three Wheel</p></td>     --}}
                                                 @endif
                                                 @if ($c->category == "C1")
-                                                <td><p class="badge badge-warning ">Dual Purposes</p></td>    
+                                                <li class="d-inline badge badge-warning">Dual Purposes</li>
+                                                {{-- <td><p class="badge badge-warning ">Dual Purposes</p></td>     --}}
                                                 @endif
                                                 @if ($c->category == "C")
-                                                <td><p class="badge badge-warning ">Heavy Vehicle</p></td>    
+                                                <li class="d-inline badge badge-warning">Heavy Vehicle</li>
+                                                {{-- <td><p class="badge badge-warning ">Heavy Vehicle</p></td>     --}}
                                                 @endif
+                                           
+                                                                                      
                                           @endif      
                                         @endforeach
+                                    </Ul>
+                                    </td> 
                                       </tr>
                                       <tr>
                                         <td ><h5 class="card-title">Contact</h5></td>
