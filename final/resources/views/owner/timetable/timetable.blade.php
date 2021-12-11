@@ -159,9 +159,8 @@
 
                 <hr style="border: 0.5px solid #222944">
 
-                {{-- <div class="card"> --}}
+                @foreach ($timetable as $tbl)
 
-                    @foreach ($timetable as $tbl)
                     <div class="card border-primary mb-2" style="width: 100%;">
                         <div class="card-body">
 
@@ -358,15 +357,14 @@
                                                         <label for="monday">Select Instructors</label><br>
                                                             <div>
                                                                 @foreach ($instructor as $i)
-                                                                <ul class="ks-cboxtags">
+                                                                <u l class="ks-cboxtags">
                                                                     <li>
                                                                         <input type="checkbox" id="{{ $i->id }}{{ $tbl->id }}" name="instructor_id[]" value="{{ $i->user_id }}">
                                                                         <label for="{{ $i->id }}{{ $tbl->id }}">{{ $i->user->f_name }} {{ $i->user->l_name }}</label>
                                                                     </li>
-                                                                </ul>
+                                                                </u>
                                                                 @endforeach
                                                             </div>
-                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -384,10 +382,13 @@
 
                         </div>
                     </div>
-                    @endforeach
-                {{-- </div> --}}
+
+                @endforeach
+
             </div>
+
         </div>
+
     </div>
 
 </div>
