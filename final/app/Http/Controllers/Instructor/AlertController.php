@@ -6,6 +6,7 @@ use App\AlertForStudent;
 use App\Http\Controllers\Controller;
 use App\Instructor;
 use App\OwnerShedule;
+use App\Shedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +23,7 @@ class AlertController extends Controller
             $shedule_ids[] = $alert->shedulealert->shedule_id;
         };
 
-        $shedules = OwnerShedule::whereIn('id', $shedule_ids)->get();
+        $shedules = Shedule::whereIn('id', $shedule_ids)->get();
 
         $values = [];
         foreach($alerts as $alert){

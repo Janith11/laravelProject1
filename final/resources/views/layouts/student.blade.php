@@ -899,7 +899,7 @@
                             </div>
                             <div style="display: inline-block">
                                 <a class="nav-link" href="{{ route('studentsheduling') }}" >
-                                    <span class="menu-title" id="item">Shedule List</span>
+                                    <span class="menu-title" id="item">Sessions List</span>
                                 </a>
                             </div>
                         </div>
@@ -908,7 +908,7 @@
                     <li class="nav-item mb-2 timetable" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">
-                                <img src="/uploadimages/other/dashboardicons/shedules.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                                <img src="/uploadimages/other/dashboardicons/clock.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
                             </div>
                             <div style="display: inline-block">
                                 <a class="nav-link" href="{{ route('viewtimetable') }}" >
@@ -921,7 +921,7 @@
                     <li class="nav-item  mb-3 myprogress" id="nav-item">
                         <div style="padding-left: 10px">
                             <div style="display: inline-block">
-                                <img src="/uploadimages/other/dashboardicons/complete.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
+                                <img src="/uploadimages/other/dashboardicons/progress.png" alt="" style="width: 20px; height: auto; padding-bottom: 5px;">
                             </div>
                             <div style="display: inline-block">
                                 <a class="nav-link" href="{{ route('myprogress') }}">

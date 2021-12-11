@@ -62,7 +62,11 @@ class ShedulingController extends Controller
         $sheduling_type = ShedulingType::first();
         $type = $sheduling_type->type;
 
-        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session', 'requestdetails', 'categorydetails', 'type',));
+        //instructor details
+        $instructor = Instructor::with('user')->get();
+        // return $today_sessions;
+
+        return view('student.sheduling.sheduling', compact('today_sessions', 'progress', 'total_session', 'completed_session', 'requestdetails', 'categorydetails', 'type', 'comp', 'instructor'));
     }
 
     public function events($id){
