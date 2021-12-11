@@ -381,15 +381,15 @@
 <div class="container">
 
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Schedules</h5>
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Sessions</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
         <a href="{{ route('owner.ownerdashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> / Schedule List</a>
-        <a style="padding-top: 6px; padding-left: 10px"> / Add Schedule</a>
+        <a href="{{ route('ownershedulelist') }}" style="padding-top: 6px; padding-left: 10px"> / Sessions List</a>
+        <a style="padding-top: 6px; padding-left: 10px"> / Add Session</a>
     </div>
 
     <div class="row-mb-2">
@@ -450,7 +450,7 @@
                             <small>select students for relevant categories</small>
                         </div>
                         <div id="help-select-students" class="help-txt">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime sed laborum quas distinctio sequi nostrum expedita pariatur earum illum quia consequatur obcaecati minima impedit debitis vitae maiores, perspiciatis commodi porro!
+                            You can schedule both instructors and students. please read and follow the steps to add schedules.
                         </div>
                         <div style="display: inline-block; float: right;">
                             <div class="help" id="help-one">
@@ -548,7 +548,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div style="display: inline-block" id="category_error"></div>
+                            <div style="display: inline-block" id="category_error_panel"></div>
                         </div>
 
                         {{-- transmission panel --}}
@@ -625,7 +625,7 @@
                             <h5 class="heading">Select a Date</h5>
                         </div>
                         <div id="help-select-date" class="help-txt">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime sed laborum quas distinctio sequi nostrum expedita pariatur earum illum quia consequatur obcaecati minima impedit debitis vitae maiores, perspiciatis commodi porro!
+                            This section is about the select dates for the schedules. You can cahnge upto 21 days. You can only select green color dates if there is no any green color dates, you have free to give a custome date.
                         </div>
                         <div style="display: inline-block" class="float-right">
                             <div class="help" id="help-two">
@@ -710,7 +710,7 @@
                                 <h5 class="heading">Select a Time and Instructor</h5>
                             </div>
                             <div id="help-select-ins" class="help-txt">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime sed laborum quas distinctio sequi nostrum expedita pariatur earum illum quia consequatur obcaecati minima impedit debitis vitae maiores, perspiciatis commodi porro!
+                                You can see the available times with relevent instructors for that day. If is not you can give a custome time.
                             </div>
                             <div style="display: inline-block" class="float-right">
                                 <div class="help" id="help-three">
@@ -846,7 +846,7 @@
             $('#cat-panel').show();
             $('#result-body').empty();
             $('#result-info').show();
-            clearall();
+            // $('session_type_error').empty();
         }else{
             $('#cat-panel').hide();
             $('#trans-panel').hide();
@@ -861,12 +861,13 @@
                         $('#notifydiv').append('<div class="alert alert-info">All students are passed theory exams</div>');
                         $('#result-info').show();
                         $('#result-body').empty();
-                        $('#session_type_error').append('<div class="alert alert-danger"><h6>All students are passed theory examination</h6></div>');
-                        errorclear('session_type_error');
+                        // $('#session_type_error').append('<div class="alert alert-danger"><h6>All students are passed theory examination</h6></div>');
+                        //errorclear('session_type_error');
                     }else{
                         $('#result-info').hide();
                         $('#notifydiv').empty();
                         $('#result-body').empty();
+                        // errorclear('session_type_error');
                         data.forEach(function(row){
                             var url = '{{ route("viewstudent", ":id") }}';
                             url = url.replace(':id', row.user_id);
@@ -893,6 +894,8 @@
         $('#result-info').show();
         if( (category == 'select') || (category == 'B1') || (category == 'C') ){
             $('#trans-panel').hide();
+            // clearall();
+            //errorclear('category_error');
             $.ajax({
                 type: 'get',
                 url: '/manualstudents/'+category,
@@ -902,13 +905,14 @@
                         $('#notifydiv').append('<div class="alert alert-info">No Students on this category</div>');
                         $('#result-info').show();
                         $('#result-body').empty();
-                        $('#category_error').append('<div class="alert alert-danger"><h6>No students in this category</h6></div>');
-                        errorclear('category_error');
+                        // $('#category_error_panel').append('<div class="alert alert-danger"><h6>No students in this category</h6></div>');
+                        //errorclear('category_error');
                     }else{
                         $('#result-info').hide();
                         $('#notifydiv').empty();
                         $('#result-body').empty();
                         //$('#category_error').empty();
+                        // clearall();
                         data.forEach(function(row){
                             var url = '{{ route("viewstudent", ":id") }}';
                             url = url.replace(':id', row.user_id);
@@ -1237,7 +1241,7 @@
             text = '<h6 style="color:#07123B">All students are free on this day</h6>';
         }else{
             const ids = new Array(haveids);
-            text = '<h6 style="color:#07123B"><button onclick="displayhavestudentids(['+ids+'])" class="btn-have-std"><span style="background-color:#2F0033; color:white; padding:0px 5px 0px 5px; border-radius:5px">'+count+' students</span></button> have another sessions on this day</h6>';
+            text = '<h6 style="color:#07123B"><button type="button" onclick="displayhavestudentids(['+ids+'])" class="btn-have-std"><span style="background-color:#2F0033; color:white; padding:0px 5px 0px 5px; border-radius:5px">'+count+' students</span></button> have another sessions on this day</h6>';
         }
         return text;
     }
@@ -1245,7 +1249,7 @@
     // child function of studenthavesession
     function displayhavestudentids(ids){
         var studentslist = @json($studentslist);
-        console.log(studentslist);
+        console.log(' student list '+studentslist);
         $('#student-list').empty();
         studentslist.forEach(function(main){
             ids.forEach(function(id){
@@ -1623,9 +1627,10 @@
     });
 
     function errorclear(error){
-        const errors = ['session_type_error', 'category_error'];
+        const errors = ['session_type_error', 'category_error_panel'];
         errors.forEach(function(row){
             if(row != error){
+                console.log('calll');
                 $('#'+row).empty();
             }
         });
@@ -1633,7 +1638,7 @@
 
     function clearall(){
         console.log('call');
-        const errors = ['session_type_error', 'category_error'];
+        const errors = ['session_type_error', 'category_error_panel'];
         errors.forEach(function(row){
             $('#'+row).empty();
         });

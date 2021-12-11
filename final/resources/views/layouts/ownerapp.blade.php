@@ -864,7 +864,7 @@
                                 <a type="button">
                                     <div style=" width: 100%">
                                         <div style="display: inline-block">
-                                            <span class="menu-title" id="item">Scheduling</span>
+                                            <span class="menu-title" id="item">Sessions</span>
                                         </div>
                                         <div style="display: inline-block" class="float-right">
                                             <i class="fa fa-angle-down fa-2x" style="padding-left: 10px; color: white"></i>
@@ -876,11 +876,11 @@
                         <div class="dropdown-container">
                             <ul style="list-style-type:disc !important;">
                                 <li>
-                                    <a href="{{ route('ownershedulelist') }}" class="dropdownitem" >Shedule List</a>
+                                    <a href="{{ route('ownershedulelist') }}" class="dropdownitem" >Sessions List</a>
                                 </li>
                                 @if($type->type == 1)
                                     <li>
-                                        <a href="{{ route('owneraddschedule') }}" class="dropdownitem">Add Schedule</a>
+                                        <a href="{{ route('owneraddschedule') }}" class="dropdownitem">Add Session</a>
                                     </li>
                                 @endif
                                 <li>
@@ -890,10 +890,10 @@
                                     <a href="{{ route('timetable') }}" class="dropdownitem">Time Slots</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('todayshedules') }}" class="dropdownitem">Today Shedule</a>
+                                    <a href="{{ route('todayshedules') }}" class="dropdownitem">Today Sessions</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('allshedules') }}" class="dropdownitem">All Shedule</a>
+                                    <a href="{{ route('allshedules') }}" class="dropdownitem">All Sessions</a>
                                 </li>
                             </ul>
                         </div>

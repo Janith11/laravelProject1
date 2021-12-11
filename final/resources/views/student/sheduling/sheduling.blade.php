@@ -23,19 +23,25 @@
         height: 200px;
     }
 
+    .img{
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+    }
+
 </style>
 
 <div class="container">
 
     <div class="row mb-2">
-        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Scheduling</h5>
+        <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Sessions</h5>
         <div style="border-right: 2px solid #222944; padding-left: 10px"></div>
         <a href="{{ route('instructor.instructordashboad') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="blue" class="bi bi-house-door-fill" viewBox="0 0 16 16" style="padding-left: 10px">
                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
         </a>
-        <a style="padding-top: 6px; padding-left: 10px"> / Schedule List</a>
+        <a style="padding-top: 6px; padding-left: 10px"> / Session List</a>
     </div>
 
     {{-- <div class="row justify-content-end">
@@ -220,7 +226,7 @@
                 <div id="card">
                     <div class="card">
                         <div class="card-body" style="border-left: 10px solid #FAD51B !important;">
-                            <h5 style="color: #222944; font-weight: bold">Today Shedule</h5>
+                            <h5 style="color: #222944; font-weight: bold">Today Session</h5>
                             <hr style="border-top: 1px solid #222944">
 
                             @if(count($today_sessions) == 0)
@@ -228,30 +234,70 @@
                                     <h6>No any session on this day</h6>
                                 </div>
                             @else
-                                <div class="table-responsive">
-                                    <table class="table" id="todaysessions">
-                                        <thead style="display: none">
-                                            <th>sdfg</th>
-                                            <th>fgh</th>
-                                            <th>gjhg</th>
-                                            <th>gjhg</th>
-                                            <th>gjfghj</th>
-                                        </thead>
-                                        @foreach($today_sessions as $session)
-                                            <tr>
-                                                <td>Session Number</td>
-                                                <td style="display: none">{{ $session->date }} {{ $session->time }}</td>
-                                                <td>{{ $session->time }}</td>
-                                                <td>{{ $session->lesson_type }}</td>
-                                                @if ($session->shedule_status == 2)
-                                                    <td>Completed</td>
-                                                @else
-                                                    <td id="countdown"></td>
-                                                @endif
-                                            </tr>
-                                        @endforeach
-                                    </table>
+                            <div class="table-responsive">
+                                <div style="background-color: #03011F; border-radius: 5px 5px 0px 0px; padding: 2px 2px 2px 10px">
+                                    @foreach ($today_sessions as $session)
+                                        <h6 style="color: white; margin-bottom: 0px">{{ ucwords($session->lesson_type)." Session " }} <span class="badge badge-pill badge-warning">{{ $comp + 1}}</span></h6>
+                                    @endforeach
                                 </div>
+                                <table class="table" id="todaysessions">
+                                    <thead style="display: none">
+                                        <th>sdfg</th>
+                                        <th>fgh</th>
+                                        <th>gjhg</th>
+                                        <th>gjhg</th>
+                                        <th>gjfghj</th>
+                                    </thead>
+                                    @foreach($today_sessions as $session)
+                                        <tr>
+                                            <td>
+                                                @foreach ($instructor as $ins)
+                                                    @if ($ins->user_id == $session->instructor)
+                                                        <div>
+                                                            <div>
+                                                                <img src="/uploadimages/instructors_profiles/{{$ins->user->profile_img}}" alt="Instructor Profile" class="img">
+                                                            </div>
+                                                            <div>
+                                                                @php
+                                                                    $name = '';
+                                                                    if($ins->user->gender == 'male'){
+                                                                        $name = 'Mr. '.$ins->user->f_name." ".$ins->user->l_name;
+                                                                    }else{
+                                                                        $name = 'Mrs. '.$ins->user->f_name." ".$ins->user->l_name;
+                                                                    }
+                                                                @endphp
+                                                                <h6 style="color: #03011F; font-weight: bold">{{ $name }}</h6>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td style="display: none">{{ $session->date }} {{ $session->time }}</td>
+                                            <td>
+                                                <h5 style="color: #060333; font-weight: bold">{{ $session->time }}</h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="badge badge-success">
+                                                    @if($session->lesson_type == 'practicle')
+                                                        @foreach ($categorydetails as $cat)
+                                                            @if($cat->category_code == $session->vahicle_category)
+                                                                {{ ucwords($cat->name) }} ( {{ $session->transmission }} )
+                                                            @endif
+                                                        @endforeach
+                                                    @else
+                                                        Theory
+                                                    @endif
+                                                </h5>
+                                            </td>
+                                            @if ($session->shedule_status == 2)
+                                                <td>Completed</td>
+                                            @else
+                                                <td id="countdown"></td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
                             @endif
                         </div>
                     </div>
@@ -259,7 +305,7 @@
                 <div id="card">
                     <div class="card">
                         <div class="card-body">
-                            <h5 style="color: #222944; font-weight: bold">Shedule Calender</h5>
+                            <h5 style="color: #222944; font-weight: bold">Session Calender</h5>
                             <hr style="border-top: 1px solid #222944">
                             <div class="text-center">
                                 <div style="display: inline-block">

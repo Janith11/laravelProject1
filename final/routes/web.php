@@ -17,6 +17,7 @@ use App\Instructor;
 use App\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Routing\Route as RoutingRoute;
 
 use function Ramsey\Uuid\v1;
 
@@ -182,6 +183,10 @@ Route::middleware('checkrequest')->group(function(){
     Route::get('/schedulelist/editschedule/{schedule_id}', 'Owner\ShedulingController@ownereditschedule')->name('ownereditschedule');
     Route::delete('/removestudents/{student_list}/{shedule_id}', 'Owner\ShedulingController@removestudents');
     Route::get('/getsheduledstudents/{shedule_id}', 'Owner\ShedulingController@getsheduledstudents');
+    Route::get('/shedulelist/upcomingsessions', 'Owner\ShedulingController@upcomingsessions')->name('ownerupcomingsessions');
+    Route::get('/shedulelist/sessionstat/{type}', 'Owner\ShedulingController@sessionstat')->name('ownersessionstat');
+    Route::get('/shedulelist/morestudents/{date}/{session}/{category}/{transmission}', 'Owner\ShedulingController@getmorestudents')->name('getmorestudentsforsession');
+    Route::post('/shedulelist/addmorestudents', 'Owner\ShedulingController@addmorestudents')->name('owneraddmorestudents');
 
     // session time table
     Route::get('/timetable', 'Owner\TimeTableController@index')->name('timetable');

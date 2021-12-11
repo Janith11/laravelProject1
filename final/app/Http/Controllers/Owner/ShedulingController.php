@@ -71,6 +71,9 @@ class ShedulingController extends Controller
         // today shedules
         $today_shedules = Shedule::where('date', $current)->count();
 
+        // upcoming sessions
+        $upcoming_sessions = Shedule::where('date', '>', $current)->count();
+
         // total shedule for statistics
         $totalshedules_month = Shedule::whereBetween('date', [$date_month, $current])->get();
         $totalshedules_lastmonth = Shedule::whereBetween('date', [$date_last_month, $date_month])->get();
@@ -99,7 +102,10 @@ class ShedulingController extends Controller
         $shedulingtype = ShedulingType::select('type')->first();
         $type = $shedulingtype->type;
 
-        return view('owner.sheduling.shedulelist', compact('shedules','totalshedules', 'today_shedules', 'totalshedules_month', 'totalshedules_lastmonth', 'next_shedules','totalshedules_sixmonth', 'totalshedules_year','complateshedules_month','complateshedules_lastmonth', 'complateshedules_sixmonth', 'complateshedules_year', 'canceledshedules_month','canceledshedules_lastmonth', 'canceledshedules_sixmonth','canceledshedules_year', 'uncompleteshedules_month', 'uncompleteshedules_lastmonth', 'uncompleteshedules_sixmonth', 'uncompleteshedules_year', 'type'));
+        // vehicle category
+        $categories = VehicleCategory::all();
+
+        return view('owner.sheduling.shedulelist', compact('shedules','totalshedules', 'today_shedules', 'totalshedules_month', 'totalshedules_lastmonth', 'next_shedules','totalshedules_sixmonth', 'totalshedules_year','complateshedules_month','complateshedules_lastmonth', 'complateshedules_sixmonth', 'complateshedules_year', 'canceledshedules_month','canceledshedules_lastmonth', 'canceledshedules_sixmonth','canceledshedules_year', 'uncompleteshedules_month', 'uncompleteshedules_lastmonth', 'uncompleteshedules_sixmonth', 'uncompleteshedules_year', 'type', 'upcoming_sessions', 'categories'));
         // return $today_shedules;
     }
 
@@ -256,7 +262,10 @@ class ShedulingController extends Controller
                 $query->where('shedulealert_id', $alert_id);
             }])->whereIn('user_id', $student)->get();
 
-            return view('owner.sheduling.viewsheduledetails', compact('result', 'instructor_details', 'students_details', 'total_alert', 'read_alert'));
+            // vehicle categories
+            $categories = VehicleCategory::all();
+
+            return view('owner.sheduling.viewsheduledetails', compact('result', 'instructor_details', 'students_details', 'total_alert', 'read_alert', 'categories'));
         }
     }
 
@@ -966,5 +975,90 @@ class ShedulingController extends Controller
             'alert_status' => 0
         ]);
         return response()->json(['message' => 'Instructor Change Succesfully ']);
+    }
+
+    public function upcomingsessions(){
+        $current = Carbon::now()->today();
+        $sessions = Shedule::where('date', '>', $current)->get();
+        return view('owner.sheduling.upcomingsessions', compact('sessions'));
+    }
+
+    public function sessionstat($type){
+        $start_date = '';
+        $end_date = '';
+        switch($type){
+            case 'lastmonth':
+                $start_date = Carbon::now()->subDays(30);
+                $end_date = Carbon::now()->subDays(60);
+                break;
+            case 'sixmonth':
+                $start_date = Carbon::now()->today();
+                $end_date = Carbon::now()->subDays(180);
+                break;
+            case 'year':
+                $start_date = Carbon::now()->today();
+                $end_date = Carbon::now()->subDays(365);
+                break;
+            default:
+                break;
+        }
+        $sessions = Shedule::with('sheduledstudents')->whereBetween('date', [$end_date, $start_date])->get();
+        $students = Student::with('user')->get();
+        $instructors = Instructor::with('user')->get();
+        $categories = VehicleCategory::all();
+        return view('owner.sheduling.sessionstat', compact('sessions', 'students', 'instructors', 'type', 'categories'));
+    }
+
+    public function getmorestudents($date, $session, $category, $transmission){
+        if ($session == 'practicle') {
+            $sessions = Shedule::with('sheduledstudents')->where('date', $date)->get();
+            $havesessionids = [];
+            foreach($sessions as $session){
+                foreach($session->sheduledstudents as $std){
+                    $havesessionids[] = $std->student_id;
+                }
+            }
+            $ablestd = StudentCategory::where('category', $category)->where('transmission', $transmission)->where('tstatus', 'training')->whereNotIn('user_id', $havesessionids)->get();
+            $ablestudentids = [];
+            foreach($ablestd as $std){
+                $ablestudentids[] = $std->user_id;
+            }
+            $students = Student::with('user')->whereIn('user_id', $ablestudentids)->get();
+            return response()->json($students);
+        }else{
+            $theoryfailstd = Exam::where('type', 'theory')->where('result', 'fail')->get();
+            $theoryfailids = [];
+            foreach($theoryfailstd as $std){
+                $theoryfailids[] = $std->user_id;
+            }
+            $students = Student::with('user')->whereIn('user_id', $theoryfailids)->get();
+            return response()->json($students);
+        }
+    }
+
+    public function addmorestudents(Request $request){
+        if(empty($request->addmorestudents)){
+            return back()->with('addmoreerror', 'Please select student if you want to add more !!');
+        }else{
+            $title = $request->sessionTitle;
+            $date = $request->date;
+            $time = $request->time;
+            $shedulealert = SheduleAlert::create([
+                'shedule_id' => $request->sessionID,
+                'message' => "You Have to Participate $title on $date at $time",
+            ]);
+            foreach ($request->addmorestudents as $id) {
+                SheduledStudents::create([
+                    'shedule_id' => $request->sessionID,
+                    'student_id' => $id,
+                ]);
+                AlertForStudent::create([
+                    'shedulealert_id' => $shedulealert->id,
+                    'student_id' => $id,
+                    'alert_status' => 0,
+                ]);
+            }
+            return redirect()->route('ownereditschedule', $request->sessionID);
+        }
     }
 }
