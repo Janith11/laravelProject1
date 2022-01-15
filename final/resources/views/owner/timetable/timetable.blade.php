@@ -357,12 +357,12 @@
                                                         <label for="monday">Select Instructors</label><br>
                                                             <div>
                                                                 @foreach ($instructor as $i)
-                                                                <u l class="ks-cboxtags">
+                                                                <ul class="ks-cboxtags">
                                                                     <li>
                                                                         <input type="checkbox" id="{{ $i->id }}{{ $tbl->id }}" name="instructor_id[]" value="{{ $i->user_id }}">
                                                                         <label for="{{ $i->id }}{{ $tbl->id }}">{{ $i->user->f_name }} {{ $i->user->l_name }}</label>
                                                                     </li>
-                                                                </u>
+                                                                </ul>
                                                                 @endforeach
                                                             </div>
                                                     </div>

@@ -492,6 +492,10 @@
 
     <script>
 
+        $(document).ready(function(){
+            $('aside ul .shedule').css('border-left', '5px solid #00bcd4');
+        });
+
         $('#categories').on('change', function(){
 
             var value = document.getElementById('categories').value;
@@ -508,7 +512,7 @@
                     }else{
                         $('#inslist').empty();
                         data.forEach(function(row){
-                            var tablerow = '<tr><td style="vertical-align:middle"><div class="form-check"><input class="form-check-input slotclick" type="radio" name="timeslot" value="'+row.id+'" id="'+row.time_slot+'"><label for="'+row.time_slot+'" class="slot"><div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px" class="icon"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><h6>'+capitalizeFirstLetter(row.slot_name)+'</h6></div></label></div></td><td style="vertical-align: middle"><h5 style="color: #080529; font-weight: bold">'+row.time_slot+'</h5></td><td>'+instructorslist(row.instructor_working_time_slot)+'</td></td></tr>';
+                            var tablerow = '<tr><td style="vertical-align:middle"><div class="form-check"><input class="form-check-input slotclick" type="radio" name="timeslot" value="'+row.id+'" id="'+row.time_slot+'"><label for="'+row.time_slot+'" class="slot"><div style="display: inline-block; border: 1px solid #080529; border-radius: 5px; padding: 0px 5px 0px 5px" class="icon"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><h6>'+capitalizeFirstLetter(row.slot_name)+'</h6></div></label></div></td><td style="vertical-align: middle"><h5 style="color: #080529; font-weight: bold">'+row.time_slot+'</h5></td><td>'+instructorslist(row.instructor_working_time_slot, row.time_slot)+'</td></td></tr>';
                             $('#inslist').append(tablerow);
                         });
                         $('#infoalert').hide();
@@ -525,8 +529,7 @@
 
         });
 
-        function instructorslist(array){
-
+        function instructorslist(array, timeslot){
             var instructorslist = '<ul style="list-style-type: none; margin-left: 0px; margin-bottom: 0px">';
             var instructors = @json($instructors);
             const absents = @json($absent_ids);
@@ -536,12 +539,12 @@
                     if(array[i].instructor_uid == instructors[j].user_id){
                         if(absents.includes(instructors[j].user_id)){
                             // console.log('no');
-                            instructorslist = instructorslist+'<li><input type="radio" id="'+array[i].time_slot_id+'-'+instructors[j].user_id+'" name="'+array[i].time_slot_id+'-instructor_id" value="'+instructors[j].user_id+'" class="nameclick" ><label class="name" for="'+array[i].time_slot_id+'-'+instructors[j].user_id+'"><div style="vertical-align: middle"><div style="display: inline-block; padding-right: 10px"><img src="/uploadimages/instructors_profiles/'+instructors[j].user.profile_img+'" alt="Instructor Profile" class="insprofile"></div><div style="display: inline-block"><h5 style="margin-bottom: 0px">'+checkgenger(instructors[j].user.gender)+capitalizeFirstLetter(instructors[j].user.f_name)+' '+capitalizeFirstLetter(instructors[j].user.l_name)+'</h5></div><div class="float-right icondiv" style="display: inline-block;"><i class="fa fa-check" aria-hidden="true"></i></div></div></li>';
+                            instructorslist = instructorslist+'<li><input type="radio" id="'+array[i].time_slot_id+'-'+instructors[j].user_id+'" name="'+array[i].time_slot_id+'-instructor_id" value="'+instructors[j].user_id+'" class="nameclick" disabled><label class="name" for="'+array[i].time_slot_id+'-'+instructors[j].user_id+'"><div style="vertical-align: middle"><div style="display: inline-block; padding-right: 10px"><img src="/uploadimages/instructors_profiles/'+instructors[j].user.profile_img+'" alt="Instructor Profile" class="insprofile"></div><div style="display: inline-block"><h5 style="margin-bottom: 0px">'+checkgenger(instructors[j].user.gender)+capitalizeFirstLetter(instructors[j].user.f_name)+' '+capitalizeFirstLetter(instructors[j].user.l_name)+'</h5></div><div class="float-right icondiv" style="display: inline-block;"><i class="fa fa-check" aria-hidden="true"></i></div></div></li>';
                         }else{
                             // console.log('yes'+array[i].time_slot_id+'-instructor_id');
                             var url = '{{ route("studentinstructordetails", ":id") }}';
                             url = url.replace(':id', instructors[j].user_id);
-                            instructorslist = instructorslist+'<li><input type="radio" id="'+array[i].time_slot_id+'-'+instructors[j].user_id+'" name="'+array[i].time_slot_id+'-instructor_id" value="'+instructors[j].user_id+'" class="nameclick" ><label class="name" for="'+array[i].time_slot_id+'-'+instructors[j].user_id+'"><div style="vertical-align: middle"><div style="display: inline-block; padding-right: 10px"><img src="/uploadimages/instructors_profiles/'+instructors[j].user.profile_img+'" alt="Instructor Profile" class="insprofile"></div><div style="display: inline-block"><h5 style="margin-bottom: 0px">'+checkgenger(instructors[j].user.gender)+capitalizeFirstLetter(instructors[j].user.f_name)+' '+capitalizeFirstLetter(instructors[j].user.l_name)+'</h5></div><div class="float-right icondiv" style="display: inline-block;"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><a class="viewprofile" href="'+url+'">view profile</a></div></div></li>';
+                            instructorslist = instructorslist+'<li><input type="radio" id="'+array[i].time_slot_id+'-'+instructors[j].user_id+'" name="'+array[i].time_slot_id+'-instructor_id" value="'+instructors[j].user_id+'" class="nameclick" onclick="automaticalychecktime("' + timeslot + '")"><label class="name" for="'+array[i].time_slot_id+'-'+instructors[j].user_id+'"><div style="vertical-align: middle"><div style="display: inline-block; padding-right: 10px"><img src="/uploadimages/instructors_profiles/'+instructors[j].user.profile_img+'" alt="Instructor Profile" class="insprofile"></div><div style="display: inline-block"><h5 style="margin-bottom: 0px">'+checkgenger(instructors[j].user.gender)+capitalizeFirstLetter(instructors[j].user.f_name)+' '+capitalizeFirstLetter(instructors[j].user.l_name)+'</h5></div><div class="float-right icondiv" style="display: inline-block;"><i class="fa fa-check" aria-hidden="true"></i></div><div style="display: inline-block; padding-left:10px"><a class="viewprofile" href="'+url+'">view profile</a></div></div></li>';
                         }
                     }
                 }
@@ -583,7 +586,11 @@
             $('.btnone').addClass('slotbtnclick');
             $('.btntwo').addClass('slotbtnnotclick');
             $('aside ul .shedule').css('border-left', '5px solid #00bcd4');
-        })
+        });
+
+        function automaticalychecktime(slot){
+            console.log('hi '+slot);
+        }
     </script>
 
 @endsection

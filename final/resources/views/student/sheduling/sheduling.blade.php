@@ -88,9 +88,9 @@
                     <div class="card">
                         <div class="card-body" style="border-left: 10px solid #1BC6FA">
                             <div>
-                                <div style="display: inline-block">
+                                <div class="d-inline-block">
                                     <a href="{{ route('studetnupcomingschedules') }}" style="text-decoration: none">
-                                        <h5 style="color: #060333; font-weight: bold">Upcoming Sessions</h5>
+                                        <h5 style="color: #060333; font-weight: bold; margin: 0px !important">Upcoming Sessions</h5>
                                     </a>
                                 </div>
                             </div>
@@ -118,6 +118,19 @@
                             <div style="display: inline-block">
                                 <a href="{{ route('rejectedshedules') }}" style="text-decoration: none">
                                     <h5 style="color: #060333; font-weight: bold">Rejected Request</h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="card">
+                <div class="card">
+                    <div class="card-body" style="border-left: 10px solid #eeff00">
+                        <div>
+                            <div style="display: inline-block">
+                                <a href="{{ route('studentrequestnewsession') }}" style="text-decoration: none">
+                                    <h5 style="color: #060333; font-weight: bold">Request a Session</h5>
                                 </a>
                             </div>
                         </div>
@@ -254,10 +267,10 @@
                                                 @foreach ($instructor as $ins)
                                                     @if ($ins->user_id == $session->instructor)
                                                         <div>
-                                                            <div>
+                                                            <div class="d-inline-block">
                                                                 <img src="/uploadimages/instructors_profiles/{{$ins->user->profile_img}}" alt="Instructor Profile" class="img">
                                                             </div>
-                                                            <div>
+                                                            <div class="d-inline-block pl-2">
                                                                 @php
                                                                     $name = '';
                                                                     if($ins->user->gender == 'male'){
@@ -369,18 +382,6 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             selectable: true,
-            dateClick: function(info) {
-                date = info.dateStr;
-                $(document).ready(function(){
-                    if(shedulingtype != 1){
-                        var url = '{{ route("checkdate", ["date" => ":date"]) }}';
-                        url = url.replace(':date', date);
-                        document.location.href=url;
-                    }else{
-                        alert("This function blocked by owner");
-                    }
-                });
-            },
             events: {
                 url: url
             },
@@ -471,7 +472,7 @@
                 //If the count down is finished, write some text
                 if (distance < 0) {
                     clearInterval(x);
-                    countDown.innerHTML = "Expired Shedule";
+                    countDown.innerHTML = "Session Expired";
                 }
             }
         }, 1000);

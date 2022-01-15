@@ -20,6 +20,7 @@ use App\StudentCategory;
 use App\TimeSlots;
 use App\VehicleCategory;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,7 @@ class ShedulingController extends Controller
         $total_session =  Student::where('user_id', $user_id)->select('total_session')->first();
         $comp = $completed_session->completed_session;
         $tot = $total_session->total_session;
+
         $progress = ( $comp / $tot) * (100);
 
         $requestdetails = ExpandRequests::with('requestcategories')->where('user_id', $user_id)->where('status', 0)->get();
@@ -168,15 +170,15 @@ class ShedulingController extends Controller
         return response()->json($responses);
     }
 
-    public function checkdate($date){
+    public function checkdate($date, $category){
 
         $today = Carbon::now()->today();
         $user_id = Auth::user()->id;
         $total_session = Student::where('user_id', Auth::user()->id)->select('total_session')->first();
         $completed_session = Student::where('user_id', Auth::user()->id)->select('completed_session')->first();
 
-        if ($date <= $today) {
-            return back()->with('errormsg', 'Selected date is past date !!');
+        if (($date <= $today) || ($category == "empty") ) {
+            return back()->with('errormsg', 'Something went wrong. Please Check your selected date or choosed category !!');
         }else{
 
             if ($total_session->total_session <= $completed_session->completed_session) {
@@ -266,6 +268,7 @@ class ShedulingController extends Controller
                 // get categories
                 $trainingcategories = StudentCategory::where('user_id', $user_id)->get();
                 $categories = VehicleCategory::all();
+                $availableSlots = TimeSlots::where('weekday_id', $weekday_id)->get();
 
                 return view('student.sheduling.settimeslot', compact('time_table', 'select_date', 'instructors', 'tresult', 'absent_ids', 'dayschedules', 'session_type', 'trainingcategories', 'categories', 'weekday_id'));
 
@@ -351,13 +354,13 @@ class ShedulingController extends Controller
         return view('student.sheduling.pendingrequest', compact('shedules', 'categories','instructors'));
     }
 
-    public function expandrequest(){
+    public function expandrinequest(){
         $user_id = Auth::user()->id;
-        $training_categories = StudentCategory::where('user_id', $user_id)->get();
+        $trainingDetails = StudentCategory::where('user_id', $user_id)->get();
         $category_names = VehicleCategory::all();
         $values = [];
         $unselect_category = [];
-        foreach ($training_categories as $category) {
+        foreach ($trainingDetails as $category) {
             foreach ($category_names as $name) {
                 if ($category->category == $name->category_code) {
                     $array = [];
@@ -451,5 +454,91 @@ class ShedulingController extends Controller
         $instructors = Instructor::with('user')->get();
         $categories = VehicleCategory::all();
         return view('student.sheduling.upcoming', compact('schedules', 'instructors', 'categories'));
+    }
+
+    public function requestnewsession(){
+        $user_id = Auth::user()->id;
+        $tcategories = StudentCategory::where('user_id', $user_id)->get();
+        $categories = VehicleCategory::all();
+        $tresult = Exam::select('result')->where('user_id', $user_id)->where('type', 'theory')->orderBy('attempt', 'DESC')->get();
+        $res = $tresult[0]->result;
+        return view('student.sheduling.requestsession', compact('categories', 'tcategories', 'res'));
+    }
+
+    public function getavailabledates($cat){
+        $user_id = Auth::user()->id;
+        $trainingDetails = StudentCategory::where('user_id', $user_id)->where('category', $cat)->select('transmission')->first();
+        $trans = $trainingDetails->transmission;
+        $dates = TimeSlots::where('vehicle_category', $cat)->where('transmission', $trans)->select('weekday_id')->get();
+        $weekdayIDs = [];
+        foreach($dates as $date){
+            $weekdayIDs[] = $date->weekday_id;
+        }
+        $weekDays = [
+            '7' => 'Sunday',
+            '1' => 'Monday',
+            '2' => 'Tuesday',
+            '3' => 'Wednesday',
+            '4' => 'Thursday',
+            '5' => 'Friday',
+            '6' => 'Saturday'
+        ];
+        $weekDaynames = [];
+        foreach($weekDays as $id => $value){
+            if (in_array($id, $weekdayIDs)) {
+                $weekDaynames[] = $value;
+            }
+        }
+        $startdate = Carbon::now()->addDays(1);
+        $enddate = Carbon::now()->addDays(30);
+        $allDates = CarbonPeriod::create($startdate, $enddate);
+        $availableDates = [];
+        foreach ($allDates as $date) {
+            $row = [];
+            if(in_array(date('l', strtotime($date)), $weekDaynames)){
+                $row['title'] = 'Available';
+                $row['color'] = '#35FF35';
+                $row['date'] = $date;
+            }
+            array_push($availableDates, $row);
+        }
+        return response()->json($availableDates);
+    }
+
+    public function gettheorysessions(){
+        $dates = TimeSlots::where('exam_type', 'theory')->get();
+        $weekdayIDs = [];
+        foreach($dates as $date){
+            $weekdayIDs[] = $date->weekday_id;
+        }
+        $weekDays = [
+            '7' => 'Sunday',
+            '1' => 'Monday',
+            '2' => 'Tuesday',
+            '3' => 'Wednesday',
+            '4' => 'Thursday',
+            '5' => 'Friday',
+            '6' => 'Saturday'
+        ];
+        $weekDaynames = [];
+        foreach($weekDays as $id => $value){
+            if (in_array($id, $weekdayIDs)) {
+                $weekDaynames[] = $value;
+            }
+        }
+        $startdate = Carbon::now()->addDays(1);
+        $enddate = Carbon::now()->addDays(30);
+        $allDates = CarbonPeriod::create($startdate, $enddate);
+        $availableDates = [];
+        foreach ($allDates as $date) {
+            $row = [];
+            if(in_array(date('l', strtotime($date)), $weekDaynames)){
+                $row['title'] = 'Available';
+                $row['color'] = '#35FF35';
+                $row['date'] = $date;
+            }
+            array_push($availableDates, $row);
+        }
+        return response()->json($availableDates);
     }
 }
