@@ -50,7 +50,7 @@
                             @foreach ($notcategory as $n)
                             <td>
                                 <div class="form-group">
-                                    <input type="text" name="category_code"value="{{ $n->category_code }}" style="display: none">
+                                    <input type="text" name="category_code" value="{{ $n->category_code }}" style="display: none">
                                     {{ $n->category_code }}
                                 </div>
                             </td>

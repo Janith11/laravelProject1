@@ -319,7 +319,7 @@ Route::middleware('studentprofile')->group(function(){
     // sheduling part
     Route::get('/studentshedule', 'Student\ShedulingController@index')->name('studentsheduling');
     Route::get('/allstudentshedules/{id}', 'Student\ShedulingController@events')->name('studentallshedules');
-    Route::get('/studentshedule/getdate/{date}', 'Student\ShedulingController@checkdate')->name('checkdate');
+
     Route::post('/studentshedule/getdate/requestslot', 'Student\ShedulingController@requestslot')->name('studentrequestslot');
     Route::get('/studentshedule/completedshedules', 'Student\ShedulingController@completedshedules')->name('studentcompletedshedules');
     Route::get('/studentshedule/pendingrequests', 'Student\ShedulingController@pendingrequest')->name('studentpendingrequests');
@@ -330,6 +330,12 @@ Route::middleware('studentprofile')->group(function(){
     Route::get('/studentshedule/rejected', 'Student\ShedulingController@rejected')->name('rejectedshedules');
     Route::get('/studentshedule/getdate/getinstructordetails/{category}/{id}', 'Student\ShedulingController@getinstructordetails')->name('getrainingtinstructordetails');
     Route::get('/studentschedule/upcoming', 'Student\ShedulingController@upcomingsessions')->name('studetnupcomingschedules');
+
+    Route::get('/studentshedule/requestnew', 'Student\ShedulingController@requestnewsession')->name('studentrequestnewsession');
+    Route::get('/studentshedule/requestnew/{date}{category}', 'Student\ShedulingController@checkdate')->name('checkdate');
+
+    Route::get('/getvailabledates/{category}', 'Student\ShedulingController@getavailabledates')->name('studentcatavailable');
+    Route::get('/getalltheorydays', 'Student\ShedulingController@gettheorysessions')->name('getalltheorysessons');
 
     // comment
     Route::get('/comments', 'Student\CommentController@index')->name('studentcomment');
