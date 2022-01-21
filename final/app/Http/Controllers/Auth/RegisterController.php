@@ -86,7 +86,7 @@ class RegisterController extends Controller
             'gender' => ['required', 'string', 'max:7'],
             'contactno' => ['required','max:15','unique:users,contact_number'],
             'birthday' => ['required', 'string','date','max:255'],
-            'addressno' => ['required', 'string', 'max:255'],
+            // 'addressno' => ['required', 'string', 'max:255'],
             'addresslineone' => ['required', 'string', 'max:255'],
             'addresslinetwo' => ['required', 'string', 'max:255'],
         ]);

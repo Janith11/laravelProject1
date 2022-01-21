@@ -93,7 +93,7 @@
 
 </style>
 
-<div class="container" >
+<div class="container">
 
     <div class="row mb-2">
         <h5 style="color: #222944; font-weight: bold; padding-top: 3px">Dashboard</h5>
@@ -110,8 +110,9 @@
             <div style="display: inline-block; width: 60px; height: 60px; border-radius: 50%; background-color: #FFFFFF; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                 <img src="/uploadimages/other/chatbot.png" alt="" class="bot">
             </div>
-            <div style="display: inline-block; padding-left: 20px">
+            <div style="display: inline-block; padding-left: 20px" class="mt-2">
                 <h5>{!! $botmsg !!}</h5>
+                {{-- <h5>Welcome! Firstly you have to schedule a theory session. Goto sedssion list on your left side navigation bar and select a day.</h5> --}}
             </div>
         </div>
     </div>

@@ -208,7 +208,7 @@
     </section><!-- End About Us Section -->
 
     <!-- ======= About Lists Section ======= -->
-    <section class="about-lists">
+    <section class="about-lists" id="about-lists">
       <div class="container">
         <h2 class="text-center mb-3">Gallery</h2>
   

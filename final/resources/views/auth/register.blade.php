@@ -160,7 +160,7 @@
                             {{-- fourth row  --}}
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <label for="addressno" class="col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Address No') }}</label>
+                                    <label for="addressno" class="col-form-label text-md-right"><span class="text-danger"></span>{{ __('Address No') }}</label>
                                     <input id="addressno" type="text" class="form-control @error('addressno') is-invalid @enderror" name="addressno" value="{{ old('addressno') }}"  autocomplete="addressno" autofocus >
 
                                     @error('addressno')
@@ -170,9 +170,9 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="addresslineone" class=" col-form-label text-md-right"><span class="text-danger">*</span>{{ __('City') }}</label>
-                                    <input id="addresslineone" type="text" class="form-control @error('addresslineone') is-invalid @enderror" name="addresslineone" value="{{ old('addresslineone') }}"  autocomplete="addresslineone" autofocus onkeyup="InputValidate('addresslineone')">
-                                    @error('addresslineone')
+                                    <label for="addresslinetwo" class=" col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Street') }}</label>
+                                    <input id="addresslinetwo" type="text" class="form-control @error('addresslinetwo') is-invalid @enderror" name="addresslinetwo" value="{{ old('addresslinetwo') }}"  autocomplete="addresslinetwo" autofocus onkeyup="InputValidate('addresslinetwo')">
+                                    @error('addresslinetwo')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -182,14 +182,15 @@
                             {{-- Fifth Row  --}}
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <label for="addresslinetwo" class=" col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Street') }}</label>
-                                    <input id="addresslinetwo" type="text" class="form-control @error('addresslinetwo') is-invalid @enderror" name="addresslinetwo" value="{{ old('addresslinetwo') }}"  autocomplete="addresslinetwo" autofocus onkeyup="InputValidate('addresslinetwo')">
-                                    @error('addresslinetwo')
+                                    <label for="addresslineone" class=" col-form-label text-md-right"><span class="text-danger">*</span>{{ __('City') }}</label>
+                                    <input id="addresslineone" type="text" class="form-control @error('addresslineone') is-invalid @enderror" name="addresslineone" value="{{ old('addresslineone') }}"  autocomplete="addresslineone" autofocus onkeyup="InputValidate('addresslineone')">
+                                    @error('addresslineone')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
+                            
                                 <div class="col-md-6">
                                     <label for="contactno" class=" col-form-label text-md-right"><span class="text-danger">*</span>{{ __('Contact No') }}</label>
                                     <input id="contactno" onkeyup="checkContact()" type="text" class="form-control @error('contactno') is-invalid @enderror" name="contactno" value="{{ old('contactno') }}" autocomplete="contactno" autofocus>
@@ -571,16 +572,16 @@
     // second tab input validation
     function SecondTabValidation(){
         var err_count = 0;
-        var no = $('#addressno').val();
+        // var no = $('#addressno').val();
         var lineone = $('#addresslineone').val();
         var linetwo = $('#addresslinetwo').val();
         var mobile = $('#contactno').val();
         var letters = /^[A-Za-z\s]+$/;
         if(nextClick == 2){
-            if( no.length < 1 ){
-                $('#addressno').addClass('is-invalid');
-                err_count ++;
-            }
+            // if( no.length < 1 ){
+            //     $('#addressno').addClass('is-invalid');
+            //     err_count ++;
+            // }
             if ((lineone.length < 2) || (!lineone.match(letters))) {
                 $('#addresslineone').addClass('is-invalid');
                 err_count ++;

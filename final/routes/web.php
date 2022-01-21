@@ -227,6 +227,14 @@ Route::middleware('checkrequest')->group(function(){
     Route::post('/addresults','Owner\ExamController@saveresults')->name('saveresults');
     Route::post('/exam/Set_Exam_Date','Owner\ExamController@setexamdate')->name('setexamdate');
 
+    //set exam dates
+    Route::get('/exam-dates/view','Owner\ExamController@viewexamdates')->name('ownerexamdates');
+    Route::get('/exam-dates/load-dates','Owner\ExamController@loadExamDates')->name('loadexamdates');
+    Route::get('/exam-dates/add-dates/{date}','Owner\ExamController@addExamDates')->name('addexamdates');
+    Route::post('/exam-dates/save-date','Owner\ExamController@saveExamDates')->name('saveexamdate');
+    Route::get('/exam-dates/new-exam/{date}/{id}','Owner\ExamController@specificexamevent')->name('specificexamevent');
+    
+
     // setting
     Route::get('/settings', 'Owner\SettingController@index')->name('settings');
     Route::post('/settings/savedetails', 'Owner\SettingController@savedetails')->name('savedetails');
@@ -299,6 +307,9 @@ Route::middleware('studentprofile')->group(function(){
 
     //examination results
     Route::get('/results','Student\ExamresultController@index')->name('studentresults');
+    Route::get('/Upcoming-exam-dates-load','Student\ExamresultController@requestexamdates')->name('examdatesrequest');
+    Route::get('/Upcoming-exam-dates-view','Student\ExamresultController@viewexamdates')->name('viewexamdates');
+    Route::get('/Upcoming-exam/select-date/{id}','Student\ExamresultController@selecteventdate')->name('selecteventdate');
 
     // Student chats
     Route::get('/Schat', 'Student\ChatController@index')->name('studentchat');

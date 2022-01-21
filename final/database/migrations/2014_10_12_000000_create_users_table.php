@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->boolean('contact_no_isVerified')->default(false);
             $table->string('otp')->nullable();
             $table->date('dob');
-            $table->string('address_no');
+            $table->string('address_no')->nullable();
             $table->string('address_lineone');
             $table->string('address_linetwo');
             $table->string('profile_img')->default('default_profile.jpg');
