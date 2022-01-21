@@ -830,6 +830,9 @@
                                     <a href="{{ route('studentgroups') }}" class="dropdownitem">Student Groups</a>
                                 </li>
                                 <li>
+                                    <a href="{{ route('ownerexamdates') }}" class="dropdownitem">Exam Dates</a>
+                                </li>
+                                <li>
                                     <a href="{{ route('ownerexamresult') }}" class="dropdownitem">Exam Results</a>
                                 </li>
                                 <li>

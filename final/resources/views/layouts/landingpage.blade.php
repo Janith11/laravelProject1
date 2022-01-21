@@ -47,8 +47,8 @@
                     <li class="active"><a href="{{'/'}}">Home</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#services">Services</a></li>
-                    <li><a href="#team">Galary</a></li>
-                    <li class="drop-down"><a href="">More</a>
+                    <li><a href="#about-lists">Galary</a></li>
+                    <li class="drop-down"><a href="">More Info</a>
                         <ul>
                             <li><a href="{{ route('rmvregulations') }}">RMV Regulations</a></li>
                             <li><a href="{{ route('roadsigns') }}">Road Sings</a></li>

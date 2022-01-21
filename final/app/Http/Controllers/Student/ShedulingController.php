@@ -246,6 +246,8 @@ class ShedulingController extends Controller
                 // get exam results
                 $theorysession = Exam::where('user_id', $user_id)->where('type', 'theory')->select('result')->first();
                 $tresult = $theorysession->result;
+                $time_table=[];
+                $session_type="";
                 if($tresult == 'fail'){
                     $theorysessions = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $weekday_id)->where('exam_type', 'theory')->get();
                     if($theorysessions->count() == 0){
