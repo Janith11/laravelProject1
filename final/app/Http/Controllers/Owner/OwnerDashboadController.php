@@ -122,12 +122,33 @@ class OwnerDashboadController extends Controller
             $month = date('M', strtotime("-$i month", strtotime($currentmonth)));
             $getmonths[] = $month;
         }
+        $yearbreak = 0;
+        $jan_id = 0;
+        if(in_array('Jan', $getmonths)){
+            $yearbreak = 1;
+            $jan_id = array_search('Jan', $getmonths);
+        }
         $getstudents = [];
-        foreach ($getmonths as $month) {
-            $firstday = date('Y-m-01', strtotime($month));
-            $lastday = date('Y-m-t', strtotime($month));
-            $std_count = User::where('role_id', 3)->whereBetween('created_at', [$firstday, $lastday])->count();
-            $getstudents[] = $std_count;
+        foreach ($getmonths as $key => $month) {
+            if($yearbreak == 1){
+                if($key > $jan_id){
+                    $prevyear = date("Y",strtotime("-1 year"));
+                    $firstday = date("Y-m-01",strtotime("$prevyear-$month"));
+                    $lastday = date("Y-m-t",strtotime("$prevyear-$month"));
+                    $std_count = User::where('role_id', 3)->whereBetween('created_at', [$firstday, $lastday])->count();
+                    $getstudents[] = $std_count;
+                }else{
+                    $firstday = date('Y-m-01', strtotime($month));
+                    $lastday = date('Y-m-t', strtotime($month));
+                    $std_count = User::where('role_id', 3)->whereBetween('created_at', [$firstday, $lastday])->count();
+                    $getstudents[] = $std_count;
+                }
+            }else{
+                $firstday = date('Y-m-01', strtotime($month));
+                $lastday = date('Y-m-t', strtotime($month));
+                $std_count = User::where('role_id', 3)->whereBetween('created_at', [$firstday, $lastday])->count();
+                $getstudents[] = $std_count;
+            }
         }
         $students = array_reverse($getstudents);
         $months = array_reverse($getmonths);
@@ -138,16 +159,45 @@ class OwnerDashboadController extends Controller
             $month = date('M', strtotime("-$i month", strtotime($currentmonth)));
             $monymonths[] = $month;
         }
+        $yearbreakincome = 0;
+        $incomejan_id = 0;
+        if(in_array('Jan', $monymonths)){
+            $yearbreakincome = 1;
+            $incomejan_id = array_search('Jan', $monymonths);
+        }
         $getincome = [];
-        foreach ($monymonths as $month) {
-            $firstday = date('Y-m-01', strtotime($month));
-            $lastday = date('Y-m-t', strtotime($month));
-            $income = PaymentLog::select('amount')->where('type', 'debit')->whereBetween('created_at', [$firstday, $lastday])->get();
-            $val = 0;
-            foreach ($income as $value) {
-                $val += $value->amount;
+        foreach ($monymonths as $key => $month) {
+            if($yearbreakincome == 1){
+                if($key > $incomejan_id){
+                    $prevyear = date("Y",strtotime("-1 year"));
+                    $firstday = date("Y-m-01",strtotime("$prevyear-$month"));
+                    $lastday = date("Y-m-t",strtotime("$prevyear-$month"));
+                    $income = PaymentLog::select('amount')->where('type', 'debit')->whereBetween('created_at', [$firstday, $lastday])->get();
+                    $val = 0;
+                    foreach ($income as $value) {
+                        $val += $value->amount;
+                    }
+                    $getincome[] = $val;
+                }else{
+                    $firstday = date('Y-m-01', strtotime($month));
+                    $lastday = date('Y-m-t', strtotime($month));
+                    $income = PaymentLog::select('amount')->where('type', 'debit')->whereBetween('created_at', [$firstday, $lastday])->get();
+                    $val = 0;
+                    foreach ($income as $value) {
+                        $val += $value->amount;
+                    }
+                    $getincome[] = $val;
+                }
+            }else{
+                $firstday = date('Y-m-01', strtotime($month));
+                $lastday = date('Y-m-t', strtotime($month));
+                $income = PaymentLog::select('amount')->where('type', 'debit')->whereBetween('created_at', [$firstday, $lastday])->get();
+                $val = 0;
+                foreach ($income as $value) {
+                    $val += $value->amount;
+                }
+                $getincome[] = $val;
             }
-            $getincome[] = $val;
         }
         $monymonths = array_reverse($monymonths);
         $income = array_reverse($getincome);

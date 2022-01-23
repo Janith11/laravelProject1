@@ -82,12 +82,10 @@
 
 @section('content')
 
-  
-
     <!-- ======= Hero Section ======= -->
     <div>
       <div class="row mysuccessmsg">
-        
+
         @if(session('successmsg'))
             <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <h5>
@@ -99,7 +97,7 @@
             </div>
         @endif
       </div>
-  
+
       <div class="row">
         @if (count($errors) > 0)
           @foreach ($errors as $error)
@@ -211,53 +209,53 @@
     <section class="about-lists" id="about-lists">
       <div class="container">
         <h2 class="text-center mb-3">Gallery</h2>
-  
+
         <div class="card-group">
           <div class="card">
             <img class="card-img-top hover-shadow" src="/images/landingpage/gallery/1.jpg" alt="Card image cap">
-            
+
           </div>
           <div class="card">
             <img class="card-img-top" src="/images/landingpage/gallery/2.jpg" alt="Card image cap">
-            
+
           </div>
           <div class="card">
             <img class="card-img-top" src="/images/landingpage/gallery/3.jpg" alt="Card image cap">
-            
+
           </div>
         </div>
 
         <div class="card-group">
           <div class="card">
             <img class="card-img-top hover-shadow" src="/images/landingpage/gallery/4.jpg" alt="Card image cap">
-            
+
           </div>
           <div class="card">
             <img class="card-img-top" src="/images/landingpage/gallery/5.jpg" alt="Card image cap">
-            
+
           </div>
           <div class="card">
             <img class="card-img-top" src="/images/landingpage/gallery/6.jpg" alt="Card image cap">
-            
+
           </div>
         </div>
 
         <div class="card-group">
           <div class="card">
             <img class="card-img-top hover-shadow" src="/images/landingpage/gallery/7.jpg" alt="Card image cap">
-            
+
           </div>
           <div class="card ">
             <img class="card-img-top" src="/images/landingpage/gallery/8.jpg" alt="Card image cap">
-            
+
           </div>
           <div class="card">
             <img class="card-img-top hover-overlay" src="/images/landingpage/gallery/9.jpg" alt="Card image cap">
-            
+
           </div>
         </div>
 
-       
+
 
       </div>
     </section>
@@ -307,7 +305,7 @@
     </section><!-- End Counts Section -->
 
     <!-- ======= Services Section ======= -->
-  
+
     <section id="services" class="services">
       <div class="container">
         <div class="section-title">
@@ -387,7 +385,7 @@
       </div>
     </section>
 
-  
+
 
     <!-- ======= Our Team Section ======= -->
     <section id="team" class="team">
@@ -400,15 +398,15 @@
 
         <div class="row">
 
-          @foreach ($instructors as $instructor)        
+          @foreach ($instructors as $instructor)
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up">
             <div class="member">
               <div class="pic"><img src="/uploadimages/instructors_profiles/{{ $instructor->profile_img }}" class="img-fluid" alt=""></div>
               <div class="member-info">
-                
+
                 <h4>{{ $instructor->f_name }} {{ $instructor->l_name }}</h4>
                 <span>Senior Instructor</span>
-               
+
               </div>
             </div>
           </div>
@@ -421,12 +419,12 @@
       </div>
     </section><!-- End Our Team Section -->
 
-   
+
 <div class="container">
   <div class="row mb-2" style="justify-content: center;padding-top: 20px;">
-            
+
     <div class="card" style="width: 100%; height: 95%;" >
-                
+
         <img class="image-fluid" src="/images/landingpage/openinghours.png" alt="Card image cap">
 
         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px 20px 20px 20px; border-radius: 10px; width: 50%; background: rgba(255, 255, 255, .8);" id="worktimes">
@@ -434,29 +432,29 @@
             <h5 class="card-title text-center openhourh5" style="color: #34314C; font-weight: bold;">Office Hours</h5>
             @foreach ($openhours as $openhour)
               @if ($openhour->weekday_id == 1)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Monday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Monday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>
               @endif
               @if ($openhour->weekday_id == 2)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C;">Tuesday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C;">Tuesday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>
               @endif
               @if ($openhour->weekday_id == 3)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Wednesday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Wednesday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>
               @endif
               @if ($openhour->weekday_id == 4)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Thursday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Thursday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>
               @endif
               @if ($openhour->weekday_id == 5)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Friday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Friday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>
               @endif
               @if ($openhour->weekday_id == 6)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Saturday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Saturday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>
               @endif
               @if ($openhour->weekday_id == 7)
-                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Sunday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>  
+                <p class="d-flex justify-content-center openhour" style="color: #34314C; ">Sunday {{ substr($openhour->from ,0,-3) }} am - {{ substr($openhour->to,0,-3) }} pm</p>
               @endif
             @endforeach
-            
-            
+
+
             <small class="openhour text-danger">* Closed on every public holidays</small>
           {{-- </div> --}}
         </div>
@@ -541,7 +539,7 @@
                   </div>
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
-              </form>   
+              </form>
             </div>
           </div>
 

@@ -66,6 +66,12 @@ class StudentCategorySeeder extends Seeder
         ]);
         DB::table('student_categories')->insert([
             'user_id' => '7',
+            'category' => 'A',
+            'tstatus' => 'Training',
+            'transmission' => 'Auto',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '7',
             'category' => 'B1',
             'tstatus' => 'Without Training',
             'transmission' => '3',
@@ -90,37 +96,106 @@ class StudentCategorySeeder extends Seeder
         ]);
         DB::table('student_categories')->insert([
             'user_id' => '9',
-            'category' => 'C',
+            'category' => 'A',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '9',
+            'category' => 'B1',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '9',
+            'category' => 'C1',
             'tstatus' => 'Without Training',
             'transmission' => '3',
         ]);
         DB::table('student_categories')->insert([
             'user_id' => '10',
-            'category' => 'C',
+            'category' => 'A',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '10',
+            'category' => 'B1',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '10',
+            'category' => 'C1',
             'tstatus' => 'Without Training',
             'transmission' => '3',
         ]);
         DB::table('student_categories')->insert([
             'user_id' => '11',
-            'category' => 'C',
+            'category' => 'A',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '11',
+            'category' => 'C1',
             'tstatus' => 'Without Training',
             'transmission' => '3',
         ]);
         DB::table('student_categories')->insert([
             'user_id' => '12',
-            'category' => 'C',
+            'category' => 'A',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '12',
+            'category' => 'B1',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '12',
+            'category' => 'C1',
             'tstatus' => 'Without Training',
             'transmission' => '3',
         ]);
         DB::table('student_categories')->insert([
             'user_id' => '13',
-            'category' => 'C',
+            'category' => 'A',
             'tstatus' => 'Without Training',
             'transmission' => '3',
         ]);
         DB::table('student_categories')->insert([
+            'user_id' => '13',
+            'category' => 'C1',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+
+
+        // candiadtes
+        DB::table('student_categories')->insert([
             'user_id' => '14',
-            'category' => 'C',
+            'category' => 'C1',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '15',
+            'category' => 'C1',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '16',
+            'category' => 'C1',
+            'tstatus' => 'Without Training',
+            'transmission' => '3',
+        ]);
+        DB::table('student_categories')->insert([
+            'user_id' => '17',
+            'category' => 'C1',
             'tstatus' => 'Without Training',
             'transmission' => '3',
         ]);

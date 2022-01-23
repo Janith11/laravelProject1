@@ -24,13 +24,10 @@ class StudentsController extends Controller
         $students = Student::with('user')->whereHas('user' , function($query){
             $query->where('status', 1);
         })->get();
-        $requst_students = Student::with('user')->whereHas('user', function($query){
-            $query->where('status', 0);
-        })->count();
+        $requst_students = User::where('status', 0)->where('role_id', 4)->count();
         $complete_students = Student::with('user')->whereHas('user', function($query){
             $query->where('status', 3);
         })->count();
-
         return view('owner.students.studentslist', compact('students', 'requst_students', 'complete_students'));
     }
 
@@ -414,8 +411,11 @@ class StudentsController extends Controller
     }
 
     public function active(){
-        $results = Student::with('user')->get();
-        return $results;
+        // $results = Student::with('user')->get();
+        $students = Student::with('user')->whereHas('user' , function($query){
+            $query->where('status', 1);
+        })->get();
+        return $students;
     }
 
     public function requestedstudents(){
@@ -424,7 +424,7 @@ class StudentsController extends Controller
     }
 
     public function fineshedcourse(){
-        $results = User::with('student')->where('status', 2)->where('role_id', 4)->get();
+        $results = User::with('student')->where('status', 3)->where('role_id',3)->get();
         return $results;
     }
 }
