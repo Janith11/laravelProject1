@@ -46,7 +46,8 @@ class ExamresultController extends Controller
 
     }
     public function selecteventdate($id){
-        return $id;
+        $getresults=Exam_Dates::where('id',$id)->get();
+        return view ('student.exam.reviewExamDate',compact('getresults'));
     }
 
     

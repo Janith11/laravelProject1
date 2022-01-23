@@ -62,31 +62,28 @@
                 date = info.dateStr;
                 $(document).ready(function(){
                     // if(shedulingtype != 1){
-                        // var url = '{{ route("checkdate", ["date" => ":date"]) }}';
-                        // url = url.replace(':date', date);
-                        // document.location.href=url;
+                        
                     // }else{
                         // alert("This function blocked by owner");
                     // }
                 });
             },
             eventClick: function(info) {
-                $('#exampleModal').modal('show');
-                // var Stringdate = info.event.start;
-                // var date = new Date(Stringdate);
-                // var fDate =  date.getFullYear() + '-' + Number(date.getMonth() + 1) + '-' + date.getDate();
-                // var dateStrng  = fDate.toString();
+                var Stringdate = info.event.start;
+                var date = new Date(Stringdate);
+                var fDate =  date.getFullYear() + '-' + Number(date.getMonth() + 1) + '-' + date.getDate();
+                var dateStrng  = fDate.toString();
                 // alert(dateStrng);
                 // alert(fDate);
                 myid = info.event.id;
                 // alert(myid);
-                // $(document).ready(function(){
-                //         var url = '{{ route("selecteventdate", ["id" => ":id"]) }}';
-                //         url = url.replace(':id',myid);
-                //         document.location.href=url;
+                $(document).ready(function(){
+                        var url = '{{ route("selecteventdate", ["id" => ":id"]) }}';
+                        // url = url.replace(':date',fDate);
+                        url = url.replace(':id',myid);
+                        document.location.href=url;
                     
-                //  });
-                // alert("Hello");
+                });
             },
             events: {
                 url: url
