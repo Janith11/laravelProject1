@@ -71,7 +71,7 @@
                                 </svg>
                             </div>
                             <div style="display: inline-block">
-                                <h3 id="h">{{ count($students) - $complete_students }}</h3>
+                                <h3 id="h">{{ count($students) }}</h3>
                                 <small>in progress</small>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 </svg>
                             </div>
                             <div style="display: inline-block">
-                                <h3 id="h">{{ count($students) }}</h3>
+                                <h3 id="h">{{ count($students) + $complete_students }}</h3>
                                 <small>all students</small>
                             </div>
                         </div>
@@ -294,14 +294,16 @@
                     $('#tbl_head').empty();
                     $('#tbl_head').append('<tr><th scope="col "><input type="checkbox"></th><th scope="col ">Name</th><th scope="col ">NIC</th><th scope="col">Id</th><th scope="col">Batch</th><th scope="col">Balance</th><th scope="col"></th><th scope="col"></th></tr>');
                     data.forEach(function(row){
-                        var student = '<tr><td><input type="checkbox"></td>'+getdetails(row.user)+'<td>'+row.group_number+'</td><td>'+(row.total_fee - row.paid_amount)+'</td><td><a class="btn btn-primary" href="{{ route("editstudent", '+row.user_id+') }}"><i class="fas fa-pencil-alt"></i></a></td><td><a class="btn btn-info" href="{{ route("viewstudent", '+row.user_id+') }}"><i class="fas fa-angle-double-right"></i></a></td></tr>';
+                        var student = '<tr><td><input type="checkbox"></td>'+getdetails(row.user)+'<td>'+row.group_number+'</td><td>'+(row.total_fee - row.paid_amount)+'</td><td><a class="btn btn-primary" href="{{ route("editstudent", ":editid") }}"><i class="fas fa-pencil-alt"></i></a></td><td><a class="btn btn-info" href="{{ route("viewstudent", ":viewid") }}"><i class="fas fa-angle-double-right"></i></a></td></tr>';
+                        student = student.replace(":editid", row.user_id);
+                        student = student.replace(":viewid", row.user_id);
                         $('#student_list').append(student);
                     });
 
                 }
             },
             error:function(){
-
+                console.log("Error found");
             }
         });
     }
@@ -325,7 +327,9 @@
                     $('#tbl_head').empty();
                     $('#tbl_head').append('<tr><th scope="col "><input type="checkbox"></th><th scope="col ">Name</th><th scope="col ">NIC</th><th scope="col">Id</th><th scope="col">Batch</th><th scope="col">Balance</th><th scope="col"></th><th scope="col"></th></tr>');
                     data.forEach(function(row){
-                        var student = '<tr><td><input type="checkbox"></td><td><div style="display:flex"><div style="display:inline-block; padding-right:10px"><img src="/uploadimages/students_profiles/'+row.profile_img+'" id="img"></div><div style="display:inline-block"></div><h5 style="color:#050F38; padding-top: 15px">'+row.f_name+' '+row.l_name+'</h5></div></td><td>'+row.nic_number+'</td><td>'+row.id+'</td>'+info(row.student)+'<td><a class="btn btn-primary" href="{{ route("editstudent", '+row.id+') }}"><i class="fas fa-pencil-alt"></i></a></td><td><a class="btn btn-info" href="{{ route("viewstudent", '+row.id+') }}"><i class="fas fa-angle-double-right"></i></a></td></tr>';
+                        var student = '<tr><td><input type="checkbox"></td><td><div style="display:flex"><div style="display:inline-block; padding-right:10px"><img src="/uploadimages/students_profiles/'+row.profile_img+'" id="img"></div><div style="display:inline-block"></div><h5 style="color:#050F38; padding-top: 15px">'+row.f_name+' '+row.l_name+'</h5></div></td><td>'+row.nic_number+'</td><td>'+row.id+'</td>'+info(row.student)+'<td><a class="btn btn-primary" href="{{ route("editstudent", ":editid") }}"><i class="fas fa-pencil-alt"></i></a></td><td><a class="btn btn-info" href="{{ route("viewstudent", ":viewid") }}"><i class="fas fa-angle-double-right"></i></a></td></tr>';
+                        student = student.replace(":editid", row.id);
+                        student = student.replace(":viewid", row.id);
                         $('#student_list').append(student);
                     });
                 }
@@ -384,7 +388,9 @@
                     $('#tbl_head').empty();
                     $('#tbl_head').append('<tr><th scope="col "><input type="checkbox"></th><th scope="col ">Name</th><th scope="col ">NIC</th><th scope="col">Id</th><th scope="col"></th><th scope="col"></th></tr>');
                     data.forEach(function(row){
-                        var student = '<tr><td><input type="checkbox"></td><td><div style="display:flex"><div style="display:inline-block; padding-right:10px"><img src="/uploadimages/students_profiles/'+row.profile_img+'" id="img"></div><div style="display:inline-block"></div><h5 style="color:#05113F; padding-top:15px">'+row.f_name+' '+row.l_name+'</h5></div></td><td>'+row.nic_number+'</td><td>'+row.id+'</td><td><a class="btn btn-primary" href="{{ route("editstudent", '+row.id+') }}"><i class="fas fa-pencil-alt"></i></a></td><td><a class="btn btn-info" href="{{ route("viewstudent", '+row.id+') }}"><i class="fas fa-angle-double-right"></i></a></td></tr>';
+                        var student = '<tr><td><input type="checkbox"></td><td><div style="display:flex"><div style="display:inline-block; padding-right:10px"><img src="/uploadimages/students_profiles/'+row.profile_img+'" id="img"></div><div style="display:inline-block"></div><h5 style="color:#05113F; padding-top:15px">'+row.f_name+' '+row.l_name+'</h5></div></td><td>'+row.nic_number+'</td><td>'+row.id+'</td><td><a class="btn btn-primary" href="{{ route("editstudent", ":editid") }}"><i class="fas fa-pencil-alt"></i></a></td><td><a class="btn btn-info" href="{{ route("viewstudent", ":viewid") }}"><i class="fas fa-angle-double-right"></i></a></td></tr>';
+                        student = student.replace(":editid", row.id);
+                        student = student.replace(":viewid", row.id);
                         $('#student_list').append(student);
                     });
 

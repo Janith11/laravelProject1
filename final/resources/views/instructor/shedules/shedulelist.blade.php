@@ -9,13 +9,6 @@
        font-weight: bold;
        font-family: 'Open Sans Condensed', sans-serif;
    }
-/*
-   .table {
-       width: 100%;
-       max-width: 100%;
-       margin-bottom: 0rem;
-       background-color: transparent;
-   } */
 
     td{
        color: #222944;
