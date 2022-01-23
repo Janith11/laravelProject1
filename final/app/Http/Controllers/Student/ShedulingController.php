@@ -354,7 +354,7 @@ class ShedulingController extends Controller
         return view('student.sheduling.pendingrequest', compact('shedules', 'categories','instructors'));
     }
 
-    public function expandrinequest(){
+    public function expandrequest(){
         $user_id = Auth::user()->id;
         $trainingDetails = StudentCategory::where('user_id', $user_id)->get();
         $category_names = VehicleCategory::all();
