@@ -20,19 +20,19 @@ class VahicleCategorySeeder extends Seeder
 
         DB::table('vehicle_categories')->insert([
             'category_code' => 'B1',
-            'name' => 'three weel',
+            'name' => 'threeweel',
             'transmission'=>'manual',
         ]);
 
         DB::table('vehicle_categories')->insert([
             'category_code' => 'C1',
-            'name' => 'dual purposes',
+            'name' => 'dualpurposes',
             'transmission'=>'automanual',
         ]);
 
         DB::table('vehicle_categories')->insert([
             'category_code' => 'C',
-            'name' => 'heavy vehical',
+            'name' => 'heavyvehical',
             'transmission'=>'manual',
         ]);
     }

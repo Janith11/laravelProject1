@@ -10,7 +10,12 @@
             </svg>
         </a>
     </div>
-   
+   {{-- View exam dates  --}}
+   <div class="mb-3  row">
+       <div class="ml-auto">
+            <a href="{{ route('examdatesrequest') }}" type="button" class="btn btn-primary">Upcoming Exam Dates</a>
+        </div>
+   </div>
     <div class="card">
         <div class="card-body">
             <h5 style="color: #222944; font-weight: bold"> Exam Results</h5>
@@ -41,8 +46,10 @@
                                             <td>{{ $exam->date }}</td>
                                         @if ($exam->result == 'pass')
                                             <td class="bg-success text-center px-1"><span class="text-light"><i class="far fa-check-circle fa-lg"></i></span> Pass</td>    
+                                        @elseif ($exam->result == 'fail')
+                                            <td class="bg-danger text-center px-1"><span class="text-light"><i class="far fa-times-circle fa-lg"></i></span> Fail</td>    
                                         @else
-                                            <td class="bg-danger text-center px-1"><span class="text-light"><i class="far fa-times-circle fa-lg"></i></span> Pass</td>    
+                                        <td class="bg-secondary text-center px-1"><span class="text-light"><i class="far fa-times-circle fa-lg"></i></span>Not Define</td>                                                                                        
                                         @endif
                                             <td class="text-center">{{ $exam->attempt }}</td>
                                       </tr>

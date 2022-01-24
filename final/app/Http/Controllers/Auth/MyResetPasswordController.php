@@ -34,19 +34,23 @@ class MyResetPasswordController extends Controller
             $International_No = "+94".$str;
             
             //get ids from .env
-            $sid    = getenv("TWILIO_SID");
-            $token  = env("TWILIO_AUTH_TOKEN");
-            $from   = env("TWILIO_NUMBER");  
+            // $sid    = getenv("TWILIO_SID");
+            // $token  = env("TWILIO_AUTH_TOKEN");
+            // $from   = env("TWILIO_NUMBER");
+            
+            $sid    = "AC931de8a21058807cca614b7063920450";
+            $token  = "3c5fa7c927dd748823de52a0849aee7e";
+            $from   = "+13023131782";
 
             //sending sms
             try {
                 $twilio = new Client($sid, $token);
-                // $message = $twilio->messages
-                //     ->create($International_No, //to
-                //             array(
-                //                 "body" => "Hello ".$user_details->f_name." ".$user_details->l_name."\nDriving School Management System sending your OTP. Your OTP is ".$OTP."\nReset Your Password. Thank you.",
-                //                 "from" => $from
-                //             ));    
+                $message = $twilio->messages
+                    ->create($International_No, //to
+                            array(
+                                "body" => "Hello ".$user_details->f_name." ".$user_details->l_name."\nDriving School Management System sending your OTP. Your OTP is ".$OTP."\nReset Your Password. Thank you.",
+                                "from" => $from
+                            ));    
             }catch (Exception $e) {
                 dd("Error: ". $e->getMessage());
             }

@@ -84,7 +84,7 @@
                 <div class="card ">
                     <div class="card-body">
                         <div>
-                            @if($res == "fail")
+                            @if($res == "none" || $res == "fail")
                                 <div class="d-inline-block">
                                     <h5>You can't request practicle sessions before take your theory examination. <button class="btn btn-success" id="get-theory-sessons">Click</button> here to get theory session days</h5>
                                 </div>

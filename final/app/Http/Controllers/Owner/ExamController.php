@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Exam;
+use App\Exam_Dates;
 use Illuminate\Support\Facades\DB;
 
 class ExamController extends Controller
@@ -99,6 +100,66 @@ class ExamController extends Controller
             }
         }
         return redirect()->route('ownerexamresult')->with('successmsg', 'Student Group Exam date updated Successfully!');
+    }
+
+    public function viewexamdates(){
+        return view('owner.setexamdates.examdates');
+    }
+
+    public function loadExamDates(){
+        $alldates=Exam_Dates::all();
+        $responses=[];
+        foreach($alldates as $onedate){
+            $row=[];
+            $color='#3366CC';// color for theory
+            if($onedate->exam_type == 'Practical'){
+                $color='#56B948';//color for practrical
+            }
+            $row['title'] = $onedate->exam_type;
+            $row['color'] = $color;
+            $row['textColor'] = '#FFFFFF';
+            $row['date'] = $onedate->exam_date;
+            $row['id'] =$onedate->id;
+            array_push($responses, $row);
+        }
+    return response()->json($responses);
+    }
+
+    public function addExamDates($date){
+        $otherExamDates=Exam_Dates::where('exam_date',$date)->get();
+        return view('owner.setexamdates.addExamDate',compact('otherExamDates','date'));
+    }
+
+    public function saveExamDates(Request $request){
+        
+        $this->validate($request,[
+            'examdate' => 'required',
+            'examtype' => 'required',
+            'vehiclecategory' => 'required',
+            'starttime' => 'required',
+            'endtime' => 'required'            
+            ]);
+
+            $vehiclecategory=$request->vehiclecategory;
+            if($request->examtype == 'Theory'){
+                $vehiclecategory='';
+            }
+
+            Exam_Dates::create([
+            'exam_type' => $request->examtype,
+            'exam_date' => $request->examdate,
+            'exam_start_time' => $request->starttime,
+            'exam_end_time' => $request->endtime,
+            'vehicle_category' => $vehiclecategory
+        ]);
+
+        return redirect()->route('ownerexamdates')->with('successmsg', 'Exam Date Added Successfully! ');
+
+    }
+
+    public function specificexamevent($date,$id){
+        // return $date." ".$id;
+        return view('owner.setexamdates.studentlistExam');
     }
 
 }

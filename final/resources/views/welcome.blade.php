@@ -206,7 +206,7 @@
     </section><!-- End About Us Section -->
 
     <!-- ======= About Lists Section ======= -->
-    <section class="about-lists">
+    <section class="about-lists" id="about-lists">
       <div class="container">
         <h2 class="text-center mb-3">Gallery</h2>
 
@@ -520,7 +520,7 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="">Contact Number</label>
-                      <input type="text" class="form-control" name="contactnumber" placeholder="0771234567" pattern="[0-9]{10}" required>
+                      <input type="text" class="form-control" name="contactnumber" placeholder="07XXXXXXXX" pattern="[0-9]{10}" required>
                     </div>
                   </div>
                   <div class="col">

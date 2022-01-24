@@ -80,7 +80,7 @@
                                                 <li class="d-inline badge badge-warning">Motor Bicycle</li>
                                                 {{-- <td><p class="badge badge-warning">Bike</p></td>     --}}
                                                 @endif
-                                                @if ($c->category == "B")
+                                                @if ($c->category == "B1p")
                                                 <li class="d-inline badge badge-warning">Three Wheel</li>
                                                 {{-- <td><p class="badge badge-warning">Three Wheel</p></td>     --}}
                                                 @endif

@@ -830,6 +830,9 @@
                                     <a href="{{ route('studentgroups') }}" class="dropdownitem">Student Groups</a>
                                 </li>
                                 <li>
+                                    <a href="{{ route('ownerexamdates') }}" class="dropdownitem">Exam Dates</a>
+                                </li>
+                                <li>
                                     <a href="{{ route('ownerexamresult') }}" class="dropdownitem">Exam Results</a>
                                 </li>
                                 <li>
@@ -1050,7 +1053,7 @@
                             <div style="display: inline-block;">
                                 <li class="nav-item active">
                                     <a class="nav-link "href=" {{ route('viewalert') }} ">
-                                        <i class="fa fa-bell" aria-hidden="true"><span class="badge badge-pill badge-danger">{{ $shedulealerts + $requestalerts }}</span></i>
+                                        <i class="fa fa-bell" aria-hidden="true"><span class="badge badge-pill badge-danger">{{ $shedulealerts + $requestalerts +count($expandrequests)}}</span></i>
                                     </a>
                                 </li>
                             </div>
