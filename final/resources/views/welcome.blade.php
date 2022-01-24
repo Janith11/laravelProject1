@@ -520,7 +520,7 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="">Contact Number</label>
-                      <input type="text" class="form-control" name="contactnumber" placeholder="0771234567" pattern="[0-9]{10}" required>
+                      <input type="text" class="form-control" name="contactnumber" placeholder="07XXXXXXXX" pattern="[0-9]{10}" required>
                     </div>
                   </div>
                   <div class="col">

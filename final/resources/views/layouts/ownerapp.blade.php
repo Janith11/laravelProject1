@@ -1053,7 +1053,7 @@
                             <div style="display: inline-block;">
                                 <li class="nav-item active">
                                     <a class="nav-link "href=" {{ route('viewalert') }} ">
-                                        <i class="fa fa-bell" aria-hidden="true"><span class="badge badge-pill badge-danger">{{ $shedulealerts + $requestalerts }}</span></i>
+                                        <i class="fa fa-bell" aria-hidden="true"><span class="badge badge-pill badge-danger">{{ $shedulealerts + $requestalerts +count($expandrequests)}}</span></i>
                                     </a>
                                 </li>
                             </div>

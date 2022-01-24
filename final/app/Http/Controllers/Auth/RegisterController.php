@@ -107,9 +107,14 @@ class RegisterController extends Controller
         $OTP= rand(100000,999999);
 
         //get ids from .env
-        $sid    = getenv("TWILIO_SID");
-        $token  = env("TWILIO_AUTH_TOKEN");
-        $from   = env("TWILIO_NUMBER");
+
+        // $sid    = getenv("TWILIO_SID");
+        // $token  = env("TWILIO_AUTH_TOKEN");
+        // $from   = env("TWILIO_NUMBER");
+
+        $sid    = "AC931de8a21058807cca614b7063920450";
+        $token  = "3c5fa7c927dd748823de52a0849aee7e";
+        $from   = "+13023131782";
 
         $user= User::create([
             'role_id' => 4,
@@ -201,14 +206,14 @@ class RegisterController extends Controller
 
         try {
 
-            // $twilio = new Client($sid, $token);
-            // $message = $twilio->messages
-            //       ->create($International_No, // to
-            //                array(
-            //                    "body" => "Hello ".$user->f_name." ".$user->l_name.". Welcome to the Driving School Management System. Your OTP is ".$OTP."\nThank you.",
-            //                    "from" => $from
-            //                )
-            //       );
+            $twilio = new Client($sid, $token);
+            $message = $twilio->messages
+                  ->create($International_No, // to
+                           array(
+                               "body" => "Hello ".$user->f_name." ".$user->l_name.". Welcome to the Driving School Management System. Your OTP is ".$OTP."\nThank you.",
+                               "from" => $from
+                           )
+                  );
 
         }catch (Exception $e) {
             dd("Error: ". $e->getMessage());

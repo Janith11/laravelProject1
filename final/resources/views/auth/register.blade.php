@@ -460,6 +460,7 @@
             // console.log(nicMonth);
             // console.log(dateDiffeTimeInDays);
             if(nicMonth != dateDiffeTimeInDays && nicYear != bdayYear){
+                $('#bdayError').empty();
                 $('#birthday').addClass('is-invalid'); 
                 $('#bdayError').append('NIC and Birthday does not match.');
                 err_count++;
@@ -473,6 +474,7 @@
                     $('#GenderError').append('');
                 }else{
                     // GenderError
+                    $('#GenderError').empty();
                     $('#GenderError').append('NIC and your gender does not match.');
                     err_count++;                    
                 }
@@ -480,6 +482,7 @@
                 if($('#female').is(":checked")){
                     $('#GenderError').append('');
                 }else{
+                    $('#GenderError').empty();
                     $('#GenderError').append('NIC and your gender does not match.');
                 }
             }
@@ -502,6 +505,7 @@
             console.log(bdayYear);
             
             if(nicMonth != dateDiffeTimeInDays && nicYear != bdayYear){
+                $('#bdayError').empty();
                 $('#birthday').addClass('is-invalid'); 
                 $('#bdayError').append('NIC and Birthday does not match.');
                 err_count++;
@@ -514,6 +518,7 @@
                 if($('#male').is(":checked")){
                     $('#GenderError').append('');
                 }else{
+                    $('#bdayError').empty();
                     // GenderError
                     $('#GenderError').append('NIC and your gender does not match.');
                     err_count++;                    
@@ -522,6 +527,7 @@
                 if($('#female').is(":checked")){
                     $('#GenderError').append('');
                 }else{
+                    $('#GenderError').empty();
                     $('#GenderError').append('NIC and your gender does not match.');
                 }
             }

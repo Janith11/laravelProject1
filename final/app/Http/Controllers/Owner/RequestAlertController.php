@@ -19,6 +19,7 @@ use App\SheduleRequest;
 use App\ContactUs;
 use App\VehicleCategory;
 use App\OuterStudentMessage;
+use App\ExpandRequests;
 
 //0 received
 //1 viewed ->clicked the alert
@@ -33,7 +34,10 @@ class RequestAlertController extends Controller
         $students = Student::with('user')->get();
         $contactus=ContactUs::orderBy('created_at','DESC')->get();
         $outer_Messages=OuterStudentMessage::orderBy('created_at','DESC')->get();
-        return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students','contactus','outer_Messages'));
+
+        $expandueres=ExpandRequests::where('status',0)->with('expandUsers')->with('requestcategories')->get();
+        // return $expandueres;
+        return view('owner.Alert.viewalert',compact('notifications', 'shedulerequests', 'students','contactus','outer_Messages','expandueres'));
     }
 
     public function redirect($userid,$description,$id){
@@ -126,6 +130,7 @@ class RequestAlertController extends Controller
             'attendance' => 0
         ]);
 
+        
         return redirect()->route('viewalert')->with('successmsg', 'Accept request Successfully !!');
 
     }

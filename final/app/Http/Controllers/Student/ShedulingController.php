@@ -248,8 +248,9 @@ class ShedulingController extends Controller
                 $tresult = $theorysession->result;
                 $time_table=[];
                 $session_type="";
-                if($tresult == 'fail'){
-                    $theorysessions = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $weekday_id)->where('exam_type', 'theory')->get();
+                if($tresult == 'fail' || $tresult == 'none'){
+                    $theorysessions = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $weekday_id)->where('exam_type', 'Theory')->get();
+                    return $theorysessions;
                     if($theorysessions->count() == 0){
                         return back()->with('errormsg', "No theory session on $day_name. Please Select another date !!");
                     }else{
@@ -259,6 +260,7 @@ class ShedulingController extends Controller
                 }
                 if($tresult == 'pass'){
                     $practiclesessions = TimeSlots::with('instructor_working_time_slot')->where('weekday_id', $weekday_id)->where('exam_type', 'Practical')->get();
+                    
                     if($practiclesessions->count() == 0){
                         return back()->with('errormsg', "No practicle session on $day_name. Please Select another date !!");
                     }else{
@@ -271,7 +273,7 @@ class ShedulingController extends Controller
                 $trainingcategories = StudentCategory::where('user_id', $user_id)->get();
                 $categories = VehicleCategory::all();
                 $availableSlots = TimeSlots::where('weekday_id', $weekday_id)->get();
-
+                // echo count($time_table);
                 return view('student.sheduling.settimeslot', compact('time_table', 'select_date', 'instructors', 'tresult', 'absent_ids', 'dayschedules', 'session_type', 'trainingcategories', 'categories', 'weekday_id'));
 
             }

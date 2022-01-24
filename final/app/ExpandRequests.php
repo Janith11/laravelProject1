@@ -11,4 +11,8 @@ class ExpandRequests extends Model
     public function requestcategories(){
         return $this->hasMany(requestcategories::class, 'request_id', 'id');
     }
+
+    public function expandUsers(){
+        return $this->hasMany(user::class, 'id', 'user_id');
+    }
 }
