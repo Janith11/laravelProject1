@@ -50,9 +50,13 @@ class TwoFactorAuthenteController extends Controller
   	    $International_No = "+94".$str;
         
         //get ids from .env
-        $sid    = getenv("TWILIO_SID");
-        $token  = env("TWILIO_AUTH_TOKEN");
-        $from   = env("TWILIO_NUMBER");  
+        // $sid    = getenv("TWILIO_SID");
+        // $token  = env("TWILIO_AUTH_TOKEN");
+        // $from   = env("TWILIO_NUMBER");  
+
+            $sid    = "AC931de8a21058807cca614b7063920450";
+            $token  = "3c5fa7c927dd748823de52a0849aee7e";
+            $from   = "+13023131782";
 
         //sending sms
         try {

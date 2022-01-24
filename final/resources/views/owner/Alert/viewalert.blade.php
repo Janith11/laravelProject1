@@ -144,6 +144,64 @@
             </div>
         </div>
 
+        {{-- expand requets  --}}
+        <div class="row-mb-2">
+            <div id="card">
+                <div class="card">
+                    <div class="card-body">
+                        @if(count($expandueres) == 0)
+                            <div class="alert alert-info" role="alert">
+                                <h5>No Shedule Requests</h5>
+                            </div>
+                        @else
+                            <h5 style="color: #222944; font-weight: bold">@php
+                                echo count($expandueres)
+                            @endphp Session Expand Requests</h5>
+                            <hr style="border-top: 1px solid #222944">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        @foreach ($expandueres as $request)
+                                            <tr>
+                                                <td>
+                                                    @foreach ($students as $student)
+                                                        @if($student->user_id == $request->user_id)
+                                                        <div>
+                                                            <div style="display: inline-block">
+                                                                <img src="/uploadimages/students_profiles/{{ $student->user->profile_img }}" alt="" id="img">
+                                                            </div>
+                                                            <div style="display: inline-block; padding-left: 10px; color: #222944">
+                                                                {{ $student->user->f_name }} {{ $student->user->l_name }}
+                                                            </div>
+                                                        </div>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>Number of session : {{ $request->number }}</td>
+                                                <td><h6>Category Code :</h6>
+                                                    @foreach ($request->requestcategories as $rcat)
+                                                        <h6>{{ $rcat->category_code }}</h6>        
+                                                    @endforeach
+                                                </td>
+                                                <td><button class="btn btn-success">Accept</button></td>
+                                                <td><button class="btn btn-danger">Reject</button></td>
+                                                {{-- <td>{{ $request->shedules->lesson_type }}</td> --}}
+                                                {{-- <td>{{ $request->shedules->date }}</td>
+                                                <td>{{ $request->shedules->time }}</td> --}}
+                                                {{-- <td><a href="{{ route('shedulerequestdetails', [$request->shedules->date, $request->id, $request->user_id ]) }}" class="btn btn-success" type="button">Details</a></td> --}}
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
         <div class="card mt-2 mb-4">
             <div class="card-header"><h5>Contact us messages</h5></div>

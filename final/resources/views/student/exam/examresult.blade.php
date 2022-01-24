@@ -46,8 +46,10 @@
                                             <td>{{ $exam->date }}</td>
                                         @if ($exam->result == 'pass')
                                             <td class="bg-success text-center px-1"><span class="text-light"><i class="far fa-check-circle fa-lg"></i></span> Pass</td>    
-                                        @else
+                                        @elseif ($exam->result == 'fail')
                                             <td class="bg-danger text-center px-1"><span class="text-light"><i class="far fa-times-circle fa-lg"></i></span> Fail</td>    
+                                        @else
+                                        <td class="bg-secondary text-center px-1"><span class="text-light"><i class="far fa-times-circle fa-lg"></i></span>Not Define</td>                                                                                        
                                         @endif
                                             <td class="text-center">{{ $exam->attempt }}</td>
                                       </tr>
