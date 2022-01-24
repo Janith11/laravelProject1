@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
                     SheduleSeeder::class,
                     OuterMessageSeeder::class,
                     ContactUsSeeder::class,
+                    StudentProgressSeeder::class,
                     examDateSeeder::class
                 ]);
     }

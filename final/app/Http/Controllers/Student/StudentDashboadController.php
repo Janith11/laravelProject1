@@ -44,6 +44,7 @@ class StudentDashboadController extends Controller
         $attendances = Shedule::with('attendance')->whereHas('sheduledstudents' , function($query) use($user_id){
             $query->where('student_id', $user_id);
         })->get();
+
         if (count($attendances) != 0) {
             $firstattend = $attendances[0]->date;
         }else{
@@ -56,27 +57,75 @@ class StudentDashboadController extends Controller
             $month = date('M', strtotime("+$i month", strtotime($fristmonth)));
             $months[] = $month;
         }
+        $yearbreak = 0;
+        $janIndex = 0;
+        if(in_array('Jan', $months)){
+            $yearbreak = 1;
+            $janIndex = array_search('Jan', $months);
+        }
         $presents = [];
         $absents = [];
-        foreach($months as $month){
-            $firstday = date('Y-m-01', strtotime($month));
-            $lastday = date('Y-m-t', strtotime($month));
+        foreach($months as $key => $month){
+            if($yearbreak != 0){
+                if($key < $janIndex){
+                    $prevyear = date("Y",strtotime("-1 year"));
+                    $firstday = date("Y-m-01",strtotime("$prevyear-$month"));
+                    $lastday = date("Y-m-t",strtotime("$prevyear-$month"));
+                    $present = Shedule::whereHas('sheduledstudents', function ($query) use ($user_id) {
+                        $query->where('student_id', $user_id);
+                    })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function ($query) use ($user_id) {
+                        $query->where('user_id', $user_id)->where('attendance', 1);
+                    })->get();
 
-            $present = Shedule::whereHas('sheduledstudents', function($query) use($user_id){
-                $query->where('student_id', $user_id);
-            })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function($query) use($user_id){
-                $query->where('user_id', $user_id)->where('attendance', 1);
-            })->get();
+                    $presents[] = count($present);
 
-            $presents[] = count($present);
+                    $absent = Shedule::whereHas('sheduledstudents', function ($query) use ($user_id) {
+                        $query->where('student_id', $user_id);
+                    })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function ($query) use ($user_id) {
+                        $query->where('user_id', $user_id)->where('attendance', 0);
+                    })->get();
 
-            $absent = Shedule::whereHas('sheduledstudents', function($query) use($user_id){
-                $query->where('student_id', $user_id);
-            })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function($query) use($user_id){
-                $query->where('user_id', $user_id)->where('attendance', 0);
-            })->get();
+                    $absents[] = count($absent);
+                }else{
+                    $firstday = date('Y-m-01', strtotime($month));
+                    $lastday = date('Y-m-t', strtotime($month));
 
-            $absents[] = count($absent);
+                    $present = Shedule::whereHas('sheduledstudents', function ($query) use ($user_id) {
+                        $query->where('student_id', $user_id);
+                    })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function ($query) use ($user_id) {
+                        $query->where('user_id', $user_id)->where('attendance', 1);
+                    })->get();
+
+                    $presents[] = count($present);
+
+                    $absent = Shedule::whereHas('sheduledstudents', function ($query) use ($user_id) {
+                        $query->where('student_id', $user_id);
+                    })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function ($query) use ($user_id) {
+                        $query->where('user_id', $user_id)->where('attendance', 0);
+                    })->get();
+
+                    $absents[] = count($absent);
+                }
+            }else{
+                $firstday = date('Y-m-01', strtotime($month));
+                $lastday = date('Y-m-t', strtotime($month));
+
+                $present = Shedule::whereHas('sheduledstudents', function ($query) use ($user_id) {
+                    $query->where('student_id', $user_id);
+                })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function ($query) use ($user_id) {
+                    $query->where('user_id', $user_id)->where('attendance', 1);
+                })->get();
+
+                $presents[] = count($present);
+
+                $absent = Shedule::whereHas('sheduledstudents', function ($query) use ($user_id) {
+                    $query->where('student_id', $user_id);
+                })->whereBetween('date', [$firstday, $lastday])->whereHas('attendance', function ($query) use ($user_id) {
+                    $query->where('user_id', $user_id)->where('attendance', 0);
+                })->get();
+
+                $absents[] = count($absent);
+            }
         }
 
         // bot start ===================================================================
@@ -131,7 +180,7 @@ class StudentDashboadController extends Controller
         if( ($theoryexam > 0) && ( $theoryshedulescount > 0 ) && ($practicleexam == 0) && ($practicleshedulescount == 0) ){
             $botmsg = $botmsg.'<strong>Condratulations !!</strong>. You passed your theory examination. Now you can apply for practicle sessions';
         }
-
+        
         // hoping to face practicle examination
         if( ($theoryexam > 0) && ( $theoryshedulescount > 0 ) && ($practicleexam == 0) && ($practicleshedulescount > 0) ){
             $botmsg = $botmsg.'Ready for your practicle examination. Exam date will be informed by owner';
@@ -150,8 +199,6 @@ class StudentDashboadController extends Controller
             $botmsg = $botmsg.'Condratulations. now your successfully completed your class. your account will be deleted as soon as posible. thnak you for join with us';
         }
 
-
-        // return $practicleexam;
         // bot end
 
         return view('student.studentdashboad',compact('student','studentcategory','posts', 'todayshedules', 'session_count', 'progress', 'presents', 'absents', 'months', 'botmsg'));
