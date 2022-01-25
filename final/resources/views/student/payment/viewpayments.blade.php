@@ -188,7 +188,7 @@
 {{-- Change currency using fixer api io--}}
 <script>
     function convetCurrency(){
-        var apikey = '{{ env('CURRENCY_API_KEY') }}';
+        var apikey = 'efa45f4412655a1fcc50edfe9564bceb';
         var slr =document.getElementById("onlinepay").value;
         var usd =document.getElementById("convertedusd");
         var hiddenusd =document.getElementById("hiddenUSD");
